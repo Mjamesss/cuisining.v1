@@ -1,4 +1,5 @@
 //Miranda
+import 'bootstrap/dist/css/bootstrap.min.css';  
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 

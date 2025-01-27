@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios"; // Install axios for API requests
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import 'bootstrap/dist/css/bootstrap.min.css';  
 
 
 //Manwel

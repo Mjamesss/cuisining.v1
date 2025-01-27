@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';  
 
 const OTPVerificationForm = () => {
   const [otp, setOtp] = useState(["", "", "", "", ""]); // 5 input values for OTP

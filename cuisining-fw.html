@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Framework UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/fw-cuisining.css">
+</head>
+<body>
+  <h1 class="text-center font-weight-900">Cuisining</h1>
+  <div class="container">
+    <div class="heading-sample">
+      <h1>h1</h1>
+      <p>Use this for main titles or page headings.</p>
+    </div>
+
+    <div class="heading-sample">
+      <h2>h2</h2>
+      <p>Use this for section titles or secondary headings.</p>
+    </div>
+
+    <div class="heading-sample">
+      <h3>h3</h3>
+      <p>Use this for subsections or important content highlights.</p>
+    </div>
+
+    <div class="heading-sample">
+      <h4>h4</h4>
+      <p>Use this for smaller subsection titles or tertiary highlights.</p>
+    </div>
+
+    <div class="heading-sample">
+      <h5>h5</h5>
+      <p>Use this for minor headings or emphasis within sections.</p>
+    </div>
+
+    <div class="heading-sample">
+      <h6>h6</h6>
+      <p>Use this for captions or less emphasized text.</p>
+    </div>
+    <hr>
+    <div>
+      <h1 class="font-weight-100">font-weight-100</h1>
+    </div>
+    <div>
+      <h1 class="font-weight-200">font-weight-200</h1>
+    </div>
+    <div>
+      <h1 class="font-weight-300">font-weight-300</h1>
+    </div>
+    <div>
+      <h1 class="font-weight-400">font-weight-400</h1>
+    </div>
+    <div>
+      <h1 class="font-weight-500">font-weight-500</h1>
+    </div>
+    <div>
+      <h1 class="font-weight-600">font-weight-600</h1>
+    </div>
+    <div>
+      <h1 class="font-weight-700">font-weight-700</h1>
+    </div>
+    <div>
+      <h1 class="font-weight-800">font-weight-800</h1>
+    </div>
+    <div>
+      <h1 class="font-weight-900">font-weight-900</h1>
+    </div>
+    <div>
+    </div>
+    <hr>
+    <div>
+      <h3>Cuisining Button Styles</h3>
+      <a href="" class="btn">btn</a>
+      <a href="" class="btn btn-primary">btn-primary</a>
+      <a href="" class="btn btn-secondary">btn-secondary</a>
+      <a href="" class="btn btn-success">btn-success</a>
+
+      <h3>Button Sizes</h3>
+
+      <a href="" class="btn btn-secondary btn-sm">btn-sm</a>
+      <a href="" class="btn btn-primary btn-lg">btn-lg</a>
+
+      <h3>Outline Buttons</h3>
+
+      <a href="" class="btn btn-outline-primary">btn-outline-primary</a>
+      <a href="" class="btn btn-outline-secondary">btn-outline-secondary</a>
+      <a href="" class="btn btn-outline-success">btn-outline-success</a>
+
+      <h3>Disabled Button</h3>
+
+      <a href="" class="btn btn-primary btn-disabled">btn-disabled</a>
+
+      <h3>Hover & Focus Effect</h3>
+
+      <a href="" class="btn btn-danger">btn-danger</a>
+      </div>
+      <div>
+        <hr>
+        <h3>Textbox Styles</h3>
+        <label for="normal-textbox">textbox</label>
+        <input type="text" id="normal-textbox" class="input-text" placeholder="Enter text here...">
+      </div>
+      <hr>
+      <div>
+        <!-- Modal -->
+        <div class="modal-overlay">
+          <div class="modal">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal Title</h5>
+              <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+              <p>function openModal() { <br>
+                document.querySelector('.modal-overlay').style.display = 'flex';<br>
+              }<br>
+              <br>
+              function closeModal() {<br>
+                document.querySelector('.modal-overlay').style.display = 'none';<br>
+              }</p>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+              <button class="btn btn-primary">Okay</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Button to trigger modal -->
+        <button class="btn btn-primary" onclick="openModal()">modal</button>
+      </div>
+      <hr>
+      <!-- Textbox Input Example -->
+      <div>
+        <!-- Checkbox Example -->
+        <label class="checkbox-container">
+          <input type="checkbox" class="checkbox">
+          <span class="checkbox-label">checkbox</span>
+        </label>
+      </div>
+      <div>
+        <hr>
+        <div class="item-card">
+          <div class="card-content" style="padding: 15px;">
+              <h3>item-card</h3>
+              <p></p>
+          </div>
+      </div>      
+      </div>
+  </div>
+  <script>
+    function openModal() {
+      document.querySelector('.modal-overlay').style.display = 'flex';
+    }
+  
+    function closeModal() {
+      document.querySelector('.modal-overlay').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

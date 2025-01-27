@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import 'bootstrap/dist/css/bootstrap.min.css';  
 
 const SetNewPassword = () => {
   const [focus, setFocus] = useState({
