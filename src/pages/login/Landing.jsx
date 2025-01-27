@@ -129,7 +129,7 @@ const SuccessPage = () => {
           <img src="cuisining-wordmark.png" alt="Success" style={styles.logo} />
 
           {/* Heading */}
-          <h2 style={styles.heading}>ni Successful naka log in</h2>
+          <h2 style={styles.heading}>Successful naka log in</h2>
 
           {/* Success message */}
           <p style={styles.message}>
