@@ -11,6 +11,7 @@ import Landing from './pages/login/Landing'; // Import Home Component
 import DoneRegister from './pages/login/DoneRegister'; // Import Done Register Component
 import Testing from './pages/Testing';
 import Footer from './components/Footer';
+import Customprofile from './pages/customize-profile/customize-profile';
 
 const App = () => {
   return (
@@ -28,8 +29,9 @@ const App = () => {
               <Route path="/Done" element={<Done />} />
               <Route path="/Landing" element={<Landing />} />       
               <Route path="/DoneRegister" element={<DoneRegister />} />
-              <Route path="/testing" element={<Testing />} />   
-                   
+              <Route path="/testing" element={<Testing />} />
+              <Route path="/footer" element={<Footer />} />
+              <Route path="/customize-profile" element={<Customprofile />} />
             </Routes>
           </Col>
         </Row>
