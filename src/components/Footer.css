@@ -1,0 +1,46 @@
+*{
+    padding:0;
+    margin:0;
+}
+
+.footer{
+    border:solid 1px;
+    width:100%;
+    height: 300px;
+    background-color: black;
+    }
+.footer h3,a,p{
+    color:white;
+}
+.section{
+    border:solid 1px green;
+    width:40%;
+    height:250px;
+}
+.section img{
+    border:dashed 1px red;
+    width:50%;
+    height:80px;
+}
+
+.socmed{
+     border:solid 1px blue;
+     height:60px;
+     width:40%;
+}
+.socmed img{
+     width:80%;
+     height:50px;
+}
+.pages{
+    border:solid 1px orange;
+}
+
+.otherinfo{
+    border:dashed 1px pink;
+    width:30%;
+}
+
+.services{
+    border:dashed 1px solid red;
+}

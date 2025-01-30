@@ -10,6 +10,8 @@ import Done from './pages/login/Done'; // Import Done Component
 import Landing from './pages/login/Landing'; // Import Home Component
 import DoneRegister from './pages/login/DoneRegister'; // Import Done Register Component
 import Testing from './pages/Testing';
+import Footer from './components/Footer';
+import Navbar from './components/Navbar';
 
 const App = () => {
   return (
@@ -28,6 +30,10 @@ const App = () => {
               <Route path="/Landing" element={<Landing />} />       
               <Route path="/DoneRegister" element={<DoneRegister />} />
               <Route path="/testing" element={<Testing />} />   
+
+              {/*Components */}
+              <Route path= "/footer" element={<Footer/>}/>
+              <Route path= "/Navbar" element={<Navbar/>}/>
                    
             </Routes>
           </Col>
