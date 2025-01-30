@@ -10,13 +10,13 @@ const ModalComponent = () => {
   const closeModal = () => setIsModalOpen(false);
 
   const location = useLocation();  // Get the current location
-  /* Show modal when navigating to /testing
+
   useEffect(() => {
     if (location.pathname === '/testing') {
       openModal();
     }
   }, [location]);
-  */
+
   return (
     <div>
       {/* Modal */}
