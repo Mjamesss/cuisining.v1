@@ -188,7 +188,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   /* Specific header sizes */
   h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
   
   h2 {
@@ -585,4 +585,20 @@ h1, h2, h3, h4, h5, h6 {
 .item-card:hover {
   transform: translateY(-1px);
   box-shadow: 0px 6px 6px 7px rgba(0, 0, 0, 0.3);
+}
+/*Verify Link css*/
+.verify-link {
+  font-size: 0.9rem;
+  color: #F94141; /* Bootstrap primary link color */
+  text-decoration: none; /* Remove underline */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: color 0.3s ease;
+  background-color: #d3dff6;
+  padding: 10px;
+  border-radius: 7.5px;
+}
+
+.verify-link:hover {
+  color: #0056b3; /* Darker color on hover */
+  text-decoration: underline; /* Add underline on hover */
 }
