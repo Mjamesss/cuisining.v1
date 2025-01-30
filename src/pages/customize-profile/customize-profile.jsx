@@ -25,7 +25,9 @@ const CustomizeProfile = () => {
   const styles = {
     formContainer: {
       background: "rgba(255, 255, 255, 1)", 
-      position: "relative",
+      display:"flex",
+      justifyContent:'Center',
+      alignItems:"Center",
       width: "1323px",
       height: "1239px",
       left: "58px",
