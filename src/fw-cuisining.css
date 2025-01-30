@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-/* Global reset styles for all elements */
 html, body {
   margin: 0;
   padding: 0;
@@ -21,9 +20,6 @@ html, body {
 body{
   font-family: 'Poppins', sans-serif;
   background-color: #EAEAEA;
-  margin: 0;
-  padding: 0;
-  width: 100%;
 }
 hr{
   height: 1px;
