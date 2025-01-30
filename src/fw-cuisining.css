@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+/* Global reset styles for all elements */
 html, body {
   margin: 0;
   padding: 0;
