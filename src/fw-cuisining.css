@@ -1,6 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.container, .container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 body{
   font-family: 'Poppins', sans-serif;
   background-color: #EAEAEA;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 hr{
   height: 1px;
@@ -408,9 +430,10 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 16px;
   font-weight: 400;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 7px;
   transition: all 0.3s ease;
   margin-bottom: 10px;
+  background-color: #F9F9F9;
 }
 
 /* Focused textbox */
