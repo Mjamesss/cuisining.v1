@@ -12,6 +12,7 @@ import DoneRegister from './pages/login/DoneRegister'; // Import Done Register C
 import Testing from './pages/Testing';
 import Footer from './components/Footer';
 import Customprofile from './pages/customize-profile/customize-profile';
+import Navbar from './components/Navbar';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
               <Route path="/DoneRegister" element={<DoneRegister />} />
               <Route path="/testing" element={<Testing />} />
               <Route path="/footer" element={<Footer />} />
+              <Route path="/navbar" element={<Navbar/>} />
               <Route path="/customize-profile" element={<Customprofile />} />
             </Routes>
           </Col>

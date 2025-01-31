@@ -1,13 +1,46 @@
-*{
-    margin:0;
-    padding:0;
+* {
+  margin: 0;
+  padding: 0;
 }
-.Navbar_header{
-    border:solid 1px;
-    width:100%;
-    height:200px;
 
+/* Mobile Menu */
+.Nav-links-settings {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease, max-height 0.3s ease; /* Smooth transition */
+  visibility: hidden; /* Make menu non-interactive when hidden */
 }
-.Navbar_header img{
-    border:dashed 1px green;
+
+.nav-open {
+  opacity: 1;
+  max-height: 500px; /* Adjust this based on your menu's height */
+  visibility: visible; /* Make menu interactable when open */
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+.nav-closed {
+  opacity: 0;
+  max-height: 0;
+  visibility: hidden; /* Make menu non-interactive */
+  transition: opacity 0.3s ease, max-height 0.3s ease, visibility 0s 0.3s; /* Hide visibility after transition */
+}
+
+/* Styling for the hamburger button and menu on small screens */
+.hamburger {
+  font-size: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease; /* Smooth transition for hamburger icon */
+}
+
+.hamburger.open {
+  transform: rotate(90deg); /* Rotate hamburger icon when opened */
+}
+
+.Nav-links-settings .Nav-links {
+  margin-top: 20px;
+}
+
+.Nav-links-settings .settingsec {
+  margin-top: 20px;
 }
