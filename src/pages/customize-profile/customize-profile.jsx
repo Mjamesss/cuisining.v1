@@ -9,6 +9,8 @@ const ProfileForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormComplete, setIsFormComplete] = useState(false); // New state to track form completion
   const [hasTakenNCII, setHasTakenNCII] = useState(null); // null, true, or false
+  const [agreeToTerms, setAgreeToTerms] = useState(false); // Track if user agrees to terms
+  const [fullName, setFullName] = useState(''); // Track full name input
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,23 +27,14 @@ const ProfileForm = () => {
     const isNCIIAnswered = hasTakenNCII !== null; // Check if NCII question is answered
     const isGroup1Answered = selectedGroup1 !== null; // Check if Group 1 is answered
     const isGroup2Answered = selectedGroup2 !== null; // Check if Group 2 is answered
+    const isFullNameFilled = fullName.trim() !== ''; // Check if full name is filled
 
     // Set isFormComplete to true only if ALL conditions are met
-    setIsFormComplete(isNCIIAnswered && isGroup1Answered && isGroup2Answered);
-  }, [hasTakenNCII, selectedGroup1, selectedGroup2]);
+    setIsFormComplete(isNCIIAnswered && isGroup1Answered && isGroup2Answered && isFullNameFilled);
+  }, [hasTakenNCII, selectedGroup1, selectedGroup2, fullName]);
 
   const handleGroup1Change = (id) => setSelectedGroup1(id);
   const handleGroup2Change = (id) => setSelectedGroup2(id);
-
-  const handleOkayClick = () => {
-    if (selectedGroup2 !== '7') {
-      setShowNotif(true);
-      setTimeout(() => setShowNotif(false), 3000);
-    } else {
-      setShowNotif(false);
-      setIsModalOpen(false); // Close the modal
-    }
-  };
 
   // Handle Submit button click
   const handleSubmit = () => {
@@ -49,6 +42,28 @@ const ProfileForm = () => {
       navigate('/realtime'); // Navigate to /realtime
     }
   };
+
+  // Handle Okay button click in modal
+  const handleOkayClick = () => {
+    if (agreeToTerms) {
+      setIsModalOpen(false); // Close the modal
+    } else {
+      setShowNotif(true); // Show notification if the user hasn't agreed to the terms
+    }
+  };
+
+  // Handle Cancel button click
+  const handleCancel = () => {
+    navigate('/'); // Navigate to the home page or any other route
+  };
+
+  // Hide notification after 3 seconds
+  useEffect(() => {
+    if (showNotif) {
+      const timer = setTimeout(() => setShowNotif(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showNotif]);
 
   return (
     <>
@@ -64,7 +79,7 @@ const ProfileForm = () => {
             style={{ width: 'auto', height: '230px', objectFit: 'cover' }}
           />
           <div className="ms-3">
-            <p className="mb-1 ml-5 font-weight-500">John Manuel Cuerdo</p>
+            <p className="mb-1 ml-5 font-weight-500" id="FullName">John Manuel Cuerdo</p>
             <p className="mb-0 ml-5 font-weight-400">
               johnmanuelcuerdo@gmail.com
               <a
@@ -85,6 +100,8 @@ const ProfileForm = () => {
             id="normal-textbox"
             className="input-text"
             placeholder="Enter fullname here..."
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
           />
         </div>
 
@@ -191,7 +208,9 @@ const ProfileForm = () => {
             Submit
           </button>
 
-          <button className="cbtn cbtn-outline-secondary ml-3">Cancel</button>
+          <button className="cbtn cbtn-outline-secondary ml-3" onClick={handleCancel}>
+            Cancel
+          </button>
         </div>
       </div>
 
@@ -219,8 +238,8 @@ const ProfileForm = () => {
                 type="checkbox"
                 id="customCheckbox7"
                 className="checkbox"
-                checked={selectedGroup2 === '7'}
-                onChange={() => handleGroup2Change(selectedGroup2 === '7' ? null : '7')}
+                checked={agreeToTerms}
+                onChange={() => setAgreeToTerms(!agreeToTerms)}
               />
               <label htmlFor="customCheckbox7" className="checkbox-label">I agree to the Terms & Conditions</label>
             </div>
@@ -228,9 +247,9 @@ const ProfileForm = () => {
             {/* Modal Footer with Okay button */}
             <div className="cmodal-footer d-flex justify-content-center w-100">
               <button
-                className={`cbtn cbtn-secondary ${selectedGroup2 !== '7' ? 'opacity-5 no-hover' : ''}`}
+                className={`cbtn cbtn-secondary ${!agreeToTerms ? 'opacity-5 no-hover' : ''}`}
                 onClick={handleOkayClick}
-                disabled={selectedGroup2 !== '7'}
+                disabled={!agreeToTerms}
               >
                 Okay
               </button>
