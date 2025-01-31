@@ -1,8 +1,14 @@
 import {useRef} from 'react';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 const Homepage = () => {
     return (
-   <h1>well come to homepage</h1>
+        <>
+        <Navbar />
+        <h1>negga si manuel nega si shawn</h1>
+        <Footer />
+        </>
     )
 }
 

@@ -13,6 +13,7 @@ import Testing from './pages/Testing';
 import Footer from './components/Footer';
 import Customprofile from './pages/customize-profile/customize-profile';
 import Navbar from './components/Navbar';
+import Homepage from './pages/Landingpage/Homepage';
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
               <Route path="/footer" element={<Footer />} />
               <Route path="/navbar" element={<Navbar/>} />
               <Route path="/customize-profile" element={<Customprofile />} />
+              <Route path="/Home-Page" element={<Homepage />} />
             </Routes>
           </Col>
         </Row>
