@@ -22,7 +22,7 @@ const ProfileForm = () => {
     }
   }, [location]);
 
-  // Update isFormComplete whenever required fields change
+  // Update isFormComplete whenever required fields changes
   useEffect(() => {
     const isNCIIAnswered = hasTakenNCII !== null; // Check if NCII question is answered
     const isGroup1Answered = selectedGroup1 !== null; // Check if Group 1 is answered

@@ -1,4 +1,5 @@
 import {useRef} from 'react';
+import "../../fw-cuisining.css";
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
@@ -6,7 +7,11 @@ const Homepage = () => {
     return (
         <>
             <Navbar />
-            <h1>negga si manuel nega si shawn</h1>
+            <div className="container background-cover b-dashed " style={{height:"200px", width:"100%",backgroundSize:"cover",}}>
+          <img className="background-cover" src="" alt="nigga" style={{backgroundSize:"cover",}}></img>
+        </div>
+
+
             <Footer />
         </>
     )

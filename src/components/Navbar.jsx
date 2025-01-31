@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="navbar pl-4 pr-4 d-flex justify-content-between align-items-center" style={{ height: "100px", }}>
+    <nav className="navbar pl-4 pr-4  d-flex justify-content-between align-items-center" style={{ height: "120px", }}>
       {/* Logo Section */}
       <div className="Navbar_header">
         <img src="cuisining-newlogo.png" alt="logo" />
@@ -25,7 +25,7 @@ const Navbar = () => {
       {/* Navigation Links and Settings Section (Visible on Small Screens when Hamburger is Open) */}
       <div
         className={`Nav-links-settings ${isOpen ? "nav-open" : "nav-closed"} d-md-none` }
-        style={{ position: "absolute", top: "100px", left: "0", width: "100%", background: "transparent", zIndex: 10 }}
+        style={{ position: "absolute", top: "100px", left: "0", width: "100%", background: "transparent", zIndex: 10, }}
       >
         {/* Navigation Links */}
         <div className="Nav-links d-flex flex-column align-items-center pt-7 font-weight-600 td-none">
