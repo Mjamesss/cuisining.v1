@@ -7,7 +7,6 @@ const Navbar = () => {
         <nav>
             <div className="Navbar_header p2 ">
               <img src="cuisining-newlogo.png"></img>
-                 
                  <div className="Nav-links">
                     </div>
             </div>
