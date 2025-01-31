@@ -10,6 +10,7 @@
   overflow: hidden;
   transition: opacity 0.3s ease, max-height 0.3s ease; /* Smooth transition */
   visibility: hidden; /* Make menu non-interactive when hidden */
+  
 }
 
 .nav-open {
