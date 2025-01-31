@@ -36,7 +36,7 @@ const LoginForm = () => {
       // Store the JWT token in localStorage
       localStorage.setItem("authToken", data.token);
 
-      navigate("/Landing"); // Pupuntahan na page once na tama ung account na nilagay
+      navigate("/customize-profile"); // Pupuntahan na page once na tama ung account na nilagay
     } else {
       setError(data.message); // Show error message from backend
     }
