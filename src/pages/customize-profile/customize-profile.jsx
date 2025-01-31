@@ -33,6 +33,14 @@ const ProfileForm = () => {
     setIsFormComplete(isNCIIAnswered && isGroup1Answered && isGroup2Answered && isFullNameFilled);
   }, [hasTakenNCII, selectedGroup1, selectedGroup2, fullName]);
 
+  // Update the full name in the DOM
+  useEffect(() => {
+    const fullNameElement = document.getElementById('FullName');
+    if (fullNameElement) {
+      fullNameElement.textContent = fullName || 'John Doe'; // Fallback to default name if empty
+    }
+  }, [fullName]);
+
   const handleGroup1Change = (id) => setSelectedGroup1(id);
   const handleGroup2Change = (id) => setSelectedGroup2(id);
 
