@@ -78,6 +78,7 @@ const Homepage = () => {
              </div>
                 </div>
 
+               {/*modal section*/ }
                {isModalOpen && (
                 
                <div className=" p2 modal-overlay position-fixed top-0 left-0 d-flex justify-content-center algin-item-center align-self-center" style={{width:"100%",height:"100%",zIndex:"1",background:"transparent",}}>
