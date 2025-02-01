@@ -80,10 +80,10 @@ const Navbar = () => {
 
         <button className="btn-setting">
           <img src="settings.png" alt="settings" />
-        </button>
-        <button className="btn-setting">
+        </a>
+        <a href="profile">
           <img src="profile.png" alt="profile" />
-        </button>
+        </a>
         <h5>Manuel</h5>
       </div>
     </nav>

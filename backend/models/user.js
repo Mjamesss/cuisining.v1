@@ -1,5 +1,4 @@
-// model.js
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -14,6 +13,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  isProfileCustomized: {
+    type: Boolean,
+    default: false, // Default to false
   },
 });
 

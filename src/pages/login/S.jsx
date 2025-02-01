@@ -105,7 +105,7 @@ const SignUpForm = () => {
     }
     //eto ung fucntion na kung tama ung info mag nanavigate sa ./DoneRegister
     try {
-      const response = await axios.post("http://localhost:5000/api/signup", formData);
+      const response = await axios.post("http://localhost:5000/api/auth/signup", formData);
       console.log("Signup successful", response.data); // Log the response for debugging
       navigate("/DoneRegister"); // Navigate to DoneRegister
     } catch (error) {
