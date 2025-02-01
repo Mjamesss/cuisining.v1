@@ -44,16 +44,16 @@ const ProfileForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!isFormComplete) {
       setError("Please fill out all required fields.");
       return;
     }
-
+  
     try {
       const finalAvatarUrl = avatarUrl || "https://example.com/default-avatar.png";
-      console.log("Avatar URL being submitted:", finalAvatarUrl); // Log the URL
-
+      console.log("Avatar URL being submitted:", finalAvatarUrl);
+  
       const token = localStorage.getItem("authToken");
       const response = await fetch("http://localhost:5000/api/profile/submit", {
         method: "POST",
@@ -63,18 +63,18 @@ const ProfileForm = () => {
         },
         body: JSON.stringify({
           fullName,
-          avatarUrl: finalAvatarUrl, // Pass the avatarUrl here
+          avatarUrl: finalAvatarUrl,
           selectedGroup1,
           selectedGroup2,
           hasTakenNCII,
         }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.status === 200) {
         console.log("Profile updated:", data.profile);
-        navigate("/profile-overview");
+        navigate("/home-page"); // Redirect to home page after submission
       } else {
         setError(data.message);
       }
@@ -83,7 +83,6 @@ const ProfileForm = () => {
       console.error(err);
     }
   };
-
   const handleAvatarUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;

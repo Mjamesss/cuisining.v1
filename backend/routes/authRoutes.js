@@ -9,5 +9,7 @@ router.post("/login", login);  // Make sure the route is correct
 
 // POST route for signup
 router.post("/signup", signup);
+// Example route in your backend
+
 
 module.exports = router;
