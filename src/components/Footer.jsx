@@ -29,7 +29,7 @@ const footer = () => {
         <div className="pages color-white p1 " style={{width:"10%",}}>
          <h3 className="color-white">Pages</h3>
           <a href="#home" className="color-white">Home</a><br></br>
-          <a href="#home" className="color-white mt-5">About</a><br></br>
+          <a href="About" className="color-white mt-5">About</a><br></br>
           <a href="#home" className="color-white">Course</a><br></br>
           <a href="#home" className="color-white">Skillset</a><br></br>
         </div>
