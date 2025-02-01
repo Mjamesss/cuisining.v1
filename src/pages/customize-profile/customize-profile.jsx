@@ -14,7 +14,7 @@ const ProfileForm = () => {
   const [avatarUrl, setAvatarUrl] = useState('/path/to/default-avatar.png'); 
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();//asdasdasdasd
+  const navigate = useNavigate();//a
   const location = useLocation();
 
   useEffect(() => {
