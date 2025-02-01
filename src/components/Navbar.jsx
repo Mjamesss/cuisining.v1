@@ -89,6 +89,7 @@ const Navbar = () => {
         </a>
         <h5>Manuel</h5>
       </div>
+    </div>
     </nav>
   );
 };
