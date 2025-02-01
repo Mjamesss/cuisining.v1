@@ -19,6 +19,8 @@ const Homepage = () => {
     return (
         <>
             <Navbar />
+
+            {/*homepage */}
             <div className=" background-cover   d-flex " style={{padding:"0",margin:"0",height:"500px", width:"100%",backgroundSize:"cover",objectFit: "cover",}}>
           <img className="background-cover" src="homepagebg.png" alt="BACKGROUND home" style={{backgroundSize:"cover",width:"100%",height:"100%",}}></img>
           
