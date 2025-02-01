@@ -11,7 +11,7 @@ const ProfileForm = () => {
   const [hasTakenNCII, setHasTakenNCII] = useState(null);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [fullName, setFullName] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('/path/to/default-avatar.png'); // Default avatar URL
+  const [avatarUrl, setAvatarUrl] = useState('/path/to/default-avatar.png'); // Default avatar URLl
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
