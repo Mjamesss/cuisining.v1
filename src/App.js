@@ -14,6 +14,7 @@ import Footer from './components/Footer';
 import Customprofile from './pages/customize-profile/customize-profile';
 import Navbar from './components/Navbar';
 import Homepage from './pages/Landingpage/Homepage';
+import About from './components/About'; 
 
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
               <Route path="/navbar" element={<Navbar/>} />
               <Route path="/customize-profile" element={<Customprofile />} />
               <Route path="/Home-Page" element={<Homepage />} />
+              <Route path="/About" element={<About />} />
             </Routes>
           </Col>
         </Row>
