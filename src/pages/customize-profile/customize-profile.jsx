@@ -3,69 +3,141 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const ProfileForm = () => {
-  const [selectedGroup1, setSelectedGroup1] = useState(null); // 1-3
-  const [selectedGroup2, setSelectedGroup2] = useState(null); // 4-6
+  const [selectedGroup1, setSelectedGroup1] = useState(null);
+  const [selectedGroup2, setSelectedGroup2] = useState(null);
   const [showNotif, setShowNotif] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isFormComplete, setIsFormComplete] = useState(false); // New state to track form completion
-  const [hasTakenNCII, setHasTakenNCII] = useState(null); // null, true, or false
-  const [agreeToTerms, setAgreeToTerms] = useState(false); // Track if user agrees to terms
-  const [fullName, setFullName] = useState(''); // Track full name input
+  const [isFormComplete, setIsFormComplete] = useState(false);
+  const [hasTakenNCII, setHasTakenNCII] = useState(null);
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [fullName, setFullName] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState('/path/to/default-avatar.png'); // Default avatar URL
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Open modal when the path matches '/customize-profile'
   useEffect(() => {
     if (location.pathname === '/customize-profile') {
       setIsModalOpen(true);
     }
   }, [location]);
 
-  // Update isFormComplete whenever required fields changes
   useEffect(() => {
-    const isNCIIAnswered = hasTakenNCII !== null; // Check if NCII question is answered
-    const isGroup1Answered = selectedGroup1 !== null; // Check if Group 1 is answered
-    const isGroup2Answered = selectedGroup2 !== null; // Check if Group 2 is answered
-    const isFullNameFilled = fullName.trim() !== ''; // Check if full name is filled
+    const isNCIIAnswered = hasTakenNCII !== null;
+    const isGroup1Answered = selectedGroup1 !== null;
+    const isGroup2Answered = selectedGroup2 !== null;
+    const isFullNameFilled = fullName.trim() !== '';
 
-    // Set isFormComplete to true only if ALL conditions are met
     setIsFormComplete(isNCIIAnswered && isGroup1Answered && isGroup2Answered && isFullNameFilled);
   }, [hasTakenNCII, selectedGroup1, selectedGroup2, fullName]);
 
-  // Update the full name in the DOM
   useEffect(() => {
     const fullNameElement = document.getElementById('FullName');
     if (fullNameElement) {
-      fullNameElement.textContent = fullName || 'John Doe'; // Fallback to default name if empty
+      fullNameElement.textContent = fullName || 'John Manuel Cuerdo';
     }
   }, [fullName]);
 
   const handleGroup1Change = (id) => setSelectedGroup1(id);
   const handleGroup2Change = (id) => setSelectedGroup2(id);
 
-  // Handle Submit button click
-  const handleSubmit = () => {
-    if (isFormComplete) {
-      navigate('/realtime'); // Navigate to /realtime
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!isFormComplete) {
+      setError("Please fill out all required fields.");
+      return;
+    }
+
+    try {
+      const finalAvatarUrl = avatarUrl || "https://example.com/default-avatar.png";
+      console.log("Avatar URL being submitted:", finalAvatarUrl); // Log the URL
+
+      const token = localStorage.getItem("authToken");
+      const response = await fetch("http://localhost:5000/api/profile/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          fullName,
+          avatarUrl: finalAvatarUrl, // Pass the avatarUrl here
+          selectedGroup1,
+          selectedGroup2,
+          hasTakenNCII,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        console.log("Profile updated:", data.profile);
+        navigate("/profile-overview");
+      } else {
+        setError(data.message);
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+      console.error(err);
     }
   };
 
-  // Handle Okay button click in modal
+  const handleAvatarUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Display the selected image immediately
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setAvatarUrl(e.target.result); // Set the image URL for preview
+    };
+    reader.readAsDataURL(file);
+
+    const formData = new FormData();
+    formData.append("avatar", file); // Append the file
+
+    // Get the userId from the logged-in user (ensure it's a valid ObjectId)
+    const userId = localStorage.getItem("userId"); // Replace with actual userId
+    formData.append("userId", userId); // Append the userId
+
+    try {
+      const token = localStorage.getItem("authToken");
+      const response = await fetch("http://localhost:5000/api/profile/upload-avatar", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Avatar uploaded successfully:", data.avatarUrl);
+        setAvatarUrl(data.avatarUrl); // Update the avatar preview with the Cloudinary URL
+      } else {
+        setError("Failed to upload avatar.");
+      }
+    } catch (err) {
+      setError("An error occurred while uploading avatar.");
+      console.error(err);
+    }
+  };
+
   const handleOkayClick = () => {
     if (agreeToTerms) {
-      setIsModalOpen(false); // Close the modal
+      setIsModalOpen(false);
     } else {
-      setShowNotif(true); // Show notification if the user hasn't agreed to the terms
+      setShowNotif(true);
     }
   };
 
-  // Handle Cancel button click
   const handleCancel = () => {
-    navigate('/'); // Navigate to the home page or any other route
+    navigate('/');
   };
 
-  // Hide notification after 3 seconds
   useEffect(() => {
     if (showNotif) {
       const timer = setTimeout(() => setShowNotif(false), 3000);
@@ -80,12 +152,21 @@ const ProfileForm = () => {
         <h3 className="align-self-start mt-3 ml-3 font-weight-600">Customize Profile</h3>
 
         <div className="d-flex align-items-center">
-          <img
-            src="loloraf.png"
-            className="rounded-circle"
-            alt="Avatar"
-            style={{ width: 'auto', height: '230px', objectFit: 'cover' }}
-          />
+          <label htmlFor="avatar-upload" style={{ cursor: 'pointer' }}>
+            <img
+              src={avatarUrl} // Use the uploaded or default avatar URL
+              alt="User Avatar"
+              style={{ width: "200px", height: "200px", borderRadius: "50%" }}
+            />
+            <input
+              type="file"
+              id="avatar-upload"
+              name="avatar"
+              onChange={handleAvatarUpload}
+              accept="image/*"
+              style={{ display: "none" }}
+            />
+          </label>
           <div className="ms-3">
             <p className="mb-1 ml-5 font-weight-500" id="FullName">John Manuel Cuerdo</p>
             <p className="mb-0 ml-5 font-weight-400">
@@ -102,18 +183,17 @@ const ProfileForm = () => {
         </div>
 
         <div className="mt-3">
-          <label htmlFor="normal-textbox">FullName</label>
+          <label htmlFor="normal-textbox">Full Name</label>
           <input
             type="text"
             id="normal-textbox"
             className="input-text"
-            placeholder="Enter fullname here..."
+            placeholder="Enter full name here..."
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
         </div>
 
-        {/* Have you taken any NCII Cookery course? */}
         <div>
           <h4>Have you taken any NCII Cookery course?</h4>
           <button
@@ -130,13 +210,12 @@ const ProfileForm = () => {
           </button>
         </div>
 
-        {/* First Group of Checkboxes (1-3) */}
         <div className="d-flex flex-column align-items-start mt-3">
           <h4 className="mt-3">Do you have any experience in cooking before?</h4>
 
           <div className="form-check">
             <input
-              type="checkbox"
+              type="radio"
               id="customCheckbox1"
               className="checkbox"
               checked={selectedGroup1 === '1'}
@@ -147,7 +226,7 @@ const ProfileForm = () => {
 
           <div className="form-check mt-3">
             <input
-              type="checkbox"
+              type="radio"
               id="customCheckbox2"
               className="checkbox"
               checked={selectedGroup1 === '2'}
@@ -158,7 +237,7 @@ const ProfileForm = () => {
 
           <div className="form-check mt-3">
             <input
-              type="checkbox"
+              type="radio"
               id="customCheckbox3"
               className="checkbox"
               checked={selectedGroup1 === '3'}
@@ -168,13 +247,12 @@ const ProfileForm = () => {
           </div>
         </div>
 
-        {/* Second Group of Checkboxes (4-6) */}
         <div className="d-flex flex-column align-items-start mt-3">
           <h4 className="mt-3">What’s your motive in learning how to cook?</h4>
 
           <div className="form-check">
             <input
-              type="checkbox"
+              type="radio"
               id="customCheckbox4"
               className="checkbox"
               checked={selectedGroup2 === '4'}
@@ -185,7 +263,7 @@ const ProfileForm = () => {
 
           <div className="form-check mt-3">
             <input
-              type="checkbox"
+              type="radio"
               id="customCheckbox5"
               className="checkbox"
               checked={selectedGroup2 === '5'}
@@ -196,7 +274,7 @@ const ProfileForm = () => {
 
           <div className="form-check mt-3">
             <input
-              type="checkbox"
+              type="radio"
               id="customCheckbox6"
               className="checkbox"
               checked={selectedGroup2 === '6'}
@@ -206,7 +284,6 @@ const ProfileForm = () => {
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="buttonContainer d-flex align-items-center mt-5 mb-5">
           <button
             className={`cbtn cbtn-success ml-4 ${!isFormComplete ? 'opacity-5 no-hover' : ''}`}
@@ -222,7 +299,6 @@ const ProfileForm = () => {
         </div>
       </div>
 
-      {/* Modal */}
       {isModalOpen && (
         <div className="cmodal-overlay show">
           <div className="cmodal d-flex flex-column align-items-start" style={{ width: "1100px" }}>
@@ -240,7 +316,6 @@ const ProfileForm = () => {
               <p>Your data will be securely stored and used only for purposes related to the functioning of the platform, such as account management, gameplay enhancement, and communication. For more details, refer to our Privacy Policy.</p>
             </div>
 
-            {/* Modal Checkbox */}
             <div className="form-check">
               <input
                 type="checkbox"
@@ -252,7 +327,6 @@ const ProfileForm = () => {
               <label htmlFor="customCheckbox7" className="checkbox-label">I agree to the Terms & Conditions</label>
             </div>
 
-            {/* Modal Footer with Okay button */}
             <div className="cmodal-footer d-flex justify-content-center w-100">
               <button
                 className={`cbtn cbtn-secondary ${!agreeToTerms ? 'opacity-5 no-hover' : ''}`}
@@ -266,12 +340,10 @@ const ProfileForm = () => {
         </div>
       )}
 
-      {/* Footer */}
       <footer className="bg-dark text-white text-center py-3">
         &copy; 2024 Your Website
       </footer>
 
-      {/* Notification */}
       {showNotif && (
         <div className="notif-container show">
           <p>You need to check the box to proceed.</p>

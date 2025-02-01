@@ -15,6 +15,7 @@ import Customprofile from './pages/customize-profile/customize-profile';
 import Navbar from './components/Navbar';
 import Homepage from './pages/Landingpage/Homepage';
 
+
 const App = () => {
   return (
     <Router>

@@ -1,22 +1,28 @@
 const express = require("express");
-const dotenv = require("dotenv");
-const cors = require("cors");
-const connectDB = require("./config/db");
-const authRoutes = require("./routes/authRoutes");
+const cookieParser = require("cookie-parser");
+const authRoutes = require("./routes/authRoutes"); // Ensure this path is correct
+require("dotenv").config(); // Loads the variables from .env file
+const connectDB = require("./config/db"); // Import your connectDB function
+const profileRoutes = require("./routes/profRoutes"); // Import your profileRoutes function
 
-dotenv.config();
+const cors = require('cors');
+
+
+
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-// Connect to DB
+// Connect to MongoDB
 connectDB();
 
-// Routes
-app.use("/api", authRoutes);
+// Middleware
+app.use(express.json());
+app.use(cookieParser()); // Required for reading cookies
+app.use(cors());
 
-// Start server
+// Mount the routes
+app.use("/api/auth", authRoutes); // Ensure this path is correct
+app.use("/api/profile", profileRoutes);  // Add this to mount the profile routes
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

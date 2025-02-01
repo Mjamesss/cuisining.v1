@@ -1,21 +1,41 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+require("dotenv").config();  // This loads the JWT_SECRET_KEY from your .env file
+
 
 const login = async (req, res) => {
   const { username, password } = req.body;
 
+  console.log("Login attempt with username:", username);  // Log the username being attempted
+
   try {
+    // Step 1: Check if the user exists
     const user = await User.findOne({ username });
-    if (!user) return res.status(400).json({ message: "Invalid username or password" });
+    if (!user) {
+      console.log("User not found");  // Log if user is not found
+      return res.status(400).json({ message: "Invalid username or password" });
+    }
 
+    // Step 2: Check if the password matches
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Invalid username or password" });
+    if (!isMatch) {
+      console.log("Password mismatch");  // Log if password doesn't match
+      return res.status(400).json({ message: "Invalid username or password" });
+    }
 
+    // Step 3: Create the JWT token using the secret key from the .env file
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+    console.log("Token generated:", token);  // Log the generated token
 
-    res.status(200).json({ message: "Login successful", token });
+    // Step 4: Respond with the token and success message
+    res.status(200).json({
+      message: "Login successful",
+      token
+    });
+
   } catch (err) {
+    console.error("Server error:", err);  // Log the actual error
     res.status(500).json({ message: "Server error" });
   }
 };

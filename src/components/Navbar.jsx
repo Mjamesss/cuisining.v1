@@ -65,10 +65,10 @@ const Navbar = () => {
         <a href="setting">
           <img src="settings.png" alt="settings" />
         </a>
-        <a href="profile">
+        <a href="profile" id="fetchImage">
           <img src="profile.png" alt="profile" />
         </a>
-        <h5>Manuel</h5>
+        <h5 id="fetchFirstname">Manuel</h5>
       </div>
     </nav>
   );
