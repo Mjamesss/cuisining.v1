@@ -13,6 +13,7 @@ const ProfileForm = () => {
   const [fullName, setFullName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('/path/to/default-avatar.png'); 
   const [error, setError] = useState("");
+  
 
   const navigate = useNavigate();//a
   const location = useLocation();
@@ -55,75 +56,92 @@ const ProfileForm = () => {
       console.log("Avatar URL being submitted:", finalAvatarUrl);
   
       const token = localStorage.getItem("authToken");
+      const payload = {
+        fullName,
+        avatarUrl: finalAvatarUrl,
+        selectedGroup1,
+        selectedGroup2,
+        hasTakenNCII,
+      };
+      console.log("Submitting payload:", payload); // Log the payload
+  
       const response = await fetch("http://localhost:5000/api/profile/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          fullName,
-          avatarUrl: finalAvatarUrl,
-          selectedGroup1,
-          selectedGroup2,
-          hasTakenNCII,
-        }),
+        body: JSON.stringify(payload),
       });
   
       const data = await response.json();
+      console.log("Response data:", data); // Log the response from the server
   
       if (response.status === 200) {
         console.log("Profile updated:", data.profile);
         navigate("/home-page"); // Redirect to home page after submission
       } else {
-        setError(data.message);
+        setError(data.message || "Failed to submit profile.");
       }
     } catch (err) {
       setError("An error occurred. Please try again.");
-      console.error(err);
+      console.error("Error during submission:", err);
     }
   };
+  
   const handleAvatarUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
-
+  
     // Display the selected image immediately
     const reader = new FileReader();
     reader.onload = (e) => {
       setAvatarUrl(e.target.result); // Set the image URL for preview
     };
     reader.readAsDataURL(file);
-
+  
     const formData = new FormData();
     formData.append("avatar", file); // Append the file
-
-    // Get the userId from the logged-in user (ensure it's a valid ObjectId)
-    const userId = localStorage.getItem("userId"); // Replace with actual userId
+  
+    // Get the userId from localStorage (ensure it's a valid ObjectId)
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      setError("User ID not found.");
+      return;
+    }
     formData.append("userId", userId); // Append the userId
-
+  
+    // Get the authToken from localStorage
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      setError("Authorization token not found.");
+      return;
+    }
+  
     try {
-      const token = localStorage.getItem("authToken");
       const response = await fetch("http://localhost:5000/api/profile/upload-avatar", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
         body: formData,
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         console.log("Avatar uploaded successfully:", data.avatarUrl);
         setAvatarUrl(data.avatarUrl); // Update the avatar preview with the Cloudinary URL
+        // Optionally, you can update the user profile state here if you're managing it
       } else {
-        setError("Failed to upload avatar.");
+        setError(data.message || "Failed to upload avatar.");
       }
     } catch (err) {
-      setError("An error occurred while uploading avatar.");
+      setError("An error occurred while uploading the avatar.");
       console.error(err);
     }
   };
+  
 
   const handleOkayClick = () => {
     if (agreeToTerms) {

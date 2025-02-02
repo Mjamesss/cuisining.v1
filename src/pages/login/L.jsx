@@ -1,68 +1,81 @@
 import 'bootstrap/dist/css/bootstrap.min.css';  
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const [focus, setFocus] = useState({
-    username: false,
-    password: false,
-  });
-  const [showPassword, setShowPassword] = useState(false); 
-  const [username, setUsername] = useState(""); 
-  const [password, setPassword] = useState("");  
-  const [error, setError] = useState(""); 
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [focus, setFocus] = useState({ email: false, password: false });
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const navigate = useNavigate();  // Use navigate instead of history
+  // Handle input change
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle input focus
   const handleFocus = (field) => setFocus((prev) => ({ ...prev, [field]: true }));
+  
+  // Handle input blur
   const handleBlur = (field, value) => {
     if (!value) setFocus((prev) => ({ ...prev, [field]: false }));
   };
 
+  // Validate email format
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email) ? "" : "Please enter a valid email address.";
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-      
-    try {
-      console.log("Sending login request with:", { username, password });
   
+    const emailError = validateEmail(formData.email);
+    if (emailError) {
+      setError(emailError);
+      return;
+    }
+  
+    try {
+      // Step 1: Log in the user
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
   
-      console.log("Response status:", response.status);
-  
       const data = await response.json();
-      console.log("Response data:", data);
+      console.log("Login response:", data); // Log the login response
   
       if (response.status === 200) {
-        console.log("Login successful:", data);
-        localStorage.setItem("authToken", data.token);
+        const token = data.token; // Get token from JSON response
+        localStorage.setItem("authToken", token); // Store token in localStorage
+        console.log("Token stored in localStorage:", token); // Log the token
   
-        // Fetch the user's profile customization status
+        // Step 2: Fetch profile customization status
         const profileResponse = await fetch("http://localhost:5000/api/profile/profile", {
-          headers: {
-            Authorization: `Bearer ${data.token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` }, // Use token from JSON response
         });
   
         if (!profileResponse.ok) {
-          throw new Error(`Failed to fetch profile: ${profileResponse.status}`);
+          const errorData = await profileResponse.json();
+          console.error("Error fetching profile:", errorData);
+          throw new Error("Failed to fetch profile");
         }
   
         const profileData = await profileResponse.json();
-        console.log("Profile data:", profileData);
+        console.log("Profile response:", profileData); // Log the profile response
   
+        // Step 3: Redirect based on profile customization status
         if (profileData.isProfileCustomized) {
-          navigate("/home-page"); // Redirect to home page if profile is already customized
+          navigate("/home-page");
         } else {
-          navigate("/customize-profile"); // Redirect to customize profile if not
+          navigate("/customize-profile");
         }
       } else {
-        console.error("Backend error:", data);
-        setError(data.message || "An error occurred. Please try again.");
+        setError(data.message || "Invalid email or password.");
       }
     } catch (err) {
       console.error("Login error:", err);
@@ -218,19 +231,18 @@ const LoginForm = () => {
           <form onSubmit={handleSubmit}>
             <h2 style={styles.heading}>CUISINING</h2>
 
-            {/* Username Input */}
+            {/* Email Input */}
             <div style={styles.inputWrapper}>
-              <label style={styles.label(focus.username)}>Username</label>
+              <label style={styles.label(focus.email)}>Email</label>
               <input
-                type="text"
-                style={{
-                  ...styles.input,
-                  ...(focus.username && styles.inputFocused),
-                }}
-                value={username} // Bind value
-                onChange={(e) => setUsername(e.target.value)} // Update username state
-                onFocus={() => handleFocus("username")}
-                onBlur={(e) => handleBlur("username", e.target.value)}
+                type="email"
+                name="email"
+                autoFocus
+                style={{ ...styles.input, ...(focus.email && styles.inputFocused) }}
+                value={formData.email}
+                onChange={handleChange}
+                onFocus={() => handleFocus("email")}
+                onBlur={(e) => handleBlur("email", e.target.value)}
               />
             </div>
 
@@ -239,12 +251,10 @@ const LoginForm = () => {
               <label style={styles.label(focus.password)}>Password</label>
               <input
                 type={showPassword ? "text" : "password"}
-                style={{
-                  ...styles.input,
-                  ...(focus.password && styles.inputFocused),
-                }}
-                value={password} // Bind value
-                onChange={(e) => setPassword(e.target.value)} // Update password state
+                name="password"
+                style={{ ...styles.input, ...(focus.password && styles.inputFocused) }}
+                value={formData.password}
+                onChange={handleChange}
                 onFocus={() => handleFocus("password")}
                 onBlur={(e) => handleBlur("password", e.target.value)}
               />
@@ -254,57 +264,36 @@ const LoginForm = () => {
                 style={styles.showPasswordButton}
                 onClick={() => setShowPassword(!showPassword)}
               >
-                <img
-                  src={showPassword ? "view.png" : "hide.png"}
-                  alt={showPassword ? "Hide Password" : "Show Password"}
-                  style={{ width: "20px", height: "20px" }}
-                />
+                {showPassword ? "👁️" : "🔒"}
               </button>
             </div>
 
             {/* Error Message */}
             {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
 
-            <button type="submit" style={styles.button}>
+            <button type="submit" style={styles.button} disabled={!formData.email || !formData.password}>
               Log In
             </button>
 
-            {/* Forgot Password Link */}
-            <a href="/ForgotPass" style={styles.forgotPasswordLink}>
-              Forgot Password?
-            </a>
+            {/* Forgot Password */}
+            <a href="/ForgotPass" style={styles.forgotPasswordLink}>Forgot Password?</a>
 
-            {/* Divider */}
+            {/* OR Divider */}
             <div style={styles.hrContainer}>
               <hr style={styles.hr} />
               <span style={styles.orText}>or</span>
               <hr style={styles.hr} />
             </div>
 
-            {/* Social Media Buttons */}
+            {/* Social Login Buttons */}
             <div style={styles.socialButtonsContainer}>
-              <a href="#" className="social-button" style={styles.socialButtonImg}>
-                <img
-                  src="facebook.png"
-                  alt="Facebook Login"
-                  style={styles.socialButtonImg}
-                />
-              </a>
-              <a href="#" className="social-button" style={styles.socialButtonImg}>
-                <img
-                  src="google.png"
-                  alt="Google Login"
-                  style={styles.socialButtonImg}
-                />
-              </a>
+              <img src="facebook.png" alt="Facebook Login" style={styles.socialButtonImg} />
+              <img src="google.png" alt="Google Login" style={styles.socialButtonImg} />
             </div>
 
             <div style={styles.signup}>
               <p style={styles.signupText}>
-                Don't Have an Account?{" "}
-                <a href="/signup" style={styles.signupLink}>
-                  Sign Up
-                </a>
+                Don't Have an Account? <a href="/signup" style={styles.signupLink}>Sign Up</a>
               </p>
             </div>
           </form>

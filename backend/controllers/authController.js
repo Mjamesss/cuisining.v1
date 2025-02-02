@@ -1,59 +1,87 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-require("dotenv").config();  // This loads the JWT_SECRET_KEY from your .env file
+require("dotenv").config();
 
+// Helper function to generate JWT
+const generateToken = (userId) => {
+  if (!process.env.JWT_SECRET_KEY) {
+    throw new Error("JWT secret key is missing");
+  }
+  return jwt.sign({ userId }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+};
 
 const login = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  console.log("Login attempt with username:", username);  // Log the username being attempted
+  console.log("Login attempt with email:", email);
 
   try {
     // Step 1: Check if the user exists
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     if (!user) {
-      console.log("User not found");  // Log if user is not found
-      return res.status(400).json({ message: "Invalid username or password" });
+      console.log("User not found");
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    // Step 2: Check if the password matches
+    // Step 2: Validate password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      console.log("Password mismatch");  // Log if password doesn't match
-      return res.status(400).json({ message: "Invalid username or password" });
+      console.log("Password mismatch");
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    // Step 3: Create the JWT token using the secret key from the .env file
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
-    console.log("Token generated:", token);  // Log the generated token
+    // Step 3: Generate JWT Token
+    const token = generateToken(user._id);
+    console.log("Token generated:", token);
 
-    // Step 4: Respond with the token and success message
+    // Step 4: Send token securely in HTTP-only cookie
+    res.cookie("authToken", token, {
+      httpOnly: true, // Prevents XSS attacks
+      secure: process.env.NODE_ENV === "production", // Enable secure flag in production
+      sameSite: "Strict", // Prevents CSRF
+      maxAge: 3600000, // 1 hour
+    });
+
+    // Step 5: Send token in JSON response (for frontend use)
     res.status(200).json({
       message: "Login successful",
-      token
+      token, // Send token in JSON response
+      isProfileCustomized: user.isProfileCustomized, // Send profile status
     });
 
   } catch (err) {
-    console.error("Server error:", err);  // Log the actual error
+    console.error("Server error:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
 
 const signup = async (req, res) => {
-  const { name, username, password } = req.body;
+  const { fName, email, password } = req.body;
+
+  if (!fName || !email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
 
   try {
-    const existingUser = await User.findOne({ username });
-    if (existingUser) return res.status(422).json({ message: "Username is already taken" });
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(422).json({ message: "Email is already registered" });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, username, password: hashedPassword });
+    const newUser = new User({
+      fName,
+      email,
+      password: hashedPassword,
+      username: email, // Use email as username (temporary workaround)
+    });
     await newUser.save();
 
     res.status(201).json({ message: "User created successfully!" });
   } catch (err) {
-    res.status(500).json({ message: "Error creating user" });
+    console.error("Error creating user:", err);
+    res.status(500).json({ message: "Error creating user", error: err.message });
   }
 };
 

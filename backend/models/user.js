@@ -1,14 +1,19 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  name: {
+  fName: {
     type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
     required: true,
   },
   username: {
     type: String,
-    unique: true,
-    required: true,
+    unique: true, // Ensure usernames are unique
+    sparse: true, // Allow null values without triggering unique constraint
   },
   password: {
     type: String,
@@ -16,7 +21,7 @@ const userSchema = new mongoose.Schema({
   },
   isProfileCustomized: {
     type: Boolean,
-    default: false, // Default to false
+    default: false,
   },
 });
 
