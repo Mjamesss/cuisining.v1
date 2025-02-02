@@ -11,12 +11,46 @@ const ProfileForm = () => {
   const [hasTakenNCII, setHasTakenNCII] = useState(null);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [fullName, setFullName] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('/path/to/default-avatar.png'); 
+  const [avatarUrl, setAvatarUrl] = useState('/developers.png');
   const [error, setError] = useState("");
-  
+  const [email, setEmail] = useState(''); // Add a state for email
 
-  const navigate = useNavigate();//a
+  const navigate = useNavigate();
   const location = useLocation();
+
+  // Fetch user profile data
+  const fetchUserProfile = async () => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      setError("Authorization token not found.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/profile", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("User Profile Data:", data); // Log the response
+        setFullName(data.fName || ''); // Set the full name from the response
+        setEmail(data.email || ''); // Set the email from the response
+      } else {
+        setError("Failed to fetch user profile.");
+      }
+    } catch (err) {
+      setError("An error occurred while fetching user profile.");
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
 
   useEffect(() => {
     if (location.pathname === '/customize-profile') {
@@ -36,6 +70,7 @@ const ProfileForm = () => {
   useEffect(() => {
     const fullNameElement = document.getElementById('FullName');
     if (fullNameElement) {
+      console.log("Updating FullName element:", fullName); // Log the fullName
       fullNameElement.textContent = fullName || 'John Manuel Cuerdo';
     }
   }, [fullName]);
@@ -45,16 +80,16 @@ const ProfileForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!isFormComplete) {
       setError("Please fill out all required fields.");
       return;
     }
-  
+
     try {
       const finalAvatarUrl = avatarUrl || "https://example.com/default-avatar.png";
       console.log("Avatar URL being submitted:", finalAvatarUrl);
-  
+
       const token = localStorage.getItem("authToken");
       const payload = {
         fullName,
@@ -63,8 +98,8 @@ const ProfileForm = () => {
         selectedGroup2,
         hasTakenNCII,
       };
-      console.log("Submitting payload:", payload); // Log the payload
-  
+      console.log("Submitting payload:", payload);
+
       const response = await fetch("http://localhost:5000/api/profile/submit", {
         method: "POST",
         headers: {
@@ -73,13 +108,13 @@ const ProfileForm = () => {
         },
         body: JSON.stringify(payload),
       });
-  
+
       const data = await response.json();
-      console.log("Response data:", data); // Log the response from the server
-  
+      console.log("Response data:", data);
+
       if (response.status === 200) {
         console.log("Profile updated:", data.profile);
-        navigate("/home-page"); // Redirect to home page after submission
+        navigate("/home-page");
       } else {
         setError(data.message || "Failed to submit profile.");
       }
@@ -88,51 +123,47 @@ const ProfileForm = () => {
       console.error("Error during submission:", err);
     }
   };
-  
+
   const handleAvatarUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
-  
-    // Display the selected image immediately
+
     const reader = new FileReader();
     reader.onload = (e) => {
-      setAvatarUrl(e.target.result); // Set the image URL for preview
+      setAvatarUrl(e.target.result);
     };
     reader.readAsDataURL(file);
-  
+
     const formData = new FormData();
-    formData.append("avatar", file); // Append the file
-  
-    // Get the userId from localStorage (ensure it's a valid ObjectId)
+    formData.append("avatar", file);
+
     const userId = localStorage.getItem("userId");
     if (!userId) {
       setError("User ID not found.");
       return;
     }
-    formData.append("userId", userId); // Append the userId
-  
-    // Get the authToken from localStorage
+    formData.append("userId", userId);
+
     const token = localStorage.getItem("authToken");
     if (!token) {
       setError("Authorization token not found.");
       return;
     }
-  
+
     try {
       const response = await fetch("http://localhost:5000/api/profile/upload-avatar", {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
         console.log("Avatar uploaded successfully:", data.avatarUrl);
-        setAvatarUrl(data.avatarUrl); // Update the avatar preview with the Cloudinary URL
-        // Optionally, you can update the user profile state here if you're managing it
+        setAvatarUrl(data.avatarUrl);
       } else {
         setError(data.message || "Failed to upload avatar.");
       }
@@ -141,7 +172,6 @@ const ProfileForm = () => {
       console.error(err);
     }
   };
-  
 
   const handleOkayClick = () => {
     if (agreeToTerms) {
@@ -171,7 +201,7 @@ const ProfileForm = () => {
         <div className="d-flex align-items-center">
           <label htmlFor="avatar-upload" style={{ cursor: 'pointer' }}>
             <img
-              src={avatarUrl} // Use the uploaded or default avatar URL
+              src={avatarUrl}
               alt="User Avatar"
               style={{ width: "200px", height: "200px", borderRadius: "50%" }}
             />
@@ -185,16 +215,9 @@ const ProfileForm = () => {
             />
           </label>
           <div className="ms-3">
-            <p className="mb-1 ml-5 font-weight-500" id="FullName">John Manuel Cuerdo</p>
+            <p className="mb-1 ml-5 font-weight-500" id="FullName">{fullName || 'hindi ka naka log in'}</p>
             <p className="mb-0 ml-5 font-weight-400">
-              johnmanuelcuerdo@gmail.com
-              <a
-                href="#verify"
-                className="verify-link ms-2 ml-2"
-                onClick={() => alert('Verification link clicked')}
-              >
-                Verify your Gmail address
-              </a>
+              {email || 'hindi ka naka log in'}
             </p>
           </div>
         </div>

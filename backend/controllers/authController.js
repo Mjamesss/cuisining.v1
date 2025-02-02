@@ -84,5 +84,28 @@ const signup = async (req, res) => {
     res.status(500).json({ message: "Error creating user", error: err.message });
   }
 };
+const getUserProfile = async (req, res) => {
+  try {
+    // Extract the user ID from the token
+    const userId = req.userId; // This is set by the auth middleware
 
-module.exports = { login, signup };
+    // Fetch the user from the database
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Return the user's profile data
+    res.status(200).json({
+      fName: user.fName,
+      email: user.email,
+      isProfileCustomized: user.isProfileCustomized,
+    });
+  } catch (err) {
+    console.error("Error fetching user profile:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+module.exports = { login, signup, getUserProfile };
