@@ -32,21 +32,19 @@ const Navbar = () => {
         </div>
 
         {/* Settings Section (Mobile) */}
-        <div className="settingsec d-none d-md-flex pb-3 w-20">
-          <div className="notif-wrapper">
-            <button className="btn-setting notif-btn" onClick={() => setIsNotifOpen(!isNotifOpen)}>
-              <img src="notif.png" alt="notifications" />
-            </button>
-            <button className="btn-setting">
-              <img src="settings.png" alt="settings" />
-            </button>
+        <div className="settingsec d-flex flex-column align-items-center pb-3 font-weight-600">
+          <button className="btn-setting notif-btn" onClick={() => setIsNotifOpen(!isNotifOpen)}>
+            <img src="notif.png" alt="notifications" /> Notification
+          </button>
+          <button className="btn-setting">
+            <img src="settings.png" alt="settings" /> Settings
+          </button>
           <button className="btn-setting">
             <img src="profile.png" alt="profile" /> Profile
           </button>
           <h5>Manuel</h5>
 
           {/* Notification Dropdown (Mobile) */}
-          {/* Notification Dropdown (Desktop) */}
           {isNotifOpen && (
             <div className="notif-dropdown">
               <h2>Notifications</h2>
@@ -79,17 +77,15 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        <a>
+
         <button className="btn-setting">
           <img src="settings.png" alt="settings" />
         </button>
-        </a>
-        <a href="profile">
+        <button className="btn-setting">
           <img src="profile.png" alt="profile" />
-        </a>
+        </button>
         <h5>Manuel</h5>
       </div>
-    </div>
     </nav>
   );
 };

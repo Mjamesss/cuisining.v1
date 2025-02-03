@@ -19,19 +19,19 @@ const Homepage = () => {
     return (
         <>
             <Navbar />
-
             {/*homepage */}
             <div className=" background-cover   d-flex " style={{padding:"0",margin:"0",height:"500px", width:"100%",backgroundSize:"cover",objectFit: "cover",}}>
           <img className="background-cover" src="homepagebg.png" alt="BACKGROUND home" style={{backgroundSize:"cover",width:"100%",height:"100%",}}></img>
           
         </div>       
         <div className="d-flex justify-content-center  pb-5 " style={{height:"80px",}}>
-            <button className="cbtn cbtn-secondary  font-weight-600 trans-y" style={{ color:"white",width:"15%",height:"70px",fontSize:"22px",}}>Enroll now</button>
+            <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ color:"white",width:"15%",height:"70px",fontSize:"22px",}}>Enroll now</button>
          </div>
 
-         <div className="  font-family " style={{padding:"90px"}}>
+         <div className="  font-family d-flex justify-content-center align-items-center" style={{padding:"90px"}}>
+            <p className=""style={{fontSize:"25px",}}>
             <h1 className="font-weight-900">About Cuisining</h1>
-            <p className=""style={{fontSize:"25px",}}>CuiSining is a web-based 3D game design to assess the user's cooking knowldege and expereince<br></br>
+                CuiSining is a web-based 3D game design to assess the user's cooking knowldege and expereince<br></br>
             Through interactive training, the game provide the set of instructions to guide players, helping htem better<br></br>
             Understand cooking techniques and Process.its Primary goal is to evaluate the user's current skills and <br></br>
             knowledge, while also offering a simulation learning Experience ot enhance their Culinary Abilities<br></br>
@@ -40,13 +40,12 @@ const Homepage = () => {
             to figure out the different dishes that can be made in different kinds of ingredients and to Practice cooking skills</p>
          </div>
           
-          <div className=" p3 d-flex" style={{height:"520px",}}>
+          <div className=" p3 d-flex justify-content-center align-items-center " style={{height:"520px",}}>
              <img src="offer.png" alt="offer" className=" m1"></img>
              
             <div> 
-                <h1 className="font-weight-800"> What we offer</h1>
+            <h1 className="font-weight-800"> What we offer</h1>
                 <p className=""style={{fontSize:"25px",}}>
-                    
                     Welcome to CuiSining, your trusted online platform for culinary <br></br>
                     Education and skill Development. whether you're just starting out or<br></br>
                     looking to advance your culinary carrer, we offer structured courses<br></br>
@@ -61,7 +60,7 @@ const Homepage = () => {
                 </div>
           </div>
 
-          <div className=" p3 d-flex" style={{height:"520px"}}>
+          <div className=" p3 d-flex justify-content-center align-items-center" style={{height:"520px"}}>
              <div>
                 <h1 className="font-weight-800" style={{fontSize:"40px",}}>Want to be a Certified NC II Cookery<br></br>
                 Passer</h1>

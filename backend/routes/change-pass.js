@@ -31,8 +31,7 @@ router.post('/forgot-password', async (req, res) => {
       from: process.env.EMAIL_USER,
       to: email,
       subject: 'Password Reset',
-      html: `<!-- HTML Content Here -->
-            <!DOCTYPE html>
+      html: `
       <html>
         <head>
           <title>Password Reset</title>
@@ -50,25 +49,21 @@ router.post('/forgot-password', async (req, res) => {
           <table role="presentation" width="100%" style="max-width: 600px; margin: 0 auto; padding: 20px; border-radius: 10px;">
             <tr>
               <td style="text-align: left;">
-                <!-- Logo -->
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1738595983/Cuisining_Logo_hkzxgv.png" alt="Cuisining Logo" style="width: 150px; height: 150px; margin-bottom: 20px;">
               </td>
             </tr>
             <tr>
               <td style="text-align: left;">
-                <!-- Title -->
                 <h1 style="font-weight: 900;">Reset Your Password</h1>
               </td>
             </tr>
             <tr>
               <td style="text-align: left;">
-                <!-- Message -->
                 <p style="color: #363100; font-size: 16px; font-weight: 600;">Click the button below to reset your Cuisining account password. If you did not request a password reset, feel free to disregard and delete this email.</p>
               </td>
             </tr>
             <tr>
               <td style="text-align: left;">
-                <!-- Button -->
                 <a href="${resetLink}" class="cbtn" style="color:white">Reset Password</a>
               </td>
             </tr>
