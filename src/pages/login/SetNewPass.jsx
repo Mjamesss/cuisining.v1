@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import 'bootstrap/dist/css/bootstrap.min.css';  
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SetNewPassword = () => {
   const [focus, setFocus] = useState({
@@ -10,9 +11,22 @@ const SetNewPassword = () => {
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState(""); // For storing error messages
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [token, setToken] = useState("");
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const tokenFromUrl = queryParams.get("token");
+    if (tokenFromUrl) {
+      setToken(tokenFromUrl);
+    } else {
+      setError("Invalid or expired reset link.");
+    }
+  }, [location]);
 
   const handleFocus = (field) => setFocus((prev) => ({ ...prev, [field]: true }));
   const handleBlur = (field, value) => {
@@ -23,38 +37,41 @@ const SetNewPassword = () => {
   const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
 
   const validateForm = () => {
-    // Reset errors
     setError("");
-
-    // Validation checks
     if (!password || !confirmPassword) {
       setError("Both password fields are required.");
       return false;
     }
-
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return false;
     }
-
     if (password.length < 8) {
       setError("Password must be at least 8 characters long.");
       return false;
     }
-
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
 
-    if (validateForm()) {
-      // Navigate to the Done page if the form is valid
-      navigate("/Done");
+    try {
+      const response = await axios.post("http://localhost:5000/api/password/reset-password", {
+        token,
+        newPassword: password,
+      });
+
+      setSuccess(response.data.message);
+      setTimeout(() => {
+        navigate("/"); // Redirect to login page after success
+      }, 2000);
+    } catch (error) {
+      setError(error.response?.data?.message || "Failed to reset password.");
     }
   };
 
-  // Handle Enter key press to trigger form submission
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSubmit(e);
@@ -63,7 +80,7 @@ const SetNewPassword = () => {
 
   const styles = {
     background: {
-      backgroundImage: "url('lbg.png')", // Replace with your image URL
+      backgroundImage: "url('lbg.png')",
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundAttachment: "fixed",
@@ -80,7 +97,6 @@ const SetNewPassword = () => {
     formContainer: {
       background: "rgba(255, 255, 255, 0.7)",
       backdropFilter: "blur(10px)",
-      WebkitBackdropFilter: "blur(0px)",
       borderRadius: "10px",
       padding: "25px",
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
@@ -89,7 +105,7 @@ const SetNewPassword = () => {
     },
     heading: {
       textAlign: "center",
-      fontSize: "35px", // Adjust size for mobile
+      fontSize: "35px",
       color: "#363100",
       fontWeight: "800",
       lineHeight: "1.2",
@@ -144,24 +160,27 @@ const SetNewPassword = () => {
       textAlign: "center",
       marginTop: "10px",
     },
+    successText: {
+      color: "green",
+      fontSize: "14px",
+      textAlign: "center",
+      marginTop: "10px",
+    },
   };
-
-  
 
   return (
     <div style={styles.background}>
       <div style={styles.formWrapper}>
         <div
           style={styles.formContainer}
-          onKeyDown={handleKeyPress} // Listen for Enter key press
-          tabIndex="0" // Make the div focusable
+          onKeyDown={handleKeyPress}
+          tabIndex="0"
         >
           <h2 style={styles.heading}>Set a New Password</h2>
           <p style={styles.infoText}>
             Create a new password. Ensure it differs from previous ones for security.
           </p>
 
-          {/* Password Input */}
           <div style={styles.inputWrapper}>
             <label style={styles.label(focus.password)}>Password</label>
             <input
@@ -177,7 +196,6 @@ const SetNewPassword = () => {
             />
           </div>
 
-          {/* Confirm Password Input */}
           <div style={styles.inputWrapper}>
             <label style={styles.label(focus.confirmPassword)}>Confirm Password</label>
             <input
@@ -193,10 +211,9 @@ const SetNewPassword = () => {
             />
           </div>
 
-          {/* Display validation error */}
           {error && <p style={styles.errorText}>{error}</p>}
+          {success && <p style={styles.successText}>{success}</p>}
 
-          {/* Update Password Button */}
           <button style={styles.button} onClick={handleSubmit}>
             Update Password
           </button>

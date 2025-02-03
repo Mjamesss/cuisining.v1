@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';  
+import axios from 'axios';
+
 
 const ForgotPasswordForm = () => {
-  const [focus, setFocus] = useState({
-    email: false,
-  });
+  const [focus, setFocus] = useState({ email: false });
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
 
   const styles = {
     background: {
@@ -107,6 +110,16 @@ const ForgotPasswordForm = () => {
   const handleBlur = (field, value) => {
     if (!value) setFocus((prev) => ({ ...prev, [field]: false }));
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage('');
+    try {
+      const response = await axios.post('http://localhost:5000/api/password/forgot-password', { email });
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Error sending email');
+    }
+  };
 
   return (
     <div style={styles.background}>
@@ -114,13 +127,13 @@ const ForgotPasswordForm = () => {
         <div style={styles.formContainer}>
           <h2 style={styles.heading}>Forgot Password</h2>
           <p style={{ textAlign: "center", color: "#363100", fontSize: "16px" }}>
-            Please enter your email to reset the password.
+            Please enter your email to reset your password.
           </p>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* Email Input */}
             <div style={styles.inputWrapper}>
-              <label style={styles.label(focus.email)}>Your Email</label>
+              <label style={styles.label(focus.email, email)}>Your Email</label>
               <input
                 type="email"
                 style={{
@@ -129,16 +142,24 @@ const ForgotPasswordForm = () => {
                 }}
                 onFocus={() => handleFocus("email")}
                 onBlur={(e) => handleBlur("email", e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
 
             {/* Reset Password Button */}
-            <a href="/OTP">
-              <button type="button" style={styles.button}>
-                Reset Password
-              </button>
-            </a>
+            <button type="submit" style={styles.button}>
+              Reset Password
+            </button>
           </form>
+
+          {/* Success/Error Message */}
+          {message && (
+            <p style={{ textAlign: "center", color: message.includes('Error') ? "red" : "green" }}>
+              {message}
+            </p>
+          )}
 
           <div style={styles.signup}>
             <p style={styles.signupText}>

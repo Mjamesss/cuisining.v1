@@ -125,9 +125,10 @@ const SignUpForm = () => {
       setIsSubmitting(false);
     }
   };
+
   const styles = {
     background: {
-      backgroundImage: "url('lbg.png')", // Replace with your image URL
+      backgroundImage: "url('lbg.png')",
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundAttachment: "fixed",
@@ -246,13 +247,13 @@ const SignUpForm = () => {
     },
     heading: {
       textAlign: "center",
-      fontSize: "35px", // Reduced size for mobile
+      fontSize: "35px",
       color: "#363100",
       fontWeight: "800",
       lineHeight: "1.2",
     },
     headingLogo: {
-      height: "40px", // Reduced size for mobile
+      height: "40px",
       width: "40px",
       marginBottom: "10px",
     },
@@ -282,8 +283,9 @@ const SignUpForm = () => {
 
             {/* Email Input */}
             <div style={styles.inputWrapper}>
-              <label style={styles.label(focus.email)}>Email</label>
+              <label htmlFor="email" style={styles.label(focus.email)}>Email</label>
               <input
+                id="email"
                 type="email"
                 name="email"
                 value={formData.email}
@@ -300,8 +302,9 @@ const SignUpForm = () => {
 
             {/* Full Name Input */}
             <div style={styles.inputWrapper}>
-              <label style={styles.label(focus.fullname)}>Full Name</label>
+              <label htmlFor="fullname" style={styles.label(focus.fullname)}>Full Name</label>
               <input
+                id="fullname"
                 type="text"
                 name="fullname"
                 value={formData.fullname}
@@ -318,8 +321,9 @@ const SignUpForm = () => {
 
             {/* Password Input */}
             <div style={styles.inputWrapper}>
-              <label style={styles.label(focus.password)}>Password</label>
+              <label htmlFor="password" style={styles.label(focus.password)}>Password</label>
               <input
+                id="password"
                 type={showPassword ? "text" : "password"}
                 name="password"
                 value={formData.password}
@@ -347,8 +351,9 @@ const SignUpForm = () => {
 
             {/* Confirm Password Input */}
             <div style={styles.inputWrapper}>
-              <label style={styles.label(focus.confirmPassword)}>Confirm Password</label>
+              <label htmlFor="confirmPassword" style={styles.label(focus.confirmPassword)}>Confirm Password</label>
               <input
+                id="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 value={formData.confirmPassword}

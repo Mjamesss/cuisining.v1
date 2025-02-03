@@ -4,6 +4,7 @@ const authRoutes = require("./routes/authRoutes"); // Ensure this path is correc
 require("dotenv").config(); // Loads the variables from .env file
 const connectDB = require("./config/db"); // Import your connectDB function
 const profileRoutes = require("./routes/profRoutes"); // Import your profileRoutes function
+const forgotPassMailing = require("./routes/change-pass"); // Import your profileRoutes function
 
 const cors = require('cors');
 
@@ -20,7 +21,8 @@ app.use(cookieParser()); // Required for reading cookies
 app.use(cors());
 
 // Mount the routes
-app.use("/api/auth", authRoutes); // Ensure this path is correct
+app.use("/api/auth", authRoutes);
+app.use("/api/password", forgotPassMailing);
 app.use("/api/profile", profileRoutes);  // Add this to mount the profile routes
 
 

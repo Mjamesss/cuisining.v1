@@ -1,19 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <div class="about">
-    <h2>Nigaa</h2>
-    <p>rafael</p>
-  </div>
-  <style>
-    body{
-      background-color: nigga;
-    }
-  </style>
-</body>
+<html>
+    <head>
+        <title>Password Reset</title>
+        <style>
+            body {
+                font-family: 'Poppins', sans-serif;
+                background-color: #EAEAEA;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                width: 100%;
+                max-width: 600px;
+                margin: 20px auto;
+                background-color: #EAEAEA;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: left; /* Align content to the left */
+                display: flex;
+                flex-direction: column; /* Stack elements vertically */
+            }
+            .cbtn-secondary {
+                background-color: #363100; /* Original button color */
+                color: white; /* Button text color */
+                border-color: #6c757d;
+            }
+            .cbtn {
+                display: inline-block;
+                padding: 10px 20px;
+                border: 1px solid transparent;
+                border-radius: 10px;
+                text-align: center;
+                text-decoration: none;
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: 600;
+                color: white; /* Button text color */
+                transition: all 0.3s ease;
+                margin-left: 16px; /* Align button with some margin */
+            }
+            .cbtn:hover {
+                opacity: 0.8;
+            }
+            p {
+                color: #363100;
+                font-size: 16px;
+                line-height: 1.5;
+                margin-bottom: 20px;
+                margin-left: 16px; /* Align paragraph with margin */
+                font-weight: 600;
+            }
+            h1 {
+                margin: 0 0 1rem;
+                line-height: 1.2;
+                color: #363100;
+                margin-left: 16px;
+                font-weight: 900;
+            }
+            img {
+                width: 150px;
+                height: 150px;
+                margin-left: 16px; /* Align logo with margin */
+                margin-bottom: 20px; /* Add space below the logo */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Aligning the logo to the left -->
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1738595983/Cuisining_Logo_hkzxgv.png" alt="Cuisining Logo">
+            <h1>Reset Your Password</h1>
+            <p>Click the button below to reset your Cuisining account password. If you did not request a password reset, feel free to disregard and delete this email.</p>
+            <!-- Button with white text -->
+            <a href="${resetLink}" class="cbtn cbtn-secondary">Reset Password</a>
+        </div>
+    </body>
 </html>

@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';  
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,7 @@ const LoginForm = () => {
 
   // Handle input focus
   const handleFocus = (field) => setFocus((prev) => ({ ...prev, [field]: true }));
-  
+
   // Handle input blur
   const handleBlur = (field, value) => {
     if (!value) setFocus((prev) => ({ ...prev, [field]: false }));
@@ -31,13 +31,13 @@ const LoginForm = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const emailError = validateEmail(formData.email);
     if (emailError) {
       setError(emailError);
       return;
     }
-  
+
     try {
       // Step 1: Log in the user
       const response = await fetch("http://localhost:5000/api/auth/login", {
@@ -45,29 +45,29 @@ const LoginForm = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-  
+
       const data = await response.json();
       console.log("Login response:", data); // Log the login response
-  
+
       if (response.status === 200) {
         const token = data.token; // Get token from JSON response
         localStorage.setItem("authToken", token); // Store token in localStorage
         console.log("Token stored in localStorage:", token); // Log the token
-  
+
         // Step 2: Fetch profile customization status
         const profileResponse = await fetch("http://localhost:5000/api/profile/profile", {
           headers: { Authorization: `Bearer ${token}` }, // Use token from JSON response
         });
-  
+
         if (!profileResponse.ok) {
           const errorData = await profileResponse.json();
           console.error("Error fetching profile:", errorData);
           throw new Error("Failed to fetch profile");
         }
-  
+
         const profileData = await profileResponse.json();
         console.log("Profile response:", profileData); // Log the profile response
-  
+
         // Step 3: Redirect based on profile customization status
         if (profileData.isProfileCustomized) {
           navigate("/home-page");
@@ -82,6 +82,7 @@ const LoginForm = () => {
       setError("An error occurred. Please try again.");
     }
   };
+
   const styles = {
     background: {
       backgroundImage: "url('lbg.png')",
@@ -233,11 +234,11 @@ const LoginForm = () => {
 
             {/* Email Input */}
             <div style={styles.inputWrapper}>
-              <label style={styles.label(focus.email)}>Email</label>
+              <label htmlFor="email" style={styles.label(focus.email)}>Email</label>
               <input
+                id="email"
                 type="email"
                 name="email"
-                autoFocus
                 style={{ ...styles.input, ...(focus.email && styles.inputFocused) }}
                 value={formData.email}
                 onChange={handleChange}
@@ -248,8 +249,9 @@ const LoginForm = () => {
 
             {/* Password Input */}
             <div style={styles.inputWrapper}>
-              <label style={styles.label(focus.password)}>Password</label>
+              <label htmlFor="password" style={styles.label(focus.password)}>Password</label>
               <input
+                id="password"
                 type={showPassword ? "text" : "password"}
                 name="password"
                 style={{ ...styles.input, ...(focus.password && styles.inputFocused) }}
@@ -264,7 +266,9 @@ const LoginForm = () => {
                 style={styles.showPasswordButton}
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? "👁️" : "🔒"}
+                <img src={showPassword ? "view.png" : "hide.png"} alt="n"
+                style={{  width: "20px", height: "20px" }}
+                 />
               </button>
             </div>
 
