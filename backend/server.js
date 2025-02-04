@@ -24,6 +24,9 @@ app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/password", forgotPassMailing);
 app.use("/api/profile", profileRoutes);  // Add this to mount the profile routes
+app.get('/', (req, res) => {
+    res.send('Our Server');
+});
 
 
 const PORT = process.env.PORT || 5000;
