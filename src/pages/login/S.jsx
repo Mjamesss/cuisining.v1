@@ -10,22 +10,21 @@ const SignUpForm = () => {
     email: false,
     fullname: false,
     password: false,
-    confirmPassword: false,
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [fullnameError, setFullnameError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [codeSent, setCodeSent] = useState(false);
+  const [userEnteredCode, setUserEnteredCode] = useState("");
 
   const [formData, setFormData] = useState({
     email: "",
     fullname: "",
     password: "",
-    confirmPassword: "",
   });
 
   // Email validation
@@ -85,47 +84,82 @@ const SignUpForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
+  // Send OTP to the user's email
+  const sendVerificationCode = async () => {
+    const emailError = validateEmail(formData.email);
+    if (emailError) {
+      setEmailError(emailError);
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/otp/send-otp", {
+        email: formData.email,
+      });
+
+      if (response.status === 200) {
+        setCodeSent(true);
+        alert("OTP sent successfully. Check your email.");
+      }
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+      setErrorMessage(error.response?.data?.message || "An error occurred while sending OTP.");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Validate fields
     const emailError = validateEmail(formData.email);
     const fullnameError = validateFullname(formData.fullname);
     const passwordError = validatePassword(formData.password);
-
+  
     if (emailError || fullnameError || passwordError) {
       setEmailError(emailError);
       setFullnameError(fullnameError);
       setPasswordError(passwordError);
-      return;
+      return; // Prevent submission if any validation fails
     }
-
-    if (formData.password !== formData.confirmPassword) {
-      setErrorMessage("Passwords do not match.");
-      return;
+  
+    // Check if the OTP has been sent and entered
+    if (!codeSent || !userEnteredCode) {
+      setErrorMessage("All fields are required, including OTP.");
+      return; // Prevent submission if OTP isn't sent or entered
     }
-
+  
     setIsSubmitting(true);
-    setErrorMessage("");
-
+    setErrorMessage(""); // Clear previous errors
+  
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/signup", {
+      // Verify OTP
+      const verifyResponse = await axios.post("http://localhost:5000/api/otp/verify-otp", {
         email: formData.email,
-        fName: formData.fullname,
-        password: formData.password,
+        otpCode: userEnteredCode,
       });
-
-      console.log("Signup successful", response.data);
-      navigate("/DoneRegister");
+  
+      if (verifyResponse.status === 200) {
+        // OTP verified, proceed with signup
+        const signupResponse = await axios.post("http://localhost:5000/api/auth/signup", {
+          fName: formData.fullname,
+          email: formData.email,
+          password: formData.password,
+          otpCode: userEnteredCode,
+        });
+  
+        if (signupResponse.status === 201) {
+          console.log("Signup successful", signupResponse.data);
+          navigate("/DoneRegister"); // Redirect to the done page
+        }
+      }
     } catch (error) {
-      console.error("Signup error:", error);
+      console.error("Error during signup:", error);
       setErrorMessage(error.response?.data?.message || "An error occurred during signup.");
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false); // Reset submitting state
     }
   };
-
+  
   const styles = {
     background: {
       backgroundImage: "url('lbg.png')",
@@ -191,6 +225,16 @@ const SignUpForm = () => {
       cursor: "pointer",
       fontWeight: "700",
     },
+    sendCodeButton: {
+      padding: "10px",
+      border: "1px solid #ccc",
+      borderRadius: "10px",
+      backgroundColor: "#C1B857",
+      color: "#363100",
+      cursor: "pointer",
+      fontWeight: "700",
+      marginLeft: "10px", // Add margin between input and button
+    },
     showPasswordButton: {
       position: "absolute",
       right: "10px",
@@ -199,6 +243,20 @@ const SignUpForm = () => {
       background: "transparent",
       border: "none",
       cursor: "pointer",
+    },
+    codeContainer: {
+      display: "flex",
+      alignItems: "center",
+      marginBottom: "20px",
+    },
+    codeInput: {
+      flex: 1,
+      padding: "10px",
+      border: "1px solid transparent",
+      borderRadius: "10px",
+      outline: "none",
+      backgroundColor: "#f8f8f8",
+      transition: "all 0.3s ease",
     },
     hrContainer: {
       display: "flex",
@@ -277,6 +335,7 @@ const SignUpForm = () => {
   return (
     <div style={styles.background}>
       <div style={styles.formWrapper}>
+      <a href="http://localhost:5000/api/auth/facebook">Sign in with Facebook</a>
         <div style={styles.formContainer}>
           <form onSubmit={handleSubmit}>
             <h2 style={styles.heading}>CUISINING</h2>
@@ -349,32 +408,23 @@ const SignUpForm = () => {
             </div>
             {passwordError && <div style={styles.passwordError}>{passwordError}</div>}
 
-            {/* Confirm Password Input */}
-            <div style={styles.inputWrapper}>
-              <label htmlFor="confirmPassword" style={styles.label(focus.confirmPassword)}>Confirm Password</label>
+            {/* Verification Code Input and Send Code Button */}
+            <div style={styles.codeContainer}>
               <input
-                id="confirmPassword"
-                type={showConfirmPassword ? "text" : "password"}
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                style={{
-                  ...styles.input,
-                  ...(focus.confirmPassword && styles.inputFocused),
-                }}
-                onFocus={() => handleFocus("confirmPassword")}
-                onBlur={(e) => handleBlur("confirmPassword", e.target.value)}
-                onChange={handleChange}
+                type="text"
+                placeholder="Verification Code"
+                value={userEnteredCode}
+                onChange={(e) => setUserEnteredCode(e.target.value)}
+                style={styles.codeInput}
+                disabled={!codeSent}
               />
               <button
                 type="button"
-                style={styles.showPasswordButton}
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                style={styles.sendCodeButton}
+                onClick={sendVerificationCode}
+                disabled={codeSent}
               >
-                <img
-                  src={showConfirmPassword ? "view.png" : "hide.png"}
-                  alt={showConfirmPassword ? "Hide Password" : "Show Password"}
-                  style={{ width: "20px", height: "20px" }}
-                />
+                {codeSent ? "Code Sent" : "Send Code"}
               </button>
             </div>
 

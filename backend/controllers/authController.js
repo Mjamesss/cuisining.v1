@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const OTP = require("../models/otpModel"); // Import your OTP model
 require("dotenv").config();
 
 // Helper function to generate JWT
@@ -57,26 +58,63 @@ const login = async (req, res) => {
 };
 
 const signup = async (req, res) => {
-  const { fName, email, password } = req.body;
+  const { fName, email, password, otpCode } = req.body;
 
-  if (!fName || !email || !password) {
-    return res.status(400).json({ message: "All fields are required" });
+  console.log("Signup request received:", { fName, email, password, otpCode });
+
+  // Validate required fields
+  if (!fName || !email || !password || !otpCode) {
+    console.log("Missing required fields");
+    return res.status(400).json({ message: "All fields are required, including OTP." });
   }
 
   try {
+    // Check if the email is already registered
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(422).json({ message: "Email is already registered" });
+      console.log("Email already registered:", email);
+      return res.status(422).json({ message: "Email is already registered." });
     }
 
+    // Find the OTP record for the email
+    const otpRecord = await OTP.findOne({ email });
+    if (!otpRecord) {
+      console.log("OTP not found for email:", email);
+      return res.status(400).json({ message: "OTP not found. Please request a new OTP." });
+    }
+
+    // Check if the OTP has expired
+    if (new Date() > otpRecord.expiresAt) {
+      console.log("OTP expired for email:", email);
+      return res.status(400).json({ message: "OTP has expired. Please request a new OTP." });
+    }
+
+    // Check if the OTP is correct
+    if (otpRecord.otpCode !== otpCode) {
+      console.log("Invalid OTP for email:", email);
+      return res.status(400).json({ message: "Invalid OTP." });
+    }
+
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("Password hashed successfully");
+
+    // Create a new user with provider set to "Cuisining"
     const newUser = new User({
       fName,
       email,
       password: hashedPassword,
       username: email, // Use email as username (temporary workaround)
+      provider: "Cuisining", // Set provider to Cuisining
     });
+
+    // Save the user to the database
     await newUser.save();
+    console.log("User saved successfully:", newUser);
+
+    // Delete the OTP record after successful signup
+    await OTP.deleteOne({ email });
+    console.log("OTP record deleted for email:", email);
 
     res.status(201).json({ message: "User created successfully!" });
   } catch (err) {

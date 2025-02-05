@@ -17,7 +17,15 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
+    required: function () {
+      return this.provider === "Cuisining"; // Password is required only for Cuisining provider
+    },
+  },
+  provider: {
+    type: String,
     required: true,
+    enum: ["Cuisining", "Google", "Facebook"], // Allowed providers
+    default: "Cuisining", // Default provider for signups
   },
   isProfileCustomized: {
     type: Boolean,
