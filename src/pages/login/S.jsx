@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import './sidenotif.css'
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -26,6 +27,18 @@ const SignUpForm = () => {
     fullname: "",
     password: "",
   });
+
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+
+  // Function to show notification
+  const showNotificationMessage = (message) => {
+    setNotificationMessage(message);
+    setShowNotification(true);
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000); // Hide after 3 seconds
+  };
 
   // Email validation
   const validateEmail = (email) => {
@@ -99,7 +112,7 @@ const SignUpForm = () => {
 
       if (response.status === 200) {
         setCodeSent(true);
-        alert("OTP sent successfully. Check your email.");
+        showNotificationMessage("OTP sent successfully. Check your email.");
       }
     } catch (error) {
       console.error("Error sending OTP:", error);
@@ -109,35 +122,35 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Validate fields
     const emailError = validateEmail(formData.email);
     const fullnameError = validateFullname(formData.fullname);
     const passwordError = validatePassword(formData.password);
-  
+
     if (emailError || fullnameError || passwordError) {
       setEmailError(emailError);
       setFullnameError(fullnameError);
       setPasswordError(passwordError);
       return; // Prevent submission if any validation fails
     }
-  
+
     // Check if the OTP has been sent and entered
     if (!codeSent || !userEnteredCode) {
       setErrorMessage("All fields are required, including OTP.");
       return; // Prevent submission if OTP isn't sent or entered
     }
-  
+
     setIsSubmitting(true);
     setErrorMessage(""); // Clear previous errors
-  
+
     try {
       // Verify OTP
       const verifyResponse = await axios.post("http://localhost:5000/api/otp/verify-otp", {
         email: formData.email,
         otpCode: userEnteredCode,
       });
-  
+
       if (verifyResponse.status === 200) {
         // OTP verified, proceed with signup
         const signupResponse = await axios.post("http://localhost:5000/api/auth/signup", {
@@ -146,7 +159,7 @@ const SignUpForm = () => {
           password: formData.password,
           otpCode: userEnteredCode,
         });
-  
+
         if (signupResponse.status === 201) {
           console.log("Signup successful", signupResponse.data);
           navigate("/DoneRegister"); // Redirect to the done page
@@ -159,7 +172,11 @@ const SignUpForm = () => {
       setIsSubmitting(false); // Reset submitting state
     }
   };
-  
+
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:5000/api/oauth/google";
+  };
+
   const styles = {
     background: {
       backgroundImage: "url('lbg.png')",
@@ -233,7 +250,7 @@ const SignUpForm = () => {
       color: "#363100",
       cursor: "pointer",
       fontWeight: "700",
-      marginLeft: "10px", // Add margin between input and button
+      marginLeft: "10px",
     },
     showPasswordButton: {
       position: "absolute",
@@ -282,11 +299,12 @@ const SignUpForm = () => {
       gap: "20px",
     },
     socialButtonImg: {
-      width: "100%",
-      maxWidth: "45px",
+      width: "150%",
+      maxWidth: "25px",
       height: "auto",
       borderRadius: "10px",
       cursor: "pointer",
+      marginRight: "10px",
     },
     signup: {
       justifyContent: "center",
@@ -413,7 +431,11 @@ const SignUpForm = () => {
                 type="text"
                 placeholder="Verification Code"
                 value={userEnteredCode}
-                onChange={(e) => setUserEnteredCode(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "").slice(0, 6); // Remove non-numeric characters and limit to 6 digits
+                  setUserEnteredCode(value);
+                }}
+                maxLength={6}
                 style={styles.codeInput}
                 disabled={!codeSent}
               />
@@ -442,15 +464,28 @@ const SignUpForm = () => {
               <hr style={styles.hr} />
             </div>
 
-            {/* Social Media Buttons */}
-            <div style={styles.socialButtonsContainer}>
-              <a href="#" className="social-button" style={styles.socialButtonImg}>
-                <img src="facebook.png" alt="Facebook Login" style={styles.socialButtonImg} />
-              </a>
-              <a href="http://localhost:5000/api/oauth/google" className="social-button" style={styles.socialButtonImg}>
-                <img src="google.png" alt="Google Login" style={styles.socialButtonImg} />
-              </a>
-            </div>
+            {/* Google Login Button */}
+            <button
+              onClick={handleGoogleLogin}
+              style={{
+                display: "inline-block",
+                padding: "10px 20px",
+                border: "1px solid #2DE000",
+                borderRadius: "10px",
+                textAlign: "center",
+                textDecoration: "none",
+                cursor: "pointer",
+                fontSize: "16px",
+                fontWeight: "600",
+                transition: "all 0.3s ease",
+                backgroundColor: "transparent",
+                color: "#363100",
+                width: "100%",
+              }}
+            >
+              <img src="google.png" alt="" style={styles.socialButtonImg} />
+              Continue with Google
+            </button>
 
             {/* Login Link */}
             <div style={styles.signup}>
@@ -462,6 +497,18 @@ const SignUpForm = () => {
           </form>
         </div>
       </div>
+
+      {/* Notification Component */}
+      <Notification message={notificationMessage} show={showNotification} />
+    </div>
+  );
+};
+
+// Notification Component
+const Notification = ({ message, show }) => {
+  return (
+    <div className={`notif-container ${show ? "show" : ""}`}>
+      {message}
     </div>
   );
 };

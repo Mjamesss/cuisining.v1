@@ -49,7 +49,66 @@ router.post("/send-otp", async (req, res) => {
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Your OTP Code",
-      text: `Your OTP code is: ${otpCode}`,
+      html: `
+      <html>
+        <head>
+          <title>Your OTP Code for Account Verification</title>
+          <style>
+            body {font-family: 'Poppins', sans-serif; margin: 0; padding: 0; color: #363100;}
+            .container {width: 100%; max-width: 600px; margin: 20px auto; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: left;}
+            .cbtn {display: inline-block; padding: 10px 20px; border: 1px solid transparent; border-radius: 10px; text-align: center; text-decoration: none; cursor: pointer; font-size: 16px; font-weight: 600; color: white; background-color: #363100; transition: all 0.3s ease; margin-left: 16px; display: inline-block;}
+            .cbtn:hover {opacity: 0.8;}
+            p {color: #363100; font-size: 16px; line-height: 1.5; margin-bottom: 20px; margin-left: 16px; font-weight: 600;}
+            h1 {margin: 0 0 1rem; line-height: 1.2; color: #363100; margin-left: 16px; font-weight: 900;}
+            img {width: 150px; height: 150px; margin-left: 16px; margin-bottom: 20px;}
+          </style>
+        </head>
+        <body>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; padding: 20px; border-radius: 10px;">
+            <tr>
+              <td style="text-align: left;">
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1738595983/Cuisining_Logo_hkzxgv.png" alt="Cuisining Logo" style="width: 150px; height: 150px; margin-bottom: 20px;">
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left;">
+                <h1 style="font-weight: 900; color: #363100; margin: 0 0 1rem; line-height: 1.2;">Your OTP Code for Account Verification</h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left;">
+                <p style="color: #363100; font-size: 16px; font-weight: 600; line-height: 1.5; margin-bottom: 20px;">Your One-Time Password is here to secure your Cuisining account!
+To complete your registration and unlock a world of delicious recipes, personalized meal plans, and seamless cooking experiences, please enter the OTP sent to your email or phone. This code ensures your account is protected and helps us verify it's really you</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left;">
+                <h3 style="font-size: 30px; font-weight: 900; color: #363100; margin: 0;">${otpCode}</h3>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left;">
+                <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 20px 0;">
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left;">
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left;">
+                <p style="color: #363100; font-size: 18px; font-weight: 600; margin: 0;">Didn’t receive the OTP? Check your spam folder or request a new one.</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left;">
+                <h3 style="color: #363100; font-size: 20px; font-weight: 700; margin: 0;">Thank you for joining Cuisining – where cooking meets creativity!</h3>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+      `,
     };
 
     // Send email

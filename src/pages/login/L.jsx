@@ -68,6 +68,10 @@ const LoginForm = () => {
       setError("An error occurred. Please try again.");
     }
   };
+  const handleGoogleLogin = () => {
+  window.location.href = "http://localhost:5000/api/oauth/google";
+};
+
   const styles = {
     background: {
       backgroundImage: "url('lbg.png')",
@@ -157,11 +161,12 @@ const LoginForm = () => {
       gap: "20px",
     },
     socialButtonImg: {
-      width: "100%",
-      maxWidth: "45px",
+      width: "150%",
+      maxWidth: "25px",
       height: "auto",
       borderRadius: "10px",
       cursor: "pointer",
+      marginRight: "10px",
     },
     signup: {
       justifyContent: "center",
@@ -274,11 +279,27 @@ const LoginForm = () => {
               <hr style={styles.hr} />
             </div>
 
-            {/* Social Login Buttons */}
-            <div style={styles.socialButtonsContainer}>
-              <img src="facebook.png" alt="Facebook Login" style={styles.socialButtonImg} />
-                <a href="http://localhost:5000/api/oauth/google"><img src="google.png" alt="Google Login" style={styles.socialButtonImg} /></a>
-            </div>
+            <button
+              onClick={handleGoogleLogin}
+              style={{
+                display: "inline-block",
+                padding: "10px 20px",
+                border: "1px solid #2DE000",
+                borderRadius: "10px",
+                textAlign: "center",
+                textDecoration: "none",
+                cursor: "pointer",
+                fontSize: "16px",
+                fontWeight: "600",
+                transition: "all 0.3s ease",
+                backgroundColor: "transparent",
+                color: "#363100",
+                width: "100%"
+              }}
+            >
+              <img src="google.png" alt="" style={styles.socialButtonImg} />
+              Continue with Google
+            </button>
 
             <div style={styles.signup}>
               <p style={styles.signupText}>
