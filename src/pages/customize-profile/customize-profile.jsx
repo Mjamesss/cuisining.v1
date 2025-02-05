@@ -18,46 +18,66 @@ const ProfileForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Fetch user profile data
-  const fetchUserProfile = async () => {
-    const token = localStorage.getItem("authToken");
-    if (!token) {
-      setError("Authorization token not found.");
-      return;
-    }
-
+  const fetchUserProfile = async (token) => {
     try {
       const response = await fetch("http://localhost:5000/api/auth/profile", {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-
+  
       if (response.ok) {
         const data = await response.json();
         console.log("User Profile Data:", data); // Log the response
-        setFullName(data.fName || ''); // Set the full name from the response
-        setEmail(data.email || ''); // Set the email from the response
+        setFullName(data.fName || ""); // Set the full name from the response
+        setEmail(data.email || ""); // Set the email from the response
+        return true; // Indicate success
       } else {
         setError("Failed to fetch user profile.");
+        return false; // Indicate failure
       }
     } catch (err) {
       setError("An error occurred while fetching user profile.");
       console.error(err);
+      return false; // Indicate failure
     }
   };
-
-  useEffect(() => {
-    fetchUserProfile();
-  }, []);
-
   useEffect(() => {
     if (location.pathname === '/customize-profile') {
       setIsModalOpen(true);
     }
   }, [location]);
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
 
+    if (token) {
+      localStorage.setItem("authToken", token); // Store token in localStorage
+      window.history.replaceState({}, document.title, "/customize-profile"); // Clean up the URL
+
+      // First attempt to fetch user profile
+      let retryCount = 0;
+      const maxRetries = 2;
+
+      const fetchDataWithRetry = async () => {
+        let success = await fetchUserProfile(token);
+
+        // Retry if the first attempt fails
+        while (!success && retryCount < maxRetries) {
+          retryCount++;
+          console.log(`Retrying fetch attempt ${retryCount}...`);
+          success = await fetchUserProfile(token);
+        }
+
+        if (!success) {
+          setError("Unable to load profile data after multiple attempts.");
+        }
+      };
+
+      fetchDataWithRetry();
+    } else {
+      setError("Authorization token not found.");
+    }
+  }, []);
   useEffect(() => {
     const isNCIIAnswered = hasTakenNCII !== null;
     const isGroup1Answered = selectedGroup1 !== null;
@@ -80,16 +100,12 @@ const ProfileForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!isFormComplete) {
       setError("Please fill out all required fields.");
       return;
     }
-
     try {
       const finalAvatarUrl = avatarUrl || "https://example.com/default-avatar.png";
-      console.log("Avatar URL being submitted:", finalAvatarUrl);
-
       const token = localStorage.getItem("authToken");
       const payload = {
         fullName,
@@ -98,8 +114,6 @@ const ProfileForm = () => {
         selectedGroup2,
         hasTakenNCII,
       };
-      console.log("Submitting payload:", payload);
-
       const response = await fetch("http://localhost:5000/api/profile/submit", {
         method: "POST",
         headers: {
@@ -108,61 +122,37 @@ const ProfileForm = () => {
         },
         body: JSON.stringify(payload),
       });
-
       const data = await response.json();
-      console.log("Response data:", data);
-
-      if (response.status === 200) {
-        console.log("Profile updated:", data.profile);
+      if (response.ok) {
         navigate("/home-page");
       } else {
         setError(data.message || "Failed to submit profile.");
       }
     } catch (err) {
       setError("An error occurred. Please try again.");
-      console.error("Error during submission:", err);
+      console.error(err);
     }
   };
-
   const handleAvatarUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
-
     const reader = new FileReader();
-    reader.onload = (e) => {
-      setAvatarUrl(e.target.result);
-    };
+    reader.onload = (e) => setAvatarUrl(e.target.result);
     reader.readAsDataURL(file);
-
+  
     const formData = new FormData();
     formData.append("avatar", file);
-
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      setError("User ID not found.");
-      return;
-    }
-    formData.append("userId", userId);
-
+    formData.append("userId", localStorage.getItem("userId"));
+  
     const token = localStorage.getItem("authToken");
-    if (!token) {
-      setError("Authorization token not found.");
-      return;
-    }
-
     try {
       const response = await fetch("http://localhost:5000/api/profile/upload-avatar", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
         body: formData,
       });
-
       const data = await response.json();
-
       if (response.ok) {
-        console.log("Avatar uploaded successfully:", data.avatarUrl);
         setAvatarUrl(data.avatarUrl);
       } else {
         setError(data.message || "Failed to upload avatar.");
@@ -215,9 +205,11 @@ const ProfileForm = () => {
             />
           </label>
           <div className="ms-3">
-            <p className="mb-1 ml-5 font-weight-500" id="FullName">{fullName || 'hindi ka naka log in'}</p>
+            <p className="mb-1 ml-5 font-weight-500" id="FullName">
+              {fullName || "Loading..."}
+            </p>
             <p className="mb-0 ml-5 font-weight-400">
-              {email || 'hindi ka naka log in'}
+              {email || "Loading..."}
             </p>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
@@ -27,17 +27,15 @@ const LoginForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email) ? "" : "Please enter a valid email address.";
   };
-
+  
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const emailError = validateEmail(formData.email);
     if (emailError) {
       setError(emailError);
       return;
     }
-
     try {
       // Step 1: Log in the user
       const response = await fetch("http://localhost:5000/api/auth/login", {
@@ -45,29 +43,28 @@ const LoginForm = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
       const data = await response.json();
       console.log("Login response:", data); // Log the login response
-
+  
       if (response.status === 200) {
         const token = data.token; // Get token from JSON response
         localStorage.setItem("authToken", token); // Store token in localStorage
         console.log("Token stored in localStorage:", token); // Log the token
-
+  
         // Step 2: Fetch profile customization status
         const profileResponse = await fetch("http://localhost:5000/api/profile/profile", {
           headers: { Authorization: `Bearer ${token}` }, // Use token from JSON response
         });
-
+  
         if (!profileResponse.ok) {
           const errorData = await profileResponse.json();
           console.error("Error fetching profile:", errorData);
           throw new Error("Failed to fetch profile");
         }
-
+  
         const profileData = await profileResponse.json();
         console.log("Profile response:", profileData); // Log the profile response
-
+  
         // Step 3: Redirect based on profile customization status
         if (profileData.isProfileCustomized) {
           navigate("/home-page");
@@ -82,7 +79,6 @@ const LoginForm = () => {
       setError("An error occurred. Please try again.");
     }
   };
-
   const styles = {
     background: {
       backgroundImage: "url('lbg.png')",
@@ -292,7 +288,7 @@ const LoginForm = () => {
             {/* Social Login Buttons */}
             <div style={styles.socialButtonsContainer}>
               <img src="facebook.png" alt="Facebook Login" style={styles.socialButtonImg} />
-              <img src="google.png" alt="Google Login" style={styles.socialButtonImg} />
+                <a href="http://localhost:5000/api/oauth/google"><img src="google.png" alt="Google Login" style={styles.socialButtonImg} /></a>
             </div>
 
             <div style={styles.signup}>

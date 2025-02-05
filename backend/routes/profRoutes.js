@@ -7,16 +7,14 @@ const checkProfileCustomized = require("../middlewares/checkProfileCustomized");
 
 const router = express.Router();
 
-// Route to upload avatar
-// Route to upload avatar
-// Route to upload avatar
 router.post("/upload-avatar", upload.single("avatar"), async (req, res) => {
   try {
     const { userId } = req.body;
-
     if (!userId) {
+      console.error("User ID missing in request body");
       return res.status(400).json({ error: "User ID is required." });
     }
+    console.log("Received user ID:", userId); // Log the user ID
 
     if (req.file) {
       try {
@@ -29,10 +27,7 @@ router.post("/upload-avatar", upload.single("avatar"), async (req, res) => {
           { new: true, upsert: true }
         );
 
-        if (!profile) {
-          return res.status(404).json({ error: "Profile not found." });
-        }
-
+        console.log("Updated profile:", profile); // Log the updated profile
         res.status(201).json({
           message: "Avatar uploaded successfully",
           avatarUrl: imageUrl,
@@ -43,6 +38,7 @@ router.post("/upload-avatar", upload.single("avatar"), async (req, res) => {
         return res.status(500).json({ error: "Error uploading image to Cloudinary", details: cloudinaryError.message });
       }
     } else {
+      console.error("No file uploaded in request");
       return res.status(400).json({ error: "No file uploaded." });
     }
   } catch (error) {
@@ -51,15 +47,13 @@ router.post("/upload-avatar", upload.single("avatar"), async (req, res) => {
   }
 });
 
-
-
-// Route to submit profile data
 router.post("/submit", verifyToken, async (req, res) => {
   console.log("Request body:", req.body); // Log the request body
   console.log("User ID from token:", req.userId); // Log the user ID
 
   const { fullName, avatarUrl, selectedGroup1, selectedGroup2, hasTakenNCII } = req.body;
 
+  // Validate required fields
   if (!fullName || !selectedGroup1 || !selectedGroup2 || hasTakenNCII === undefined) {
     console.log("Missing fields detected"); // Log missing fields
     return res.status(400).json({ message: "All fields except avatarUrl are required" });
@@ -69,7 +63,7 @@ router.post("/submit", verifyToken, async (req, res) => {
     const newProfile = new Profile({
       userID: req.userId,
       fullName,
-      avatarUrl: avatarUrl || [], // Ensure avatarUrl defaults if not provided
+      avatarUrl: avatarUrl || [], // Default to empty array if not provided
       selectedGroup1,
       selectedGroup2,
       hasTakenNCII,
@@ -83,25 +77,30 @@ router.post("/submit", verifyToken, async (req, res) => {
       { isProfileCustomized: true },
       { new: true }
     );
-    console.log("User updated successfully:", updatedUser); // Log the updated user
 
+    console.log("User updated successfully:", updatedUser); // Log the updated user
     res.status(200).json({ message: "Profile setup successful", profile: newProfile });
   } catch (error) {
     console.error("Error in /submit route:", error); // Log the error
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
-  router.get("/profile", verifyToken, async (req, res) => {
-    try {
-      const user = await User.findById(req.userId); // req.userId comes from verifyToken middleware
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-      console.log("User profile customization status:", user.isProfileCustomized); // Log the status
-      res.status(200).json({ isProfileCustomized: user.isProfileCustomized });
-    } catch (error) {
-      res.status(500).json({ error: "An error occurred" });
+router.get("/profile", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId); // req.userId comes from verifyToken middleware
+    if (!user) {
+      console.error("User not found for ID:", req.userId);
+      return res.status(404).json({ message: "User not found" });
     }
-  });
-
+    console.log("Fetched user profile:", user); // Log the user data for debugging
+    res.status(200).json({
+      fName: user.fName || "",
+      email: user.email || "",
+      isProfileCustomized: user.isProfileCustomized,
+    });
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    res.status(500).json({ error: "An error occurred", details: error.message });
+  }
+});
 module.exports = router;

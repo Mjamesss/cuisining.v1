@@ -1,33 +1,70 @@
-import React, { useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';  
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const OTPVerificationForm = () => {
-  const [otp, setOtp] = useState(["", "", "", "", ""]); // 5 input values for OTP
-  const [email] = useState("user@example.com"); // Replace with the dynamic value from the database
+const Done = () => {
+  const navigate = useNavigate();
+  const [countdown, setCountdown] = useState(4);
 
-  const handleOtpChange = (e, index) => {
-    const value = e.target.value;
+  useEffect(() => {
+    const token = new URLSearchParams(window.location.search).get("token");
+    if (!token) {
+      console.error("Authorization token not found.");
+      navigate("/");
+      return;
+    }
 
-    // Ensure that the input is a single digit number (0-9)
-    if (/^[0-9]{0,1}$/.test(value)) {
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
+    const timer = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
 
-      // Move focus to the next input if a valid digit is entered
-      if (index < 4 && value !== "") {
-        document.getElementById(`otp-input-${index + 1}`).focus();
+    if (countdown === 0) {
+      clearInterval(timer);
+      fetchUserProfile(token);
+    }
+
+    return () => clearInterval(timer);
+  }, [countdown, navigate]);
+
+  const fetchUserProfile = async (token) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/profile", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.isProfileCustomized) {
+          navigate("/home-page");
+        } else {
+          navigate("/customize-profile");
+        }
+      } else {
+        console.error("Failed to fetch user profile.");
+        navigate("/");
       }
+    } catch (err) {
+      console.error("Error fetching user profile:", err);
+      navigate("/");
+    }
+  };
+
+  const handleContinue = () => {
+    const token = new URLSearchParams(window.location.search).get("token");
+    if (token) {
+      fetchUserProfile(token);
+    } else {
+      navigate("/");
     }
   };
 
   const styles = {
     background: {
-      backgroundImage: "url('lbg.png')", // Replace with your image URL
+      backgroundImage: "url('lbg.png')",
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundAttachment: "fixed",
-      height: "100vh",
+      height: "100%",
       width: "100%",
     },
     formWrapper: {
@@ -46,52 +83,41 @@ const OTPVerificationForm = () => {
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
       width: "100%",
       maxWidth: "400px",
+      textAlign: "center",
     },
     heading: {
-      textAlign: "center",
-      fontSize: "35px", // Reduced size for mobile
+      fontSize: "35px",
       color: "#363100",
       fontWeight: "800",
-      lineHeight: "1.2",
-    },
-    inputWrapper: {
-      display: "flex",
-      justifyContent: "space-between",
       marginBottom: "20px",
     },
-    otpInput: {
+    logo: {
       width: "50px",
       height: "50px",
-      borderRadius: "10px",
-      border: "1px solid #ccc",
-      textAlign: "center",
+      marginBottom: "20px",
+    },
+    message: {
+      fontSize: "16px",
+      color: "#363100",
+      fontWeight: "300",
+      marginBottom: "20px",
+    },
+    countdown: {
       fontSize: "20px",
-      margin: "0 5px",
+      color: "#C1B857",
+      fontWeight: "700",
+      marginBottom: "20px",
     },
     button: {
-      width: "100%",
-      padding: "10px",
-      margin: "20px 0",
-      border: "1px solid #ccc",
+      padding: "10px 20px",
       borderRadius: "10px",
       backgroundColor: "#C1B857",
       color: "#363100",
-      cursor: "pointer",
       fontWeight: "700",
-    },
-    resendLink: {
-      display: "block",
-      textAlign: "center",
-      fontSize: "14px",
-      color: "#363100",
-      textDecoration: "none",
-      marginTop: "10px",
-      fontWeight: "500",
-    },
-    infoText: {
+      cursor: "pointer",
+      border: "none",
       fontSize: "16px",
-      textAlign: "center",
-      color: "#363100",
+      width: "100%",
     },
   };
 
@@ -99,38 +125,26 @@ const OTPVerificationForm = () => {
     <div style={styles.background}>
       <div style={styles.formWrapper}>
         <div style={styles.formContainer}>
-          <h2 style={styles.heading}>Check Your Email</h2>
-          <p style={styles.infoText}>
-            We have sent a reset link to <strong>{email}</strong>. Please enter the 5-digit code mentioned in the email.
+          {/* Check mark logo */}
+          <img src="success.png" alt="Success" style={styles.logo} />
+          {/* Heading */}
+          <h2 style={styles.heading}>Welcome!</h2>
+          {/* Success message */}
+          <p style={styles.message}>
+            Account Created successfully. Thank You!
           </p>
-          <div style={styles.inputWrapper}>
-            {otp.map((digit, index) => (
-              <input
-                key={index}
-                id={`otp-input-${index}`}
-                type="text"
-                value={digit}
-                onChange={(e) => handleOtpChange(e, index)}
-                maxLength="1"
-                style={styles.otpInput}
-              />
-            ))}
-          </div>
-          <a href="/SetNewPass">
-          <button type="submit" style={styles.button}>
-            Verify Code
+          {/* Countdown Message */}
+          <p style={styles.countdown}>
+            Redirecting to homepage in {countdown} seconds...
+          </p>
+          {/* Continue Button */}
+          <button style={styles.button} onClick={handleContinue}>
+            Continue Now
           </button>
-          </a>
-          <p style={styles.infoText}>
-            Haven't got the email yet?{" "}
-            <a href="/OTP" style={styles.resendLink}>
-              Resend Email
-            </a>
-          </p>
         </div>
       </div>
     </div>
   );
 };
 
-export default OTPVerificationForm;
+export default Done;

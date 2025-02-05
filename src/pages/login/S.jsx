@@ -335,7 +335,6 @@ const SignUpForm = () => {
   return (
     <div style={styles.background}>
       <div style={styles.formWrapper}>
-      <a href="http://localhost:5000/api/auth/facebook">Sign in with Facebook</a>
         <div style={styles.formContainer}>
           <form onSubmit={handleSubmit}>
             <h2 style={styles.heading}>CUISINING</h2>
@@ -448,7 +447,7 @@ const SignUpForm = () => {
               <a href="#" className="social-button" style={styles.socialButtonImg}>
                 <img src="facebook.png" alt="Facebook Login" style={styles.socialButtonImg} />
               </a>
-              <a href="#" className="social-button" style={styles.socialButtonImg}>
+              <a href="http://localhost:5000/api/oauth/google" className="social-button" style={styles.socialButtonImg}>
                 <img src="google.png" alt="Google Login" style={styles.socialButtonImg} />
               </a>
             </div>

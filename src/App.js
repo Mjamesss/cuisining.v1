@@ -28,7 +28,7 @@ const App = () => {
               <Route path="/" element={<L />} />
               <Route path="/signup" element={<S />} />
               <Route path="/ForgotPass" element={<ForgotPass />} />
-              <Route path="/OTP" element={<OTP />} />
+              <Route path="/WelcomeByGoogle" element={<OTP />} />
               <Route path="/SetNewPass" element={<SetNewPass />} />
               <Route path="/Done" element={<Done />} />
               <Route path="/Landing" element={<Landing />} />       
