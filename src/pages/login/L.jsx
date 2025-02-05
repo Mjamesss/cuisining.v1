@@ -51,25 +51,14 @@ const LoginForm = () => {
         localStorage.setItem("authToken", token); // Store token in localStorage
         console.log("Token stored in localStorage:", token); // Log the token
   
-        // Step 2: Fetch profile customization status
-        const profileResponse = await fetch("http://localhost:5000/api/profile/profile", {
-          headers: { Authorization: `Bearer ${token}` }, // Use token from JSON response
-        });
+        // Extract user data from the response
+        const { fName, email, isProfileCustomized } = data.user;
   
-        if (!profileResponse.ok) {
-          const errorData = await profileResponse.json();
-          console.error("Error fetching profile:", errorData);
-          throw new Error("Failed to fetch profile");
-        }
-  
-        const profileData = await profileResponse.json();
-        console.log("Profile response:", profileData); // Log the profile response
-  
-        // Step 3: Redirect based on profile customization status
-        if (profileData.isProfileCustomized) {
+        // Redirect based on profile customization status
+        if (isProfileCustomized) {
           navigate("/home-page");
         } else {
-          navigate("/customize-profile");
+          navigate(`/customize-profile?token=${token}&fName=${encodeURIComponent(fName)}&email=${encodeURIComponent(email)}`);
         }
       } else {
         setError(data.message || "Invalid email or password.");

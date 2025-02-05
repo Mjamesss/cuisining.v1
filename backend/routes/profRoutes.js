@@ -85,14 +85,16 @@ router.post("/submit", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
+// Example: /api/auth/profile route in your backend
+// Example: /api/auth/profile route in your backend
 router.get("/profile", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.userId); // req.userId comes from verifyToken middleware
     if (!user) {
-      console.error("User not found for ID:", req.userId);
       return res.status(404).json({ message: "User not found" });
     }
-    console.log("Fetched user profile:", user); // Log the user data for debugging
+
+    // Return consistent profile data
     res.status(200).json({
       fName: user.fName || "",
       email: user.email || "",

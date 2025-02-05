@@ -24,15 +24,15 @@ const ProfileForm = () => {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
-  
       if (response.ok) {
         const data = await response.json();
         console.log("User Profile Data:", data); // Log the response
-        setFullName(data.fName || ""); // Set the full name from the response
-        setEmail(data.email || ""); // Set the email from the response
+        setFullName(data.fName || ""); // Set the full name
+        setEmail(data.email || ""); // Set the email
         return true; // Indicate success
       } else {
         setError("Failed to fetch user profile.");
+        console.error("Profile fetch error:", await response.text());
         return false; // Indicate failure
       }
     } catch (err) {
@@ -49,30 +49,31 @@ const ProfileForm = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
-
+    const fNameFromQuery = urlParams.get("fName");
+    const emailFromQuery = urlParams.get("email");
+  
     if (token) {
       localStorage.setItem("authToken", token); // Store token in localStorage
       window.history.replaceState({}, document.title, "/customize-profile"); // Clean up the URL
-
-      // First attempt to fetch user profile
+  
+      // Initialize fullName and email from query parameters
+      if (fNameFromQuery) setFullName(decodeURIComponent(fNameFromQuery));
+      if (emailFromQuery) setEmail(decodeURIComponent(emailFromQuery));
+  
+      // Optionally, fetch additional profile data
       let retryCount = 0;
       const maxRetries = 2;
-
       const fetchDataWithRetry = async () => {
         let success = await fetchUserProfile(token);
-
-        // Retry if the first attempt fails
         while (!success && retryCount < maxRetries) {
           retryCount++;
           console.log(`Retrying fetch attempt ${retryCount}...`);
           success = await fetchUserProfile(token);
         }
-
         if (!success) {
           setError("Unable to load profile data after multiple attempts.");
         }
       };
-
       fetchDataWithRetry();
     } else {
       setError("Authorization token not found.");

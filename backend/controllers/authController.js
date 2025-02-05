@@ -48,7 +48,11 @@ const login = async (req, res) => {
     res.status(200).json({
       message: "Login successful",
       token, // Send token in JSON response
-      isProfileCustomized: user.isProfileCustomized, // Send profile status
+      user: {
+        fName: user.fName || "", // Include fName
+        email: user.email || "", // Include email
+        isProfileCustomized: user.isProfileCustomized, // Include profile customization status
+      },
     });
 
   } catch (err) {
@@ -124,16 +128,14 @@ const signup = async (req, res) => {
 };
 const getUserProfile = async (req, res) => {
   try {
-    // Extract the user ID from the token
-    const userId = req.userId; // This is set by the auth middleware
-
-    // Fetch the user from the database
+    const userId = req.userId; // Extracted from the token
+    console.log("Fetching profile for user ID:", userId); // Log the user ID
     const user = await User.findById(userId);
     if (!user) {
+      console.error("User not found for ID:", userId);
       return res.status(404).json({ message: "User not found" });
     }
-
-    // Return the user's profile data
+    console.log("Fetched user profile:", user); // Log the user data
     res.status(200).json({
       fName: user.fName,
       email: user.email,
