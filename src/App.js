@@ -15,6 +15,18 @@ import Customprofile from './pages/customize-profile/customize-profile';
 import Navbar from './components/Navbar';
 import Homepage from './pages/Landingpage/Homepage';
 import About from './components/About'; 
+import Utensils from './pages/utensilsEng/Utensils';
+import Cutting from './pages/utensilsEng/Cutting';
+import Knife from './pages/utensilsEng/Knife';
+import Chefknife from './pages/utensilsEng/CuttingTools/knives/Chefknife';
+import Santoku from './pages/utensilsEng/CuttingTools/knives/Santoku';
+import Utility from './pages/utensilsEng/CuttingTools/knives/Utility';
+import Boning from './pages/utensilsEng/CuttingTools/knives/Boning';
+import Bread from './pages/utensilsEng/CuttingTools/knives/Bread';
+import Clever from './pages/utensilsEng/CuttingTools/knives/Clever';
+import Paring from './pages/utensilsEng/CuttingTools/knives/Paring';
+import Steak from './pages/utensilsEng/CuttingTools/knives/Steak';
+import Fillet from './pages/utensilsEng/CuttingTools/knives/Fillet';
 
 
 const App = () => {
@@ -39,6 +51,19 @@ const App = () => {
               <Route path="/customize-profile" element={<Customprofile />} />
               <Route path="/Home-Page" element={<Homepage />} />
               <Route path="/About" element={<About />} />
+              {/*Utensils */}
+              <Route path="/Utensils" element={<Utensils />} />
+              <Route path="/Cutting" element={<Cutting />} />
+              <Route path="/Knife" element={<Knife />} />
+              <Route path="/Chefknife" element={<Chefknife/>}/>
+               <Route path="/Santoku" element={<Santoku/>}/>
+               <Route path="/Utility" element={<Utility/>}/>
+               <Route path="/Boning" element={<Boning/>}/>
+               <Route path="/Bread" element={<Bread/>}/>
+               <Route path="/Clever" element={<Clever/>}/>
+               <Route path="/Paring" element={<Paring/>}/>
+               <Route path="/Steak" element={<Steak/>}/>
+               <Route path="/Fillet" element={<Fillet/>}/>
             </Routes>
           </Col>
         </Row>

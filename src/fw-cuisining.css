@@ -624,7 +624,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   color: #363100;
 }
-
+                                                               
 /* Hover Effect */
 .item-card:hover {
   transform: translateY(-1px);

@@ -57,7 +57,7 @@ const Navbar = () => {
       {/* Desktop Navigation Links */}
       <div className="Nav-links w-50 d-flex pt-7 justify-content-around font-weight-600 d-none d-md-flex">
         <a className="text-decoration-none" href="#Home">Home</a>
-        <a className="text-decoration-none" href="#Utensils">Utensil & Ingredients</a>
+        <a className="text-decoration-none" href="/Utensils">Utensil & Ingredients</a>
         <a className="text-decoration-none" href="#Course">Course</a>
         <a className="text-decoration-none" href="#Skillset">Skillset</a>
       </div>
