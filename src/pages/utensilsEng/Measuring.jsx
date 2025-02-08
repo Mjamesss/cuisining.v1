@@ -1,7 +1,8 @@
 
+
 import "../../fw-cuisining.css";
 
-const Cutting = () => {
+const Measuring = () => {
     return (
        <>
       <div className="p5 ">
@@ -10,20 +11,20 @@ const Cutting = () => {
       <div className=" p2 d-flex justify-content-center align-items-center">
         <div className=" d-grid justify-content-center align-items-center">
             <div className=" p2 d-grid">
-        <h1>Cutting Tools</h1>
+        <h1>Measuring Tools</h1>
         <div className="d-grid g4" style={{gridTemplateColumns:"repeat(3,1fr)",}}>
         
-        <a href="Knife">
-            <img src="knives.png"></img>
+        <a href="">
+            <img src="Measuringcup.png"></img>
         </a>
-        <a href="Scissors">
-            <img src="gunting.png"></img>
+        <a href="">
+            <img src="MeasuringSpoon.png"></img>
         </a>
-        <a href="Peelers">
-            <img src="peelers.png"></img>
+        <a href="">
+            <img src="thermometer.png"></img>
         </a> 
-        <a href="Grater">
-            <img src="graters.png"></img>
+        <a href="">
+            <img src="Timer.png"></img>
         </a>
         </div>
         </div>
@@ -34,4 +35,4 @@ const Cutting = () => {
     )
 }
 
-export default Cutting;
+export default Measuring;

@@ -1,6 +1,6 @@
 import "../../fw-cuisining.css";
 
-const Knife = () =>{
+const Scissors = () =>{
     return (
         <>
         <div className="p5 ">
@@ -9,35 +9,44 @@ const Knife = () =>{
        <div className=" p2 d-flex justify-content-center align-items-center">
         <div className=" d-grid justify-content-center align-items-center">
             <div className=" p2 d-grid">
-        <h1>Knife</h1>
+        <h1>Scissors and shears</h1>
         <div className="d-grid g4" style={{gridTemplateColumns:"repeat(3,1fr)",}}>
         
-        <a href="Chefknife">
+        <a href="Poultry">
             <img src="chefknife.png"></img>
+            <p>Poultry</p>
         </a>
-        <a href="Santoku">
+        <a href="Wusthof">
             <img src="santokuknife.png"></img>
+            <p>Wusthof</p>
         </a>
-        <a href="Utility">
+        <a href="KitchenShears">
             <img src="Utilityknife.png"></img>
+            <p>Kitchen Shears</p>
         </a>
-        <a href="Boning">
+        <a href="KitchenScissor">
             <img src="boningknife.png"></img>
+            <p>Kitcehn Scissor</p>
         </a>
-        <a href="Bread">
+        <a href="Household">
             <img src="breadknife.png"></img>
+            <p>Household</p>
         </a>
-        <a href="Clever">
+        <a href="HerbScissor">
             <img src="cleverknife.png"></img>
+            <p>HerbScissor</p>
         </a>
-        <a href="Paring">
+        <a href="SeafoodScissors">
             <img src="paringknife.png"></img>
+            <p>Seafood</p>
         </a>
-        <a href="Steak">
+        <a href="Multipurpose">
             <img src="steakknife.png"></img>
+            <p>Multipurpose</p>
         </a>
-        <a href="Fillet">
+        <a href="Allpurpose">
             <img src="filletknife.png"></img>
+            <p>Allpurpose</p>
         </a>
        
         </div>
@@ -49,4 +58,4 @@ const Knife = () =>{
        </>
     )
 }
-export default Knife;
+export default Scissors;

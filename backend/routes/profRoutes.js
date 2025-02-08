@@ -3,49 +3,50 @@ const { upload, cloudinary } = require("../config/cloudinaryConfig");
 const verifyToken = require("../middlewares/verifyToken");
 const Profile = require("../models/Profile");
 const User = require("../models/user"); // Import the User model
+const multer = require('multer');
 const checkProfileCustomized = require("../middlewares/checkProfileCustomized");
 
 const router = express.Router();
 
-router.post("/upload-avatar", upload.single("avatar"), async (req, res) => {
-  try {
-    const { userId } = req.body;
-    if (!userId) {
-      console.error("User ID missing in request body");
-      return res.status(400).json({ error: "User ID is required." });
-    }
-    console.log("Received user ID:", userId); // Log the user ID
-
-    if (req.file) {
-      try {
-        const result = await cloudinary.uploader.upload(req.file.path);
-        const imageUrl = result.secure_url;
-
-        const profile = await Profile.findOneAndUpdate(
-          { userID: userId },
-          { avatarUrl: imageUrl },
-          { new: true, upsert: true }
-        );
-
-        console.log("Updated profile:", profile); // Log the updated profile
-        res.status(201).json({
-          message: "Avatar uploaded successfully",
-          avatarUrl: imageUrl,
-          profile,
-        });
-      } catch (cloudinaryError) {
-        console.error("Cloudinary upload error:", cloudinaryError);
-        return res.status(500).json({ error: "Error uploading image to Cloudinary", details: cloudinaryError.message });
+  router.post("/upload-avatar", upload.single("avatar"), async (req, res) => {
+    try {
+      const { userId } = req.body;
+      if (!userId) {
+        console.error("User ID missing in request body");
+        return res.status(400).json({ error: "User ID is required." });
       }
-    } else {
-      console.error("No file uploaded in request");
-      return res.status(400).json({ error: "No file uploaded." });
+      console.log("Received user ID:", userId); // Log the user ID
+
+      if (req.file) {
+        try {
+          const result = await cloudinary.uploader.upload(req.file.path);
+          const imageUrl = result.secure_url;
+
+          const profile = await Profile.findOneAndUpdate(
+            { userID: userId },
+            { avatarUrl: imageUrl },
+            { new: true, upsert: true }
+          );
+
+          console.log("Updated profile:", profile); // Log the updated profile
+          res.status(201).json({
+            message: "Avatar uploaded successfully",
+            avatarUrl: imageUrl,
+            profile,
+          });
+        } catch (cloudinaryError) {
+          console.error("Cloudinary upload error:", cloudinaryError);
+          return res.status(500).json({ error: "Error uploading image to Cloudinary", details: cloudinaryError.message });
+        }
+      } else {
+        console.error("No file uploaded in request");
+        return res.status(400).json({ error: "No file uploaded." });
+      }
+    } catch (error) {
+      console.error("Error in /upload-avatar route:", error);
+      res.status(500).json({ error: "Server error", details: error.message });
     }
-  } catch (error) {
-    console.error("Error in /upload-avatar route:", error);
-    res.status(500).json({ error: "Server error", details: error.message });
-  }
-});
+  });
 
 router.post("/submit", verifyToken, async (req, res) => {
   console.log("Request body:", req.body); // Log the request body

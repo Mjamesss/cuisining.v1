@@ -1,6 +1,6 @@
 import "../../fw-cuisining.css";
 
-const Knife = () =>{
+const Peelers = () =>{
     return (
         <>
         <div className="p5 ">
@@ -9,37 +9,37 @@ const Knife = () =>{
        <div className=" p2 d-flex justify-content-center align-items-center">
         <div className=" d-grid justify-content-center align-items-center">
             <div className=" p2 d-grid">
-        <h1>Knife</h1>
+        <h1>Peelers</h1>
         <div className="d-grid g4" style={{gridTemplateColumns:"repeat(3,1fr)",}}>
         
-        <a href="Chefknife">
+        <a href="Swivel">
             <img src="chefknife.png"></img>
+            <p>Swivel</p>
         </a>
-        <a href="Santoku">
+        <a href="Swis">
             <img src="santokuknife.png"></img>
+            <p>Swiss</p>
         </a>
-        <a href="Utility">
+        <a href="Landcashier">
             <img src="Utilityknife.png"></img>
+            <p>Lancashier</p>
         </a>
-        <a href="Boning">
+        <a href="Serrated">
             <img src="boningknife.png"></img>
+            <p>Serrated</p>
         </a>
-        <a href="Bread">
+        <a href="Julienne">
             <img src="breadknife.png"></img>
+            <p>julienne</p>
         </a>
-        <a href="Clever">
+        <a href="Mechanical">
             <img src="cleverknife.png"></img>
+            <p>Mechanical</p>
         </a>
-        <a href="Paring">
-            <img src="paringknife.png"></img>
+        <a href="Rotary">
+            <img src="cleverknife.png"></img>
+            <p>Rotary</p>
         </a>
-        <a href="Steak">
-            <img src="steakknife.png"></img>
-        </a>
-        <a href="Fillet">
-            <img src="filletknife.png"></img>
-        </a>
-       
         </div>
         </div>
       </div>
@@ -49,4 +49,4 @@ const Knife = () =>{
        </>
     )
 }
-export default Knife;
+export default Peelers;

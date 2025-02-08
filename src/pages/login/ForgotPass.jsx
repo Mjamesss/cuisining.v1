@@ -11,7 +11,7 @@ const ForgotPasswordForm = () => {
 
   const styles = {
     background: {
-      backgroundImage: "url('lbg.png')", // Replace with your image URL
+      backgroundImage: "url('https://res.cloudinary.com/dm6wodni6/image/upload/v1738813637/login-bg_n5skpt.png')", // Replace with your image URL
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundAttachment: "fixed",

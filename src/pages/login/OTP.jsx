@@ -60,7 +60,7 @@ const Done = () => {
 
   const styles = {
     background: {
-      backgroundImage: "url('lbg.png')",
+      backgroundImage: "url('https://res.cloudinary.com/dm6wodni6/image/upload/v1738813637/login-bg_n5skpt.png')",
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundAttachment: "fixed",

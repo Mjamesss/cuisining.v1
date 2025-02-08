@@ -15,7 +15,7 @@ const Utensils = () => {
             <a  className="" href="Cutting" alt="">
                 <img src="cutting.png"></img>
             </a>
-            <a href="#scissors" alt="">
+            <a href="Measuring" alt="">
                 <img src="measuring.png"></img>
             </a>
             <a href="#scissors" alt="">
