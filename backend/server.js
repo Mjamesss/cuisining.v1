@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const passport = require("passport"); // ✅ Ensure this is required
 require("dotenv").config();
+const bodyParser = require('body-parser');
 const session = require("express-session");
 
 const connectDB = require("./config/db");
@@ -24,6 +25,8 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(
   cors({
     origin: "http://localhost:3000", 
