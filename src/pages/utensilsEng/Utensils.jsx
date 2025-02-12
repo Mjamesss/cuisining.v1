@@ -10,25 +10,25 @@ const Utensils = () => {
         <div className="d-flex justify-content-center align-items-center p3 " style={{}}>
             <div className="" style={{width:"100%",}}>
             <h2 className="font-weight-900">Cooking Utensils Identification</h2>  
-            <div className=" d-grid justify-content-between g4" style={{width:"100%",gridTemplateColumns:"repeat(3,1fr)"}}>
+            <div className=" d-grid justify-content-between g4 " style={{width:"100%",gridTemplateColumns:"repeat(3,1fr)"}}>
 
             <a  className="" href="Cutting" alt="">
-                <img src="cutting.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381320/cutting_yq3wh7.png"></img>
             </a>
             <a href="Measuring" alt="">
-                <img src="measuring.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381334/measuring_dglujl.png"></img>
             </a>
             <a href="#scissors" alt="">
-                <img src="mixing.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381430/mixing_pxzqok.png"></img>
             </a>
             <a href="#scissors" alt="">
-                <img src="grilling.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381710/grilling_xy0zfc.png"></img>
             </a>
             <a href="#scissors" alt="">
-                <img src="cookware.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381843/cookware_fdxftf.png"></img>
             </a>
             <a href="#scissors" alt="">
-                <img src="appliances.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382553/appliances_sgokxw.png"></img>
             </a>
             </div>
             </div>
@@ -39,28 +39,28 @@ const Utensils = () => {
             <h2>Ingridients Identification</h2>
             <div className="d-grid g4" style={{gridTemplateColumns:"repeat(4,1fr)",width:"90%",}}>
             <a href="" alt="">
-                <img src="protein.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382685/protein_jecupb.png"></img>
             </a>
             <a href="" alt="">
-                <img src="dairies.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382708/dairies_oala88.png"></img>
             </a>
             <a href="" alt="">
-                <img src="grain.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382747/grain_sq8xmz.png"></img>
             </a>
             <a href="" alt="">
-                <img src="fruit.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382754/fruit_a8xqhk.png"></img>
             </a>
             <a href="" alt="">
-                <img src="vagetable.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382766/vagetable_ro4miv.png"></img>
             </a>
             <a href="" alt="">
-                <img src="herb.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382775/herb_kiphd5.png"></img>
             </a>
             <a href="" alt="">
-                <img src="oil.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382844/oil_io4vhh.png"></img>
             </a>
             <a href="" alt="">
-                <img src="seasoning.png"></img>
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382876/seasoning_jaxcyd.png"></img>
             </a>
             </div>
             </div>
