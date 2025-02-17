@@ -3,6 +3,7 @@ import {link} from 'react-router-dom';
 import '../fw-cuisining.css';
 
 const footer = () => {
+  
  const style ={
   
  }
@@ -14,7 +15,7 @@ const footer = () => {
            <p className="color-white">is a web-based 3d simulation game designed to assess<br></br>
            the user cooking knowledge and experience.</p>
 
-           <div className="socmed p1 pt1 d-flex   ">
+           <div className="socmed p1 pt1 d-flex  g1 ">
            <a href="https://faceboook.com">
            <img src="fb.png"></img></a>
            <a href="https://instagram.com">

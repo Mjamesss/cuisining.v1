@@ -6,7 +6,7 @@ const Measuring = () => {
     return (
        <>
       <div className="p5 ">
-       <a href="Utensils"><img src="back.png"></img> </a>
+       <a href="Utensils"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
        </div>
       <div className=" p2 d-flex justify-content-center align-items-center">
         <div className=" d-grid justify-content-center align-items-center">
@@ -15,16 +15,19 @@ const Measuring = () => {
         <div className="d-grid g4" style={{gridTemplateColumns:"repeat(3,1fr)",}}>
         
         <a href="">
-            <img src="Measuringcup.png"></img>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739420257/measuring_cup_ejspoa.png"></img>
         </a>
         <a href="">
-            <img src="MeasuringSpoon.png"></img>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739420285/MeasuringSpoon_kvzzqq.png"></img>
         </a>
         <a href="">
-            <img src="thermometer.png"></img>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739420343/KitchenScale_qry07v.png"></img>
+        </a>
+        <a href="">
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739421084/Group_1000005994_layaem.png"></img>
         </a> 
         <a href="">
-            <img src="Timer.png"></img>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739420392/Timer_yybwn6.png"></img>
         </a>
         </div>
         </div>

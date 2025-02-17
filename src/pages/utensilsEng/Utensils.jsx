@@ -9,7 +9,7 @@ const Utensils = () => {
         <div className="  d-grid justify-content-center" style={{width:"100%",margin:"0",padding:"0",}}>
         <div className="d-flex justify-content-center align-items-center p3 " style={{}}>
             <div className="" style={{width:"100%",}}>
-            <h2 className="font-weight-900">Cooking Utensils Identification</h2>  
+            <h2 className="font-weight-700">Cooking Utensils Identification</h2>  
             <div className=" d-grid justify-content-between g4 " style={{width:"100%",gridTemplateColumns:"repeat(3,1fr)"}}>
 
             <a  className="" href="Cutting" alt="">
@@ -36,7 +36,7 @@ const Utensils = () => {
         
         <div className=" p3">
             <div className="" style={{width:"100%",}}>
-            <h2>Ingridients Identification</h2>
+            <h2 classname="font-weight-700">Ingridients Identification</h2>
             <div className="d-grid g4" style={{gridTemplateColumns:"repeat(4,1fr)",width:"90%",}}>
             <a href="" alt="">
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382685/protein_jecupb.png"></img>

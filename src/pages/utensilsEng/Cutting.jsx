@@ -17,7 +17,7 @@ const Cutting = () => {
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739383404/knives_jxbew1.png"></img>
         </a>
         <a href="Scissors">
-            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739383404/knives_jxbew1.png"></img>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739420129/gunting_pnsiq2.png"></img>
         </a>
         <a href="Peelers">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739383459/peelers_vge6v7.png"></img>

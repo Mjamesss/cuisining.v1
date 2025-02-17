@@ -8,15 +8,26 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isNotifOpenMobile, setIsNotifOpenMobile] = useState(false);
   const [isNotifOpenDesktop, setIsNotifOpenDesktop] = useState(false);
-  const [isProfileModalMobile, setIsProfileModalMobile] = useState(false);
   const [isProfileModalDesktop, setIsProfileModalDesktop] = useState(false);
   const notifRefMobile = useRef(null);
   const notifRefDesktop = useRef(null);
-  const profileRefMobile = useRef(null);
   const profileRefDesktop = useRef(null);
   const navigate = useNavigate();
 
-  // Close dropdowns when clicking outside
+  const toggleNotifMobile = () => {
+    setIsNotifOpenMobile(!isNotifOpenMobile);
+  };
+
+  const toggleNotifDesktop = () => {
+    setIsNotifOpenDesktop(!isNotifOpenDesktop);
+    setIsProfileModalDesktop(false);
+  };
+
+  const toggleProfileDesktop = () => {
+    setIsProfileModalDesktop(!isProfileModalDesktop);
+    setIsNotifOpenDesktop(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (notifRefMobile.current && !notifRefMobile.current.contains(event.target)) {
@@ -24,9 +35,6 @@ const Navbar = () => {
       }
       if (notifRefDesktop.current && !notifRefDesktop.current.contains(event.target)) {
         setIsNotifOpenDesktop(false);
-      }
-      if (profileRefMobile.current && !profileRefMobile.current.contains(event.target)) {
-        setIsProfileModalMobile(false);
       }
       if (profileRefDesktop.current && !profileRefDesktop.current.contains(event.target)) {
         setIsProfileModalDesktop(false);
@@ -38,143 +46,216 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
   const handleLogout = async () => {
     try {
-      const token = localStorage.getItem("authToken"); // Correct token key
-      console.log("Token from localStorage:", token); // Log the token
-  
+      const token = localStorage.getItem("authToken");
       if (!token) {
         alert("No token found. Please log in.");
         return;
       }
-  
       const response = await axios.post(
-        "http://localhost:5000/api/auth/logout", // Correct backend URL
+        "http://localhost:5000/api/auth/logout",
         {},
         {
-          headers: {
-            Authorization: `Bearer ${token}`, // Send token in the Authorization header
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-  
       if (response.status === 200) {
-        localStorage.removeItem("authToken"); // Clear the token with the correct key
-        window.location.href = "/"; // Redirect to home page
+        localStorage.removeItem("authToken");
+        window.location.href = "/";
       } else {
         alert("Logout failed. Please try again.");
       }
     } catch (error) {
-      console.error("Logout error:", error);
-      if (error.response) {
-        console.error("Server response:", error.response.data);
-        alert(`Logout failed: ${error.response.data.message}`);
-      } else {
-        alert("An error occurred during logout. Please try again.");
-      }
+      alert("An error occurred during logout. Please try again.");
     }
-};
+  };
 
   return (
-    <nav className="navbar pl-4 pr-4 d-flex justify-content-between align-items-center" style={{ height: "120px" }}>
-      {/* Logo Section */}
-      <div className="Navbar_header">
-        <img src="cuisining-newlogo.png" alt="logo" />
-      </div>
-
-      {/* Hamburger Button (Mobile) */}
-      <button className={`hamburger d-md-none ${isOpen ? "open" : ""}`} onClick={() => setIsOpen(!isOpen)}>
-        ☰
-      </button>
-
-      {/* Mobile Menu */}
-      <div className={`Nav-links-settings ${isOpen ? "nav-open" : "nav-closed"} d-md-none`}>
-        <div className="Nav-links d-flex flex-column align-items-center pt-7 font-weight-600 td-none">
-          <a className="text-decoration-none" href="home-page">Home</a>
-          <a className="text-decoration-none" href="Utensils">Utensil & Ingredients</a>
+    <>
+      <nav className="navbar pl-4 pr-4 d-flex justify-content-between align-items-center" style={{ height: "120px" }}>
+        <div className="Navbar_header">
+          <img src="cuisining-newlogo.png" alt="logo" />
+        </div>
+        {/* Hamburger button always visible on mobile */}
+        <button className={`hamburger d-md-none ${isOpen ? "open" : ""}`} onClick={() => setIsOpen(!isOpen)}>☰</button>
+        {/* Desktop Navigation */}
+        <div className="Nav-links w-50 d-none d-md-flex pt-7 justify-content-around font-weight-600">
+          <a className="text-decoration-none" href="home-page"> Home </a>
+          <a className="text-decoration-none" href="Utensils"> Utensil & Ingredients</a>
           <a className="text-decoration-none" href="#Course">Course</a>
           <a className="text-decoration-none" href="#Skillset">Skillset</a>
         </div>
+        {/* Desktop Settings Section */}
+        <div className="settingsec d-none d-md-flex align-items-center m-4 justify-content-center" ref={profileRefDesktop}>
+          <div className="notif-wrapper position-relative" ref={notifRefDesktop}>
+            <button className="btn-setting notif-btn" onClick={toggleNotifDesktop}>
+              <img src="notif.png" alt="notifications" /> </button>
+            {isNotifOpenDesktop && (<div className="notif-dropdown position-absolute">
+                <h2>Notifications</h2>
+                <p>No new notifications</p>
+              </div> )}
+          </div>
+          <button className="btn-setting profile-btn" onClick={toggleProfileDesktop} style={{ display: "flex", alignItems: "center", gap: "8px" }} >
+            <img src="profile.png" alt="profile" />
+            <p style={{ margin: 0 }}>mnwel</p>
+          </button>
+          {isProfileModalDesktop && (
+            <div className="profile-modal position-absolute p-3 bg-white shadow rounded" style={{ width: "250px", right: "10px", top: "60px" }} >
+              <div className="d-flex align-items-center mb-3">
+                <img src="profile.png" alt="Profile"  className="rounded-circle" style={{ width: "40px", height: "40px" }} />
+                <div className="ml-2">
+                  <h6 className="mb-0">John Manuel</h6>
+                  <p className="text-muted small">Personal account</p>
+                </div>
+              </div>
+              <button className="btn btn-sm btn-outline-dark w-100 mb-2">
+                Upgrade
+              </button>
+              <hr />
+              <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "8px", }} onClick={() => navigate("/profile")} >
+                <img src="profileprofile.png" alt="Profile Icon" style={{ width: "20px", height: "20px" }}/>
+                Profile
+              </button>
+              <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center",  gap: "8px", }} onClick={() => navigate("/Settings")} >
+                <img src="profileSettings.png" alt="Settings and Privacy Icon" style={{ width: "20px", height: "20px" }}/>
+                Settings and Privacy
+              </button>
+              <button className="btn w-100 text-left" style={{  display: "flex", alignItems: "center", gap: "8px",}} onClick={() => navigate("/Help")}>
+                <img  src="help.png" alt="Help and Support Icon" style={{ width: "20px", height: "20px" }} />
+                Help and Support
+              </button>
+              <hr />
+              <button className="btn w-100 text-left text-danger" onClick={handleLogout} >
+                Log out
+              </button>
+            </div>
+          )}
+        </div>
+      </nav>
 
-        {/* Mobile Settings Section */}
-        <div className="settingsec d-flex flex-column align-items-center pb-3 font-weight-600" ref={profileRefMobile}>
-          {/* Mobile Notifications */}
-          <div ref={notifRefMobile}>
-            <button className="btn-setting notif-btn" onClick={() => setIsNotifOpenMobile(!isNotifOpenMobile)}>
-              <img src="notif.png" alt="notifications" /> Notification
+      {/* Mobile Navigation Menu */}
+      {isOpen && (
+        <div className="mobile-menu d-md-none p-4 bg-white shadow" style={{ position: "absolute", top: "120px", width: "100%",  zIndex: 999,display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem", }}>
+          <div className="d-flex flex-column gap-3" style={{ alignItems: "center", textAlign: "center" }} >
+            <a className="text-decoration-none"  href="home-page" onClick={() => setIsOpen(false)}> Home</a>
+            <a className="text-decoration-none"  href="Utensils" onClick={() => setIsOpen(false)}>
+              Utensil & Ingredients
+            </a>
+            <a className="text-decoration-none" href="#Course" onClick={() => setIsOpen(false)} >
+              Course
+            </a>
+            <a className="text-decoration-none" href="#Skillset"
+              onClick={() => setIsOpen(false)}
+            >
+              Skillset
+            </a>
+          </div>
+          <hr style={{ width: "100%" }} />
+          {/* Mobile notification and profile options */}
+          <div
+            className="d-flex flex-column gap-3"
+            style={{ alignItems: "center", textAlign: "center" }}
+          >
+            <button
+              className="btn w-100 text-left"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                maxWidth: "300px",
+              }}
+              onClick={() => {
+                toggleNotifMobile();
+              }}
+              ref={notifRefMobile}
+            >
+              <img
+                src="notif.png"
+                alt="notifications"
+                style={{ width: "20px", height: "20px" }}
+              />
+              Notifications
             </button>
             {isNotifOpenMobile && (
-              <div className="notif-dropdown">
+              <div className="p-2 border" style={{ width: "100%", maxWidth: "300px" }}>
                 <h2>Notifications</h2>
                 <p>No new notifications</p>
               </div>
             )}
+            <button
+              className="btn w-100 text-left"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                maxWidth: "300px",
+              }}
+              onClick={() => {
+                setIsOpen(false);
+                navigate("/profile");
+              }}
+            >
+              <img
+                src="profileprofile.png"
+                alt="Profile Icon"
+                style={{ width: "20px", height: "20px" }}
+              />
+              Profile
+            </button>
+            <button
+              className="btn w-100 text-left"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                maxWidth: "300px",
+              }}
+              onClick={() => {
+                setIsOpen(false);
+                navigate("/Settings");
+              }}
+            >
+              <img
+                src="profileSettings.png"
+                alt="Settings and Privacy Icon"
+                style={{ width: "20px", height: "20px" }}
+              />
+              Settings and Privacy
+            </button>
+            <button
+              className="btn w-100 text-left"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                maxWidth: "300px",
+              }}
+              onClick={() => {
+                setIsOpen(false);
+                navigate("/Help");
+              }}
+            >
+              <img
+                src="help.png"
+                alt="Help and Support Icon"
+                style={{ width: "20px", height: "20px" }}
+              />
+              Help and Support
+            </button>
+            <hr style={{ width: "100%", maxWidth: "300px" }} />
+            <button
+              className="btn w-100 text-left text-danger"
+              onClick={handleLogout}
+              style={{ maxWidth: "300px" }}
+            >
+              Log out
+            </button>
           </div>
-
-          <button className="btn-setting">
-            <img src="settings.png" alt="settings" /> Settings
-          </button>
-
-          {/* Mobile Profile Button */}
-          <button className="btn-setting profile-btn" onClick={() => setIsProfileModalMobile(!isProfileModalMobile)}>
-            <img src="profile.png" alt="profile" /> Profile
-          </button>
-
-          <h5>Manuel</h5>
-
-          {/* Mobile Profile Modal */}
-          {isProfileModalMobile && (
-            <div className="profile-modal">
-              <button className="profile-option">View Profile</button>
-              <button className="profile-option logout-btn">Log Out</button>
-            </div>
-          )}
         </div>
-      </div>
-
-      {/* Desktop Navigation Links */}
-      <div className="Nav-links w-50 d-flex pt-7 justify-content-around font-weight-600 d-none d-md-flex">
-        <a className="text-decoration-none" href="home-page">Home</a>
-        <a className="text-decoration-none" href="Utensils">Utensil & Ingredients</a>
-        <a className="text-decoration-none" href="#Course">Course</a>
-        <a className="text-decoration-none" href="#Skillset">Skillset</a>
-      </div>
-
-      {/* Desktop Settings Section */}
-      <div className="settingsec d-none d-md-flex align-items-center gap-3" ref={profileRefDesktop}>
-        {/* Desktop Notifications */}
-        <div className="notif-wrapper position-relative" ref={notifRefDesktop}>
-          <button className="btn-setting notif-btn" onClick={() => setIsNotifOpenDesktop(!isNotifOpenDesktop)}>
-            <img src="notif.png" alt="notifications" />
-          </button>
-          {isNotifOpenDesktop && (
-            <div className="notif-dropdown position-absolute">
-              <h2>Notifications</h2>
-              <p>No new notifications</p>
-            </div>
-          )}
-        </div>
-
-        <button className="btn-setting">
-          <img src="settings.png" alt="settings" />
-        </button>
-
-        {/* Desktop Profile Button */}
-        <button className="btn-setting profile-btn" onClick={() => setIsProfileModalDesktop(!isProfileModalDesktop)}>
-          <img src="profile.png" alt="profile" />
-        </button>
-
-        <h5>Manuel</h5>
-
-        {/* Desktop Profile Modal */}
-        {isProfileModalDesktop && (
-          <div className="profile-modal">
-            <button className="profile-option">View Profile</button>
-            <button className="profile-option logout-btn" onClick={handleLogout}>Log Out</button>
-          </div>
-        )}
-      </div>
-    </nav>
+      )}
+    </>
   );
 };
 

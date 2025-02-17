@@ -4,7 +4,7 @@ const Peelers = () =>{
     return (
         <>
         <div className="p5 ">
-       <a href="Cutting"><img src="back.png"></img> </a>
+       <a href="Cutting"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
        </div>
        <div className=" p2 d-flex justify-content-center align-items-center">
         <div className=" d-grid justify-content-center align-items-center">
