@@ -20,14 +20,6 @@ const Scissors = () =>{
             <img src="santokuknife.png"></img>
             <p>Wusthof</p>
         </a>
-        <a href="KitchenShears">
-            <img src="Utilityknife.png"></img>
-            <p>Kitchen Shears</p>
-        </a>
-        <a href="KitchenScissor">
-            <img src="boningknife.png"></img>
-            <p>Kitcehn Scissor</p>
-        </a>
         <a href="Household">
             <img src="breadknife.png"></img>
             <p>Household</p>
@@ -43,10 +35,6 @@ const Scissors = () =>{
         <a href="Multipurpose">
             <img src="steakknife.png"></img>
             <p>Multipurpose</p>
-        </a>
-        <a href="Allpurpose">
-            <img src="filletknife.png"></img>
-            <p>Allpurpose</p>
         </a>
        
         </div>

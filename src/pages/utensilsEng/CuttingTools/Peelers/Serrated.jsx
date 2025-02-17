@@ -1,5 +1,19 @@
 import "../../../../fw-cuisining.css";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
+import { Suspense } from "react";
 
+const Model = (props) => {
+    const { scene } = useGLTF("serratedpeeler.glb"); // Ensure the model is in the public folder
+    return <primitive object={scene} scale={0.01} {...props} />;
+};
+
+const Loader = () => (
+    <mesh>
+        <sphereGeometry args={[0.5, 32, 32]} />
+        <meshBasicMaterial color="gray" wireframe />
+    </mesh>
+);
 const Serrated = () => {
     return(
         <>
@@ -15,7 +29,18 @@ const Serrated = () => {
 This type of peeler is ideal for tasks where a regular straight blade might slip or crush soft produce. It ensures clean and even peeling while maintaining the texture of the food. Its lightweight design and sharp serrated teeth make it a must-have tool for any kitchen that frequently prepares soft fruits and vegetables.
             </p>
 
-            <img src="chefknifepic.png"></img>
+             {/* 3D Model Display with Suspense for loading */}
+                                  <Canvas dpr={[1, 2]} shadows camera={{ position: [0, 2, 5], fov: 45 }} style={{ height: "500px" }}>
+                                   <color attach="background" args={["#808080"]} />
+                                  <Suspense fallback={<Loader />}>
+                                  <PresentationControls speed={1.5} global zoom={0.5} polar={[-0.1, Math.PI / 4]}>
+                               <Stage environment={null}>
+                                      <Model />
+                                  </Stage>
+                                  </PresentationControls>
+                                  </Suspense>
+                                  <OrbitControls />
+                                   </Canvas>
          
         </div>
         </>
