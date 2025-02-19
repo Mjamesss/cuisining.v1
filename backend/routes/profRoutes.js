@@ -86,23 +86,42 @@ router.post("/submit", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
-// Example: /api/auth/profile route in your backend
-// Example: /api/auth/profile route in your backend
+
 router.get("/profile", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.userId); // req.userId comes from verifyToken middleware
+    console.log("User Object:", user); // Log the user object for debugging
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Return consistent profile data
+    // Return consistent profile data, including profilePicture
     res.status(200).json({
       fName: user.fName || "",
       email: user.email || "",
       isProfileCustomized: user.isProfileCustomized,
+      profilePicture: user.profilePicture, // Explicitly include the profilePicture field
     });
   } catch (error) {
     console.error("Error fetching profile:", error);
+    res.status(500).json({ error: "An error occurred", details: error.message });
+  }
+});
+router.get("/gprof", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId); // req.userId comes from verifyToken middleware
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Return only the profilePicture field
+    res.status(200).json({
+      profilePicture: user.profilePicture || "https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png", // Default if no picture
+    });
+  } catch (error) {
+    console.error("Error fetching profile picture:", error);
     res.status(500).json({ error: "An error occurred", details: error.message });
   }
 });

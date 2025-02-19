@@ -20,21 +20,42 @@ const ProfileForm = () => {
 
   const fetchUserProfile = async (token) => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/profile", {
+      // Fetch user profile data
+      const profileResponse = await fetch("http://localhost:5000/api/auth/profile", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (response.ok) {
-        const data = await response.json();
-        console.log("User Profile Data:", data); // Log the response
-        setFullName(data.fName || ""); // Set the full name
-        setEmail(data.email || ""); // Set the email
-        return true; // Indicate success
-      } else {
+  
+      if (!profileResponse.ok) {
         setError("Failed to fetch user profile.");
-        console.error("Profile fetch error:", await response.text());
-        return false; // Indicate failure
+        console.error("Profile fetch error:", await profileResponse.text());
+        return false;
       }
+  
+      const profileData = await profileResponse.json();
+      console.log("User Profile Data:", profileData); // Log the response
+  
+      // Fetch profile picture
+      const gprofResponse = await fetch("http://localhost:5000/api/profile/gprof", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      if (!gprofResponse.ok) {
+        setError("Failed to fetch profile picture.");
+        console.error("Profile picture fetch error:", await gprofResponse.text());
+        return false;
+      }
+  
+      const gprofData = await gprofResponse.json();
+      console.log("Profile Picture Data:", gprofData); // Log the response
+  
+      // Update state with fetched data
+      setFullName(profileData.fName || ""); // Set the full name
+      setEmail(profileData.email || ""); // Set the email
+      setAvatarUrl(gprofData.profilePicture); // Set the profile picture URL
+  
+      return true; // Indicate success
     } catch (err) {
       setError("An error occurred while fetching user profile.");
       console.error(err);

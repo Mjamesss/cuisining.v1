@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  profilePicture: {
+    type: String,
+    default: "https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png", 
+  },
 });
 
 const User = mongoose.model("User", userSchema);
