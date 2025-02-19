@@ -4,7 +4,7 @@ const Scissors = () =>{
     return (
         <>
         <div className="p5 ">
-       <a href="Cutting"><img src="back.png"></img> </a>
+       <a href="Cutting"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
        </div>
        <div className=" p2 d-flex justify-content-center align-items-center">
         <div className=" d-grid justify-content-center align-items-center">
@@ -19,14 +19,6 @@ const Scissors = () =>{
         <a href="Wusthof">
             <img src="santokuknife.png"></img>
             <p>Wusthof</p>
-        </a>
-        <a href="KitchenShears">
-            <img src="Utilityknife.png"></img>
-            <p>Kitchen Shears</p>
-        </a>
-        <a href="KitchenScissor">
-            <img src="boningknife.png"></img>
-            <p>Kitcehn Scissor</p>
         </a>
         <a href="Household">
             <img src="breadknife.png"></img>
@@ -43,10 +35,6 @@ const Scissors = () =>{
         <a href="Multipurpose">
             <img src="steakknife.png"></img>
             <p>Multipurpose</p>
-        </a>
-        <a href="Allpurpose">
-            <img src="filletknife.png"></img>
-            <p>Allpurpose</p>
         </a>
        
         </div>

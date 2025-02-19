@@ -18,9 +18,6 @@ const Knife = () =>{
         <a href="Santoku">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739383607/santokuknife_spszc9.png"></img>
         </a>
-        <a href="Utility">
-            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739383628/utilityknife_qfbojt.png"></img>
-        </a>
         <a href="Boning">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739383576/boningknife_khi1u4.png"></img>
         </a>

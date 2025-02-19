@@ -20,7 +20,7 @@ import Cutting from './pages/utensilsEng/Cutting';
 import Knife from './pages/utensilsEng/Knife';
 import Chefknife from './pages/utensilsEng/CuttingTools/knives/Chefknife';
 import Santoku from './pages/utensilsEng/CuttingTools/knives/Santoku';
-import Utility from './pages/utensilsEng/CuttingTools/knives/Utility';
+
 import Boning from './pages/utensilsEng/CuttingTools/knives/Boning';
 import Bread from './pages/utensilsEng/CuttingTools/knives/Bread';
 import Clever from './pages/utensilsEng/CuttingTools/knives/Clever';
@@ -30,13 +30,10 @@ import Fillet from './pages/utensilsEng/CuttingTools/knives/Fillet';
 import Scissors from './pages/utensilsEng/Scissors';
 import Poultry from './pages/utensilsEng/CuttingTools/scissors/Poultry';
 import Wusthof from './pages/utensilsEng/CuttingTools/scissors/Wusthof';
-import KitchenShears from './pages/utensilsEng/CuttingTools/scissors/KitchenShears';
-import KitchenScissor from './pages/utensilsEng/CuttingTools/scissors/KitchenScissor';
 import Household from './pages/utensilsEng/CuttingTools/scissors/Household';
 import HerbScissor from './pages/utensilsEng/CuttingTools/scissors/HerbScissor';
 import SeafoodScissors from './pages/utensilsEng/CuttingTools/scissors/SeafoodScissors';
 import Multipurpose from './pages/utensilsEng/CuttingTools/scissors/Multipurpose';
-import Allpurpose from './pages/utensilsEng/CuttingTools/scissors/Allpurpose';
 import Peelers from './pages/utensilsEng/Peelers';
 import Swivel from './pages/utensilsEng/CuttingTools/Peelers/Swivel';
 import Swis from './pages/utensilsEng/CuttingTools/Peelers/Swis';
@@ -83,7 +80,6 @@ const App = () => {
               <Route path="/Knife" element={<Knife />} />
               <Route path="/Chefknife" element={<Chefknife/>}/>
                <Route path="/Santoku" element={<Santoku/>}/>
-               <Route path="/Utility" element={<Utility/>}/>
                <Route path="/Boning" element={<Boning/>}/>
                <Route path="/Bread" element={<Bread/>}/>
                <Route path="/Clever" element={<Clever/>}/>
@@ -94,13 +90,10 @@ const App = () => {
                <Route path="/Scissors" element={<Scissors/>} />
                <Route path="/Poultry" element={<Poultry/>} />
                <Route path="/Wusthof" element={<Wusthof/>} />
-               <Route path="/KitchenShears" element ={<KitchenShears/>}/>
-               <Route path="/KitchenScissor" element={<KitchenScissor/>}/>
                <Route path="/HouseHold" element={<Household/>}/>
                <Route path="/HerbScissor" element={<HerbScissor/>}/>
                <Route path="/SeafoodScissors" element={<SeafoodScissors/>}/>
                <Route path="/Multipurpose" element={<Multipurpose/>}/>
-               <Route path="Allpurpose" element={<Allpurpose/>}/>
                {/* Peelers*/}
                <Route path="/Peelers" element={<Peelers/>}/>
                <Route path="/Swivel" element={<Swivel/>}/>
