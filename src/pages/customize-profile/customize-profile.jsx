@@ -11,9 +11,9 @@ const ProfileForm = () => {
   const [hasTakenNCII, setHasTakenNCII] = useState(null);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [fullName, setFullName] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('/developers.png');
+  const [avatarUrl, setAvatarUrl] = useState('https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png');
   const [error, setError] = useState("");
-  const [email, setEmail] = useState(''); // Add a state for email
+  const [email, setEmail] = useState(''); // Add a state for email 
 
   const navigate = useNavigate();
   const location = useLocation();

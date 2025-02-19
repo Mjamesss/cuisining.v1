@@ -3,6 +3,7 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/user"); // Import User model
+const Profile = require("../models/profile"); // Import Profile model
 const router = express.Router();
 
 // Google OAuth Strategy
@@ -19,10 +20,13 @@ passport.use(
         const email = profile.emails?.[0]?.value;
         if (!email) return done(new Error("No email associated with Google account"), null);
 
+        // Extract the profile picture URL
+        const avatarUrl = profile.photos?.[0]?.value;
+
         // Check if the user already exists
         let user = await User.findOne({ email });
         if (!user) {
-          // Create a new user with the full name from Google
+          // Create a new user with the full name and profile picture from Google
           const fullName = `${profile.name.givenName} ${profile.name.familyName}`;
           user = new User({
             fName: fullName, // Use full name instead of just givenName
@@ -32,6 +36,25 @@ passport.use(
           });
           await user.save();
         }
+
+        // Check if the profile exists for the user
+        let profileDoc = await Profile.findOne({ userID: user._id });
+        if (!profileDoc) {
+          // Create a new profile with the Google profile picture
+          profileDoc = new Profile({
+            userID: user._id,
+            fullName: `${profile.name.givenName} ${profile.name.familyName}`,
+            avatarUrl, // Save the Google profile picture URL
+            selectedGroup1: "defaultGroup1", // Set default values or make these fields optional
+            selectedGroup2: "defaultGroup2",
+            hasTakenNCII: false,
+          });
+        } else {
+          // Update the profile picture URL if it has changed
+          profileDoc.avatarUrl = avatarUrl;
+        }
+        await profileDoc.save();
+
         done(null, user);
       } catch (err) {
         done(err, null);
@@ -50,12 +73,14 @@ passport.deserializeUser(async (id, done) => {
     done(err, null);
   }
 });
+
+// Route to initiate Google authentication
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-// Route to initiate Google authentication
+// Google OAuth callback route
 router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
@@ -76,4 +101,5 @@ router.get(
     }
   }
 );
+
 module.exports = router;
