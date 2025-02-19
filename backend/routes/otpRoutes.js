@@ -43,7 +43,6 @@ router.post("/send-otp", async (req, res) => {
       { otpCode, expiresAt, attempts: 0 },
       { upsert: true, new: true }
     );
-
     // Send the OTP via email
     const mailOptions = {
       from: process.env.EMAIL_USER,
