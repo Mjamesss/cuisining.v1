@@ -1,4 +1,3 @@
-// verifyToken.js
 const jwt = require("jsonwebtoken");
 const tokenBlacklist = require("../utils/blacklist");
 
@@ -16,6 +15,7 @@ const verifyToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    console.log("Decoded Token:", decoded); // Log the decoded token for debugging
     req.userId = decoded.userId;
     next();
   } catch (err) {

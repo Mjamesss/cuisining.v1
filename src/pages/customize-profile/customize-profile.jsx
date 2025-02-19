@@ -17,7 +17,7 @@ const ProfileForm = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-
+  
   const fetchUserProfile = async (token) => {
     try {
       // Fetch user profile data

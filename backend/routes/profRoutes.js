@@ -47,7 +47,24 @@ const router = express.Router();
       res.status(500).json({ error: "Server error", details: error.message });
     }
   });
-
+  router.get("/profile-data", verifyToken, async (req, res) => {
+    try {
+      const profile = await Profile.findOne({ userID: req.userId });
+      if (!profile) {
+        return res.status(404).json({ message: "Profile not found" });
+      }
+      res.status(200).json({
+        message: "Profile data retrieved successfully",
+        profile: {
+          fullName: profile.fullName,
+          avatarUrl: profile.avatarUrl || "https://via.placeholder.com/150",
+        },
+      });
+    } catch (error) {
+      console.error("Error fetching profile data:", error);
+      res.status(500).json({ error: "An error occurred", details: error.message });
+    }
+  });
 router.post("/submit", verifyToken, async (req, res) => {
   console.log("Request body:", req.body); // Log the request body
   console.log("User ID from token:", req.userId); // Log the user ID

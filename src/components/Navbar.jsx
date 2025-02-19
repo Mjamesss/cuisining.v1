@@ -12,7 +12,12 @@ const Navbar = () => {
   const notifRefMobile = useRef(null);
   const notifRefDesktop = useRef(null);
   const profileRefDesktop = useRef(null);
+  const [profileData, setProfileData] = useState({
+    firstName: "User", // Default first name
+    avatarUrl: "https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png", // Default avatar
+  });
   const navigate = useNavigate();
+
 
   const toggleNotifMobile = () => {
     setIsNotifOpenMobile(!isNotifOpenMobile);
@@ -71,6 +76,51 @@ const Navbar = () => {
       alert("An error occurred during logout. Please try again.");
     }
   };
+  //backend codes
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+        console.log("Token in Navbar:", token); // Log the token for debugging
+  
+        if (!token) {
+          console.error("No token found. Please log in.");
+          return;
+        }
+  
+        const response = await axios.get("http://localhost:5000/api/profile/profile-data", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+  
+        console.log("Profile Data Response:", response.data); // Log the response
+  
+        if (response.status === 200) {
+          const { fullName, avatarUrl } = response.data.profile;
+  
+          // Extract the first name
+          const firstName = fullName.split(" ")[0];
+  
+          // Update state with fetched data
+          setProfileData({
+            firstName,
+            avatarUrl: avatarUrl || "https://via.placeholder.com/150",
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
+    };
+  
+    fetchProfileData();
+  }, []);
+  //important to continuation of token
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
+
+  if (token) {
+    localStorage.setItem("authToken", token); // Store token in localStorage
+    window.history.replaceState({}, document.title, "/customize-profile"); // Clean up the URL
+  }
 
   return (
     <>
@@ -91,22 +141,22 @@ const Navbar = () => {
         <div className="settingsec d-none d-md-flex align-items-center m-4 justify-content-center" ref={profileRefDesktop}>
           <div className="notif-wrapper position-relative" ref={notifRefDesktop}>
             <button className="btn-setting notif-btn" onClick={toggleNotifDesktop}>
-              <img src="notif.png" alt="notifications" /> </button>
+              <img src="notif.png" alt="notifications" style={{width:"30px",height:"30px"}}/> </button>
             {isNotifOpenDesktop && (<div className="notif-dropdown position-absolute">
                 <h2>Notifications</h2>
                 <p>No new notifications</p>
               </div> )}
           </div>
           <button className="btn-setting profile-btn" onClick={toggleProfileDesktop} style={{ display: "flex", alignItems: "center", gap: "8px" }} >
-            <img src="profile.png" alt="profile" />
-            <p style={{ margin: 0 }}>mnwel</p>
+            <img src={profileData.avatarUrl} style={{borderRadius:"50%", height:"30px", width:"30px"}} alt="profile" />
+            <p style={{ margin: 0 }}>{profileData.firstName}</p>
           </button>
           {isProfileModalDesktop && (
             <div className="profile-modal position-absolute p-3 bg-white shadow rounded" style={{ width: "250px", right: "10px", top: "60px" }} >
               <div className="d-flex align-items-center mb-3">
-                <img src="profile.png" alt="Profile"  className="rounded-circle" style={{ width: "40px", height: "40px" }} />
+                <img src={profileData.avatarUrl} alt="Profile"  className="rounded-circle" style={{ width: "40px", height: "40px" }} />
                 <div className="ml-2">
-                  <h6 className="mb-0">John Manuel</h6>
+                  <h6 className="mb-0">{profileData.firstName}</h6>
                   <p className="text-muted small">Personal account</p>
                 </div>
               </div>
@@ -174,7 +224,7 @@ const Navbar = () => {
               <img
                 src="notif.png"
                 alt="notifications"
-                style={{ width: "20px", height: "20px" }}
+                style={{ width: "25px", height: "25px" }}
               />
               Notifications
             </button>

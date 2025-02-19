@@ -1,0 +1,8 @@
+//important code of token
+const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
+
+  if (token) {
+    localStorage.setItem("authToken", token); // Store token in localStorage
+    window.history.replaceState({}, document.title, "/customize-profile"); // Clean up the URL
+  }
