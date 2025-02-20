@@ -49,8 +49,14 @@ import RaspGrater from './pages/utensilsEng/CuttingTools/Graters/RaspGrater';
 import MandolineGrater from './pages/utensilsEng/CuttingTools/Graters/MandolineGrater';
 import RotaryGrater from './pages/utensilsEng/CuttingTools/Graters/RotaryGrater';
 import SpiceGrater from './pages/utensilsEng/CuttingTools/Graters/SpiceGrater';
-import Measuring from './pages/utensilsEng/Measuring';
 
+import Measuring from './pages/utensilsEng/Measuring';
+import MeasuringCup from './pages/utensilsEng/MeasuringTools/MeasurigCup';
+import DryMeasuring from './pages/utensilsEng/MeasuringTools/DryMeasuring';
+import LiquidMeasure from './pages/utensilsEng/MeasuringTools/LiquidMeasure';
+import MeasuringSpoon from './pages/utensilsEng/MeasuringTools/MeasuringSpoon';
+import Teaspoon from './pages/utensilsEng/MeasuringTools/Teaspoon';
+import Tablespoon from './pages/utensilsEng/MeasuringTools/Tablespoon';
 
 const App = () => {
   return (
@@ -113,6 +119,12 @@ const App = () => {
                <Route path="SpiceGrater" element={<SpiceGrater/>}/>
                {/*Measuring*/}
                <Route path="/Measuring" element={<Measuring/>}/>
+               <Route path="Measuringcup" element={<MeasuringCup/>}/>
+               <Route path="DryMeasuring" element={<DryMeasuring/>}/>
+               <Route path="LiquidMeasure" element={<LiquidMeasure/>}/>
+               <Route path="MeasuringSpoon" element={<MeasuringSpoon/>}/>
+               <Route path="Teaspoon" element={<Teaspoon/>}/>
+               <Route path="Tablespoon" element={<Tablespoon/>}/>
             </Routes>
           </Col>
         </Row>

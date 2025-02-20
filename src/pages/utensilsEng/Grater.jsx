@@ -13,28 +13,22 @@ const Grater = () =>{
         <div className="d-grid g4" style={{gridTemplateColumns:"repeat(3,1fr)",}}>
         
         <a href="BoxGrater">
-            <img src="chefknife.png"></img>
-            <p>BoxGrater</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976980/Group_10_5_etxib9.png"></img>
         </a>
         <a href="HandGrater">
-            <img src="santokuknife.png"></img>
-            <p>HandGrater</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739977069/Group_1000005992_4_pnd7mp.png"></img>
         </a>
         <a href="RaspGrater">
-            <img src="Utilityknife.png"></img>
-            <p>RaspGrater</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739977131/Group_1000005993_2_igydby.png"></img>
         </a>
         <a href="MandolineGrater">
-            <img src="boningknife.png"></img>
-            <p>MandolineGrater</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739977200/Group_1000005994_2_wm3kir.png"></img>
         </a>
         <a href="RotaryGrater">
-            <img src="breadknife.png"></img>
-            <p>RotaryGrater</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739977477/Group_1000005995_3_mpd4ph.png"></img>
         </a>
         <a href="SpiceGrater">
-            <img src="cleverknife.png"></img>
-            <p>SpiceGrater</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739977884/Group_1000005996_2_jnuabs.png"></img>
         </a>
      
         </div>

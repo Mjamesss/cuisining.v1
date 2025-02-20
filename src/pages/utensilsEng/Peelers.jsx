@@ -13,32 +13,25 @@ const Peelers = () =>{
         <div className="d-grid g4" style={{gridTemplateColumns:"repeat(3,1fr)",}}>
         
         <a href="Swivel">
-            <img src="chefknife.png"></img>
-            <p>Swivel</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976493/Group_10_3_gk3sep.png"></img>
         </a>
         <a href="Swis">
-            <img src="santokuknife.png"></img>
-            <p>Swiss</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976584/Group_1000005992_3_vwegtx.png"></img>
         </a>
         <a href="Landcashier">
-            <img src="Utilityknife.png"></img>
-            <p>Lancashier</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976652/Group_1000005993_1_oped9j.png"></img>
         </a>
         <a href="Serrated">
-            <img src="boningknife.png"></img>
-            <p>Serrated</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976712/Group_1000005994_1_rrczff.png"></img>
         </a>
         <a href="Julienne">
-            <img src="breadknife.png"></img>
-            <p>julienne</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976777/Group_1000005995_2_eajt8i.png"></img>
         </a>
         <a href="Mechanical">
-            <img src="cleverknife.png"></img>
-            <p>Mechanical</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976854/Group_1000005996_1_dv4lf4.png"></img>
         </a>
         <a href="Rotary">
-            <img src="cleverknife.png"></img>
-            <p>Rotary</p>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976901/Group_10_4_miqvmv.png"></img>
         </a>
         </div>
         </div>

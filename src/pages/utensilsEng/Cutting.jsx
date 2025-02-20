@@ -14,16 +14,16 @@ const Cutting = () => {
         <div className="d-grid g4" style={{gridTemplateColumns:"repeat(3,1fr)",}}>
         
         <a href="Knife">
-            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739383404/knives_jxbew1.png"></img>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739964025/knives3d_gjmfpy.png"></img>
         </a>
         <a href="Scissors">
-            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739420129/gunting_pnsiq2.png"></img>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739964299/Group_1000005992_i4zcwy.png"></img>
         </a>
         <a href="Peelers">
-            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739383459/peelers_vge6v7.png"></img>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739964350/Group_1000005993_vzrrhc.png"></img>
         </a> 
         <a href="Grater">
-            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739383482/graters_zbehxs.png"></img>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739964394/Group_1000005995_pavlqd.png"></img>
         </a>
         </div>
         </div>

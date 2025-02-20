@@ -14,10 +14,10 @@ const Measuring = () => {
         <h1>Measuring Tools</h1>
         <div className="d-grid g4" style={{gridTemplateColumns:"repeat(3,1fr)",}}>
         
-        <a href="">
+        <a href="MeasuringCup">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739420257/measuring_cup_ejspoa.png"></img>
         </a>
-        <a href="">
+        <a href="MeasuringSpoon">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739420285/MeasuringSpoon_kvzzqq.png"></img>
         </a>
         <a href="">
