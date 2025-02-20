@@ -4,7 +4,7 @@ import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-thre
 import { Suspense } from "react";
 
 const Model = (props) => {
-    const { scene } = useGLTF("drymeasurecupspoon.glb"); // Ensure the model is in the public folder
+    const { scene } = useGLTF("drymeasuringcup.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
 };
 

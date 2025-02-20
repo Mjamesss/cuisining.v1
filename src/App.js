@@ -55,9 +55,28 @@ import MeasuringCup from './pages/utensilsEng/MeasuringTools/MeasurigCup';
 import DryMeasuring from './pages/utensilsEng/MeasuringTools/DryMeasuring';
 import LiquidMeasure from './pages/utensilsEng/MeasuringTools/LiquidMeasure';
 import MeasuringSpoon from './pages/utensilsEng/MeasuringTools/MeasuringSpoon';
+import Collapsemeasure from './pages/utensilsEng/MeasuringTools/Collapsemeasure';
+import Digitalmeasure from './pages/utensilsEng/MeasuringTools/Digitalmeasure';
 import Teaspoon from './pages/utensilsEng/MeasuringTools/Teaspoon';
 import Tablespoon from './pages/utensilsEng/MeasuringTools/Tablespoon';
 
+import Kitchenscale from './pages/utensilsEng/Kitchenscale';
+import Mechanicalscale from './pages/utensilsEng/KitchenScale/Mechanicalscale';
+import Digitalscale from './pages/utensilsEng/KitchenScale/Digitalscale';
+import Smartnutritionscale from './pages/utensilsEng/KitchenScale/Smartnutritionscale';
+import Hangingscale from './pages/utensilsEng/KitchenScale/Hangingscale';
+import Largecapacityscale from './pages/utensilsEng/KitchenScale/Largecapacityscale';
+import Gramscale from './pages/utensilsEng/KitchenScale/Gramscale';
+
+import Thermometer from './pages/utensilsEng/Thermometer';
+import Oventhermometer from './pages/utensilsEng/Thermometer/Oventhermometer';
+import Candythermometer from './pages/utensilsEng/Thermometer/Candythermometer';
+import Fridgethermometer from './pages/utensilsEng/Thermometer/Fridgethermometer';
+import Meatthermometer from './pages/utensilsEng/Thermometer/Meatthermometer';
+
+import Timer from './pages/utensilsEng/Timer';
+import Mechanicaltimer from './pages/utensilsEng/Timer/Mechanicaltimer';
+import Digitaltimer from './pages/utensilsEng/Timer/Digitaltimer';
 const App = () => {
   return (
     <Router>
@@ -123,8 +142,28 @@ const App = () => {
                <Route path="DryMeasuring" element={<DryMeasuring/>}/>
                <Route path="LiquidMeasure" element={<LiquidMeasure/>}/>
                <Route path="MeasuringSpoon" element={<MeasuringSpoon/>}/>
+               <Route path="Collapsemeasure" element={<Collapsemeasure/>}/>
+               <Route path="Digitalmeasure" element={<Digitalmeasure/>} />
                <Route path="Teaspoon" element={<Teaspoon/>}/>
                <Route path="Tablespoon" element={<Tablespoon/>}/>
+               {/*Kitchen Scale */}
+               <Route path="Kitchenscale" element={<Kitchenscale/>}/>
+               <Route path="Mechanicalscale" element={<Mechanicalscale/>}/>
+               <Route path="Digitalscale" element={<Digitalscale/>}/>
+               <Route path="Smartnutritionscale" element={<Smartnutritionscale/>}/>
+               <Route path="Hangingscale" element={<Hangingscale/>}/>
+               <Route path="Largecapacityscale" element={<Largecapacityscale/>}/>
+               <Route path="Gramscale" element={<Gramscale/>}/>
+               {/*thermometer*/}
+               <Route path="/Thermometer" element={<Thermometer/>}/>
+               <Route path="Oventhermometer" element={<Oventhermometer/>}/>
+               <Route path="Candythermometer" element={<Candythermometer/>}/>
+               <Route path="Fridgethermometer" element={<Fridgethermometer/>}/>
+               <Route path="Meatthermometer" element={<Meatthermometer/>}/>
+               {/* Timer*/}
+               <Route path="Timer" element={<Timer/>}/>
+               <Route path="Mechanicaltimer" element={<Mechanicaltimer/>}/>
+               <Route path="Digitaltimer" element={<Digitaltimer/>}/>
             </Routes>
           </Col>
         </Row>
