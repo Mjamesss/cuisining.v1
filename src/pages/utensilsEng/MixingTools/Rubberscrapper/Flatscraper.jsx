@@ -2,7 +2,7 @@ import "../../../../fw-cuisining.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
-
+// 3d model
 const Model = (props) => {
     const { scene } = useGLTF("rubberscraper.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
