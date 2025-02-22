@@ -13,7 +13,7 @@ const Timer = () =>{
         <div className="d-grid g4" style={{gridTemplateColumns:"repeat(3,1fr)",}}>
         
         <a href="Mechanicaltimer">
-            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740070645/Group_1000005995_5_tg1ngl.png"></img>
+            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740072000/Group_10_10_gvmypv.png"></img>
         </a>
         <a href="Digitaltimer">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740072051/Group_1000005992_9_bwcsmr.png"></img>

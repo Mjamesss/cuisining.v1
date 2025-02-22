@@ -77,6 +77,27 @@ import Meatthermometer from './pages/utensilsEng/Thermometer/Meatthermometer';
 import Timer from './pages/utensilsEng/Timer';
 import Mechanicaltimer from './pages/utensilsEng/Timer/Mechanicaltimer';
 import Digitaltimer from './pages/utensilsEng/Timer/Digitaltimer';
+
+import Mixing from './pages/utensilsEng/Mixing';
+import Mixingbowls from './pages/utensilsEng/MixingTools/Mixingbowl/Mixingbowls';
+import Stainlessbowl from './pages/utensilsEng/MixingTools/Mixingbowl/Stainlessbowl';
+import Glassbowl from './pages/utensilsEng/MixingTools/Mixingbowl/Glassbowl';
+import Plasticbowl from './pages/utensilsEng/MixingTools/Mixingbowl/Plasticbowl';
+
+import Whisk from './pages/utensilsEng/Whisk';
+import Whiskk from './pages/utensilsEng/MixingTools/Whisks/Whiskk';
+import Kettlewhisk from './pages/utensilsEng/MixingTools/Whisks/Kettlewhisk';
+import Minibarwhisk from './pages/utensilsEng/MixingTools/Whisks/Minibarwhisk';
+import Flatwhisk from './pages/utensilsEng/MixingTools/Whisks/Flatwhisk';
+import Spiralwhisk from './pages/utensilsEng/MixingTools/Whisks/Spiralwhisk';
+import Doughwhisk from './pages/utensilsEng/MixingTools/Whisks/Doughwhisk';
+
+import Electricmixer from './pages/utensilsEng/Electricmixer';
+import Handmixer from './pages/utensilsEng/MixingTools/ElectricMixer/Handmixer';
+import Standmixer from './pages/utensilsEng/MixingTools/ElectricMixer/Standmixer';
+
+import Rubberscraper from './pages/utensilsEng/Rubberscraper';
+import Flatscraper from './pages/utensilsEng/MixingTools/Rubberscrapper/Flatscraper';
 const App = () => {
   return (
     <Router>
@@ -164,6 +185,27 @@ const App = () => {
                <Route path="Timer" element={<Timer/>}/>
                <Route path="Mechanicaltimer" element={<Mechanicaltimer/>}/>
                <Route path="Digitaltimer" element={<Digitaltimer/>}/>
+               {/*Mixing Tools */}
+               <Route path="Mixing" element={<Mixing/>}/>
+               <Route path="Mixingbowls" element={<Mixingbowls/>}/>
+               <Route path="Stainlessbowl" element={<Stainlessbowl/>}/>
+               <Route path="Glassbowl" element={<Glassbowl/>}/>
+               <Route path="Plasticbowl" element={<Plasticbowl/>}/>
+               {/*Whisk */}
+               <Route path="Whisk" element={<Whisk/>}/>
+               <Route path="Whiskk" element={<Whiskk/>}/>
+               <Route path="Kettlewhisk" element={<Kettlewhisk/>}/>
+               <Route path="Minibarwhisk" element={<Minibarwhisk/>}/>
+               <Route path="Flatwhisk" element={<Flatwhisk/>}/>
+               <Route path="Spiralwhisk" element={<Spiralwhisk/>}/>
+               <Route path="Doughwhisk" element={<Doughwhisk/>}/>
+               {/*Electric Mixer*/}
+               <Route path="Electricmixer" element={<Electricmixer/>}/>
+               <Route path="Handmixer" element={<Handmixer/>}/>
+               <Route path="Standmixer" element={<Standmixer/>}/>
+               {/*Rubber scraper */}
+               <Route path="Rubberscraper" element={<Rubberscraper/>}/>
+               <Route path="Flatscraper" element={<Flatscraper/>}/>
             </Routes>
           </Col>
         </Row>
