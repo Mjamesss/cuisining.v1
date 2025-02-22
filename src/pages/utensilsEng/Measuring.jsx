@@ -20,13 +20,13 @@ const Measuring = () => {
         <a href="MeasuringSpoon">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739420285/MeasuringSpoon_kvzzqq.png"></img>
         </a>
-        <a href="">
+        <a href="Kitchenscale">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739420343/KitchenScale_qry07v.png"></img>
         </a>
-        <a href="">
+        <a href="Thermometer">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739421084/Group_1000005994_layaem.png"></img>
         </a> 
-        <a href="">
+        <a href="Timer">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739420392/Timer_yybwn6.png"></img>
         </a>
         </div>

@@ -23,10 +23,11 @@ const Tablespoon = () => {
         <div className="p2 d-grid justify-content-center align-items-center">
         <h1 className="font-weight-900">Table Spoon</h1>
             <p className=" p3 d-flex justify-content-center" style={{fontSize:"30px",maxWidth:"1000px",}}>  
-            A liquid measuring cup is specifically designed for measuring liquids such as water, milk, and oil. It features a spout for easy pouring and measurement markings on the side for precise readings. Typically made of glass or plastic, it allows you to measure accurately without spills or overflow.
-            <br></br>
-            <br></br>
-Liquid measuring cups are commonly available in different sizes, including 1-cup, 2-cup, and 4-cup capacities. Some advanced models include angled markings that allow you to read measurements from above, reducing the need to bend down. Heat-resistant glass versions are ideal for measuring hot liquids like melted butter or broth.
+           
+A tablespoon is a larger measuring unit used for both dry and liquid ingredients. It holds 15 milliliters (mL) or 3 teaspoons, making it ideal for measuring larger quantities of seasonings, oils, and other ingredients.
+<br></br><br></br>
+Tablespoons are often used in baking and cooking where precision is key. Their larger capacity allows for efficient measuring, reducing the need for multiple smaller spoonful.
+.
             </p>
 
             {/* 3D Model Display with Suspense for loading */}

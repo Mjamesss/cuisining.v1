@@ -18,7 +18,7 @@ const Utensils = () => {
             <a href="Measuring" alt="">
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381334/measuring_dglujl.png"></img>
             </a>
-            <a href="#scissors" alt="">
+            <a href="Mixing" alt="">
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381430/mixing_pxzqok.png"></img>
             </a>
             <a href="#scissors" alt="">
