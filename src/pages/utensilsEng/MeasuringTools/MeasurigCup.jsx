@@ -19,10 +19,10 @@ const Cutting = () => {
         <a href="LiquidMeasure">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739981307/Group_1000005992_5_pmqyha.png"></img>
         </a>
-        <a href="">
+        <a href="Collapsemeasure">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739981355/Group_1000005994_3_l6rznf.png"></img>
         </a> 
-        <a href="">
+        <a href="Digitalmeasure">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739981431/Group_1000005995_4_fpfuwm.png"></img>
         </a>
         </div>

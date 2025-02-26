@@ -4,7 +4,7 @@ import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-thre
 import { Suspense } from "react";
 
 const Model = (props) => {
-    const { scene } = useGLTF("teaspoon.glb"); // Ensure the model is in the public folder
+    const { scene } = useGLTF("Mechanicalkitchentimers.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
 };
 
@@ -14,18 +14,17 @@ const Loader = () => (
         <meshBasicMaterial color="gray" wireframe />
     </mesh>
 );
-const Teaspoon = () => {
+const  Mechanicaltimer = () => {
     return(
         <>
          <div className="p5 ">
-       <a href="MeasuringSpoon"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
+       <a href="Timer"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
        </div>
         <div className="p2 d-grid justify-content-center align-items-center">
-        <h1 className="font-weight-900">Tea Spoon</h1>
+        <h1 className="font-weight-900">Mechanical Kitchen Timer</h1>
             <p className=" p3 d-flex justify-content-center" style={{fontSize:"30px",maxWidth:"1000px",}}>  
-            A teaspoon is a small unit of measurement commonly used for ingredients like spices, baking powder, and liquid flavorings. It holds approximately 5 milliliters (mL) or 1/3 of a tablespoon, making it essential for precise ingredient portioning.
-            <br></br><br></br>
-Teaspoons are a fundamental part of measuring spoon sets and are widely used in cooking and baking. They help ensure consistency in recipes by accurately measuring small quantities of dry and liquid ingredients.
+            These kitchen timers may be old school, but they have various advantages that make them popular with many cooks. For starters, mechanical kitchen timers don’t require batteries or electricity—consumers just wind them up and go, making them nearly foolproof. These timers are often incredibly durable, as a simple, high-quality one can last for years without any issues.
+
 
             </p>
 
@@ -48,4 +47,4 @@ Teaspoons are a fundamental part of measuring spoon sets and are widely used in 
     )
 }
 
-export default Teaspoon;
+export default Mechanicaltimer;

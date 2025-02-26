@@ -1,10 +1,10 @@
-import "../../../fw-cuisining.css";
+import "../../../../fw-cuisining.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
 
 const Model = (props) => {
-    const { scene } = useGLTF("teaspoon.glb"); // Ensure the model is in the public folder
+    const { scene } = useGLTF("electricmixer.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
 };
 
@@ -14,18 +14,16 @@ const Loader = () => (
         <meshBasicMaterial color="gray" wireframe />
     </mesh>
 );
-const Teaspoon = () => {
+const  Handmixer = () => {
     return(
         <>
          <div className="p5 ">
-       <a href="MeasuringSpoon"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
+       <a href="Electricmixer"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
        </div>
         <div className="p2 d-grid justify-content-center align-items-center">
-        <h1 className="font-weight-900">Tea Spoon</h1>
+        <h1 className="font-weight-900">Hand Mixer</h1>
             <p className=" p3 d-flex justify-content-center" style={{fontSize:"30px",maxWidth:"1000px",}}>  
-            A teaspoon is a small unit of measurement commonly used for ingredients like spices, baking powder, and liquid flavorings. It holds approximately 5 milliliters (mL) or 1/3 of a tablespoon, making it essential for precise ingredient portioning.
-            <br></br><br></br>
-Teaspoons are a fundamental part of measuring spoon sets and are widely used in cooking and baking. They help ensure consistency in recipes by accurately measuring small quantities of dry and liquid ingredients.
+            A hand mixer is ideal for the weekend baker who regularly whips together scones, packet mix cakes, and pancake batter. These mixers are a safe bet for anyone who is unsure of where to start with a home mixer. Hand mixers usually come with beaters for cakes and icing, and with dough hooks for making small amounts of dough, such as that required for a pizza base.
 
             </p>
 
@@ -48,4 +46,4 @@ Teaspoons are a fundamental part of measuring spoon sets and are widely used in 
     )
 }
 
-export default Teaspoon;
+export default Handmixer;
