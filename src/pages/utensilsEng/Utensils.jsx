@@ -21,13 +21,13 @@ const Utensils = () => {
             <a href="Mixing" alt="">
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381430/mixing_pxzqok.png"></img>
             </a>
-            <a href="#scissors" alt="">
+            <a href="GrillingTools" alt="">
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381710/grilling_xy0zfc.png"></img>
             </a>
-            <a href="#scissors" alt="">
+            <a href="Cookware" alt="">
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381843/cookware_fdxftf.png"></img>
             </a>
-            <a href="#scissors" alt="">
+            <a href="Appliances" alt="">
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382553/appliances_sgokxw.png"></img>
             </a>
             </div>

@@ -4,7 +4,7 @@ import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-thre
 import { Suspense } from "react";
 
 const Model = (props) => {
-    const { scene } = useGLTF("Hand Mixer.glb"); // Ensure the model is in the public folder
+    const { scene } = useGLTF("Utility Tongs.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
 };
 
@@ -14,16 +14,24 @@ const Loader = () => (
         <meshBasicMaterial color="gray" wireframe />
     </mesh>
 );
-const  Handmixer = () => {
+const  Utilitytongs = () => {
     return(
         <>
          <div className="p5 ">
-       <a href="Electricmixer"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
+       <a href="Tongs"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
        </div>
         <div className="p2 d-grid justify-content-center align-items-center">
-        <h1 className="font-weight-900">Hand Mixer</h1>
+        <h1 className="font-weight-900">Utility Tongs</h1>
             <p className=" p3 d-flex justify-content-center" style={{fontSize:"30px",maxWidth:"1000px",}}>  
-            A hand mixer is ideal for the weekend baker who regularly whips together scones, packet mix cakes, and pancake batter. These mixers are a safe bet for anyone who is unsure of where to start with a home mixer. Hand mixers usually come with beaters for cakes and icing, and with dough hooks for making small amounts of dough, such as that required for a pizza base.
+            Utility tongs are general-purpose tongs that can be used as cooking tongs in the kitchen or as serving tongs in your buffet line or salad bar. These tongs are made with stainless steel and feature medium-sized, scalloped ends to ensure a firm grip on foods. Utility tongs are excellent for general kitchen tasks like flipping meats on the stovetop, handling veggies like asparagus, and grabbing food from the deep fryer.
+
+
+
+
+
+
+
+
 
             </p>
 
@@ -46,4 +54,4 @@ const  Handmixer = () => {
     )
 }
 
-export default Handmixer;
+export default Utilitytongs;

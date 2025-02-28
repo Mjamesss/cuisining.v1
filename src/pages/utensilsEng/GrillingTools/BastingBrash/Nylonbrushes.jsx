@@ -4,7 +4,7 @@ import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-thre
 import { Suspense } from "react";
 
 const Model = (props) => {
-    const { scene } = useGLTF("Hand Mixer.glb"); // Ensure the model is in the public folder
+    const { scene } = useGLTF("Nylon Bristle Brushes.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
 };
 
@@ -14,16 +14,17 @@ const Loader = () => (
         <meshBasicMaterial color="gray" wireframe />
     </mesh>
 );
-const  Handmixer = () => {
+const  Nylonbrushes = () => {
     return(
         <>
          <div className="p5 ">
-       <a href="Electricmixer"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
+       <a href="Bastingbrushes"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
        </div>
         <div className="p2 d-grid justify-content-center align-items-center">
-        <h1 className="font-weight-900">Hand Mixer</h1>
+        <h1 className="font-weight-900">Nylon Bristle Brush</h1>
             <p className=" p3 d-flex justify-content-center" style={{fontSize:"30px",maxWidth:"1000px",}}>  
-            A hand mixer is ideal for the weekend baker who regularly whips together scones, packet mix cakes, and pancake batter. These mixers are a safe bet for anyone who is unsure of where to start with a home mixer. Hand mixers usually come with beaters for cakes and icing, and with dough hooks for making small amounts of dough, such as that required for a pizza base.
+            These synthetic brushes offer a balance between natural and silicone options. They’re more durable than natural bristles and can effectively handle various liquids. Nylon brushes resist heat and wear, making them ideal for frequent kitchen use. Nylon bristles provide good absorption, making them useful for applying marinades, butter, and oils. They are easy to clean and do not shed like natural bristles. However, they may stiffen or melt if exposed to very high temperatures.
+
 
             </p>
 
@@ -46,4 +47,4 @@ const  Handmixer = () => {
     )
 }
 
-export default Handmixer;
+export default Nylonbrushes;

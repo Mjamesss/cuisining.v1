@@ -4,7 +4,7 @@ import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-thre
 import { Suspense } from "react";
 
 const Model = (props) => {
-    const { scene } = useGLTF("Hand Mixer.glb"); // Ensure the model is in the public folder
+    const { scene } = useGLTF("Locking Tongs.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
 };
 
@@ -14,16 +14,23 @@ const Loader = () => (
         <meshBasicMaterial color="gray" wireframe />
     </mesh>
 );
-const  Handmixer = () => {
+const  Lockingtongs = () => {
     return(
         <>
          <div className="p5 ">
-       <a href="Electricmixer"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
+       <a href="Tongs"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
        </div>
         <div className="p2 d-grid justify-content-center align-items-center">
-        <h1 className="font-weight-900">Hand Mixer</h1>
+        <h1 className="font-weight-900">Locking Tongs</h1>
             <p className=" p3 d-flex justify-content-center" style={{fontSize:"30px",maxWidth:"1000px",}}>  
-            A hand mixer is ideal for the weekend baker who regularly whips together scones, packet mix cakes, and pancake batter. These mixers are a safe bet for anyone who is unsure of where to start with a home mixer. Hand mixers usually come with beaters for cakes and icing, and with dough hooks for making small amounts of dough, such as that required for a pizza base.
+            Locking tongs are usually made from stainless steel and feature either a bar that slides over the handles or a locking mechanism at the top of the handle to hold them securely in place when not in use. Locking tongs are used the same as utility tongs are, and the added locking feature makes them convenient to store and conserve space in your utensil storage space. This design makes them easy to transport, making them great for catering companies.
+
+
+
+
+
+
+
 
             </p>
 
@@ -46,4 +53,4 @@ const  Handmixer = () => {
     )
 }
 
-export default Handmixer;
+export default Lockingtongs;
