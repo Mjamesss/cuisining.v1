@@ -180,6 +180,8 @@ import Refrigirator from './pages/utensilsEng/Appliances/FoodStorageAppliances/R
 import Freezer from './pages/utensilsEng/Appliances/FoodStorageAppliances/Freezer';
 import BreadBox from './pages/utensilsEng/Appliances/FoodStorageAppliances/BreadBox';
 import Cooler from './pages/utensilsEng/Appliances/FoodStorageAppliances/Cooler';
+
+import Settings from './pages/Settings/Settings';
 const App = () => {
   return (
     <Router>
@@ -378,6 +380,9 @@ const App = () => {
                <Route path="Freezer" element={<Freezer/>}/>
                <Route path="BreadBox" element={<BreadBox/>}/>
                <Route path="Cooler" element={<Cooler/>}/>
+
+               {/*Settings */}
+               <Route path="Settings" element={<Settings/>}/>
             </Routes>
           </Col>
         </Row>
