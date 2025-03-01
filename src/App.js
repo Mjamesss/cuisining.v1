@@ -162,8 +162,24 @@ import Squarepan from './pages/utensilsEng/Cookware/Bakeware/Squarepan';
 
 import Appliances from './pages/utensilsEng/Appliances';
 import BlendingAppliances from './pages/utensilsEng/Appliances/BlendingAppliances/BlendingAppliances';
+import CounterTopBlender from './pages/utensilsEng/Appliances/BlendingAppliances/CounterTopBlender';
+import ImmersionBlender from './pages/utensilsEng/Appliances/BlendingAppliances/ImmersionBlender';
+import PortableBlender from './pages/utensilsEng/Appliances/BlendingAppliances/PortableBlender';
+import HighSpeedBlender from './pages/utensilsEng/Appliances/BlendingAppliances/HighSpeedBlender';
+import StandMixer from './pages/utensilsEng/Appliances/BlendingAppliances/StandMixer';
+
 import HeatingAppliances from './pages/utensilsEng/Appliances/HeatingAppliances/HeatingAppliances';
+import MicrowaveOven from './pages/utensilsEng/Appliances/HeatingAppliances/MicrowaveOven';
+import ToasterOven from './pages/utensilsEng/Appliances/HeatingAppliances/ToasterOven';
+import ElectricKettle from './pages/utensilsEng/Appliances/HeatingAppliances/ElectricKettle';
+import RiceCooker from './pages/utensilsEng/Appliances/HeatingAppliances/RiceCooker';
+import AirFryer from './pages/utensilsEng/Appliances/HeatingAppliances/AirFryer';
+
 import FoodStorageAppliances from './pages/utensilsEng/Appliances/FoodStorageAppliances/FoodStorageAppliances';
+import Refrigirator from './pages/utensilsEng/Appliances/FoodStorageAppliances/Refrigirator';
+import Freezer from './pages/utensilsEng/Appliances/FoodStorageAppliances/Freezer';
+import BreadBox from './pages/utensilsEng/Appliances/FoodStorageAppliances/BreadBox';
+import Cooler from './pages/utensilsEng/Appliances/FoodStorageAppliances/Cooler';
 const App = () => {
   return (
     <Router>
@@ -340,9 +356,28 @@ const App = () => {
                
                {/*Appliances */}
                <Route path="Appliances" element={<Appliances/>}/>
+               {/*Blending Appliances */}
                <Route path="BlendingAppliances" element={<BlendingAppliances/>}/>
+               <Route path="CounterTopBlender" element={<CounterTopBlender/>}/>
+               <Route path="ImmersionBlender" element={<ImmersionBlender/>}/>
+               <Route path="PortableBlender" element={<PortableBlender/>}/>
+               <Route path="HighSpeedBlender" element={<HighSpeedBlender/>}/>
+               <Route path="StandMixer" element={<StandMixer/>}/>
+
+               {/*Heating Appliances */}
                <Route path="HeatingAppliances" element={<HeatingAppliances/>}/>
+               <Route path="MicrowaveOven" element={<MicrowaveOven/>}/>
+               <Route path="ToasterOven" element={<ToasterOven/>}/>
+               <Route path="ElectricKettle" element={<ElectricKettle/>}/>
+               <Route path="RiceCooker" element={<RiceCooker/>}/>
+               <Route path="AirFryer" element={<AirFryer/>}/>
+
+               {/*Food Storage */}
                <Route path="FoodStorageAppliances" element={<FoodStorageAppliances/>}/>
+               <Route path="Refrigirator" element={<Refrigirator/>}/>
+               <Route path="Freezer" element={<Freezer/>}/>
+               <Route path="BreadBox" element={<BreadBox/>}/>
+               <Route path="Cooler" element={<Cooler/>}/>
             </Routes>
           </Col>
         </Row>

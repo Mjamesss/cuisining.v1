@@ -20,7 +20,7 @@ const HeatingAppliances = () =>{
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740725626/Group_1000005992_26_drc3tt.png"></img>
             
         </a>
-        <a href="Electric Kettle">
+        <a href="ElectricKettle">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740725810/Group_1000005993_17_yoq6d5.png"></img>
             
         </a>
