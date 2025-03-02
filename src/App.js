@@ -182,6 +182,64 @@ import BreadBox from './pages/utensilsEng/Appliances/FoodStorageAppliances/Bread
 import Cooler from './pages/utensilsEng/Appliances/FoodStorageAppliances/Cooler';
 
 import Settings from './pages/Settings/Settings';
+
+import Proteins from './pages/utensilsEng/Protein'; 
+import Beef from './pages/utensilsEng/Proteins/Beef';
+import ChickenBreast from './pages/utensilsEng/Proteins/Chickenbreast';
+import CodFillet from './pages/utensilsEng/Proteins/Codfillet'; 
+import GroundBeef from './pages/utensilsEng/Proteins/Groundbeef'; 
+import Shrimp from './pages/utensilsEng/Proteins/Shrimp';
+import Tofu from './pages/utensilsEng/Proteins/Tofu';
+import Tuna from './pages/utensilsEng/Proteins/Tuna';
+
+import Dairies from './pages/utensilsEng/Dairies';
+import Buttter from './pages/utensilsEng/Dairies/Butter';
+import Cheese from './pages/utensilsEng/Dairies/Cheese';
+import Milk from './pages/utensilsEng/Dairies/Milk';
+import Yogurt from './pages/utensilsEng/Dairies/Yogurt';
+
+import GrainStarches from './pages/utensilsEng/GrainStarches';
+import Barley from './pages/utensilsEng/GrainStarches/Barley';
+import Buckwheat from './pages/utensilsEng/GrainStarches/Buckwheat';
+import Corn from './pages/utensilsEng/GrainStarches/Corn';
+import Farro from './pages/utensilsEng/GrainStarches/Farro';
+
+import Fruits from './pages/utensilsEng/Fruits';
+import Apple from './pages/utensilsEng/Fruits/Apple';
+import Banana from './pages/utensilsEng/Fruits/Banana'; 
+import Lemon from './pages/utensilsEng/Fruits/Lemon';
+import Papaya from './pages/utensilsEng/Fruits/Papaya';
+import Pineapple from './pages/utensilsEng/Fruits/Pineapple';
+import Strawberry from './pages/utensilsEng/Fruits/Strawberry';
+
+import Vegetables from './pages/utensilsEng/Vegetables';
+import Carrots from './pages/utensilsEng/Vegetables/Carrots';
+import Lettuce from './pages/utensilsEng/Vegetables/Lettuce';
+import Onion from './pages/utensilsEng/Vegetables/Onion';
+import Potato from './pages/utensilsEng/Vegetables/Potato';
+import Tomato from './pages/utensilsEng/Vegetables/Tomato';
+
+import HerbsSpices from './pages/utensilsEng/HerbsSpices';
+import BayLeaf from './pages/utensilsEng/HerbsSpices/BayLeaf';
+import Chives from './pages/utensilsEng/HerbsSpices/Chives';
+import CurryPowder from './pages/utensilsEng/HerbsSpices/CurryPowder';
+import Paprika from './pages/utensilsEng/HerbsSpices/Paprika';
+import Rosemary from './pages/utensilsEng/HerbsSpices/Rosemary';
+
+import OilFats from './pages/utensilsEng/OilFats';
+import CanolaOil from './pages/utensilsEng/OilFats/CanolaOil';
+import CoconutOil from './pages/utensilsEng/OilFats/CoconutOil';
+import Lard from './pages/utensilsEng/OilFats/Lard';
+import OliveOil from './pages/utensilsEng/OilFats/OliveOil';
+
+import SeasoningCondiments from './pages/utensilsEng/SeasoningCondiments';
+import FishSauce from './pages/utensilsEng/SeasoningCondiments/FishSauce';
+import HotSauce from './pages/utensilsEng/SeasoningCondiments/HotSauce';
+import Pepper from './pages/utensilsEng/SeasoningCondiments/Pepper';
+import Salt from './pages/utensilsEng/SeasoningCondiments/Salt';
+import SoySauce from './pages/utensilsEng/SeasoningCondiments/SoySauce';
+
+
 const App = () => {
   return (
     <Router>
@@ -289,6 +347,7 @@ const App = () => {
                <Route path="ElectricMixerr" element={<ElectricMixerr/>}/>
                {/*Rubber scraper */}
                <Route path="Rubberscraper" element={<Rubberscraper/>}/>
+
                <Route path="Flatscraper" element={<Flatscraper/>}/>
                <Route path="Curvescraper" element={<Curvescraper/>}/>
                {/*Grilling Tools */}
@@ -383,6 +442,64 @@ const App = () => {
 
                {/*Settings */}
                <Route path="Settings" element={<Settings/>}/>
+               <Route path="Flatscraper" element={<Flatscraper/>}/>               
+               {/*Protein*/}
+               <Route path="/proteins" element={<Proteins/>}/>
+               <Route path="/Beef" element={<Beef/>} />
+               <Route path="/ChickenBreast" element={<ChickenBreast/>}/>
+               <Route path="/CodFillet" element={<CodFillet/>}/>
+               <Route path="/GroundBeef" element={<GroundBeef/>}/>
+               <Route path="/Shrimp" element={<Shrimp/>}/>
+               <Route path="/Tofu" element={<Tofu/>}/>
+               <Route path="/Tuna" element={<Tuna/>}/>
+               {/*Dairies*/}
+               <Route path="/Dairies" element={<Dairies/>}/>
+               <Route path="/Butter" element={<Buttter/>}/>
+               <Route path="/Cheese" element={<Cheese/>}/>
+               <Route path="/Milk" element={<Milk/>}/>
+               <Route path="/Yogurt" element={<Yogurt/>}/>
+               {/*Grain&Starches*/}
+               <Route path="/GrainStarches" element={<GrainStarches/>}/>
+               <Route path="/Barley" element={<Barley/>}/>
+               <Route path="/Buckwheat" element={<Buckwheat/>}/>
+               <Route path="/Corn" element={<Corn/>}/>
+               <Route path="/Farro" element={<Farro/>}/>
+               {/*Fruits*/}
+              <Route path="/Fruits" element={<Fruits/>}/>
+              <Route path="/Apple" element={<Apple/>}/>
+              <Route path="/Banana" element={<Banana/>}/>
+              <Route path="/Lemon" element={<Lemon/>}/>
+              <Route path="/Papaya" element={<Papaya/>}/>
+              <Route path="/Pineapple" element={<Pineapple/>}/>
+              <Route path="/Strawberry" element={<Strawberry/>}/>
+              {/*Vegetables*/}
+              <Route path="/Vegetables" element={<Vegetables/>}/>
+              <Route path="/Carrots" element={<Carrots/>}/>
+              <Route path="/Lettuce" element={<Lettuce/>}/>
+              <Route path="/Onion" element={<Onion/>}/>
+              <Route path="/Potato" element={<Potato/>}/>
+              <Route path="/Tomato" element={<Tomato/>}/>
+              {/*Herbs & Spices*/}
+              <Route path="/HerbsSpices" element={<HerbsSpices/>}/>
+              <Route path="/BayLeaf" element={<BayLeaf/>}/>
+              <Route path="/Chives" element={<Chives/>}/>
+              <Route path="/CurryPowder" element={<CurryPowder/>}/>
+              <Route path="/Paprika" element={<Paprika/>}/>
+              <Route path="/Rosemary" element={<Rosemary/>}/>
+              {/*Oil & Fats*/}
+              <Route path="/OilFats" element={<OilFats/>}/>
+              <Route path="/CanolaOil" element={<CanolaOil/>}/>
+              <Route path="/CoconutOil" element={<CoconutOil/>}/>
+              <Route path="/Lard" element={<Lard/>}/>
+              <Route path="/OliveOil" element={<OliveOil/>}/>
+              {/*SeasoningCondiments*/}
+              <Route path="/SeasoningCondiments" element={<SeasoningCondiments/>}/>
+              <Route path="/FishSauce" element={<FishSauce/>}/>
+              <Route path="/HotSauce" element={<HotSauce/>}/>
+              <Route path="/Pepper" element={<Pepper/>}/>
+              <Route path="/Salt" element={<Salt/>}/>
+              <Route path="/SoySauce" element={<SoySauce/>}/>
+           
             </Routes>
           </Col>
         </Row>
