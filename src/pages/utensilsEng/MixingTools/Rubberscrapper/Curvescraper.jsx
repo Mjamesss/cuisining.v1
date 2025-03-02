@@ -2,9 +2,9 @@ import "../../../../fw-cuisining.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
-
+// 3d model
 const Model = (props) => {
-    const { scene } = useGLTF("Hand Mixer.glb"); // Ensure the model is in the public folder
+    const { scene } = useGLTF("CurvedRubberScraper.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
 };
 
@@ -14,17 +14,17 @@ const Loader = () => (
         <meshBasicMaterial color="gray" wireframe />
     </mesh>
 );
-const  Handmixer = () => {
+const  Curvescraper = () => {
     return(
         <>
          <div className="p5 ">
-       <a href="Electricmixer"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
+       <a href="Rubberscraper"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
        </div>
         <div className="p2 d-grid justify-content-center align-items-center">
-        <h1 className="font-weight-900">Hand Mixer</h1>
+        <h1 className="font-weight-900">Curve Rubber Scraper</h1>
             <p className=" p3 d-flex justify-content-center" style={{fontSize:"30px",maxWidth:"1000px",}}>  
-            A hand mixer is ideal for the weekend baker who regularly whips together scones, packet mix cakes, and pancake batter. These mixers are a safe bet for anyone who is unsure of where to start with a home mixer. Hand mixers usually come with beaters for cakes and icing, and with dough hooks for making small amounts of dough, such as that required for a pizza base.
-
+            A curved rubber scraper has a rounded edge that conforms to the shape of bowls, making it excellent for scraping every last bit of batter, icing, or sauce. The flexible design allows for efficient mixing and scooping.
+            This type of scraper is commonly used for baking and cooking, especially when working with sticky ingredients like honey or peanut butter. It ensures smooth, consistent mixing and prevents waste.
             </p>
 
             {/* 3D Model Display with Suspense for loading */}
@@ -46,4 +46,4 @@ const  Handmixer = () => {
     )
 }
 
-export default Handmixer;
+export default Curvescraper;

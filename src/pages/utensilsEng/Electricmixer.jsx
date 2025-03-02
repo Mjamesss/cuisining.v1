@@ -15,7 +15,7 @@ const Electricmixer = () =>{
         <a href="Handmixer">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740239946/Group_10_15_ab5tzp.png"></img>
         </a>
-        <a href="Standmixer">
+        <a href="ElectricMixerr">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740239936/Group_1000005994_4_ymqlqa.png"></img>
         </a>
        

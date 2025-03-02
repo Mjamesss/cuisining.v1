@@ -4,7 +4,7 @@ import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-thre
 import { Suspense } from "react";
 
 const Model = (props) => {
-    const { scene } = useGLTF("Hand Mixer.glb"); // Ensure the model is in the public folder
+    const { scene } = useGLTF("BBQ Tongs.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
 };
 
@@ -14,16 +14,17 @@ const Loader = () => (
         <meshBasicMaterial color="gray" wireframe />
     </mesh>
 );
-const  Handmixer = () => {
+const  Bbqtongs = () => {
     return(
         <>
          <div className="p5 ">
-       <a href="Electricmixer"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
+       <a href="Tongs"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
        </div>
         <div className="p2 d-grid justify-content-center align-items-center">
-        <h1 className="font-weight-900">Hand Mixer</h1>
+        <h1 className="font-weight-900">BBQ Tongs</h1>
             <p className=" p3 d-flex justify-content-center" style={{fontSize:"30px",maxWidth:"1000px",}}>  
-            A hand mixer is ideal for the weekend baker who regularly whips together scones, packet mix cakes, and pancake batter. These mixers are a safe bet for anyone who is unsure of where to start with a home mixer. Hand mixers usually come with beaters for cakes and icing, and with dough hooks for making small amounts of dough, such as that required for a pizza base.
+            Barbecue tongs are similar in appearance to utility tongs but are longer in length to protect operators from the hot flames of a grill while grabbing and turning meats, fish, and vegetables. The arms are often made of stainless steel to handle the high heat of grills and smokers while the handles are often coated with a non-heat-conducting material to protect a user's hands. To combat the long length, many BBQ tongs also have a locking feature with a hanging hole for easier storage.
+
 
             </p>
 
@@ -46,4 +47,4 @@ const  Handmixer = () => {
     )
 }
 
-export default Handmixer;
+export default Bbqtongs;

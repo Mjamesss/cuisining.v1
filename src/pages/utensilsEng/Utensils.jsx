@@ -32,7 +32,24 @@ const Utensils = () => {
                         </div>
                     </div>
                 </div>
-
+            <a  className="" href="Cutting" alt="">
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381320/cutting_yq3wh7.png"></img>
+            </a>
+            <a href="Measuring" alt="">
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381334/measuring_dglujl.png"></img>
+            </a>
+            <a href="Mixing" alt="">
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381430/mixing_pxzqok.png"></img>
+            </a>
+            <a href="GrillingTools" alt="">
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381710/grilling_xy0zfc.png"></img>
+            </a>
+            <a href="Cookware" alt="">
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739381843/cookware_fdxftf.png"></img>
+            </a>
+            <a href="Appliances" alt="">
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739382553/appliances_sgokxw.png"></img>
+            </a>
                 <div className="p5">
                     <div style={{ width: "100%" }}>
                         <h2 className="font-weight-700">Ingredients Identification</h2>
