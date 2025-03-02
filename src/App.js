@@ -8,7 +8,7 @@ import OTP from './pages/login/OTP'; // Import OTP Component
 import SetNewPass from './pages/login/SetNewPass'; // Import Set New Password Component
 import Done from './pages/login/Done'; // Import Done Component
 import Landing from './pages/login/Landing'; // Import Home Component
-import DoneRegister from './pages/login/DoneRegister'; // Import Done Register Component
+import DoneRegister from './pages/login/DoneRegister';
 import Testing from './pages/Testing';
 import Footer from './components/Footer';
 import Customprofile from './pages/customize-profile/customize-profile';
