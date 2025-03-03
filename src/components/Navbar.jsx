@@ -252,7 +252,7 @@ const Navbar = () => {
                 alt="Profile Icon"
                 style={{ width: "20px", height: "20px" }}
               />
-              Profile
+              Cuisining Profile
             </button>
             <button
               className="btn w-100 text-left"

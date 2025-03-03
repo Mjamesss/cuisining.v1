@@ -43,7 +43,7 @@ const Settings = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        const { fName, email } = profileResponse.data;
+        const { fName, email, cuisiningId } = profileResponse.data;
 
 
         // Update state with fetched data
@@ -58,6 +58,31 @@ const Settings = () => {
     };
 
     fetchProfileData();
+  }, []);
+  useEffect(() => {
+    const fetchCuisiningId = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+
+        // Fetch fName and email from /settings-profile endpoint
+        const profileResponse = await axios.get("http://localhost:5000/api/settings/cuisining-id", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const { fName, email, cuisiningId } = profileResponse.data;
+
+
+        // Update state with fetched data
+        setFormData((prevData) => ({
+          ...prevData,
+          cuisiningId: cuisiningId,
+        }));
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
+    };
+
+    fetchCuisiningId();
   }, []);
 
   const [loading, setLoading] = useState(true); // Loading state
@@ -155,10 +180,7 @@ const Settings = () => {
                 <strong>Email:</strong> {formData.email}
               </p>
               <p className="mb-0">
-                <strong>Password:</strong>
-                <div className="cbtn cbtn-sm ml-1 cbtn-secondary">
-                  change
-                </div>
+                <strong>CuisiningID:</strong> {formData.cuisiningId}
               </p>
             </div>
 
@@ -249,7 +271,6 @@ const Settings = () => {
                   borderRadius: "50%",
                   objectFit: "cover",
                   marginBottom: "10px",
-                  backgroundColor: "black",
                 }}
               />
               <label htmlFor="avatar-upload">
@@ -296,133 +317,78 @@ const Settings = () => {
               </Col>
             </Row>
 
-            {/* Address Section */}
-            <h6 className="mt-4 mb-3" style={{ fontWeight: "bold" }}>Address</h6>
-            <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Country</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="country"
-                    placeholder="Enter country"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>City/Town</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="city"
-                    placeholder="Enter city/town"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Barangay</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="barangay"
-                    placeholder="Enter barangay"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>District</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="district"
-                    placeholder="Enter district"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Number, Building, Street</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="number"
-                    placeholder="Enter number, building, street"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Province</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="province"
-                    placeholder="Enter province"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Region</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="region"
-                    placeholder="Enter region"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+            <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" scrollable={false}>
+              <Modal.Header closeButton>
+                <Modal.Title className="mt-3 ml-3 font-weight-600">User Detail</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form>
+                  {/* Avatar Change */}
+                  <Form.Group className="mb-4 text-center">
+                    <img
+                      src={avatar}
+                      alt="Profile Avatar"
+                      style={{
+                        width: "150px",
+                        height: "150px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        marginBottom: "10px",
+                      }}
+                    />
+                    <label htmlFor="avatar-upload">
+                      <img
+                        src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740908939/Camera_c7kuaz.png"
+                        alt="Upload Icon"
+                        style={{ width: "30px", height: "30px", marginLeft: "10px" }}
+                      />
+                    </label>
+                    <input
+                      id="avatar-upload"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleAvatarChange}
+                      style={{ display: "none" }}
+                    />
+                  </Form.Group>
 
-            {/* Personal Details */}
-            <h6 className="mt-4 mb-3" style={{ fontWeight: "bold" }}>Personal Details</h6>
-            <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Sex</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="sex"
-                    placeholder="Enter sex"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Civil Status</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="civilStatus"
-                    placeholder="Enter civil status"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Contact No.</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="contactNo"
-                    placeholder="Enter contact number"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+                  {/* Name and Email in Strict Horizontal Layout */}
+                  <div style={{ display: "flex", gap: "20px", justifyContent: "center" }}>
+                    {/* Name Field */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <Form.Label style={{ whiteSpace: "nowrap" }}>Name:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        style={{ width: "200px", maxWidth: "300px" }} // Adjust width as needed
+                      />
+                    </div>
+
+                    {/* Email Field */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <Form.Label style={{ whiteSpace: "nowrap" }}>Email:</Form.Label>
+                      <Form.Control
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        style={{ width: "200px", maxWidth: "300px" }} // Adjust width as needed
+                      />
+                    </div>
+                  </div>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowModal(false)}>
+                  Cancel
+                </Button>
+                <Button variant="cbtn cbtn-secondary" onClick={handleSave}>
+                  Save Changes
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </Form>
         </Modal.Body>
         <Modal.Footer>

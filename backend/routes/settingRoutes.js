@@ -75,4 +75,30 @@ router.get("/avatar", verifyToken, async (req, res) => {
   }
 });
 
+// New route to fetch cuisiningId
+router.get("/cuisining-id", verifyToken, async (req, res) => {
+  try {
+    // Use req.userId from verifyToken middleware
+    const userId = req.userId;
+
+    // Fetch the profile data for the user
+    const profile = await Profile.findOne({ userID: userId }).select('cuisiningId');
+
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    // If cuisiningId exists, return it; otherwise, return null or a default value
+    const cuisiningId = profile.cuisiningId || null;
+
+    res.status(200).json({
+      message: "Cuisining ID retrieved successfully",
+      cuisiningId: cuisiningId,
+    });
+  } catch (error) {
+    console.error("Error fetching cuisining ID:", error);
+    res.status(500).json({ error: "An error occurred", details: error.message });
+  }
+});
+
 module.exports = router;
