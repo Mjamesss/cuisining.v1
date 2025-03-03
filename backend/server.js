@@ -11,6 +11,7 @@ const profileRoutes = require("./routes/profRoutes");
 const forgotPassMailing = require("./routes/change-pass");
 const otpRoutes = require("./routes/otpRoutes");
 const oAuthRoutes = require("./routes/googleAuthRoutes");
+const settingsRoutes = require("./routes/settingRoutes");
 
 // Import Google Strategy (Ensure it's required)
 require("./routes/googleAuthRoutes");
@@ -52,6 +53,7 @@ app.use("/api/password", forgotPassMailing);
 app.use("/api/profile", profileRoutes);
 app.use("/api/otp", otpRoutes);
 app.use("/api/oauth", oAuthRoutes);
+app.use("/api/settings", settingsRoutes);
 
 app.get("/", (req, res) => {
   res.send("Our Server");

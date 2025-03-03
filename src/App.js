@@ -49,7 +49,195 @@ import RaspGrater from './pages/utensilsEng/CuttingTools/Graters/RaspGrater';
 import MandolineGrater from './pages/utensilsEng/CuttingTools/Graters/MandolineGrater';
 import RotaryGrater from './pages/utensilsEng/CuttingTools/Graters/RotaryGrater';
 import SpiceGrater from './pages/utensilsEng/CuttingTools/Graters/SpiceGrater';
+
 import Measuring from './pages/utensilsEng/Measuring';
+import MeasuringCup from './pages/utensilsEng/MeasuringTools/MeasurigCup';
+import DryMeasuring from './pages/utensilsEng/MeasuringTools/DryMeasuring';
+import LiquidMeasure from './pages/utensilsEng/MeasuringTools/LiquidMeasure';
+import MeasuringSpoon from './pages/utensilsEng/MeasuringTools/MeasuringSpoon';
+import Collapsemeasure from './pages/utensilsEng/MeasuringTools/Collapsemeasure';
+import Digitalmeasure from './pages/utensilsEng/MeasuringTools/Digitalmeasure';
+import Teaspoon from './pages/utensilsEng/MeasuringTools/Teaspoon';
+import Tablespoon from './pages/utensilsEng/MeasuringTools/Tablespoon';
+
+import Kitchenscale from './pages/utensilsEng/Kitchenscale';
+import Mechanicalscale from './pages/utensilsEng/KitchenScale/Mechanicalscale';
+import Digitalscale from './pages/utensilsEng/KitchenScale/Digitalscale';
+import Smartnutritionscale from './pages/utensilsEng/KitchenScale/Smartnutritionscale';
+import Hangingscale from './pages/utensilsEng/KitchenScale/Hangingscale';
+import Largecapacityscale from './pages/utensilsEng/KitchenScale/Largecapacityscale';
+import Gramscale from './pages/utensilsEng/KitchenScale/Gramscale';
+
+import Thermometer from './pages/utensilsEng/Thermometer';
+import Oventhermometer from './pages/utensilsEng/Thermometer/Oventhermometer';
+import Candythermometer from './pages/utensilsEng/Thermometer/Candythermometer';
+import Fridgethermometer from './pages/utensilsEng/Thermometer/Fridgethermometer';
+import Meatthermometer from './pages/utensilsEng/Thermometer/Meatthermometer';
+
+import Timer from './pages/utensilsEng/Timer';
+import Mechanicaltimer from './pages/utensilsEng/Timer/Mechanicaltimer';
+import Digitaltimer from './pages/utensilsEng/Timer/Digitaltimer';
+
+import Mixing from './pages/utensilsEng/Mixing';
+import Mixingbowls from './pages/utensilsEng/MixingTools/Mixingbowl/Mixingbowls';
+import Stainlessbowl from './pages/utensilsEng/MixingTools/Mixingbowl/Stainlessbowl';
+import Glassbowl from './pages/utensilsEng/MixingTools/Mixingbowl/Glassbowl';
+import Plasticbowl from './pages/utensilsEng/MixingTools/Mixingbowl/Plasticbowl';
+
+import Whisk from './pages/utensilsEng/Whisk';
+import Whiskk from './pages/utensilsEng/MixingTools/Whisks/Whiskk';
+import Kettlewhisk from './pages/utensilsEng/MixingTools/Whisks/Kettlewhisk';
+import Minibarwhisk from './pages/utensilsEng/MixingTools/Whisks/Minibarwhisk';
+import Flatwhisk from './pages/utensilsEng/MixingTools/Whisks/Flatwhisk';
+import Spiralwhisk from './pages/utensilsEng/MixingTools/Whisks/Spiralwhisk';
+import Doughwhisk from './pages/utensilsEng/MixingTools/Whisks/Doughwhisk';
+
+import Electricmixer from './pages/utensilsEng/Electricmixer';
+import Handmixer from './pages/utensilsEng/MixingTools/ElectricMixer/Handmixer';
+import ElectricMixerr from './pages/utensilsEng/MixingTools/ElectricMixer/ElectricMixerr';
+
+import Rubberscraper from './pages/utensilsEng/Rubberscraper';
+import Flatscraper from './pages/utensilsEng/MixingTools/Rubberscrapper/Flatscraper';
+import Curvescraper from './pages/utensilsEng/MixingTools/Rubberscrapper/Curvescraper';
+
+import GrillingTools from './pages/utensilsEng/GrillingTools/GrilingTools';
+import Grills from './pages/utensilsEng/GrillingTools/Grill/Grills';
+import Opengrill from './pages/utensilsEng/GrillingTools/Grill/Opengrill';
+import Covergrill from './pages/utensilsEng/GrillingTools/Grill/Covergrill';
+import Smokergrill from './pages/utensilsEng/GrillingTools/Grill/Smokergrill';
+import Grillss from './pages/utensilsEng/GrillingTools/Grill/Grillss';
+
+
+import Spatula from './pages/utensilsEng/GrillingTools/Spatula/Spatula';
+import Turnerspatula from './pages/utensilsEng/GrillingTools/Spatula/Turnerspatula';
+import Offsetspatula from './pages/utensilsEng/GrillingTools/Spatula/Offsetspatula';
+import Fishspatula from './pages/utensilsEng/GrillingTools/Spatula/Fishspatula';
+import Grillspatula from './pages/utensilsEng/GrillingTools/Spatula/Grillspatula';
+import Spoonspatula from './pages/utensilsEng/GrillingTools/Spatula/Spoonspatula';
+import Slottedspatula from './pages/utensilsEng/GrillingTools/Spatula/Slottedspatula';
+
+import Tongs from './pages/utensilsEng/GrillingTools/Tongs/Tongs';
+import Saladtongs from './pages/utensilsEng/GrillingTools/Tongs/Saladtongs';
+import Servingtongs from './pages/utensilsEng/GrillingTools/Tongs/Servingtongs';
+import Scissortongs from  './pages/utensilsEng/GrillingTools/Tongs/Scissortongs';
+import Pastatongs from './pages/utensilsEng/GrillingTools/Tongs/Pastatongs';
+import Lockingtongs from './pages/utensilsEng/GrillingTools/Tongs/Lockingtongs';
+import Flattongs from './pages/utensilsEng/GrillingTools/Tongs/Flattongs';
+import Utilitytongs from './pages/utensilsEng/GrillingTools/Tongs/Utilitytongs';
+import Bbqtongs from './pages/utensilsEng/GrillingTools/Tongs/Bbqtongs';
+
+import Bastingbrushes from './pages/utensilsEng/GrillingTools/BastingBrash/Bastingbrushes';
+import Naturalbrush from './pages/utensilsEng/GrillingTools/BastingBrash/Naturalbrushes';
+import Siliconbrushes from './pages/utensilsEng/GrillingTools/BastingBrash/Siliconbrushes';
+import Nylonbrushes from './pages/utensilsEng/GrillingTools/BastingBrash/Nylonbrushes';
+import Mopbrushes from './pages/utensilsEng/GrillingTools/BastingBrash/Mopbrushes';
+
+import Cookware from './pages/utensilsEng/Cookware';
+import Pans from './pages/utensilsEng/Cookware/Pans/Pans';
+import Frypan from './pages/utensilsEng/Cookware/Pans/Frypan';
+import Sautepan from './pages/utensilsEng/Cookware/Pans/Sautepan';
+import Saucepan from './pages/utensilsEng/Cookware/Pans/Saucepan';
+import CastIronSkillet from './pages/utensilsEng/Cookware/Pans/CastIronSkillset';
+import Wok from './pages/utensilsEng/Cookware/Pans/Wok';
+import Roastingpan from './pages/utensilsEng/Cookware/Pans/RoastingPan';
+
+
+import Pots from './pages/utensilsEng/Cookware/Pots/pots';
+import Brazier from './pages/utensilsEng/Cookware/Pots/Brazier';
+import Dutchoven from './pages/utensilsEng/Cookware/Pots/Dutchoven';
+import Stockpot from './pages/utensilsEng/Cookware/Pots/Stockpot';
+import Fryerpot from './pages/utensilsEng/Cookware/Pots/Fryerpot';
+import Pastapot from './pages/utensilsEng/Cookware/Pots/Pastapot';
+
+
+import Bakeware from './pages/utensilsEng/Cookware/Bakeware/Bakeware';
+import CastIronPan from './pages/utensilsEng/Cookware/Bakeware/CastIronPan';
+import Loafpan from './pages/utensilsEng/Cookware/Bakeware/Loafpan';
+import Sheetpan from './pages/utensilsEng/Cookware/Bakeware/Sheetpan';
+import Cakepan from './pages/utensilsEng/Cookware/Bakeware/Cakepan';
+import Muffinpan from './pages/utensilsEng/Cookware/Bakeware/Muffinpan';
+import Springformpan from './pages/utensilsEng/Cookware/Bakeware/Springformpan';
+import Roundcakepan from './pages/utensilsEng/Cookware/Bakeware/Rouncakepan';
+import Squarepan from './pages/utensilsEng/Cookware/Bakeware/Squarepan';
+
+import Appliances from './pages/utensilsEng/Appliances';
+import BlendingAppliances from './pages/utensilsEng/Appliances/BlendingAppliances/BlendingAppliances';
+import CounterTopBlender from './pages/utensilsEng/Appliances/BlendingAppliances/CounterTopBlender';
+import ImmersionBlender from './pages/utensilsEng/Appliances/BlendingAppliances/ImmersionBlender';
+import PortableBlender from './pages/utensilsEng/Appliances/BlendingAppliances/PortableBlender';
+import HighSpeedBlender from './pages/utensilsEng/Appliances/BlendingAppliances/HighSpeedBlender';
+import StandMixer from './pages/utensilsEng/Appliances/BlendingAppliances/StandMixer';
+
+import HeatingAppliances from './pages/utensilsEng/Appliances/HeatingAppliances/HeatingAppliances';
+import MicrowaveOven from './pages/utensilsEng/Appliances/HeatingAppliances/MicrowaveOven';
+import ToasterOven from './pages/utensilsEng/Appliances/HeatingAppliances/ToasterOven';
+import ElectricKettle from './pages/utensilsEng/Appliances/HeatingAppliances/ElectricKettle';
+import RiceCooker from './pages/utensilsEng/Appliances/HeatingAppliances/RiceCooker';
+import AirFryer from './pages/utensilsEng/Appliances/HeatingAppliances/AirFryer';
+
+import FoodStorageAppliances from './pages/utensilsEng/Appliances/FoodStorageAppliances/FoodStorageAppliances';
+import Refrigirator from './pages/utensilsEng/Appliances/FoodStorageAppliances/Refrigirator';
+import Freezer from './pages/utensilsEng/Appliances/FoodStorageAppliances/Freezer';
+import BreadBox from './pages/utensilsEng/Appliances/FoodStorageAppliances/BreadBox';
+import Cooler from './pages/utensilsEng/Appliances/FoodStorageAppliances/Cooler';
+
+import Settings from './pages/Settings/Settings';
+
+import Proteins from './pages/utensilsEng/Protein'; 
+import Beef from './pages/utensilsEng/Proteins/Beef';
+import ChickenBreast from './pages/utensilsEng/Proteins/Chickenbreast';
+import CodFillet from './pages/utensilsEng/Proteins/Codfillet'; 
+import GroundBeef from './pages/utensilsEng/Proteins/Groundbeef'; 
+import Shrimp from './pages/utensilsEng/Proteins/Shrimp';
+import Tofu from './pages/utensilsEng/Proteins/Tofu';
+import Tuna from './pages/utensilsEng/Proteins/Tuna';
+
+import Dairies from './pages/utensilsEng/Dairies';
+import Buttter from './pages/utensilsEng/Dairies/Butter';
+import Cheese from './pages/utensilsEng/Dairies/Cheese';
+import Milk from './pages/utensilsEng/Dairies/Milk';
+import Yogurt from './pages/utensilsEng/Dairies/Yogurt';
+
+import GrainStarches from './pages/utensilsEng/GrainStarches';
+import Barley from './pages/utensilsEng/GrainStarches/Barley';
+import Buckwheat from './pages/utensilsEng/GrainStarches/Buckwheat';
+import Corn from './pages/utensilsEng/GrainStarches/Corn';
+import Farro from './pages/utensilsEng/GrainStarches/Farro';
+
+import Fruits from './pages/utensilsEng/Fruits';
+import Apple from './pages/utensilsEng/Fruits/Apple';
+import Banana from './pages/utensilsEng/Fruits/Banana'; 
+import Lemon from './pages/utensilsEng/Fruits/Lemon';
+import Papaya from './pages/utensilsEng/Fruits/Papaya';
+import Pineapple from './pages/utensilsEng/Fruits/Pineapple';
+import Strawberry from './pages/utensilsEng/Fruits/Strawberry';
+
+import Vegetables from './pages/utensilsEng/Vegetables';
+import Carrots from './pages/utensilsEng/Vegetables/Carrots';
+import Lettuce from './pages/utensilsEng/Vegetables/Lettuce';
+import Onion from './pages/utensilsEng/Vegetables/Onion';
+import Potato from './pages/utensilsEng/Vegetables/Potato';
+import Tomato from './pages/utensilsEng/Vegetables/Tomato';
+
+import HerbsSpices from './pages/utensilsEng/HerbsSpices';
+import BayLeaf from './pages/utensilsEng/HerbsSpices/BayLeaf';
+import Chives from './pages/utensilsEng/HerbsSpices/Chives';
+import CurryPowder from './pages/utensilsEng/HerbsSpices/CurryPowder';
+import Paprika from './pages/utensilsEng/HerbsSpices/Paprika';
+import Rosemary from './pages/utensilsEng/HerbsSpices/Rosemary';
+
+import OilFats from './pages/utensilsEng/OilFats';
+import CanolaOil from './pages/utensilsEng/OilFats/CanolaOil';
+import CoconutOil from './pages/utensilsEng/OilFats/CoconutOil';
+import Lard from './pages/utensilsEng/OilFats/Lard';
+import OliveOil from './pages/utensilsEng/OilFats/OliveOil';
+
+import SeasoningCondiments from './pages/utensilsEng/SeasoningCondiments';
+import FishSauce from './pages/utensilsEng/SeasoningCondiments/FishSauce';
+import HotSauce from './pages/utensilsEng/SeasoningCondiments/HotSauce';
+import Pepper from './pages/utensilsEng/SeasoningCondiments/Pepper';
+import Salt from './pages/utensilsEng/SeasoningCondiments/Salt';
+import SoySauce from './pages/utensilsEng/SeasoningCondiments/SoySauce';
 
 
 const App = () => {
@@ -113,6 +301,205 @@ const App = () => {
                <Route path="SpiceGrater" element={<SpiceGrater/>}/>
                {/*Measuring*/}
                <Route path="/Measuring" element={<Measuring/>}/>
+               <Route path="Measuringcup" element={<MeasuringCup/>}/>
+               <Route path="DryMeasuring" element={<DryMeasuring/>}/>
+               <Route path="LiquidMeasure" element={<LiquidMeasure/>}/>
+               <Route path="MeasuringSpoon" element={<MeasuringSpoon/>}/>
+               <Route path="Collapsemeasure" element={<Collapsemeasure/>}/>
+               <Route path="Digitalmeasure" element={<Digitalmeasure/>} />
+               <Route path="Teaspoon" element={<Teaspoon/>}/>
+               <Route path="Tablespoon" element={<Tablespoon/>}/>
+               {/*Kitchen Scale */}
+               <Route path="Kitchenscale" element={<Kitchenscale/>}/>
+               <Route path="Mechanicalscale" element={<Mechanicalscale/>}/>
+               <Route path="Digitalscale" element={<Digitalscale/>}/>
+               <Route path="Smartnutritionscale" element={<Smartnutritionscale/>}/>
+               <Route path="Hangingscale" element={<Hangingscale/>}/>
+               <Route path="Largecapacityscale" element={<Largecapacityscale/>}/>
+               <Route path="Gramscale" element={<Gramscale/>}/>
+               {/*thermometer*/}
+               <Route path="/Thermometer" element={<Thermometer/>}/>
+               <Route path="Oventhermometer" element={<Oventhermometer/>}/>
+               <Route path="Candythermometer" element={<Candythermometer/>}/>
+               <Route path="Fridgethermometer" element={<Fridgethermometer/>}/>
+               <Route path="Meatthermometer" element={<Meatthermometer/>}/>
+               {/* Timer*/}
+               <Route path="Timer" element={<Timer/>}/>
+               <Route path="Mechanicaltimer" element={<Mechanicaltimer/>}/>
+               <Route path="Digitaltimer" element={<Digitaltimer/>}/>
+               {/*Mixing Tools */}
+               <Route path="Mixing" element={<Mixing/>}/>
+               <Route path="Mixingbowls" element={<Mixingbowls/>}/>
+               <Route path="Stainlessbowl" element={<Stainlessbowl/>}/>
+               <Route path="Glassbowl" element={<Glassbowl/>}/>
+               <Route path="Plasticbowl" element={<Plasticbowl/>}/>
+               {/*Whisk */}
+               <Route path="Whisk" element={<Whisk/>}/>
+               <Route path="Whiskk" element={<Whiskk/>}/>
+               <Route path="Kettlewhisk" element={<Kettlewhisk/>}/>
+               <Route path="Minibarwhisk" element={<Minibarwhisk/>}/>
+               <Route path="Flatwhisk" element={<Flatwhisk/>}/>
+               <Route path="Spiralwhisk" element={<Spiralwhisk/>}/>
+               <Route path="Doughwhisk" element={<Doughwhisk/>}/>
+               {/*Electric Mixer*/}
+               <Route path="Electricmixer" element={<Electricmixer/>}/>
+               <Route path="Handmixer" element={<Handmixer/>}/>
+               <Route path="ElectricMixerr" element={<ElectricMixerr/>}/>
+               {/*Rubber scraper */}
+               <Route path="Rubberscraper" element={<Rubberscraper/>}/>
+
+               <Route path="Flatscraper" element={<Flatscraper/>}/>
+               <Route path="Curvescraper" element={<Curvescraper/>}/>
+               {/*Grilling Tools */}
+               <Route path="GrillingTools" element={<GrillingTools/>}/>
+               <Route path="Grills" element={<Grills/>}/>
+               <Route path="Opengrill" element={<Opengrill/>}/>
+               <Route path="Covergrill" element={<Covergrill/>}/>
+               <Route path="Smokergrill" element={<Smokergrill/>}/>
+               <Route path="Grillss" element={<Grillss/>}/>
+        
+               {/*Spatula */}
+               <Route path="Spatula" element={<Spatula/>}/>
+               <Route path="Turnerspatula" element={<Turnerspatula/>}/>
+               <Route path="Offsetspatula" element={<Offsetspatula/>}/>
+               <Route path="Fishspatula" element={<Fishspatula/>}/>
+               <Route path="Grillspatula" element={<Grillspatula/>}/>
+               <Route path="Spoonspatula" element={<Spoonspatula/>}/>
+               <Route path="Slottedspatula" element={<Slottedspatula/>}/>
+               {/*Tongs */}
+               <Route path="Tongs" element={<Tongs/>}/>
+               <Route path="Saladtongs" element={<Saladtongs/>}/>
+               <Route path="Servingtongs" element={<Servingtongs/>}/>
+               <Route path="Scissortongs" element={<Scissortongs/>}/>
+               <Route path="Pastatongs" element={<Pastatongs/>}/>
+               <Route path="Lockingtongs" element={<Lockingtongs/>}/>
+               <Route path="Flattongs" element={<Flattongs/>}/>
+               <Route path="Utilitytongs" element={<Utilitytongs/>}/>
+               <Route path="Bbqtongs" element={<Bbqtongs/>}/>
+
+               {/*Brushes */}
+               <Route path="Bastingbrushes" element={<Bastingbrushes/>}/>
+               <Route path="Naturalbrush" element={<Naturalbrush/>}/>
+               <Route path="Siliconbrushes" element={<Siliconbrushes/>}/>
+               <Route path="Nylonbrushes" element={<Nylonbrushes/>}/>
+               <Route path="Mopbrushes" element={<Mopbrushes/>}/>
+
+               {/*Cookware */}
+               <Route path="Cookware" element={<Cookware/>}/>
+               {/*Pans */}
+               <Route path="Pans" element={<Pans/>}/>
+               <Route path="Frypan" element={<Frypan/>}/>
+               <Route path="Sautepan" element={<Sautepan/>}/>
+               <Route path="Saucepan" element={<Saucepan/>}/>
+               <Route path="CastIronSkillet" element={<CastIronSkillet/>}/>
+               <Route path="Wok" element={<Wok/>}/>
+               <Route path="Roastingpan" element={<Roastingpan/>}/>
+
+              {/*Pots */}
+               <Route path="Pots" element={<Pots/>}/>
+               <Route path="Brazier" element={<Brazier/>}/>
+               <Route path="Dutchoven" element={<Dutchoven/>}/>
+               <Route path="Stockpot" element={<Stockpot/>}/>
+               <Route path="Fryerpot" element={<Fryerpot/>}/>
+               <Route path="Pastapot" elemenet={<Pastapot/>}/>
+
+               {/*Bakeware */}
+               <Route path="Bakeware" element={<Bakeware/>}/>
+               <Route path="CastIronPan" element={<CastIronPan/>}/>
+               <Route path="Loafpan" element={<Loafpan/>}/>
+               <Route path="Sheetpan" element={<Sheetpan/>}/>
+                <Route path="Cakepan" element={<Cakepan/>}/>
+                <Route path="Muffinpan" element={<Muffinpan/>}/>
+                <Route path="Springformpan" element={<Springformpan/>}/>
+                <Route path="Roundcakepan" element={<Roundcakepan/>}/>
+                <Route path="Squarepan" element={<Squarepan/>}/>
+               
+               
+               {/*Appliances */}
+               <Route path="Appliances" element={<Appliances/>}/>
+               {/*Blending Appliances */}
+               <Route path="BlendingAppliances" element={<BlendingAppliances/>}/>
+               <Route path="CounterTopBlender" element={<CounterTopBlender/>}/>
+               <Route path="ImmersionBlender" element={<ImmersionBlender/>}/>
+               <Route path="PortableBlender" element={<PortableBlender/>}/>
+               <Route path="HighSpeedBlender" element={<HighSpeedBlender/>}/>
+               <Route path="StandMixer" element={<StandMixer/>}/>
+
+               {/*Heating Appliances */}
+               <Route path="HeatingAppliances" element={<HeatingAppliances/>}/>
+               <Route path="MicrowaveOven" element={<MicrowaveOven/>}/>
+               <Route path="ToasterOven" element={<ToasterOven/>}/>
+               <Route path="ElectricKettle" element={<ElectricKettle/>}/>
+               <Route path="RiceCooker" element={<RiceCooker/>}/>
+               <Route path="AirFryer" element={<AirFryer/>}/>
+
+               {/*Food Storage */}
+               <Route path="FoodStorageAppliances" element={<FoodStorageAppliances/>}/>
+               <Route path="Refrigirator" element={<Refrigirator/>}/>
+               <Route path="Freezer" element={<Freezer/>}/>
+               <Route path="BreadBox" element={<BreadBox/>}/>
+               <Route path="Cooler" element={<Cooler/>}/>
+
+               {/*Settings */}
+               <Route path="Settings" element={<Settings/>}/>
+               <Route path="Flatscraper" element={<Flatscraper/>}/>               
+               {/*Protein*/}
+               <Route path="/proteins" element={<Proteins/>}/>
+               <Route path="/Beef" element={<Beef/>} />
+               <Route path="/ChickenBreast" element={<ChickenBreast/>}/>
+               <Route path="/CodFillet" element={<CodFillet/>}/>
+               <Route path="/GroundBeef" element={<GroundBeef/>}/>
+               <Route path="/Shrimp" element={<Shrimp/>}/>
+               <Route path="/Tofu" element={<Tofu/>}/>
+               <Route path="/Tuna" element={<Tuna/>}/>
+               {/*Dairies*/}
+               <Route path="/Dairies" element={<Dairies/>}/>
+               <Route path="/Butter" element={<Buttter/>}/>
+               <Route path="/Cheese" element={<Cheese/>}/>
+               <Route path="/Milk" element={<Milk/>}/>
+               <Route path="/Yogurt" element={<Yogurt/>}/>
+               {/*Grain&Starches*/}
+               <Route path="/GrainStarches" element={<GrainStarches/>}/>
+               <Route path="/Barley" element={<Barley/>}/>
+               <Route path="/Buckwheat" element={<Buckwheat/>}/>
+               <Route path="/Corn" element={<Corn/>}/>
+               <Route path="/Farro" element={<Farro/>}/>
+               {/*Fruits*/}
+              <Route path="/Fruits" element={<Fruits/>}/>
+              <Route path="/Apple" element={<Apple/>}/>
+              <Route path="/Banana" element={<Banana/>}/>
+              <Route path="/Lemon" element={<Lemon/>}/>
+              <Route path="/Papaya" element={<Papaya/>}/>
+              <Route path="/Pineapple" element={<Pineapple/>}/>
+              <Route path="/Strawberry" element={<Strawberry/>}/>
+              {/*Vegetables*/}
+              <Route path="/Vegetables" element={<Vegetables/>}/>
+              <Route path="/Carrots" element={<Carrots/>}/>
+              <Route path="/Lettuce" element={<Lettuce/>}/>
+              <Route path="/Onion" element={<Onion/>}/>
+              <Route path="/Potato" element={<Potato/>}/>
+              <Route path="/Tomato" element={<Tomato/>}/>
+              {/*Herbs & Spices*/}
+              <Route path="/HerbsSpices" element={<HerbsSpices/>}/>
+              <Route path="/BayLeaf" element={<BayLeaf/>}/>
+              <Route path="/Chives" element={<Chives/>}/>
+              <Route path="/CurryPowder" element={<CurryPowder/>}/>
+              <Route path="/Paprika" element={<Paprika/>}/>
+              <Route path="/Rosemary" element={<Rosemary/>}/>
+              {/*Oil & Fats*/}
+              <Route path="/OilFats" element={<OilFats/>}/>
+              <Route path="/CanolaOil" element={<CanolaOil/>}/>
+              <Route path="/CoconutOil" element={<CoconutOil/>}/>
+              <Route path="/Lard" element={<Lard/>}/>
+              <Route path="/OliveOil" element={<OliveOil/>}/>
+              {/*SeasoningCondiments*/}
+              <Route path="/SeasoningCondiments" element={<SeasoningCondiments/>}/>
+              <Route path="/FishSauce" element={<FishSauce/>}/>
+              <Route path="/HotSauce" element={<HotSauce/>}/>
+              <Route path="/Pepper" element={<Pepper/>}/>
+              <Route path="/Salt" element={<Salt/>}/>
+              <Route path="/SoySauce" element={<SoySauce/>}/>
+           
             </Routes>
           </Col>
         </Row>

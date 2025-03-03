@@ -6,3 +6,4 @@ const urlParams = new URLSearchParams(window.location.search);
     localStorage.setItem("authToken", token); // Store token in localStorage
     window.history.replaceState({}, document.title, "/customize-profile"); // Clean up the URL
   }
+  
