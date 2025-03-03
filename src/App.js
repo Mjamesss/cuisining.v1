@@ -20,6 +20,7 @@ import Cutting from './pages/utensilsEng/Cutting';
 import Knife from './pages/utensilsEng/Knife';
 import Chefknife from './pages/utensilsEng/CuttingTools/knives/Chefknife';
 import Santoku from './pages/utensilsEng/CuttingTools/knives/Santoku';
+import CuisiningLogo from './components/CuisiningLogo';
 
 import Boning from './pages/utensilsEng/CuttingTools/knives/Boning';
 import Bread from './pages/utensilsEng/CuttingTools/knives/Bread';
@@ -182,6 +183,9 @@ import BreadBox from './pages/utensilsEng/Appliances/FoodStorageAppliances/Bread
 import Cooler from './pages/utensilsEng/Appliances/FoodStorageAppliances/Cooler';
 
 import Settings from './pages/Settings/Settings';
+
+import Courses from './pages/Courses/Courses';
+import FundamentalsOfCookery from './pages/Courses/Fundamentals of cookery/FundamentalsOfCookery';
 const App = () => {
   return (
     <Router>
@@ -206,6 +210,7 @@ const App = () => {
               <Route path="/About" element={<About />} />
               <Route path="/Utensils" element={<Utensils />} />
               <Route path="/Cutting" element={<Cutting />} />
+              <Route path="/CuisiningLogo" element={<CuisiningLogo />} />
               {/* Knivess*/}
               <Route path="/Knife" element={<Knife />} />
               <Route path="/Chefknife" element={<Chefknife/>}/>
@@ -383,6 +388,10 @@ const App = () => {
 
                {/*Settings */}
                <Route path="Settings" element={<Settings/>}/>
+
+               {/*Courses */}
+               <Route path="Courses" element={<Courses/>}/>
+               <Route path="FundamentalsOfCookery" element={<FundamentalsOfCookery/>}/>
             </Routes>
           </Col>
         </Row>

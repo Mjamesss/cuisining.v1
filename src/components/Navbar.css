@@ -32,6 +32,15 @@
   font-size: 16px;
   color: black;
   font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.Nav-links a:hover {
+  color: #C1B857; /* Hover effect */
+}
+
+.Nav-links a.active {
+  color: #C1B857 !important; /* Stay highlighted when clicked */
 }
 
 /* Mobile Menu */
