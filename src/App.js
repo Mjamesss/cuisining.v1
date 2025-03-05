@@ -243,6 +243,8 @@ import SoySauce from './pages/utensilsEng/SeasoningCondiments/SoySauce';
 
 import Courses from './pages/Courses/Courses';
 import FundamentalsOfCookery from './pages/Courses/Fundamentals of cookery/FundamentalsOfCookery';
+import CommonKitchenTools from './pages/Courses/Fundamentals of cookery/CommonKitchenTools';
+import KitchenDepartment from './pages/Courses/Fundamentals of cookery/KitchenDepartment';
 
 const App = () => {
   return (
@@ -509,7 +511,8 @@ const App = () => {
               <Route path="/Courses" element={<Courses/>}/>
               <Route path="CuisiningLogo" element={<CuisiningLogo/>}/>
               <Route path="FundamentalsOfCookery" element={<FundamentalsOfCookery/>}/>
-           
+              <Route path="CommonKitchenTools" element={<CommonKitchenTools/>}/>
+              <Route path="KitchenDepartment" element={<KitchenDepartment/>}/>
             </Routes>
           </Col>
         </Row>
