@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { NavLink } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import "../fw-cuisining.css";
@@ -12,6 +13,12 @@ const Navbar = () => {
   const notifRefMobile = useRef(null);
   const notifRefDesktop = useRef(null);
   const profileRefDesktop = useRef(null);
+  const [activeLink, setActiveLink] = useState("")
+
+  const handleNavClick = (link) => {
+    setActiveLink(link);
+  };
+
   const [profileData, setProfileData] = useState({
     firstName: "User", // Default first name
     avatarUrl: "https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png", // Default avatar
@@ -132,10 +139,18 @@ const Navbar = () => {
         <button className={`hamburger d-md-none ${isOpen ? "open" : ""}`} onClick={() => setIsOpen(!isOpen)}>☰</button>
         {/* Desktop Navigation */}
         <div className="Nav-links w-50 d-none d-md-flex pt-7 justify-content-around font-weight-600">
-          <a className="text-decoration-none" href="home-page"> Home </a>
-          <a className="text-decoration-none" href="Utensils"> Utensil & Ingredients</a>
-          <a className="text-decoration-none" href="#Course">Course</a>
-          <a className="text-decoration-none" href="#Skillset">Skillset</a>
+        <NavLink to="/home-page" className="text-decoration-none" activeClassName="active">
+    Home
+  </NavLink>
+  <NavLink to="/Utensils" className="text-decoration-none" activeClassName="active">
+    Utensil & Ingredients
+  </NavLink>
+  <NavLink to="/Courses" className="text-decoration-none" activeClassName="active">
+    Course
+  </NavLink>
+  <NavLink to="/Skillset" className="text-decoration-none" activeClassName="active">
+    Skillset
+  </NavLink>
         </div>
         {/* Desktop Settings Section */}
         <div className="settingsec d-none d-md-flex align-items-center m-4 justify-content-center" ref={profileRefDesktop}>
@@ -193,7 +208,7 @@ const Navbar = () => {
             <a className="text-decoration-none"  href="Utensils" onClick={() => setIsOpen(false)}>
               Utensil & Ingredients
             </a>
-            <a className="text-decoration-none" href="#Course" onClick={() => setIsOpen(false)} >
+            <a className="text-decoration-none" href="Courses" onClick={() => setIsOpen(false)} >
               Course
             </a>
             <a className="text-decoration-none" href="#Skillset"

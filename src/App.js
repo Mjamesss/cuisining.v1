@@ -20,6 +20,8 @@ import Cutting from './pages/utensilsEng/Cutting';
 import Knife from './pages/utensilsEng/Knife';
 import Chefknife from './pages/utensilsEng/CuttingTools/knives/Chefknife';
 import Santoku from './pages/utensilsEng/CuttingTools/knives/Santoku';
+import CuisiningLogo from './components/CuisiningLogo';
+
 
 import Boning from './pages/utensilsEng/CuttingTools/knives/Boning';
 import Bread from './pages/utensilsEng/CuttingTools/knives/Bread';
@@ -239,6 +241,10 @@ import Pepper from './pages/utensilsEng/SeasoningCondiments/Pepper';
 import Salt from './pages/utensilsEng/SeasoningCondiments/Salt';
 import SoySauce from './pages/utensilsEng/SeasoningCondiments/SoySauce';
 
+import Courses from './pages/Courses/Courses';
+import FundamentalsOfCookery from './pages/Courses/Fundamentals of cookery/FundamentalsOfCookery';
+import CommonKitchenTools from './pages/Courses/Fundamentals of cookery/CommonKitchenTools';
+import KitchenDepartment from './pages/Courses/Fundamentals of cookery/KitchenDepartment';
 
 const App = () => {
   return (
@@ -264,6 +270,7 @@ const App = () => {
               <Route path="/About" element={<About />} />
               <Route path="/Utensils" element={<Utensils />} />
               <Route path="/Cutting" element={<Cutting />} />
+              <Route path="/CuisiningLogo" element={<CuisiningLogo />} />
               {/* Knivess*/}
               <Route path="/Knife" element={<Knife />} />
               <Route path="/Chefknife" element={<Chefknife/>}/>
@@ -499,7 +506,13 @@ const App = () => {
               <Route path="/Pepper" element={<Pepper/>}/>
               <Route path="/Salt" element={<Salt/>}/>
               <Route path="/SoySauce" element={<SoySauce/>}/>
-           
+
+              {/*Courses */}
+              <Route path="/Courses" element={<Courses/>}/>
+              <Route path="CuisiningLogo" element={<CuisiningLogo/>}/>
+              <Route path="FundamentalsOfCookery" element={<FundamentalsOfCookery/>}/>
+              <Route path="CommonKitchenTools" element={<CommonKitchenTools/>}/>
+              <Route path="KitchenDepartment" element={<KitchenDepartment/>}/>
             </Routes>
           </Col>
         </Row>
