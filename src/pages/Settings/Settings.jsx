@@ -145,11 +145,11 @@ const Settings = () => {
   return (
     <>
       {/* Profile Section */}
-      <div className="container d-flex flex-column align-items-start mt-4">
+      <div className="container d-flex flex-column align-items-start mt-3">
         <h1 className="font-weight-800">Profile</h1>
       </div>
 
-      <div className="container my-4">
+      <div className="container my-2">
         <div className="d-flex flex-column flex-md-row gap-4 align-items-start">
           {/* Avatar */}
           <div
