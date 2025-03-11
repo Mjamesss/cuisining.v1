@@ -245,7 +245,10 @@ import Courses from './pages/Courses/Courses';
 import FundamentalsOfCookery from './pages/Courses/Fundamentals of cookery/FundamentalsOfCookery';
 import CommonKitchenTools from './pages/Courses/Fundamentals of cookery/CommonKitchenTools';
 import KitchenDepartment from './pages/Courses/Fundamentals of cookery/KitchenDepartment';
-
+import MeasurementsAndConversion from './pages/Courses/Fundamentals of cookery/MeasurementsAndConversion';
+import PreparingAppetizers from './pages/Courses/PreparingAppetizers/PreparingAppertizers';
+import PreparingEggVagetable from './pages/Courses/PreparingEggVagetable/PreparingEggVagetble';
+import IntroToEggDishes from './pages/Courses/PreparingEggVagetable/IntroToEggDishes';
 const App = () => {
   return (
     <Router>
@@ -513,6 +516,10 @@ const App = () => {
               <Route path="FundamentalsOfCookery" element={<FundamentalsOfCookery/>}/>
               <Route path="CommonKitchenTools" element={<CommonKitchenTools/>}/>
               <Route path="KitchenDepartment" element={<KitchenDepartment/>}/>
+              <Route path="MeasurementsAndConversion" element={<MeasurementsAndConversion/>}/>
+              <Route path="PreparingAppetizers" element={<PreparingAppetizers/>}/>
+              <Route path="PreparingEggVagetable" element={<PreparingEggVagetable/>}/>
+              <Route path="IntroToEggDishes" element={<IntroToEggDishes/>}/>
             </Routes>
           </Col>
         </Row>

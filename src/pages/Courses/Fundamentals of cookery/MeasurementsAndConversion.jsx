@@ -5,7 +5,7 @@ import Footer from "../../../components/Footer";
 import "./Unit2Lesson1.css";
 import "./CommonKitchen.css";
 
-const CommonKitchenTools = () => {
+const MeasurementsAndConversion = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
@@ -16,29 +16,29 @@ const CommonKitchenTools = () => {
 
   const quizData = [
     {
-      question: "Used for general frying. It is the easiest pan to use for flipping food without utensils?",
-      options: ["Stockpot", "Frypan", "Saucepan", "Brazier"],
-      answer: "Frypan",
+      question: "How many tablespoons are equivalent to ½ cup?",
+      options: ["4 tbsp", "8 tbsp", "12 tbsp", "16 tbsp"],
+      answer: "8 tbsp",
     },
     {
-      question: "Used in measuring small volumes of dry and semi-dry ingredients?",
-      options: ["Measuring Cup", "Thermometer", "Scales", "Measuring Spoons"],
-      answer: "Measuring Spoons",
+      question: "What is the equivalent of 1 quart in liquid measurements? ",
+      options: ["2 cups", "1 pint", "4 cups", "1 gallon"],
+      answer: "4 cups",
     },
     {
-      question: "A four-sided metal box with grids of varying sizes. Used for shredding and grating vegetables, cheese, citrus rinds, and other foods?",
-      options: ["Offset Spatula", "Mandoline", "Grater", "Pastry Wheel"],
-      answer: "Grater",
+      question: "How many teaspoons are in 1 tablespoon? ",
+      options: ["2 tsp", "3 tsp", "4 tsp", "5 tsp"],
+      answer: "3 tsp",
     },
     {
-      question: "Most used knife in the kitchen for chopping, slicing, dicing, etc?",
-      options: ["Chef's Knife", "Santoku Knife", "Paring Knife", "Boning knife"],
-      answer: "Chef's Knife",
+      question: "What is the metric equivalent of 1 pound? ",
+      options: ["200 grams", "300 grams", "400 grams", "454 grams"],
+      answer: "454 grams",
     },
     {
-      question: "Used for Boning raw meat and poultry?",
-      options: ["Scimitar", "Cleaver", "Oyster Knife", "Clam Knife"],
-      answer: "Clam Knife",
+      question: "How many cups of liquid make 1 pint? ",
+      options: ["1 cup", "2 cups", "3 cups", "4 cups"],
+      answer: "2 cups",
     },
   ];
 
@@ -104,36 +104,39 @@ const CommonKitchenTools = () => {
       <CuisiningLogo />
 
       <div className="p2 d-flex justify-content-center">
-       {/* <div className="p5 ">
-          <a href="FundamentalsOfCookery">
+        <div className="p5 ">
+          {/*<a href="FundamentalsOfCookery">
             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png" alt="Back"/>
-          </a>
-        </div>*/}
+          </a> */}
+        </div>
         <h1 className="p2 d-grid align-items-center justify-content-center" style={{ fontSize: "40px" }}>
-          UNIT 2 LESSON 1: COMMON KITCHEN TOOLS, UTENSILS AND EQUIPMENT
+         LESSON 2: MEASUREMENT AND COVERSION
         </h1>
       </div>
 
       <div className="p3 d-flex justify-content-center">
-        <iframe
-          width="100%"
-          height="515"
-          src="https://www.youtube.com/embed/wW2whLYcYLE?si=2m1okRxERSF2e664"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        ></iframe>
+      <iframe width="100%" height="515" src="https://www.youtube.com/embed/UzwMn4tlCkE?si=hIp34PvLO_Gm1XAY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
 
       <div className="d-flex align-items-center justify-content-center">
-        <p className="p3 d-flex justify-content-center" style={{ fontSize: "30px", maxWidth: "1000px" }}>
-          This unit will discuss most of the basic prerequisite knowledge and skills required of any kitchen staff in the professional cookery industry.
-          <br /><br />
-          Familiarizing yourself in the kitchen also requires knowledge of all the equipment and tools used by the kitchen staff. It is also important to be able to read and convert basic measurements used in servings.
-        </p>
+      <p className="p3 d-grid justify-content-center" style={{ fontSize: "30px", maxWidth: "1000px" }}>
+      Math is widely used in the kitchen. That is why culinary math requires you to be knowledgeable on the basics of addition, subtraction, multiplication, and division. You will also be using ratios and percentages from time to time.
+    <br /><br />
+    
+    <strong>As a chef, you will be responsible for many computations done at the kitchen. 
+    These may include:</strong>
+  </p>
       </div>
+
+      <div className="d-flex align-items-center justify-content-center">
+  <ul style={{ fontSize: "30px", maxWidth: "1000px" }}>
+    <li>Recipe yield</li>
+    <li>Ratio for preparing stocks</li>
+    <li>Calculating cost of a dish</li>
+    <li>Budget of food and labor</li>
+    <li>Counting portions</li>
+  </ul>
+</div>
 
       <div className="quiz-container">
         <h1 className="quiz-title">Quizining</h1>
@@ -185,4 +188,4 @@ const CommonKitchenTools = () => {
   );
 };
 
-export default CommonKitchenTools;
+export default MeasurementsAndConversion;

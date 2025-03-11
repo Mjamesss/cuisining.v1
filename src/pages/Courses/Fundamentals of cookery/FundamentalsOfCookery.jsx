@@ -17,13 +17,13 @@ const FundamentalsOfCookery = () =>{
         <h1 className="font-weight-700">UNIT 1:Introduction to Professional Cookey</h1>
 
         <div className=" d-grid align-items-center justify-content-center p2">
-        <a href="KitchenDepartment"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741097867/Group_1000006169_kh9fl0.png"></img></a>
+        <a href="KitchenDepartment" target="_blank" rel="noopener noreferrer"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741097867/Group_1000006169_kh9fl0.png"></img></a>
         </div>
 
         <h1>UNIT 2: Basics of Professional Cookery</h1>
         <div className=" d-grid justify-content-center align-items-center" style={{gridTemplateColumns:"repeat(2,1fr)",placeItems:"center"}}>
-        <a href="CommonKitchenTools"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741100936/Group_1000006206_jojglq.png"></img></a>
-        <a href=""><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741101562/Group_1000006205_fltuw0.png"></img></a>
+        <a href="CommonKitchenTools" target="_blank" rel="noopener noreferrer"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741100936/Group_1000006206_jojglq.png"></img></a>
+        <a href="MeasurementsAndConversion" target="_blank" rel="noopener noreferrer"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741101562/Group_1000006205_fltuw0.png"></img></a>
         <a href=""><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741101645/Group_1000006174_umholu.png"></img></a>
         <a href=""><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741101682/Group_1000006175_i6owwd.png"></img></a>
         <a href=""><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741101721/Group_1000006176_hbc5mu.png"></img></a>
