@@ -40,7 +40,7 @@ const Navbar = () => {
 
   const [profileData, setProfileData] = useState({
     firstName: "User", // Default first name
-    avatarUrl: "https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png", // Default avatar
+    avatarUrl: "https://res.cloudinary.com/dm6wodni6/image/upload/v1740905480/account_nhrb9f_eizn1j.png", // Default avatar
   });
   const navigate = useNavigate();
 
@@ -152,7 +152,7 @@ const Navbar = () => {
     <>
       <nav className="navbar pl-4 pr-4 d-flex justify-content-between align-items-center" style={{ height: "120px" }}>
         <div className="Navbar_header">
-          <img src="cuisining-newlogo.png" alt="logo" />
+          <img src="ter.png" alt="logo" />
         </div>
         {/* Hamburger button always visible on mobile */}
         <button className={`hamburger d-md-none ${isOpen ? "open" : ""}`} onClick={() => setIsOpen(!isOpen)}>☰</button>
@@ -175,6 +175,11 @@ const Navbar = () => {
         <div className="settingsec d-none d-md-flex align-items-center m-4 justify-content-center" ref={profileRefDesktop}>
           <div className="notif-wrapper position-relative" ref={notifRefDesktop}>
             <button className="btn-setting notif-btn" onClick={toggleNotifDesktop}>
+              <img src="notification.png" alt="notifications" style={{width:"33px",height:"33px"}}/> </button>
+            {isNotifOpenDesktop && (<div className="notif-dropdown position-absolute">
+                <h2>Notifications</h2>
+                <p>No new notifications</p>
+              </div> )}
               <img src="notif.png" alt="notifications" style={{width:"30px",height:"30px"}}/> </button>
 
               {isNotifOpenDesktop && (
@@ -204,40 +209,56 @@ const Navbar = () => {
   </div>
 )}
 
+
           </div>
           <button className="btn-setting profile-btn" onClick={toggleProfileDesktop} style={{ display: "flex", alignItems: "center", gap: "8px" }} >
-            <img src={profileData.avatarUrl} style={{borderRadius:"50%", height:"30px", width:"30px"}} alt="profile" />
+            <img src={profileData.avatarUrl} style={{borderRadius:"50%", height:"33px", width:"33px", marginLeft: "-8px"}} alt="profile" />
             <p style={{ margin: 0 }}>{profileData.firstName}</p>
           </button>
           {isProfileModalDesktop && (
-            <div className="profile-modal position-absolute p-3 bg-white shadow rounded" style={{ width: "250px", right: "10px", top: "60px" }} >
-              <div className="d-flex align-items-center mb-3">
-                <img src={profileData.avatarUrl} alt="Profile"  className="rounded-circle" style={{ width: "40px", height: "40px" }} />
-                <div className="ml-2">
-                  <h6 className="mb-0">{profileData.firstName}</h6>
-                  <p className="text-muted small">Personal account</p>
-                </div>
+            <div className="profile-modal position-absolute p-3 bg-white shadow rounded" style={{ width: "280px", right: "80px", top: "95px" }}>
+              <div className="d-flex align-items-center" style={{ gap: "9px", marginBottom: "10px" }}>
+                <img src={profileData.avatarUrl} alt="Profile"
+                  className="rounded-circle"
+                  style={{ width: "44px", height: "44px" }} />
+              <div>
+                <h6 style={{ margin: 0, fontSize: "17px", fontWeight: "600", marginTop: "3px" }}>
+                  {profileData.firstName}
+                </h6>
+                <p style={{ margin: 0, fontSize: "13.5px", color: "#6c757d",}}>
+                  Personal account
+                </p>
               </div>
-              <button className="btn btn-sm btn-outline-dark w-100 mb-2">
+              </div>
+              <div className="upgrade-section">
+              <button className="btn btn-sm btn-outline-dark w-100 mb-2 upgrade-btn">
                 Upgrade
               </button>
-              <hr />
-              <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "8px", }} onClick={() => navigate("/profile")} >
-                <img src="profileprofile.png" alt="Profile Icon" style={{ width: "20px", height: "20px" }}/>
+              <p className="upgrade-text">
+                Unlock and explore more features with our <span className="proaccount">Pro account</span>.
+              </p>
+            </div>
+              <hr style={{ margin: "0px 0" }}/>
+              <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "9px", }} onClick={() => navigate("/profile")} >
+                <img src="profileprofile.png" alt="Profile Icon" style={{ width: "17px", height: "17px" }}/>
                 Profile
               </button>
-              <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center",  gap: "8px", }} onClick={() => navigate("/Settings")} >
-                <img src="profileSettings.png" alt="Settings and Privacy Icon" style={{ width: "20px", height: "20px" }}/>
+              <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center",  gap: "9px", }} onClick={() => navigate("/Settings")} >
+                <img src="profileSettings.png" alt="Settings and Privacy Icon" style={{ width: "17px", height: "17px" }}/>
                 Settings and Privacy
               </button>
-              <button className="btn w-100 text-left" style={{  display: "flex", alignItems: "center", gap: "8px",}} onClick={() => navigate("/Help")}>
-                <img  src="help.png" alt="Help and Support Icon" style={{ width: "20px", height: "20px" }} />
+              <button className="btn w-100 text-left" style={{  display: "flex", alignItems: "center", gap: "9px",}} onClick={() => navigate("/Help")}>
+                <img  src="help.png" alt="Help and Support Icon" style={{ width: "17px", height: "17px" }} />
                 Help and Support
               </button>
-              <hr />
-              <button className="btn w-100 text-left text-danger" onClick={handleLogout} >
-                Log out
-              </button>
+              <hr style={{ margin: "12px 0" }}/>
+              <button
+              className="btn w-100 text-left"
+              style={{ display: "flex", alignItems: "center", gap: "6px"}} // Add the same styles here
+              onClick={handleLogout}>
+              <img src="logoutnew.png" alt="Logout Icon" style={{ width: "17px", height: "17px"}} />
+              Log out
+            </button>
             </div>
           )}
         </div>
@@ -267,6 +288,16 @@ const Navbar = () => {
           <div className="d-flex flex-column gap-3" style={{ alignItems: "center", textAlign: "center" }}>
             <button className="btn w-100 text-left" style={{ display: "flex",alignItems: "center",gap: "8px",maxWidth: "300px",}}
               onClick={() => {
+
+                toggleNotifMobile();
+              }}
+              ref={notifRefMobile}
+            >
+              <img
+                src="notification.png"
+                alt="notifications"
+                style={{ width: "25px", height: "25px" }}
+              />
                 toggleNotifMobile(); }}
               ref={notifRefMobile}>
               <img src="notif.png" alt="notifications" style={{ width: "25px", height: "25px" }}/>
@@ -313,7 +344,7 @@ const Navbar = () => {
                 alt="Profile Icon"
                 style={{ width: "20px", height: "20px" }}
               />
-              Cuisining Profile
+              Profile
             </button>
             <button className="btn w-100 text-left" style={{  display: "flex", alignItems: "center", gap: "8px",  maxWidth: "300px", }}
               onClick={() => {
@@ -332,7 +363,20 @@ const Navbar = () => {
               Help and Support
             </button>
             <hr style={{ width: "100%", maxWidth: "300px" }} />
+
+            <button
+              className="btn w-100 text-left text-danger"
+              onClick={handleLogout}
+              style={{ maxWidth: "300px" }}
+            >
+              <img
+                src="logoutnew.png"
+                alt="Logout Icon"
+                style={{ width: "20px", height: "20px"}}
+              />
+
             <button className="btn w-100 text-left text-danger" onClick={handleLogout} style={{ maxWidth: "300px" }} >
+
               Log out
             </button>
           </div>

@@ -1,55 +1,91 @@
 import { useState, useEffect, useRef } from "react";
-import {link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../fw-cuisining.css';
 
-const footer = () => {
-  
- const style ={
-  
- }
-    return(
-      <>
-       <footer className="footer p3 g1 d-flex bg-black">
-        <div  className="section  p1 " style={{width:"40%",}}>
-           <img src="./logo.png" alt="logo"></img>
-           <p className="color-white">is a web-based 3d simulation game designed to assess<br></br>
-           the user cooking knowledge and experience.</p>
+const Footer = () => {
+        
+     return (
+          <footer className="footer" style={{ backgroundColor: '#948f5c', padding: '40px', display: 'flex', flexDirection: 'column', 
+            justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '400px' }}>
 
-           <div className="socmed p1 pt1 d-flex  g1 ">
-           <a href="https://faceboook.com">
-           <img src="fb.png"></img></a>
-           <a href="https://instagram.com">
-           <img src="instagram.png"></img>
-           </a>
-           <a href="https://linkedin.com">
-           <img src="Vector.png"></img>
-           </a>
-           </div>
-           <p className="color-white">©2024 cusining. All rights reserve</p>
-        </div>
-        <div className="pages color-white p1 " style={{width:"10%",}}>
-         <h3 className="color-white">Pages</h3>
-          <a href="#home" className="color-white">Home</a><br></br>
-          <a href="About" className="color-white mt-5">About</a><br></br>
-          <a href="#home" className="color-white">Course</a><br></br>
-          <a href="#home" className="color-white">Skillset</a><br></br>
-        </div>
-        <div className="otherinfo p1 color-white  w-20 ">
-         <h3 className="color-white">Contact us</h3><br></br>
-         <p className="color-white">09486096986</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
+              
+              {/* Group 1: Logo and Description */}
+              <div className="logo-description-group" style={{ flex: '1 1 40%',  minWidth: '300px', textAlign: 'left', display: 'flex', 
+                flexDirection: 'column', height: '100%', marginLeft: '30px', paddingBottom: '10px' }}>
+                
+                {/* Logo */}
+                <img src="ter.png" alt="logo" style={{ width: '200px', height: 'auto', maxWidth: '100%', marginTop: '-20px', marginLeft: '-26px', }}/>
+                
+                {/* Description */}
+                <p className="color-white" style={{ marginBottom: '30px', fontSize: '15px', lineHeight: '1.5', marginTop: '-35px' }}>
+                Cuisining is a web-based 3D simulation game designed to assess the user's cooking knowledge and experience. It features interactive courses, quizzes, and skill-based challenges to help users refine their techniques. Players can earn certificates, track their progress, and build their culinary skillsets while engaging in a fun and immersive learning experience.
+                </p>
+              </div>
 
-         <h3 className="color-white">Email us</h3>
-         <p className="color-white">Cusining@gmail.com</p>
-        </div>
-        <div className="Services p1">
-         <h3 className="color-white">Services</h3>
-         <p className="color-white">Terms and Services</p>
-         
-         <p></p>
-        </div>
-       </footer>
-      </>
-    )
-}
+              {/* Group 3: Right Sections (Pages, Contact Us, Services) */}
+              <div className="right-sections-group" style={{ flex: '1 1 50%', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', 
+                alignItems: 'flex-start', marginLeft: '100px',marginTop: '15px', paddingBottom: '20px', }}>
+              
+              {/* Pages Section */}
+                <div className="pages" style={{ flex: '5', minWidth: '150px' }}>
+                <h3 className="color #363100" style={{ marginBottom: '20px', fontSize: '18px', fontWeight: '750'}}>Pages</h3>
+                <Link to="/Home-page" className="color-white" style={{ display: 'block', marginBottom: '20px', fontSize: '15px', textDecoration: 'none' }}>Home</Link>
+                <Link to="/about" className="color-white" style={{ display: 'block', marginBottom: '20px', fontSize: '15px', textDecoration: 'none' }}>About</Link>
+                <Link to="/courses" className="color-white" style={{ display: 'block', marginBottom: '20px', fontSize: '15px', textDecoration: 'none' }}>Courses</Link>
+                <Link to="/skillset" className="color-white" style={{ display: 'block', marginBottom: '20px', fontSize: '15px', textDecoration: 'none' }}>Skill Set</Link>
+              </div>
 
-export default footer;
+                {/* Contact Us Section */}
+                <div className="contact-us" style={{ flex: '1 1 30%', minWidth: '150px',}}>
+                  <h3 className="color #363100" style={{ marginBottom: '20px', fontSize: '18px', fontWeight: '750' }}>Contact Us</h3>
+                  <p className="color-white" style={{ marginBottom: '20px', fontSize: '15px' }}>09486096986</p>
+                  <p className="color-white" style={{ marginBottom: '20px', fontSize: '15px' }}>info.cuisining@gmail.com</p>
+                </div>
+
+                {/* Services Section */}
+                <div className="services" style={{ 
+                  flex: '1 1 30%', 
+                  minWidth: '150px' 
+                }}>
+                  <h3 className="color #363100" style={{ marginBottom: '20px', fontSize: '18px', fontWeight: '750' }}>Services</h3>
+                  <p className="color-white" style={{ marginBottom: '20px', fontSize: '15px' }}>Terms and Services</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Section: Social Media Icons and Copyright Text */}
+            <div className="social-media-group" style={{ 
+              width: '100%', 
+              display: 'flex', 
+              justifyContent: 'flex-start', 
+              alignItems: 'center', 
+              marginLeft: '30px',
+              marginTop: '25px', // Add padding to separate from the top section
+              width: '95%',
+              borderTop: '1px solid white' // Optional: Add a border to separate sections
+            }}>
+              <div className="socmed" style={{ 
+                display: "flex", 
+                gap: "12px", 
+                marginTop: "5px" 
+              }}>
+                <a href="https://facebook.com">
+                  <img src="fb.png" alt="Facebook" style={{ width: "32px", height: "32px" }} />
+                </a>
+                <a href="https://instagram.com">
+                  <img src="insta.png" alt="Instagram" style={{ width: "32px", height: "32px" }} />
+                </a>
+                <a href="https://youtube.com">
+                  <img src="yt.png" alt="Youtube" style={{ width: "32px", height: "32px" }} />
+                </a>
+              </div>
+
+              {/* Copyright Text */}
+              <p className="color-white" style={{ fontSize: "12px", marginLeft: '17px', marginTop: '22px' }}>© 2024 Cuisining. All rights reserved</p>
+            </div>
+          </footer>
+        );
+      };
+
+      export default Footer;

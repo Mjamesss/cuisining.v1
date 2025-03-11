@@ -2,6 +2,9 @@ import "../../../../fw-cuisining.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
+import Navbar from '../../../../components/Navbar';
+import Footer from '../../../../components/Footer';
+
 
 const Model = (props) => {
     const { scene } = useGLTF("BoxGrater.glb"); // Ensure the model is in the public folder
@@ -14,13 +17,28 @@ const Loader = () => (
         <meshBasicMaterial color="gray" wireframe />
     </mesh>
 );
+
+const Breadcrumb = () => {
+    return (
+        <nav aria-label="breadcrumb" style={{ marginLeft: "80px", padding: "0 40px" }}>
+            <ol className="breadcrumb" style={{ backgroundColor: "transparent", margin: 0, padding: 0 }}>
+                <li className="breadcrumb-item"><a href="/" style={{ color: "black", textDecoration: "none" }}>Home</a></li>
+                <li className="breadcrumb-item"><a href="Grater" style={{ color: "black", textDecoration: "none" }}>Grater</a></li>
+                <li className="breadcrumb-item active" aria-current="page" style={{ color: "black" }}>Box Grater</li>
+            </ol>
+        </nav>
+    );
+};
+
 const BoxGrater = () => {
     return(
         <>
+          <Navbar />
          <div className="p5 ">
-       <a href="Grater"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
+       <a href="Grater"></a>
        </div>
-        <div className="p2 d-grid justify-content-center align-items-center">
+       <Breadcrumb />
+        <div className="p5 d-grid justify-content-center align-items-center">
         <h1 className="font-weight-900">Box Grater</h1>
             <p className=" p3 d-flex justify-content-center" style={{fontSize:"30px",maxWidth:"1000px",}}>  
             This is the four-sided kitchen grater, each side with different size holes. It often has a side for slicing as well. It has a handle to keep the grater sturdy. Use it to grate hard cheeses like Cheddar and Mozzarella, shred potatoes for hashbrowns, grate chocolate for desserts, cut butter for biscuits, shred cucumbers and carrots, or ricing cauliflower.
@@ -44,7 +62,9 @@ The only downside to a box grater is that it takes up more room than other types
          </Canvas>
          
         </div>
+        <Footer />
         </>
+        
     )
 }
 
