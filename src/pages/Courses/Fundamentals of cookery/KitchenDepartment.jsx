@@ -111,9 +111,9 @@ const KitchenDepartment = () =>{
      <>
       <CuisiningLogo />
       <div className="p2 d-flex justify-content-center">
-      <div className="p5 ">
+     {/* <div className="p5 ">
        <a href="FundamentalsOfCookery"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png"></img> </a>
-       </div>
+       </div> */}
         <h1 className="p2 d-grid align-items-center justify-content-center" style={{ fontSize: "40px" }}>
           UNIT 1 LESSON 1 AND 2: KITCHEN DEPARTMENT AND KITCHEN STAFF
         </h1>

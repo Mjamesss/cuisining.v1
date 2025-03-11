@@ -19,6 +19,25 @@ const Navbar = () => {
     setActiveLink(link);
   };
 
+  const Notifications = [
+  { id: 1,subject:"update:", message: "You're done in Unit 1 Lesson 1 and 2", time: "2m ago" },
+  { id: 2,subject:"update:", message: "You are Finish in Final Assessment", time: "10m ago" },
+  { id: 3,subject:"update:", message: "Upcoming event: Filipino Cooking Masterclass.", time: "1h ago" },
+  { id: 4,subject:"update:", message: "New message from Chef Juan!", time: "3h ago" },
+  { id: 5,subject:"update:",message: "Your recipe submission is under review.", time: "1d ago" },
+  ];
+
+  {/*const getNotificationIcon = (type) => {
+    switch (type) {
+      case "update": return "📢";
+      case "like": return "❤️";
+      case "event": return "🎟️";
+      case "message": return "📩";
+      case "review": return "✅";
+      default: return "🔔";
+    }
+  };*/}
+
   const [profileData, setProfileData] = useState({
     firstName: "User", // Default first name
     avatarUrl: "https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png", // Default avatar
@@ -157,10 +176,34 @@ const Navbar = () => {
           <div className="notif-wrapper position-relative" ref={notifRefDesktop}>
             <button className="btn-setting notif-btn" onClick={toggleNotifDesktop}>
               <img src="notif.png" alt="notifications" style={{width:"30px",height:"30px"}}/> </button>
-            {isNotifOpenDesktop && (<div className="notif-dropdown position-absolute">
-                <h2>Notifications</h2>
-                <p>No new notifications</p>
-              </div> )}
+
+              {isNotifOpenDesktop && (
+  <div className="notif-dropdown absolute p-4 bg-white shadow-lg rounded-lg border border-gray-200" 
+       style={{ width: "320px", right: "10px", top: "50px", maxHeight: "400px", overflowY: "auto" }}>
+    
+    <h2 className="text-lg font-semibold text-gray-800 mb-3">Notifications</h2>
+    <hr className="mb-3" />
+
+    {Notifications.length > 0 ? (
+      Notifications.map((notif) => (
+        <div key={notif.id} 
+             className="flex items-center gap-3 p-3 mb-2 bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg shadow-sm hover:bg-gray-200 transition duration-300 cursor-pointer border-l-4 border-orange-500">
+          
+          <span className="text-2xl"></span> {/* Dynamic Icon */}
+          
+          <div>
+            <span className="font-weight-700">{notif.subject}</span>
+            <p className="text-sm font-medium text-gray-800">{notif.message}</p>
+            <span className="text-xs text-gray-500">{notif.time}</span>
+          </div>
+        </div>
+      ))
+    ) : (
+      <p className="text-center text-gray-500">No new notifications</p>
+    )}
+  </div>
+)}
+
           </div>
           <button className="btn-setting profile-btn" onClick={toggleProfileDesktop} style={{ display: "flex", alignItems: "center", gap: "8px" }} >
             <img src={profileData.avatarUrl} style={{borderRadius:"50%", height:"30px", width:"30px"}} alt="profile" />
@@ -218,48 +261,51 @@ const Navbar = () => {
             </a>
           </div>
           <hr style={{ width: "100%" }} />
+
+
           {/* Mobile notification and profile options */}
-          <div
-            className="d-flex flex-column gap-3"
-            style={{ alignItems: "center", textAlign: "center" }}
-          >
-            <button
-              className="btn w-100 text-left"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                maxWidth: "300px",
-              }}
+          <div className="d-flex flex-column gap-3" style={{ alignItems: "center", textAlign: "center" }}>
+            <button className="btn w-100 text-left" style={{ display: "flex",alignItems: "center",gap: "8px",maxWidth: "300px",}}
               onClick={() => {
-                toggleNotifMobile();
-              }}
-              ref={notifRefMobile}
-            >
-              <img
-                src="notif.png"
-                alt="notifications"
-                style={{ width: "25px", height: "25px" }}
-              />
+                toggleNotifMobile(); }}
+              ref={notifRefMobile}>
+              <img src="notif.png" alt="notifications" style={{ width: "25px", height: "25px" }}/>
               Notifications
             </button>
+
             {isNotifOpenMobile && (
-              <div className="p-2 border" style={{ width: "100%", maxWidth: "300px" }}>
-                <h2>Notifications</h2>
-                <p>No new notifications</p>
-              </div>
-            )}
-            <button
-              className="btn w-100 text-left"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                maxWidth: "300px",
-              }}
+  <div className="notif-dropdown absolute p-4 bg-white shadow-lg rounded-lg border border-gray-200" 
+       style={{ width: "320px", right: "10px", top: "50px", maxHeight: "400px", overflowY: "auto" }}>
+    
+    <h2 className="text-lg font-semibold text-gray-800 mb-3">Notifications</h2>
+    <hr className="mb-3" />
+
+    {Notifications.length > 0 ? (
+      Notifications.map((notif) => (
+        <div key={notif.id} 
+             className="flex items-center gap-3 p-3 mb-2 bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg shadow-sm hover:bg-gray-200 transition duration-300 cursor-pointer border-l-4 border-orange-500">
+          
+          <span className="text-2xl"></span> {/* Dynamic Icon */}
+          
+          <div>
+            <p className="text-sm font-medium text-gray-800">{notif.message}</p>
+            <span className="text-xs text-gray-500">{notif.time}</span>
+          </div>
+        </div>
+      ))
+    ) : (
+      <p className="text-center text-gray-500">No new notifications</p>
+    )}
+  </div>
+)}
+
+            <button className="btn w-100 text-left" style={{display: "flex",alignItems: "center",gap: "8px",maxWidth: "300px",}}
               onClick={() => {
                 setIsOpen(false);
                 navigate("/profile");
+              }} >
+              <img src="profileprofile.png"  alt="Profile Icon" style={{ width: "20px", height: "20px" }} />
+              Profile
               }}
             >
               <img
@@ -269,52 +315,24 @@ const Navbar = () => {
               />
               Cuisining Profile
             </button>
-            <button
-              className="btn w-100 text-left"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                maxWidth: "300px",
-              }}
+            <button className="btn w-100 text-left" style={{  display: "flex", alignItems: "center", gap: "8px",  maxWidth: "300px", }}
               onClick={() => {
                 setIsOpen(false);
                 navigate("/Settings");
-              }}
-            >
-              <img
-                src="profileSettings.png"
-                alt="Settings and Privacy Icon"
-                style={{ width: "20px", height: "20px" }}
-              />
+              }} >
+              <img src="profileSettings.png" alt="Settings and Privacy Icon" style={{ width: "20px", height: "20px" }} />
               Settings and Privacy
             </button>
-            <button
-              className="btn w-100 text-left"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                maxWidth: "300px",
-              }}
+            <button className="btn w-100 text-left" style={{  display: "flex", alignItems: "center", gap: "8px", maxWidth: "300px",}}
               onClick={() => {
                 setIsOpen(false);
                 navigate("/Help");
-              }}
-            >
-              <img
-                src="help.png"
-                alt="Help and Support Icon"
-                style={{ width: "20px", height: "20px" }}
-              />
+              }}>
+              <img  src="help.png"  alt="Help and Support Icon"  style={{ width: "20px", height: "20px" }} />
               Help and Support
             </button>
             <hr style={{ width: "100%", maxWidth: "300px" }} />
-            <button
-              className="btn w-100 text-left text-danger"
-              onClick={handleLogout}
-              style={{ maxWidth: "300px" }}
-            >
+            <button className="btn w-100 text-left text-danger" onClick={handleLogout} style={{ maxWidth: "300px" }} >
               Log out
             </button>
           </div>

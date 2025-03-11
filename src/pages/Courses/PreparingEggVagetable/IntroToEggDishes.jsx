@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import "../../../fw-cuisining.css";
 import CuisiningLogo from "../../../components/CuisiningLogo";
 import Footer from "../../../components/Footer";
-import "./Unit2Lesson1.css";
-import "./CommonKitchen.css";
+import "./Unit1Lesson1.css";
+import "./IntroToEgg.css";
 
-const CommonKitchenTools = () => {
+const IntroToEggDishes = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
@@ -110,30 +110,37 @@ const CommonKitchenTools = () => {
           </a>
         </div>*/}
         <h1 className="p2 d-grid align-items-center justify-content-center" style={{ fontSize: "40px" }}>
-          UNIT 2 LESSON 1: COMMON KITCHEN TOOLS, UTENSILS AND EQUIPMENT
+        LESSON 1: Introduction to Egg Dishes
         </h1>
       </div>
 
       <div className="p3 d-flex justify-content-center">
-        <iframe
-          width="100%"
-          height="515"
-          src="https://www.youtube.com/embed/wW2whLYcYLE?si=2m1okRxERSF2e664"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        ></iframe>
+      <iframe width="100%" height="515" src="https://www.youtube.com/embed/1HlfVQoN-yM?si=5zq-_bnEgaCKT4es" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
 
       <div className="d-flex align-items-center justify-content-center">
         <p className="p3 d-flex justify-content-center" style={{ fontSize: "30px", maxWidth: "1000px" }}>
-          This unit will discuss most of the basic prerequisite knowledge and skills required of any kitchen staff in the professional cookery industry.
-          <br /><br />
-          Familiarizing yourself in the kitchen also requires knowledge of all the equipment and tools used by the kitchen staff. It is also important to be able to read and convert basic measurements used in servings.
+        Eggs are one of the most versatile ingredients in the kitchen. These can be prepared and cooked in many ways. The most commonly used eggs are chicken eggs because of its blandness, availability and variety of sizes. Additionally, eggs contain a large amount of protein which coagulates when heated. Eggs are ideally cooked slowly and with moderate heat. Eggs have multiple culinary functions:
         </p>
       </div>
+
+      <div className="d-flex align-items-center justify-content-center">
+  <ul style={{ fontSize: "30px", maxWidth: "1000px" }}>
+    <li>Aerating  for sponges, cakes, meringue;</li>
+    <li>Clarifying  for consommé;</li>
+    <li>Emulsifying for mayonnaise, hollandaise;</li>
+    <li>Thickening  for crème anglaise;</li>
+    <li>Binding  for patties;</li>
+    <li>Glazing – for egg wash;</li>
+    <li>Enriching – as a liaison;</li>
+    <li>Setting – for crème Brulee;</li>
+    <li>Coating – for paner a l’anglaise ;</li>
+    <li>Garnishing – for nicoise and Caesar salads;</li>
+    <li>Egg dishes – such as an omelet, eggs benedict</li>
+    <li>Sous vide – various </li>
+    <li>Other – shakes and smoothies, eggnog, egg-milk punch</li>
+  </ul>
+</div>
 
       <div className="quiz-container">
         <h1 className="quiz-title">Quizining</h1>
@@ -185,4 +192,4 @@ const CommonKitchenTools = () => {
   );
 };
 
-export default CommonKitchenTools;
+export default IntroToEggDishes;
