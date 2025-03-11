@@ -26,7 +26,7 @@ const Homepage = () => {
     width: "100%", // Ensure the container takes up the full width
     overflow: "hidden",
     position: "relative",
-    marginTop: "0px", // Add space below the navbar
+    marginTop: "8px", // Add space below the navbar
   }}
 >
   <img

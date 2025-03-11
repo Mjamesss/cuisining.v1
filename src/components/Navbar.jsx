@@ -133,7 +133,7 @@ const Navbar = () => {
     <>
       <nav className="navbar pl-4 pr-4 d-flex justify-content-between align-items-center" style={{ height: "120px" }}>
         <div className="Navbar_header">
-          <img src="cuisining-newlogo.png" alt="logo" />
+          <img src="ter.png" alt="logo" />
         </div>
         {/* Hamburger button always visible on mobile */}
         <button className={`hamburger d-md-none ${isOpen ? "open" : ""}`} onClick={() => setIsOpen(!isOpen)}>☰</button>
