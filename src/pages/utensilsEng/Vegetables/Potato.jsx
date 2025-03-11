@@ -26,7 +26,7 @@ const Potato= () => {
                 </a>
             </div>
             <div className="p2 d-grid justify-content-center align-items-center">
-                <h1 className="font-weight-900">Potato</h1>
+                <h1 className="font-weight-900"style={{marginTop: "-50px"}}>Potato</h1>
 
             <div style={{ borderRadius: "50px", overflow: "hidden", }}>
                 <Canvas dpr={[1, 2]} shadows camera={{ position: [0, 2, 5], fov: 45 }} style={{ height: "500px" }}>

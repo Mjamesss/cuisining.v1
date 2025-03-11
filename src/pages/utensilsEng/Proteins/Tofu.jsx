@@ -26,7 +26,7 @@ const Tuna= () => {
                 </a>
             </div>
             <div className="p2 d-grid justify-content-center align-items-center">
-                <h1 className="font-weight-900">Tuna</h1>
+                <h1 className="font-weight-900"style={{marginTop: "-50px"}}>Tuna</h1>
 
                 <div style={{ borderRadius: "50px", overflow: "hidden", }}>
                     {/* 3D Model Display with Suspense for loading */}

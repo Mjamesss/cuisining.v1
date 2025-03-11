@@ -26,7 +26,7 @@ const Shrimp= () => {
                 </a>
             </div>
             <div className="p2 d-grid justify-content-center align-items-center">
-                <h1 className="font-weight-900">Shrimp</h1>
+                <h1 className="font-weight-900"style={{marginTop: "-50px"}}>Shrimp</h1>
 
                 <div style={{ borderRadius: "50px", overflow: "hidden", }}>
                     {/* 3D Model Display with Suspense for loading */}
