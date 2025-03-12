@@ -304,10 +304,10 @@ const Navbar = () => {
                 setIsOpen(false);
                 navigate("/profile");
               }} >
-              <img src="profileprofile.png"  alt="Profile Icon" style={{ width: "20px", height: "20px" }} />
+              <img src="profileprofile.png"  alt="Profile Icon" style={{ width: "20px", height: "20px" }} >
               Profile
-              }}
-            >
+              
+            </img>
               <img
                 src="profileprofile.png"
                 alt="Profile Icon"
