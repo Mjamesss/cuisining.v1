@@ -1,0 +1,219 @@
+.background {
+    background-image: url('https://res.cloudinary.com/dm6wodni6/image/upload/v1738813637/login-bg_n5skpt.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    display: flex;
+    width: 80%;
+    max-width: 1000px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .left-section {
+    flex: 1;
+    background-color: #C1B857;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+  }
+  
+  .right-section {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .form-container {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    font-size: 16px;
+    color: #363100;
+    transition: all 0.3s ease;
+    transform: translateY(-50%);
+    padding: 0 5px;
+  }
+  
+  .label-focused {
+    top: -10px;
+    font-size: 12px;
+    transform: translateY(0);
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    outline: none;
+    background-color: #f8f8f8;
+    transition: all 0.3s ease;
+  }
+  
+  .input-focused {
+    border: 1px solid #C1B857;
+    box-shadow: 0 0 8px rgba(193, 184, 87, 0.5);
+    background-color: #fff;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #C1B857;
+    color: #363100;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  
+  .forgot-password-link {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #363100;
+    text-decoration: none;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+  
+  .hr-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .hr {
+    flex: 1;
+    height: 1px;
+    background-color: #000000;
+    border: none;
+  }
+  
+  .or-text {
+    margin: 0 10px;
+    font-size: 16px;
+    color: #363100;
+    font-weight: 300;
+  }
+  
+  .google-login-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #2DE000;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    color: #363100;
+    width: 100%;
+  }
+  
+  .social-button-img {
+    width: 150%;
+    max-width: 25px;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .signup {
+    justify-content: center;
+    display: flex;
+    margin-top: 20px;
+  }
+  
+  .signup-text {
+    font-size: 14px;
+    font-weight: 200;
+    color: #363100;
+  }
+  
+  .signup-link {
+    text-decoration: none;
+    font-weight: 700;
+    color: #363100;
+  }
+  
+  .heading {
+    text-align: center;
+    font-size: 35px;
+    color: #363100;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  
+  .logo {
+    width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .show-password-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      width: 90%;
+    }
+  
+    .left-section {
+      display: none; /* Hide left section on mobile */
+    }
+  
+    .right-section {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    .heading {
+      font-size: 28px;
+    }
+  }
