@@ -6,68 +6,111 @@ const Utensils = () => {
     return (
         <>
             <Navbar />
-            <div className="d-grid justify-content-center" style={{ width: "100%", margin: "0", padding: "55px 0" }}> 
-                <div className="d-flex justify-content-center align-items-center p5">
-                    <div style={{ width: "100%" }}>
-                        <h2 className="font-weight-700 ;">Cooking Utensils Identification</h2>
-                        <div className="d-grid justify-content-between g4" style={{ width: "100%", gridTemplateColumns: "repeat(3,1fr)" }}>
-
-                    <a  className="" href="Cutting" alt="">
-                        <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844131/Group_1000005992_hxapwx.png"></img>
-                    </a>
-                    <a href="Measuring" alt="">
-                        <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844131/Group_10_b2dfuj.png"></img>
-                    </a>
-                    <a href="Mixing" alt="">
-                        <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844131/9_akb2gk.png"></img>
-                    </a>
-                    <a href="GrillingTools" alt="">
-                        <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844131/Group_1000005999_nqki9c.png"></img>
-                    </a>
-                    <a href="Cookware" alt="">
-                        <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844131/Group_1000006123_qqvvyi.png"></img>
-                    </a>
-                    <a href="Appliances" alt="">
-                        <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844132/Group_1000006124_mbpotq.png"></img>
-                    </a>
+            <div style={{ width: "100%", margin: "0", padding: "90px 0" }}>
+                {/* Cooking Utensils Section */}
+                <div style={{ width: "100%", marginBottom: "40px" }}>
+                    <h2 style={{ fontSize: "26px", marginLeft: "13%", marginBottom: "20px", }}>Cooking Utensils Identification</h2>
+                    <div style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(3, 1fr)",
+                        fontWeight: "920",
+                        gap: "40px",
+                        padding: "0 40px",
+                        maxWidth: "1200px",
+                        margin: "0 auto",
+                    }}>
+                        <a href="Cutting" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844131/Group_1000005992_hxapwx.png" 
+                            alt="Cutting" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="Measuring" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844131/Group_10_b2dfuj.png" 
+                            alt="Measuring" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="Mixing" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844131/9_akb2gk.png" 
+                            alt="Mixing" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="GrillingTools" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844131/Group_1000005999_nqki9c.png" 
+                            alt="Grilling Tools" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="Cookware" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844131/Group_1000006123_qqvvyi.png" 
+                            alt="Cookware" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="Appliances" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844132/Group_1000006124_mbpotq.png" 
+                            alt="Appliances" className="img-fluid hover-shadow" />
+                        </a>
                     </div>
-                        </div>
                 </div>
-                <div className="p5">
-                    <div style={{ width: "100%" }}>
-                        <h2 className="font-weight-700">Ingredients Identification</h2>
-                        <div className="d-grid g4" style={{ gridTemplateColumns: "repeat(4,1fr)", width: "90%" }}>
 
-                            <a href="Proteins" alt="">
-                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844574/Frame_1000006205_pyfydd.png" />
-                            </a>
-                            <a href="Dairies" alt="">
-                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844571/Frame_26086231_zhyegt.png" />
-                            </a>
-                            <a href="GrainStarches" alt="">
-                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844572/Frame_26086233_hgathp.png" />
-                            </a>
-                            <a href="Fruits" alt="">
-                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844572/Frame_26086234_klto9r.png" />
-                            </a>
-                            <a href="Vegetables" alt="">
-                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844572/Frame_26086235_zbprq3.png" />
-                            </a>
-                            <a href="HerbsSpices" alt="">
-                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844572/Frame_26086236_mdgru4.png" />
-                            </a>
-                            <a href="OilFats" alt="">
-                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844573/Frame_26086237_mtyafy.png" />
-                            </a>
-                            <a href="SeasoningCondiments" alt="">
-                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844573/Frame_26086238_lx0wbl.png" />
-                            </a>
-                        </div>
+                {/* Ingredients Section */}
+                <div style={{ width: "100%", marginBottom: "40px", padding: "30px" }}>
+                    <h2 style={{ fontSize: "26px", marginLeft: "11%", marginBottom: "20px", }}>Ingredients Identification</h2>
+                    <div style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(4, 1fr)",
+                        gap: "20px",
+                        padding: "0 20px",
+                        maxWidth: "1200px",
+                        margin: "0 auto",
+                    }}>
+                        <a href="Proteins" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844574/Frame_1000006205_pyfydd.png" 
+                            alt="Proteins" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="Dairies" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844571/Frame_26086231_zhyegt.png" 
+                            alt="Dairies" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="GrainStarches" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844572/Frame_26086233_hgathp.png" 
+                            alt="Grain Starches" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="Fruits" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844572/Frame_26086234_klto9r.png" 
+                            alt="Fruits" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="Vegetables" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844572/Frame_26086235_zbprq3.png" 
+                            alt="Vegetables" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="HerbsSpices" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844572/Frame_26086236_mdgru4.png" 
+                            alt="Herbs and Spices" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="OilFats" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844573/Frame_26086237_mtyafy.png" 
+                            alt="Oil and Fats" className="img-fluid hover-shadow" />
+                        </a>
+                        <a href="SeasoningCondiments" className="protein-item text-center">
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740844573/Frame_26086238_lx0wbl.png" 
+                            alt="Seasoning and Condiments" className="img-fluid hover-shadow" />
+                        </a>
                     </div>
                 </div>
             </div>
             <Footer />
+
+            {/* Hover Effect Style */}
+            <style jsx>{`
+                .protein-item {
+                    transition: transform 0.3s ease;
+                    display: block;
+                }
+
+                .protein-item:hover {
+                    transform: scale(1.05);
+                }
+
+                .hover-shadow:hover {
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                }
+            `}</style>
         </>
     );
 };
+
 export default Utensils;

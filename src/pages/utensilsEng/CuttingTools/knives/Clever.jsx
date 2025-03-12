@@ -2,13 +2,15 @@ import "../../../../fw-cuisining.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
-import Navbar from '../../../../components/Navbar';
+import Navbar from "../../../../components/Navbar";
 
+// 3D Model for Cleaver Knife
 const Model = (props) => {
     const { scene } = useGLTF("clever.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
 };
 
+// Loading Indicator
 const Loader = () => (
     <mesh>
         <sphereGeometry args={[0.5, 32, 32]} />
@@ -16,19 +18,24 @@ const Loader = () => (
     </mesh>
 );
 
+// Breadcrumb Navigation for Cleaver Knife
 const Breadcrumb = () => {
     return (
-        <nav aria-label="breadcrumb" style={{ marginLeft: "190px", padding: "1 40px", marginBottom: "40px", marginTop: "-2%" }}>
+        <nav
+            aria-label="breadcrumb"
+            style={{ marginLeft: "190px", padding: "1 40px", marginBottom: "40px", marginTop: "-2%" }}
+        >
             <ol className="breadcrumb" style={{ backgroundColor: "transparent", margin: 0, padding: 0 }}>
                 <li className="breadcrumb-item"><a href="/Utensils" style={{ color: "black", textDecoration: "none" }}>Utensils</a></li>
                 <li className="breadcrumb-item"><a href="/Cutting" style={{ color: "black", textDecoration: "none" }}>Cutting Tools</a></li>
                 <li className="breadcrumb-item"><a href="/knife" style={{ color: "black", textDecoration: "none" }}>Knife</a></li>
-                <li className="breadcrumb-item active" aria-current="page" style={{ color: "black" }}>Cleaver Knife</li>
+                <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "bold" }}>Cleaver Knife</li>
             </ol>
         </nav>
     );
 };
 
+// Cleaver Knife Page Content
 const Clever = () => {
     return (
         <>
@@ -38,10 +45,10 @@ const Clever = () => {
             </div>
             <Breadcrumb />
             <div className="p2 d-grid justify-content-center align-items-center" style={{ paddingTop: "50px" }}>
-                <div className="content-group" style={{ fontSize: "20px", maxWidth: "1000px", margin: "left", textAlign: "left" }}>
-                    <h1 className="font-weight-800" style={{ marginTop: "-50px" }}>Cleaver Knife</h1>
+                <div className="content-group" style={{ fontSize: "20px", maxWidth: "1000px", textAlign: "left" }}>
+                    <h1 className="font-weight-800" style={{ fontSize: "35px" }}>Cleaver Knife</h1>
 
-                    <div style={{ borderRadius: "50px", overflow: "hidden", }}>
+                    <div style={{ borderRadius: "50px", overflow: "hidden" }}>
                         <Canvas dpr={[1, 2]} shadows camera={{ position: [0, 2, 5], fov: 45 }} style={{ height: "500px" }}>
                             <color attach="background" args={["#a6a6a6"]} />
                             <Suspense fallback={<Loader />}>
@@ -57,8 +64,7 @@ const Clever = () => {
 
                     <p className="p2" style={{ fontSize: "20px", color: "#000000" }}>
                         <b style={{ color: "#000000" }}>Description:</b><br />
-                        A cleaver knife is a large, heavy-duty knife designed for cutting through tough meats, bones, and dense vegetables. It features a broad, rectangular blade that provides both power and precision when chopping, slicing, and crushing ingredients.
-                        This knife is commonly used in butchery and professional kitchens for breaking down large cuts of meat, cutting through bones, and preparing hard vegetables like squash. The flat side of the blade can also be used to crush garlic or tenderize meat. Its sturdy design makes it an essential tool for heavy-duty kitchen tasks.
+                        A cleaver knife is a large, heavy-duty knife designed for cutting through tough meats, bones, and dense vegetables. It features a broad, rectangular blade that provides both power and precision when chopping, slicing, and crushing ingredients. This knife is commonly used in butchery and professional kitchens for breaking down large cuts of meat, cutting through bones, and preparing hard vegetables like squash. The flat side of the blade can also be used to crush garlic or tenderize meat. Its sturdy design makes it an essential tool for heavy-duty kitchen tasks.
                     </p>
 
                     <div className="p2">

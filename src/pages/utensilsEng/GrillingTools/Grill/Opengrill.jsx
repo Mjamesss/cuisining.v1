@@ -2,7 +2,9 @@ import "../../../../fw-cuisining.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
+import Navbar from '../../../../components/Navbar';
 
+// 3D Model Component
 const Model = (props) => {
     const { scene } = useGLTF("opengrill.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
