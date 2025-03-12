@@ -7,6 +7,7 @@ const profileSchema = new mongoose.Schema({
   selectedGroup1: { type: String, required: true },
   selectedGroup2: { type: String, required: true },
   hasTakenNCII: { type: Boolean, required: true },
+  cuisiningId: { type: String, required:true},
 });
 
 module.exports = mongoose.model("Profile", profileSchema);

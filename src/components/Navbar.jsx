@@ -306,6 +306,14 @@ const Navbar = () => {
               }} >
               <img src="profileprofile.png"  alt="Profile Icon" style={{ width: "20px", height: "20px" }} />
               Profile
+              }}
+            >
+              <img
+                src="profileprofile.png"
+                alt="Profile Icon"
+                style={{ width: "20px", height: "20px" }}
+              />
+              Cuisining Profile
             </button>
             <button className="btn w-100 text-left" style={{  display: "flex", alignItems: "center", gap: "8px",  maxWidth: "300px", }}
               onClick={() => {
