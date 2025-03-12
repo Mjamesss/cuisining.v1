@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import "../fw-cuisining.css";
-import axios from "axios";
+import axios from "axios"; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
