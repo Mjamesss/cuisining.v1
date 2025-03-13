@@ -2,46 +2,56 @@ import "../../../fw-cuisining.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
+import Navbar from '../../../components/Navbar';
 
 const Model = (props) => {
     const { scene } = useGLTF("beef.glb"); // Ensure the model is in the public folder
     return <primitive object={scene} scale={0.01} {...props} />;
 };
 
-const Beef = () => {
+const Loader = () => (
+    <mesh>
+        <sphereGeometry args={[0.5, 32, 32]} />
+        <meshBasicMaterial color="gray" wireframe />
+    </mesh>
+);
 
-     // Simple Loading Indicator
-     const Loader = () => (
-        <mesh>
-            <sphereGeometry args={[0.5, 32, 32]} />
-            <meshBasicMaterial color="gray" wireframe />
-        </mesh>
+const Breadcrumb = () => {
+    return (
+        <nav aria-label="breadcrumb" className="px-3 px-md-5" style={{ marginBottom: "30px", marginTop: "30px" }}>
+            <ol className="breadcrumb" style={{ backgroundColor: "transparent", margin: 65, padding: 0 }}>
+                <li className="breadcrumb-item"><a href="/Utensils" style={{ color: "black", textDecoration: "none" }}>Utensils</a></li>
+                <span style={{ margin: "0 10px" }}>&gt;</span>
+                <li className="breadcrumb-item"><a href="/Proteins" style={{ color: "black", textDecoration: "none" }}>Proteins</a></li>
+                <span style={{ margin: "0 10px" }}>&gt;</span>
+                <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "bold" }}>Beef</li>
+            </ol>
+        </nav>
     );
+};
 
+const Beef = () => {
     return (
         <>
-            <div className="p5">
-                <a href="Proteins">
-                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739376994/back_pzol0l.png" alt="Back" />
-                </a>
-            </div>
+            <Navbar />
+            <Breadcrumb />
             <div className="p2 d-grid justify-content-center align-items-center">
-                <h1 className="font-weight-900"style={{marginTop: "-50px"}}>Beef</h1>
+                <h1 className="font-weight-900" style={{ fontSize: "35px" }}>Beef</h1>
 
-            <div style={{ borderRadius: "50px", overflow: "hidden", }}>
-                <Canvas dpr={[1, 2]} shadows camera={{ position: [0, 2, 5], fov: 45 }} style={{ height: "500px" }}>
-                    <color attach="background" args={["#a6a6a6"]} />
-                    <Suspense fallback={<Loader />}>
-                        <PresentationControls speed={1.5} global zoom={0.5} polar={[-0.1, Math.PI / 4]}>
-                            <Stage environment={null}>
-                                <Model />
-                            </Stage>
-                        </PresentationControls>
-                    </Suspense>
-                    <OrbitControls />
-                </Canvas>
-            </div>
-                                
+                <div style={{ borderRadius: "50px", overflow: "hidden" }}>
+                    <Canvas dpr={[1, 2]} shadows camera={{ position: [0, 2, 5], fov: 45 }} style={{ height: "500px" }}>
+                        <color attach="background" args={["#a6a6a6"]} />
+                        <Suspense fallback={<Loader />}>
+                            <PresentationControls speed={1.5} global zoom={0.5} polar={[-0.1, Math.PI / 4]}>
+                                <Stage environment={null}>
+                                    <Model />
+                                </Stage>
+                            </PresentationControls>
+                        </Suspense>
+                        <OrbitControls />
+                    </Canvas>
+                </div>
+
                 <div className="content-group" style={{ fontSize: "20px", maxWidth: "1000px", margin: "left", textAlign: "left" }}>
                     <p className="p2" style={{ fontSize: "20px" }}>
                         <b>Description:</b><br />
@@ -51,8 +61,8 @@ const Beef = () => {
                         and brisket, are used in a variety of cuisines worldwide. Due to its rich iron content, beef is particularly
                         beneficial for individuals needing to increase their red blood cell production. It can be prepared in numerous
                         ways, from slow cooked stews to flame grilled steaks, making it a versatile ingredient in many recipes.
-                        </p>
-                        
+                    </p>
+
                     <div className="p2">
                         <b>Nutritional Benefits:</b>
                         <ul>
@@ -80,8 +90,6 @@ const Beef = () => {
                         </ul>
                     </div>
 
-
-
                     <div className="p2">
                         <b>Substitutions for Dietary Needs:</b>
                         <ul>
@@ -89,9 +97,7 @@ const Beef = () => {
                             <li>Replace with plant-based protein like tofu or lentils</li>
                         </ul>
                     </div>
-
                 </div>
-
             </div>
         </>
     );
