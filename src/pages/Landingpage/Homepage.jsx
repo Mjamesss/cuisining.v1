@@ -142,7 +142,7 @@ const Homepage = () => {
                     />
                 </div>
 
-                {/* First image - positioned on top */}
+                {/* First image - positoned on top */}
                 <div 
                     className="header-image" 
                     style={{ 
