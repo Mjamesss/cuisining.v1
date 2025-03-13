@@ -268,7 +268,7 @@ const Homepage = () => {
                 />
             </div>
 
-            {/*modal section*/ }
+            {/*modal sectiosdn*/ }
             {isModalOpen && (
                 <div className="modal-overlay position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" 
                     style={{ zIndex: "1000", backgroundColor: "rgba(120, 122, 124, 0.5)" }}>
