@@ -34,7 +34,7 @@ const Done = () => {
 
   const styles = {
     background: {
-      backgroundImage: "url('https://res.cloudinary.com/dm6wodni6/image/upload/v1738813637/login-bg_n5skpt.png')", // Replace with your image URL
+      backgroundImage: "linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)), url('https://res.cloudinary.com/dm6wodni6/image/upload/v1738813637/login-bg_n5skpt.png')", // Replace with your image URL
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundAttachment: "fixed",
