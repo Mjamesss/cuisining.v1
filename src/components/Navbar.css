@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: white;
+  background-color: #F0F4F8;
   height: 120px;
   position: relative;
 }
@@ -148,13 +148,50 @@
   top: 60px;
   right: 20px;
   background: white;
-  border-radius: 8px;
+  border-radius: 25px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   padding: 10px;
   width: 180px;
   display: flex;
   flex-direction: column;
+  gap: 9px; /* Gap between buttons */
   z-index: 1000;
+}
+
+.profile-modal .btn:hover {
+  background-color: #F0F0F0;
+}
+
+.upgrade-btn {
+  padding: 8px;
+  color: rgb(255, 255, 255) !important;  
+  background-color: #948f5c !important;
+}
+
+.upgrade-btn:hover {
+  background-color: #363100!important;
+  color: white !important;
+}
+
+.upgrade-text {
+  color: #6c757d; /* Gray text color */
+  font-size: 14px; /* Smaller font size */
+
+}
+
+.profile-modal .btn {
+  border: none; /* Remove border */ 
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.profile-modal .btn:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: none; /* Remove box shadow */
+}
+
+.proaccount {
+  color: #363100;
 }
 
 .profile-option {

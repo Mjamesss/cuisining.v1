@@ -8,7 +8,7 @@ const Scissors = () =>{
        </div>
        <div className=" p2 d-flex justify-content-center align-items-center">
         <div className=" d-grid justify-content-center align-items-center">
-            <div className=" p2 d-grid">
+            <div className=" p2 d-grid"style={{marginTop: "-70px"}}>
         <h1>Scissors and shears</h1>
         <div className="d-grid g4" style={{gridTemplateColumns:"repeat(3,1fr)",}}>
         

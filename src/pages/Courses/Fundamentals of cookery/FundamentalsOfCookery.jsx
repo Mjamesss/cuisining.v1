@@ -30,6 +30,9 @@ const FundamentalsOfCookery = () =>{
         </div>
        </div>
 
+       <div className="d-flex justify-content-end p5">
+        <button className="cbtn cbtn-secondary" style={{ width: "15%", height: "50px" }}>All lessons Done</button>
+      </div>
 
       
     </>

@@ -27,7 +27,11 @@ const PreparingAppetizers = () =>{
         <a href="" target="_blank" rel="noopener noreferrer"><img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741617860/Group_1000006180_1_dwpvi9.png"></img></a>
       
         </div>
-       </div>
+       </div> 
+         
+       <div className="d-flex justify-content-end p5">
+        <button className="cbtn cbtn-secondary" style={{ width: "15%", height: "50px" }}>All lessons Done</button>
+      </div>
 
 
       

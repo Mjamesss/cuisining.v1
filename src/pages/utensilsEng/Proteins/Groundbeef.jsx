@@ -26,7 +26,7 @@ const Groundbeef= () => {
                 </a>
             </div>
             <div className="p2 d-grid justify-content-center align-items-center">
-                <h1 className="font-weight-900">Ground Beef</h1>
+                <h1 className="font-weight-900"style={{marginTop: "-50px"}}>Ground Beef</h1>
 
                 <div style={{ borderRadius: "50px", overflow: "hidden", }}>
                     {/* 3D Model Display with Suspense for loading */}
