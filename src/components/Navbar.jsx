@@ -11,7 +11,7 @@ const Navbar = () => {
   const [isProfileModalDesktop, setIsProfileModalDesktop] = useState(false);
   const notifRefMobile = useRef(null);
   const notifRefDesktop = useRef(null);
-  const profileRefDesktop = useRef(null);
+  const profileRefDesktop = useRef(null); 
   const [activeLink, setActiveLink] = useState("");
 
   const [notifications, setNotifications] = useState([
