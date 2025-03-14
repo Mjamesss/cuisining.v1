@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../fw-cuisining.css";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import axios from "axios"; // For making API requests
+import Navbar from '../../components/Navbar';
 
 const modules = [
   { title: "Fundamentals of Professional Cookery", progress: 100, image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1740904806/image_72_oawnk6.png" },
@@ -144,8 +145,9 @@ const Settings = () => {
 
   return (
     <>
+    <Navbar />
       {/* Profile Section */}
-      <div className="container d-flex flex-column align-items-start mt-3">
+      <div className="container d-flex flex-column align-items-start mt-5">
         <h1 className="font-weight-800">Profile</h1>
       </div>
 

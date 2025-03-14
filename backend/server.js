@@ -55,6 +55,7 @@ app.use("/api/otp", otpRoutes);
 app.use("/api/oauth", oAuthRoutes);
 app.use("/api/settings", settingsRoutes);
 
+
 app.get("/", (req, res) => {
   res.send("Our Server");
 });
