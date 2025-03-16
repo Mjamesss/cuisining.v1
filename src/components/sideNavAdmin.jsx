@@ -47,7 +47,7 @@ const SideNav = () => {
               style={{ backgroundColor: activeLink === '/announcement' ? '#B3A369' : '', borderRadius: '5px' }}
             >
               <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741981835/ringing_ieuuli.png" alt="Transactions" style={{ width: '20px', marginRight: '10px' }} />
-              Transactions
+              Announcement
             </Link>
           </li>
         </ul>

@@ -11,19 +11,37 @@ const Navbar = () => {
   const [isProfileModalDesktop, setIsProfileModalDesktop] = useState(false);
   const notifRefMobile = useRef(null);
   const notifRefDesktop = useRef(null);
-  const profileRefDesktop = useRef(null); 
+  const profileRefDesktop = useRef(null);
   const [activeLink, setActiveLink] = useState("");
 
   const [notifications, setNotifications] = useState([
-    { id: 1, message: "Update: Here is your first notification!", type: "update", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841082/refresh_c3zxpa.png" },
-    { id: 2, message: "Reminder: Your course starts tomorrow!", type: "reminder", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841253/bell_cofdvd.png" },
-    { id: 3, message: "New: Check out the latest utensils added!", type: "new", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841121/new_tamwbo.png" },
-    { id: 4, message: "Alert: Your profile is 80% complete!", type: "alert", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841354/warning_r5usud.png" },
-    { id: 5, message: "Update: New recipes added to your favorites!", type: "update", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841082/refresh_c3zxpa.png" },
-    { id: 6, message: "Reminder: Don't forget to complete your profile!", type: "reminder", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841253/bell_cofdvd.png" },
-    { id: 7, message: "New: Exclusive discounts on cooking tools!", type: "new", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841121/new_tamwbo.png" },
-    { id: 8, message: "Alert: Your subscription is about to expire!", type: "alert", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841354/warning_r5usud.png" },
+    { id: 1, notifMessage: "Update: Here is your first notification!", notifType: "update", notifIcon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841082/refresh_c3zxpa.png", notifTimestamp: new Date(Date.now() - 3 * 60 * 1000) }, // 3 minutes ago
+    { id: 2, message: "Reminder: Your course starts tomorrow!", type: "reminder", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841253/bell_cofdvd.png", timestamp: new Date(Date.now() - 10 * 60 * 1000) }, // 10 minutes ago
+    { id: 3, message: "New: Check out the latest utensils added!", type: "new", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841121/new_tamwbo.png", timestamp: new Date(Date.now() - 25 * 60 * 1000) }, // 25 minutes ago
+    { id: 4, message: "Alert: Your profile is 80% complete!", type: "alert", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841354/warning_r5usud.png", timestamp: new Date(Date.now() - 60 * 60 * 1000) }, // 1 hour ago
+    { id: 5, message: "Update: New recipes added to your favorites!", type: "update", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841082/refresh_c3zxpa.png", timestamp: new Date(Date.now() - 120 * 60 * 1000) }, // 2 hours ago
+    { id: 6, message: "Reminder: Don't forget to complete your profile!", type: "reminder", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841253/bell_cofdvd.png", timestamp: new Date(Date.now() - 180 * 60 * 1000) }, // 3 hours ago
+    { id: 7, message: "New: Exclusive discounts on cooking tools!", type: "new", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841121/new_tamwbo.png", timestamp: new Date(Date.now() - 240 * 60 * 1000) }, // 4 hours ago
+    { id: 8, message: "Alert: Your subscription is about to expire!", type: "alert", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841354/warning_r5usud.png", timestamp: new Date(Date.now() - 300 * 60 * 1000) }, // 5 hours ago
   ]);
+
+  const getTimeDifference = (timestamp) => {
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - timestamp) / 1000);
+
+    if (diffInSeconds < 60) {
+      return `${diffInSeconds} seconds ago`;
+    } else if (diffInSeconds < 3600) {
+      const diffInMinutes = Math.floor(diffInSeconds / 60);
+      return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
+    } else if (diffInSeconds < 86400) {
+      const diffInHours = Math.floor(diffInSeconds / 3600);
+      return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+    } else {
+      const diffInDays = Math.floor(diffInSeconds / 86400);
+      return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+    }
+  };
 
   const handleNavClick = (link) => {
     setActiveLink(link);
@@ -130,7 +148,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar pl-4 pr-4 d-flex justify-content-between align-items-center" style={{ height: "120px",boxShadow: "0px 5px 10px rgba(98, 98, 98, 0.1)" }}>
+      <nav className="navbar pl-4 pr-4 d-flex justify-content-between align-items-center" style={{ height: "120px", boxShadow: "0px 5px 10px rgba(98, 98, 98, 0.1)" }}>
         <div className="Navbar_header">
           <img src="ter.png" alt="logo" />
         </div>
@@ -154,10 +172,15 @@ const Navbar = () => {
                   notifications.slice(0, 6).map((notif, index) => (
                     <div key={notif.id}>
                       <div className="notification-item" style={{ paddingLeft: "16px", paddingRight: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
-                        <img src={notif.icon} alt={notif.type} style={{ width: "30px", height: "30px" }} /> {/* Image Icon */}
-                        <p style={{ color: "#000", margin: "8px 0", textAlign: "left", fontSize: "14px" }}>
-                          <b>{notif.type}:</b> {notif.message}
-                        </p>
+                        <img src={notif.icon} alt={notif.type} style={{ width: "30px", height: "30px" }} />
+                        <div>
+                          <p style={{ color: "#000", margin: "8px 0", textAlign: "left", fontSize: "14px" }}>
+                            <b>{notif.type}:</b> {notif.message}
+                          </p>
+                          <p style={{ color: "#6c757d", margin: "0", fontSize: "12px" }}>
+                            {getTimeDifference(notif.timestamp)}
+                          </p>
+                        </div>
                       </div>
                       {index !== notifications.length - 1 && <hr style={{ margin: "8px 0", borderColor: "#000000", height: "1px" }} />}
                     </div>
@@ -225,10 +248,15 @@ const Navbar = () => {
                   notifications.slice(0, 6).map((notif, index) => (
                     <div key={notif.id}>
                       <div className="notification-item" style={{ display: "flex", alignItems: "center", gap: "8px", paddingLeft: "16px", paddingRight: "16px" }}>
-                        <img src={notif.icon} alt={notif.type} style={{ width: "30px", height: "30px" }} /> {/* Image Icon */}
-                        <p style={{ color: "#000", margin: "8px 0", textAlign: "left", fontSize: "14px" }}>
-                          <b>{notif.type}:</b> {notif.message}
-                        </p>
+                        <img src={notif.icon} alt={notif.type} style={{ width: "30px", height: "30px" }} />
+                        <div>
+                          <p style={{ color: "#000", margin: "8px 0", textAlign: "left", fontSize: "14px" }}>
+                            <b>{notif.type}:</b> {notif.message}
+                          </p>
+                          <p style={{ color: "#6c757d", margin: "0", fontSize: "12px" }}>
+                            {getTimeDifference(notif.timestamp)}
+                          </p>
+                        </div>
                       </div>
                       {index !== notifications.length - 1 && <hr style={{ margin: "8px 0", borderColor: "#e0e0e0" }} />}
                     </div>
