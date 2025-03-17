@@ -10,6 +10,32 @@ const Homepage = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    
+    const [isInitialModalOpen, setIsInitialModalOpen] = useState(false);
+    const [isEnrollModalOpen, setIsEnrollModalOpen] = useState(false);
+
+    useEffect(() => {
+        const hasVisited = sessionStorage.getItem('hasVisited');
+        if (!hasVisited) {
+            setIsInitialModalOpen(true);
+            sessionStorage.setItem('hasVisited', 'true');
+        }
+    }, []);
+
+    const handleCloseInitialModal = () => {
+        setIsInitialModalOpen(false);
+    };
+
+    const handleOpenEnrollModal = () => {
+        setIsEnrollModalOpen(true);
+    };
+
+    const handleCloseEnrollModal = () => {
+        setIsEnrollModalOpen(false);
+    };
+
+
+
     useEffect(() => {
         // Only run this effect once when component mounts
         const hasVisited = sessionStorage.getItem('hasVisited');
@@ -168,9 +194,89 @@ const Homepage = () => {
                 </div>
                 </div>
 
-                <div className="d-flex justify-content-center pb-5" style={{height:"80px"}}>
-                    <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ marginRight: "76%", color:"white", width:"12%", height:"70px", fontSize:"18px", marginTop: "40px", borderRadius: "30px"}}>Enroll now</button>
+                <div className="d-flex justify-content-center pb-5" style={{ height: "80px" }}>
+                <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ marginRight: "76%", color: "white", width: "12%", height: "70px", fontSize: "18px", marginTop: "40px", borderRadius: "30px" }} onClick={handleOpenEnrollModal}>Enroll now</button>
+            </div>
+
+            {isInitialModalOpen && (
+                <div className="modal-overlay position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" 
+                    style={{ zIndex: 1000, backgroundColor: "rgba(120, 122, 124, 0.5)" }}>
+                    <div className="modal-content" style={{ background: "transparent", borderRadius: "50px", width: "70%", textAlign: "center", position: "relative" }}>
+                        <span
+                            className="close-btn"
+                            style={{ position: "absolute", right: "40px", top: "20px", fontSize: "20px", cursor: "pointer", color: "black", zIndex: 1001 }}
+                            onClick={handleCloseInitialModal}
+                        >
+                            ✖
+                        </span>
+                        <img src="modalLdng.png" alt="Modal" style={{ maxWidth: "100%", height: "auto", display: "block", margin: "0 auto", backgroundColor: "transparent" }} />
+                    </div>
                 </div>
+            )}
+
+            
+{isEnrollModalOpen && (
+  <div
+    className="modal-overlay position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+    style={{ zIndex: "1000", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+    onClick={handleCloseEnrollModal}
+  >
+    <button
+      className="btn-close position-absolute"
+      style={{ top: "20px", right: "20px" }}
+      onClick={(e) => e.stopPropagation()}
+      aria-label="Close"
+    ></button>
+    <div
+      className="modal-content p-5"
+      style={{
+        backgroundImage: "url(https://res.cloudinary.com/dm6wodni6/image/upload/v1742220019/kitchen_kgilqg.jpg)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundColor: "rgba(255, 255, 255, 0.1)",
+        borderRadius: "20px",
+        width: "80%",
+        maxWidth: "800px",
+        color: "white",
+        border: "2px solid #363100"
+      }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h2 className="text-center mb-4" style={{}}>Premium Benefits</h2>
+      <div className="d-flex justify-content-around">
+        <div
+          className="p-4"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", borderRadius: "15px", width: "45%", color: 'white', border: "2px solid #363100" }}
+        >
+          <h3 className="text-center" style={{ color: 'white' }}>FREE USE</h3>
+          <ul>
+            <li>Access to limited courses</li>
+            <li>No certification upon completion</li>
+            <li>Restricted access to certain skill sets</li>
+          </ul>
+        </div>
+        <div
+          className="p-4"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", borderRadius: "15px", width: "45%", color: 'white', border: "2px solid #363100" }}
+        >
+          <h3 className="text-center" style={{ color: 'white' }}>PREMIUM</h3>
+          <ul>
+            <li>Unlock access to all core competencies for NCII Cookery</li>
+            <li>Receive a certificate upon completion</li>
+            <li>Unlock all skill sets for a comprehensive learning experience</li>
+          </ul>
+          <button className="btn w-100 mt-3" style={{ backgroundColor: "#363100", color: "white", border: "2px solid #363100" }}>Avail Premium</button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
+
+
 
                 <div className="p-5 d-flex justify-content-center align-items-center flex-md-row flex-column-reverse" style={{minHeight:"520px", marginTop:"90px"}}>
                     <div className="px-4 me-md-5"> 

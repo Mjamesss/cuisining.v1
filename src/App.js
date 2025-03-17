@@ -251,6 +251,11 @@ import PreparingEggVagetable from './pages/Courses/PreparingEggVagetable/Prepari
 import IntroToEggDishes from './pages/Courses/PreparingEggVagetable/IntroToEggDishes';
 import SaladAndSaladDressing from './pages/Courses/SaladAndSaladDressing/SaladAndSaladDressing';
 import PreparingSandwich from './pages/Courses/PreparingSandwiches/PreparingSandwich';
+
+import AdminLogin from './pages/admin/adminLogin';
+import Dashboard from './pages/admin/dashboard';
+import Transaction from './pages/admin/transactions';
+import Announcement from './pages/admin/reminderNotif';
 const App = () => {
   return (
     <Router>
@@ -258,6 +263,11 @@ const App = () => {
         <Row>
           <Col>
             <Routes>
+              {/* Admin */}
+              <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/transactions" element={<Transaction />} />
+              <Route path="/announcement" element={<Announcement />} />
               {/* Login Pages */}
               <Route path="/" element={<L />} />
               <Route path="/signup" element={<S />} />

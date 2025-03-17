@@ -12,9 +12,12 @@ const forgotPassMailing = require("./routes/change-pass");
 const otpRoutes = require("./routes/otpRoutes");
 const oAuthRoutes = require("./routes/googleAuthRoutes");
 const settingsRoutes = require("./routes/settingRoutes");
-
+const notifRoutes = require("./routes/notifRoutes");
 // Import Google Strategy (Ensure it's required)
 require("./routes/googleAuthRoutes");
+// ✅ Make sure routes come AFTER Passport initialization
+
+
 
 const cors = require("cors");
 
@@ -43,17 +46,18 @@ app.use(
     saveUninitialized: false,
   })
 );
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-// ✅ Make sure routes come AFTER Passport initialization
 app.use("/api/auth", authRoutes);
 app.use("/api/password", forgotPassMailing);
 app.use("/api/profile", profileRoutes);
 app.use("/api/otp", otpRoutes);
 app.use("/api/oauth", oAuthRoutes);
-app.use("/api/settings", settingsRoutes);
+app.use("/api/settings", settingsRoutes); 
+app.use("/api/notif/", notifRoutes);
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.get("/", (req, res) => {
   res.send("Our Server");
@@ -61,3 +65,4 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+

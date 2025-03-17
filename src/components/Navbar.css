@@ -248,3 +248,21 @@
     display: none;
   }
 }
+/* Custom scrollbar styling */
+.notif-dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notif-dropdown::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.notif-dropdown::-webkit-scrollbar-thumb {
+  background: #363100; /* Blue color */
+  border-radius: 4px;
+}
+
+.notif-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #363100; /* Darker blue on hover */
+}
