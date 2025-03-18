@@ -13,6 +13,7 @@ const otpRoutes = require("./routes/otpRoutes");
 const oAuthRoutes = require("./routes/googleAuthRoutes");
 const settingsRoutes = require("./routes/settingRoutes");
 const notifRoutes = require("./routes/notifRoutes");
+const userRoutes = require("./routes/usersRoutes");
 // Import Google Strategy (Ensure it's required)
 require("./routes/googleAuthRoutes");
 // ✅ Make sure routes come AFTER Passport initialization
@@ -53,6 +54,7 @@ app.use("/api/otp", otpRoutes);
 app.use("/api/oauth", oAuthRoutes);
 app.use("/api/settings", settingsRoutes); 
 app.use("/api/notif/", notifRoutes);
+app.use ("/api/user/", userRoutes);
 
 
 app.use(passport.initialize());

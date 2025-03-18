@@ -50,6 +50,17 @@ const SideNav = () => {
               Announcement
             </Link>
           </li>
+          <li className="nav-item">
+            <Link
+              to="/userAdmin"
+              className={`nav-link text-white ${activeLink === '/accounts' ? 'active' : ''}`}
+              onClick={() => handleLinkClick('/userAdmin')}
+              style={{ backgroundColor: activeLink === '/userAdmin' ? '#B3A369' : '', borderRadius: '5px' }}
+            >
+              <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741981835/ringing_ieuuli.png" alt="Transactions" style={{ width: '20px', marginRight: '10px' }} />
+              Accounts
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

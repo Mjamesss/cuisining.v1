@@ -2,9 +2,26 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Profile = require("../models/profile"); // Import the Profile model
 const Notification = require("../models/Notification"); // Import the Notification model
-
+const jwt = require("jsonwebtoken");
+const verifyToken = require("../middlewares/verifyToken");
 const router = express.Router();
 
+router.get('/get-notifications', verifyToken, async (req, res) => {
+  try {
+    const userId = req.userId;
+    const notifications = await Notification.find({ recipients: userId }).sort({ date: -1 });
+
+    // Ensure the date field is in the correct format
+    const formattedNotifications = notifications.map((notif) => ({
+      ...notif._doc,
+      date: { $date: notif.date.toISOString() }, // Convert date to ISO string
+    }));
+
+    res.json(formattedNotifications);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching notifications', error });
+  }
+});
 // POST /api/notifications - Create a new notification
 router.post("/notifications", async (req, res) => {
     try {
@@ -19,12 +36,12 @@ router.post("/notifications", async (req, res) => {
       let recipients = [];
       if (recipientType === "all") {
         // Fetch all users from the Profile collection
-        const allProfiles = await Profile.find({}, "_id");
-        recipients = allProfiles.map((profile) => profile._id);
+        const allProfiles = await Profile.find({}, "userID");
+        recipients = allProfiles.map((profile) => profile.userID);
       } else if (recipientType === "custom" && cuisiningIds && cuisiningIds.length > 0) {
         // Fetch specific users by cuisiningId
-        const profiles = await Profile.find({ cuisiningId: { $in: cuisiningIds } }, "_id");
-        recipients = profiles.map((profile) => profile._id);
+        const profiles = await Profile.find({ cuisiningId: { $in: cuisiningIds } }, "userID");
+        recipients = profiles.map((profile) => profile.userID);
       } else {
         return res.status(400).json({ error: "Invalid recipient type or missing cuisiningIds." });
       }

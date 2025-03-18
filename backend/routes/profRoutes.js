@@ -5,6 +5,8 @@ const Profile = require ("../models/profile")
 const User = require("../models/user"); // Import the User model
 const multer = require('multer');
 const checkProfileCustomized = require("../middlewares/checkProfileCustomized");
+const moment = require("moment-timezone");
+
 
 const router = express.Router();
 
@@ -66,53 +68,50 @@ const router = express.Router();
     }
   });
   router.post("/submit", verifyToken, async (req, res) => {
-    console.log("Request body:", req.body); // Log the request body
-    console.log("User ID from token:", req.userId); // Log the user ID
+    console.log("Request body:", req.body);
+    console.log("User ID from token:", req.userId);
   
     const { fullName, avatarUrl, selectedGroup1, selectedGroup2, hasTakenNCII } = req.body;
   
-    // Validate required fields
     if (!fullName || !selectedGroup1 || !selectedGroup2 || hasTakenNCII === undefined) {
-      console.log("Missing fields detected"); // Log missing fields
       return res.status(400).json({ message: "All fields except avatarUrl are required" });
     }
   
     try {
-      // Function to generate a random cuisiningId starting with "88" and followed by 7 random integers
       const generateCuisiningId = () => {
-        const randomPart = Math.floor(Math.random() * 10000000) // Generate a 7-digit number
+        const randomPart = Math.floor(Math.random() * 10000000)
           .toString()
-          .padStart(7, "0"); // Ensure it's always 7 digits
+          .padStart(7, "0");
         return `88${randomPart}`;
       };
   
       let cuisiningId;
       let isUnique = false;
   
-      // Loop until a unique cuisiningId is generated
       while (!isUnique) {
-        cuisiningId = generateCuisiningId(); // Generate a new cuisiningId
-        console.log("Generated cuisiningId:", cuisiningId); // Log the generated cuisiningId
-  
-        // Check if the cuisiningId already exists in the database
+        cuisiningId = generateCuisiningId();
         const existingProfile = await Profile.findOne({ cuisiningId });
         if (!existingProfile) {
-          isUnique = true; // Exit the loop if the cuisiningId is unique
+          isUnique = true;
         }
       }
+  
+      // Set Philippine Time for accountCreated
+      const accountCreated = moment.tz("Asia/Manila").toDate();
   
       const newProfile = new Profile({
         userID: req.userId,
         fullName,
-        avatarUrl: avatarUrl || [], // Default to empty array if not provided
+        avatarUrl: avatarUrl || [],
         selectedGroup1,
         selectedGroup2,
         hasTakenNCII,
-        cuisiningId, // Use the unique cuisiningId here
+        cuisiningId,
+        accountCreated, // Use Philippine Time here
       });
   
       await newProfile.save();
-      console.log("Profile saved successfully:", newProfile); // Log the saved profile
+      console.log("Profile saved successfully:", newProfile);
   
       const updatedUser = await User.findByIdAndUpdate(
         req.userId,
@@ -120,14 +119,13 @@ const router = express.Router();
         { new: true }
       );
   
-      console.log("User updated successfully:", updatedUser); // Log the updated user
+      console.log("User updated successfully:", updatedUser);
       res.status(200).json({ message: "Profile setup successful", profile: newProfile });
     } catch (error) {
-      console.error("Error in /submit route:", error); // Log the error
+      console.error("Error in /submit route:", error);
       res.status(500).json({ message: "Server error", error: error.message });
     }
   });
-
 router.get("/profile", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.userId); // req.userId comes from verifyToken middleware

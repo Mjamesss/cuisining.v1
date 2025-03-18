@@ -39,7 +39,7 @@ const ReminderAdmin = () => {
   }, []);
 
   // Function to handle adding a new reminder
-  const handleAddReminder = async () => {
+  const handleAddReminder = async () => {                                        
     if (newMessage.length > 60) {
       setValidationMessage("Message should be up to 60 characters.");
       return;
@@ -122,23 +122,31 @@ const ReminderAdmin = () => {
       case 'update':
         return (
           <img
-            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741981835/ringing_ieuuli.png"
-            alt="Update"
+            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741841082/refresh_c3zxpa.png"
+            alt="Update"//
             style={{ width: '20px', height: '20px' }}
           />
         );
-      case 'new':
+      case 'new'://
         return (
           <img
-            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741980548/new-icon.png"
+            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741841121/new_tamwbo.png"
             alt="New"
             style={{ width: '20px', height: '20px' }}
           />
         );
-      case 'reminder':
+      case 'reminder'://
         return (
           <img
-            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741980548/reminder-icon.png"
+            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741981835/ringing_ieuuli.png"
+            alt="Reminder"
+            style={{ width: '20px', height: '20px' }}
+          />
+        );
+        case 'warning'://
+        return (
+          <img
+            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741841354/warning_r5usud.png"
             alt="Reminder"
             style={{ width: '20px', height: '20px' }}
           />
@@ -232,6 +240,7 @@ const ReminderAdmin = () => {
               <option value="update">Update</option>
               <option value="new">New</option>
               <option value="reminder">Reminder</option>
+              <option value="warning">Warning</option>
             </select>
             <input
               type="text"
@@ -373,7 +382,14 @@ const ReminderAdmin = () => {
                     <strong>Message:</strong> {newMessage}
                   </p>
                   <p>
-                    <strong>Type:</strong> {messageType}
+                    <strong>Type:</strong>{" "}
+                    {(() => {
+                      // Debugging: Log the raw value of messageType
+                      console.log("Raw messageType:", messageType);
+                      const formattedMessageType = String(messageType).trim();
+                      console.log("Formatted messageType:", formattedMessageType);
+                      return formattedMessageType.charAt(0).toUpperCase() + formattedMessageType.slice(1);
+                    })()}
                   </p>
                   <p>
                     <strong>Recipients:</strong>{' '}

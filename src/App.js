@@ -256,6 +256,7 @@ import AdminLogin from './pages/admin/adminLogin';
 import Dashboard from './pages/admin/dashboard';
 import Transaction from './pages/admin/transactions';
 import Announcement from './pages/admin/reminderNotif';
+import UserAdmin from './pages/admin/usersAdmin';
 const App = () => {
   return (
     <Router>
@@ -268,6 +269,7 @@ const App = () => {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/transactions" element={<Transaction />} />
               <Route path="/announcement" element={<Announcement />} />
+              <Route path="/userAdmin" element={<UserAdmin />} />
               {/* Login Pages */}
               <Route path="/" element={<L />} />
               <Route path="/signup" element={<S />} />

@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Navbar.css";
 import "../fw-cuisining.css";
-import axios from "axios";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,47 +14,7 @@ const Navbar = () => {
   const profileRefDesktop = useRef(null);
   const [activeLink, setActiveLink] = useState("");
 
-  const [notifications, setNotifications] = useState([
-    { id: 1, notifMessage: "Update: Here is your first notification!", notifType: "update", notifIcon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841082/refresh_c3zxpa.png", notifTimestamp: new Date(Date.now() - 3 * 60 * 1000) }, // 3 minutes ago
-    { id: 2, message: "Reminder: Your course starts tomorrow!", type: "reminder", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841253/bell_cofdvd.png", timestamp: new Date(Date.now() - 10 * 60 * 1000) }, // 10 minutes ago
-    { id: 3, message: "New: Check out the latest utensils added!", type: "new", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841121/new_tamwbo.png", timestamp: new Date(Date.now() - 25 * 60 * 1000) }, // 25 minutes ago
-    { id: 4, message: "Alert: Your profile is 80% complete!", type: "alert", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841354/warning_r5usud.png", timestamp: new Date(Date.now() - 60 * 60 * 1000) }, // 1 hour ago
-    { id: 5, message: "Update: New recipes added to your favorites!", type: "update", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841082/refresh_c3zxpa.png", timestamp: new Date(Date.now() - 120 * 60 * 1000) }, // 2 hours ago
-    { id: 6, message: "Reminder: Don't forget to complete your profile!", type: "reminder", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841253/bell_cofdvd.png", timestamp: new Date(Date.now() - 180 * 60 * 1000) }, // 3 hours ago
-    { id: 7, message: "New: Exclusive discounts on cooking tools!", type: "new", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841121/new_tamwbo.png", timestamp: new Date(Date.now() - 240 * 60 * 1000) }, // 4 hours ago
-    { id: 8, message: "Alert: Your subscription is about to expire!", type: "alert", icon: "https://res.cloudinary.com/dm6wodni6/image/upload/v1741841354/warning_r5usud.png", timestamp: new Date(Date.now() - 300 * 60 * 1000) }, // 5 hours ago
-  ]);
-
-  const getTimeDifference = (timestamp) => {
-    const now = new Date();
-    const diffInSeconds = Math.floor((now - timestamp) / 1000);
-
-    if (diffInSeconds < 60) {
-      return `${diffInSeconds} seconds ago`;
-    } else if (diffInSeconds < 3600) {
-      const diffInMinutes = Math.floor(diffInSeconds / 60);
-      return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
-    } else if (diffInSeconds < 86400) {
-      const diffInHours = Math.floor(diffInSeconds / 3600);
-      return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
-    } else {
-      const diffInDays = Math.floor(diffInSeconds / 86400);
-      return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
-    }
-  };
-
-  const handleNavClick = (link) => {
-    setActiveLink(link);
-  };
-
-  const Notifications = [
-    { id: 1,subject:"update:", message: "You're done in Unit 1 Lesson 1 and 2", time: "2m ago" },
-    { id: 2,subject:"update:", message: "You are Finish in Final Assessment", time: "10m ago" },
-    { id: 3,subject:"update:", message: "Upcoming event: Filipino Cooking Masterclass.", time: "1h ago" },
-    { id: 4,subject:"update:", message: "New message from Chef Juan!", time: "3h ago" },
-    { id: 5,subject:"update:",message: "Your recipe submission is under review.", time: "1d ago" },
-    ];
-
+  const [notifications, setNotifications] = useState([]); // State to store fetched notifications
   const [profileData, setProfileData] = useState({
     firstName: "User",
     avatarUrl: "https://res.cloudinary.com/dm6wodni6/image/upload/v1740905480/account_nhrb9f_eizn1j.png",
@@ -62,64 +22,87 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  const toggleNotifMobile = () => {
-    setIsNotifOpenMobile(!isNotifOpenMobile);
-  };
-
-  const toggleNotifDesktop = () => {
-    setIsNotifOpenDesktop(!isNotifOpenDesktop);
-    setIsProfileModalDesktop(false);
-  };
-
-  const toggleProfileDesktop = () => {
-    setIsProfileModalDesktop(!isProfileModalDesktop);
-    setIsNotifOpenDesktop(false);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (notifRefMobile.current && !notifRefMobile.current.contains(event.target)) {
-        setIsNotifOpenMobile(false);
-      }
-      if (notifRefDesktop.current && !notifRefDesktop.current.contains(event.target)) {
-        setIsNotifOpenDesktop(false);
-      }
-      if (profileRefDesktop.current && !profileRefDesktop.current.contains(event.target)) {
-        setIsProfileModalDesktop(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  const handleLogout = async () => {
-    try {
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        alert("No token found. Please log in.");
-        return;
-      }
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/logout",
-        {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      if (response.status === 200) {
-        localStorage.removeItem("authToken");
-        window.location.href = "/";
-      } else {
-        alert("Logout failed. Please try again.");
-      }
-    } catch (error) {
-      alert("An error occurred during logout. Please try again.");
+  // Function to get the icon based on the notification type
+  const getIconForType = (type) => {
+    switch (type) {
+      case "update":
+        return (
+          <img
+            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741841082/refresh_c3zxpa.png"
+            alt="Update"
+            style={{ width: "20px", height: "20px" }}
+          />
+        );
+      case "new":
+        return (
+          <img
+            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741841121/new_tamwbo.png"
+            alt="New"
+            style={{ width: "20px", height: "20px" }}
+          />
+        );
+      case "reminder":
+        return (
+          <img
+            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741981835/ringing_ieuuli.png"
+            alt="Reminder"
+            style={{ width: "20px", height: "20px" }}
+          />
+        );
+        case"warnings":
+        return (
+          <img
+            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741841354/warning_r5usud.png"
+            alt="Warning"
+            style={{ width: "20px", height: "20px" }}
+          />
+        );
+      default:
+        return (
+          <img
+            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741841082/refresh_c3zxpa.png"
+            alt="Default"
+            style={{ width: "20px", height: "20px" }}
+          />
+        );
     }
   };
 
+  // Fetch notifications from the backend
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          console.error("No token found. Please log in.");
+          return;
+        }
+
+        const response = await axios.get("http://localhost:5000/api/notif/get-notifications", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        console.log("Backend response:", response.data); // Log the response
+
+        if (response.status === 200) {
+          const formattedNotifications = response.data.map((notif) => ({
+            id: notif._id,
+            message: notif.message,
+            type: notif.type,
+            icon: getIconForType(notif.type), // Use the getIconForType function
+            timestamp: notif.date ? new Date(notif.date.$date || notif.date) : new Date(), // Handle different date formats
+          }));
+          setNotifications(formattedNotifications);
+        }
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
+
+  // Fetch profile data
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
@@ -146,13 +129,77 @@ const Navbar = () => {
     fetchProfileData();
   }, []);
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const token = urlParams.get("token");
+  // Calculate time difference for notifications
+  const getTimeDifference = (timestamp) => {
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - new Date(timestamp)) / 1000);
 
-  if (token) {
-    localStorage.setItem("authToken", token);
-    window.history.replaceState({}, document.title, "/customize-profile");
-  }
+    if (diffInSeconds < 60) {
+      return `${diffInSeconds} seconds ago`;
+    } else if (diffInSeconds < 3600) {
+      const diffInMinutes = Math.floor(diffInSeconds / 60);
+      return `${diffInMinutes} minute${diffInMinutes > 1 ? "s" : ""} ago`;
+    } else if (diffInSeconds < 86400) {
+      const diffInHours = Math.floor(diffInSeconds / 3600);
+      return `${diffInHours} hour${diffInHours > 1 ? "s" : ""} ago`;
+    } else {
+      const diffInDays = Math.floor(diffInSeconds / 86400);
+      return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
+    }
+  };
+
+  // Toggle functions
+  const toggleNotifMobile = () => setIsNotifOpenMobile(!isNotifOpenMobile);
+  const toggleNotifDesktop = () => {
+    setIsNotifOpenDesktop(!isNotifOpenDesktop);
+    setIsProfileModalDesktop(false);
+  };
+  const toggleProfileDesktop = () => {
+    setIsProfileModalDesktop(!isProfileModalDesktop);
+    setIsNotifOpenDesktop(false);
+  };
+
+  // Handle click outside notifications and profile modal
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (notifRefMobile.current && !notifRefMobile.current.contains(event.target)) {
+        setIsNotifOpenMobile(false);
+      }
+      if (notifRefDesktop.current && !notifRefDesktop.current.contains(event.target)) {
+        setIsNotifOpenDesktop(false);
+      }
+      if (profileRefDesktop.current && !profileRefDesktop.current.contains(event.target)) {
+        setIsProfileModalDesktop(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        alert("No token found. Please log in.");
+        return;
+      }
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/logout",
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (response.status === 200) {
+        localStorage.removeItem("authToken");
+        window.location.href = "/";
+      } else {
+        alert("Logout failed. Please try again.");
+      }
+    } catch (error) {
+      alert("An error occurred during logout. Please try again.");
+    }
+  };
 
   return (
     <>
@@ -177,20 +224,20 @@ const Navbar = () => {
                 <h2 style={{ textAlign: "left", paddingLeft: "16px" }}>Notifications</h2>
                 <hr />
                 {notifications.length > 0 ? (
-                  notifications.slice(0, 6).map((notif, index) => (
+                  notifications.slice(0, 6).map((notif) => (
                     <div key={notif.id}>
                       <div className="notification-item" style={{ paddingLeft: "16px", paddingRight: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
-                        <img src={notif.icon} alt={notif.type} style={{ width: "30px", height: "30px" }} />
+                        {notif.icon} {/* Render the icon here */}
                         <div>
                           <p style={{ color: "#000", margin: "8px 0", textAlign: "left", fontSize: "14px" }}>
-                            <b>{notif.type}:</b> {notif.message}
+                            <b>{notif.type.charAt(0).toUpperCase() + notif.type.slice(1)}:</b>{notif.message}
                           </p>
                           <p style={{ color: "#6c757d", margin: "0", fontSize: "12px" }}>
                             {getTimeDifference(notif.timestamp)}
                           </p>
                         </div>
                       </div>
-                      {index !== notifications.length - 1 && <hr style={{ margin: "8px 0", borderColor: "#000000", height: "1px" }} />}
+                      <hr style={{ margin: "8px 0", borderColor: "#000000", height: "1px" }} />
                     </div>
                   ))
                 ) : (
@@ -249,15 +296,14 @@ const Navbar = () => {
             <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "8px", maxWidth: "300px" }} onClick={toggleNotifMobile} ref={notifRefMobile}>
               <img src="notification.png" alt="notifications" style={{ width: "25px", height: "25px" }} />Notifications
             </button>
-            
             {isNotifOpenMobile && (
               <div className="p-2 border" style={{ width: "100%", maxWidth: "300px", maxHeight: "300px", overflowY: "auto" }}>
                 <h2 style={{ textAlign: "left" }}>Notifications</h2>
                 {notifications.length > 0 ? (
-                  notifications.slice(0, 6).map((notif, index) => (
+                  notifications.slice(0, 6).map((notif) => (
                     <div key={notif.id}>
                       <div className="notification-item" style={{ display: "flex", alignItems: "center", gap: "8px", paddingLeft: "16px", paddingRight: "16px" }}>
-                        <img src={notif.icon} alt={notif.type} style={{ width: "30px", height: "30px" }} />
+                        {notif.icon} {/* Render the icon here */}
                         <div>
                           <p style={{ color: "#000", margin: "8px 0", textAlign: "left", fontSize: "14px" }}>
                             <b>{notif.type}:</b> {notif.message}
@@ -267,7 +313,7 @@ const Navbar = () => {
                           </p>
                         </div>
                       </div>
-                      {index !== notifications.length - 1 && <hr style={{ margin: "8px 0", borderColor: "#e0e0e0" }} />}
+                      <hr style={{ margin: "8px 0", borderColor: "#e0e0e0" }} />
                     </div>
                   ))
                 ) : (
@@ -290,6 +336,7 @@ const Navbar = () => {
             </button>
           </div>
         </div>
+        
       )}
     </>
   );
