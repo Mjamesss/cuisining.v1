@@ -47,6 +47,14 @@ const Navbar = () => {
     setActiveLink(link);
   };
 
+  const Notifications = [
+    { id: 1,subject:"update:", message: "You're done in Unit 1 Lesson 1 and 2", time: "2m ago" },
+    { id: 2,subject:"update:", message: "You are Finish in Final Assessment", time: "10m ago" },
+    { id: 3,subject:"update:", message: "Upcoming event: Filipino Cooking Masterclass.", time: "1h ago" },
+    { id: 4,subject:"update:", message: "New message from Chef Juan!", time: "3h ago" },
+    { id: 5,subject:"update:",message: "Your recipe submission is under review.", time: "1d ago" },
+    ];
+
   const [profileData, setProfileData] = useState({
     firstName: "User",
     avatarUrl: "https://res.cloudinary.com/dm6wodni6/image/upload/v1740905480/account_nhrb9f_eizn1j.png",
@@ -241,6 +249,7 @@ const Navbar = () => {
             <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "8px", maxWidth: "300px" }} onClick={toggleNotifMobile} ref={notifRefMobile}>
               <img src="notification.png" alt="notifications" style={{ width: "25px", height: "25px" }} />Notifications
             </button>
+            
             {isNotifOpenMobile && (
               <div className="p-2 border" style={{ width: "100%", maxWidth: "300px", maxHeight: "300px", overflowY: "auto" }}>
                 <h2 style={{ textAlign: "left" }}>Notifications</h2>

@@ -4,11 +4,13 @@ import CuisiningLogo from "../../../components/CuisiningLogo";
 import Footer from "../../../components/Footer";
 
 const KitchenDepartment = () =>{
-    const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [score, setScore] = useState(0);
-    const [showScore, setShowScore] = useState(false);
-    const [userAnswers, setUserAnswers] = useState([]);
-    const [shuffledQuizData, setShuffledQuizData] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showScore, setShowScore] = useState(false);
+  const [userAnswers, setUserAnswers] = useState([]);
+  const [shuffledQuizData, setShuffledQuizData] = useState([]);
+  const [showSummary, setShowSummary] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
   
     const quizData = [
       {
@@ -64,6 +66,10 @@ const KitchenDepartment = () =>{
     ];
   
     // Function to shuffle questions using Fisher-Yates algorithm
+    useEffect(() => {
+      setShuffledQuizData(shuffleQuestions(quizData));
+    }, []);
+  
     const shuffleQuestions = (questions) => {
       let shuffled = [...questions];
       for (let i = shuffled.length - 1; i > 0; i--) {
@@ -72,10 +78,6 @@ const KitchenDepartment = () =>{
       }
       return shuffled;
     };
-  
-    useEffect(() => {
-      setShuffledQuizData(shuffleQuestions(quizData));
-    }, []);
   
     const handleAnswer = (selectedOption) => {
       setUserAnswers([
@@ -100,11 +102,25 @@ const KitchenDepartment = () =>{
     };
   
     const resetQuiz = () => {
-      setShuffledQuizData(shuffleQuestions(quizData)); // Shuffle questions again
+      setShuffledQuizData(shuffleQuestions(quizData));
       setCurrentQuestion(0);
       setScore(0);
       setShowScore(false);
       setUserAnswers([]);
+      setShowSummary(false);
+      setCurrentSlide(0);
+    };
+  
+    const nextSlide = () => {
+      if (currentSlide < userAnswers.length - 1) {
+        setCurrentSlide(currentSlide + 1);
+      }
+    };
+  
+    const prevSlide = () => {
+      if (currentSlide > 0) {
+        setCurrentSlide(currentSlide - 1);
+      }
     };
   
     return(
@@ -148,23 +164,12 @@ const KitchenDepartment = () =>{
         <h1 className="quiz-title">Quizining</h1>
         <div className="quiz-card">
           {showScore ? (
-           
             <div>
               <h2 className="quiz-score">You scored {score} out of {shuffledQuizData.length}!</h2>
-              <h3>Summary of Your Answers:</h3>
-              <ul>
-                {userAnswers.map((item, index) => (
-                  <li key={index} style={{ marginBottom: "10px", fontSize: "18px", color: item.selected === item.correct ? "green" : "red" }}>
-                    <strong>Q{index + 1}:</strong> {item.question} <br />
-                    <span>Your Answer: {item.selected}</span> <br />
-                    <span>Correct Answer: {item.correct}</span>
-                  </li>
-                ))}
-              </ul>
+              <button className="quiz-button" onClick={() => setShowSummary(true)} style={{ marginRight: "10px" }}>See More</button>
               <button className="quiz-button" onClick={resetQuiz}>Play Again</button>
             </div>
           ) : (
-            
             <div>
               <h2 className="quiz-question">{shuffledQuizData[currentQuestion]?.question}</h2>
               <div className="quiz-options">
@@ -178,6 +183,23 @@ const KitchenDepartment = () =>{
           )}
         </div>
       </div>
+
+      {showSummary && (
+        <div className="carousel-container">
+          <h3>Summary of Your Answers</h3>
+          <div className="carousel">
+            <button onClick={prevSlide} disabled={currentSlide === 0}>&lt;</button>
+            <div className="carousel-content">
+              <h4>Q{currentSlide + 1}: {userAnswers[currentSlide].question}</h4>
+              <p>Your Answer: <span style={{ color: userAnswers[currentSlide].selected === userAnswers[currentSlide].correct ? "green" : "red" }}>
+                {userAnswers[currentSlide].selected}
+              </span></p>
+              <p>Correct Answer: {userAnswers[currentSlide].correct}</p>
+            </div>
+            <button onClick={nextSlide} disabled={currentSlide === userAnswers.length - 1}>&gt;</button>
+          </div>
+        </div>
+      )}
 
       <div className="d-flex justify-content-end p5">
         <button className="cbtn cbtn-secondary" style={{ width: "10%", height: "50px" }}>Done</button>

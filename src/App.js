@@ -249,6 +249,9 @@ import MeasurementsAndConversion from './pages/Courses/Fundamentals of cookery/M
 import PreparingAppetizers from './pages/Courses/PreparingAppetizers/PreparingAppertizers';
 import PreparingEggVagetable from './pages/Courses/PreparingEggVagetable/PreparingEggVagetble';
 import IntroToEggDishes from './pages/Courses/PreparingEggVagetable/IntroToEggDishes';
+import SaladAndSaladDressing from './pages/Courses/SaladAndSaladDressing/SaladAndSaladDressing';
+import PreparingSandwich from './pages/Courses/PreparingSandwiches/PreparingSandwich';
+
 import AdminLogin from './pages/admin/adminLogin';
 import Dashboard from './pages/admin/dashboard';
 import Transaction from './pages/admin/transactions';
@@ -529,6 +532,8 @@ const App = () => {
               <Route path="PreparingAppetizers" element={<PreparingAppetizers/>}/>
               <Route path="PreparingEggVagetable" element={<PreparingEggVagetable/>}/>
               <Route path="IntroToEggDishes" element={<IntroToEggDishes/>}/>
+              <Route path="SaladAndSaladDressing" element={<SaladAndSaladDressing/>}/>
+              <Route path="PreparingSandwich" element={<PreparingSandwich/>}/>
             </Routes>
           </Col>
         </Row>
