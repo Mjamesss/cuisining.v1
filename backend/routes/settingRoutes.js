@@ -1,26 +1,34 @@
 const express = require('express');
 const User = require('../models/user'); // Adjust the path to your User model
-const Profile = require('../models/profile');
+const Profile = require('../models/profile'); // Adjust the path to your Profile model
 const verifyToken = require("../middlewares/verifyToken"); // Middleware to verify JWT token
 const router = express.Router();
 
-// Route to fetch fName, email, and avatarUrl
+// Route to fetch fullName and email
 router.get('/settings-profile', verifyToken, async (req, res) => {
   try {
     // Use req.userId from verifyToken middleware
     const userId = req.userId;
 
-    // Fetch user data (fName and email) from the User model
-    const user = await User.findById(userId).select('fName email');
+    // Fetch user data (email) from the User model
+    const user = await User.findById(userId).select('email');
 
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
 
-    // Send the fName, email, and avatarUrl as response
+    // Fetch profile data (fullName and cuisiningId) from the Profile model
+    const profile = await Profile.findOne({ userID: userId }).select('fullName cuisiningId');
+
+    if (!profile) {
+      return res.status(404).json({ message: 'Profile not found for this user.' });
+    }
+
+    // Send the fullName, email, and cuisiningId as response
     res.json({
-      fName: user.fName,
+      fullName: profile.fullName,
       email: user.email,
+      cuisiningId: profile.cuisiningId,
     });
   } catch (error) {
     console.error('Error fetching user data:', error.message);

@@ -42,9 +42,9 @@ const AdminUserManagement = () => {
   // Filter users based on search query
   const filteredUsers = users.filter(
     (user) =>
-      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.cuisiningId.includes(searchQuery) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase())
+      (user.name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (user.cuisiningId || "").includes(searchQuery) ||
+      (user.email || "").toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Pagination logic
@@ -130,9 +130,9 @@ const AdminUserManagement = () => {
             </thead>
             <tbody>
               {currentUsers.length > 0 ? (
-                currentUsers.map((user) => (
+                currentUsers.map((user, index) => (
                   <tr key={user._id}>
-                    <td>{user._id}</td>
+                    <td>{index + 1}</td> {/* Incrementing ID */}
                     <td>{user.name}</td>
                     <td>{user.email}</td>
                     <td>{user.cuisiningId}</td>

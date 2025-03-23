@@ -183,7 +183,6 @@ import Freezer from './pages/utensilsEng/Appliances/FoodStorageAppliances/Freeze
 import BreadBox from './pages/utensilsEng/Appliances/FoodStorageAppliances/BreadBox';
 import Cooler from './pages/utensilsEng/Appliances/FoodStorageAppliances/Cooler';
 
-import Settings from './pages/Settings/Settings';
 
 import Proteins from './pages/utensilsEng/Protein'; 
 import Beef from './pages/utensilsEng/Proteins/Beef';
@@ -257,6 +256,11 @@ import Dashboard from './pages/admin/dashboard';
 import Transaction from './pages/admin/transactions';
 import Announcement from './pages/admin/reminderNotif';
 import UserAdmin from './pages/admin/usersAdmin';
+import Feedback from './pages/admin/feedback';
+
+import Profile from './pages/Settings/profile';
+import PersonalDetails from './pages/Settings/personal-details';
+import PasswordSecurity from './pages/Settings/password-security';
 const App = () => {
   return (
     <Router>
@@ -270,6 +274,7 @@ const App = () => {
               <Route path="/transactions" element={<Transaction />} />
               <Route path="/announcement" element={<Announcement />} />
               <Route path="/userAdmin" element={<UserAdmin />} />
+              <Route path="/feedback" element={<Feedback />} />
               {/* Login Pages */}
               <Route path="/" element={<L />} />
               <Route path="/signup" element={<S />} />
@@ -465,7 +470,10 @@ const App = () => {
                <Route path="Cooler" element={<Cooler/>}/>
 
                {/*Settings */}
-               <Route path="Settings" element={<Settings/>}/>
+               <Route path="/profile" element={<Profile/>}/>
+               <Route path="/settings/personal-details" element={<PersonalDetails/>}/>
+               <Route path="/settings/PasswordSecurity" element={<PasswordSecurity/>}/
+               >
                <Route path="Flatscraper" element={<Flatscraper/>}/>               
                {/*Protein*/}
                <Route path="/proteins" element={<Proteins/>}/>

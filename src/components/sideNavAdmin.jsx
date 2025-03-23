@@ -14,7 +14,7 @@ const SideNav = () => {
     <nav className="col-md-3 col-lg-2 d-md-block sidebar collapse" style={{ minHeight: '100vh', backgroundColor: '#948F5C' }}>
       <div className="position-sticky pt-3">
         <div className="text-center mb-4">
-          <h3 className="text-white">Logo</h3>
+          <h3 className="text-white">CUISINING</h3>
         </div>
         <ul className="nav flex-column">
           <li className="nav-item">
@@ -57,7 +57,7 @@ const SideNav = () => {
               onClick={() => handleLinkClick('/userAdmin')}
               style={{ backgroundColor: activeLink === '/userAdmin' ? '#B3A369' : '', borderRadius: '5px' }}
             >
-              <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741981835/ringing_ieuuli.png" alt="Transactions" style={{ width: '20px', marginRight: '10px' }} />
+              <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740905480/account_nhrb9f_eizn1j.png" alt="Transactions" style={{ width: '20px', marginRight: '10px' }} />
               Accounts
             </Link>
           </li>

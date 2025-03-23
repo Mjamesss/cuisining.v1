@@ -44,13 +44,13 @@ const Settings = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        const { fName, email, cuisiningId } = profileResponse.data;
+        const { fullName, email, cuisiningId } = profileResponse.data;
 
 
         // Update state with fetched data
         setFormData((prevData) => ({
           ...prevData,
-          name: fName,
+          name: fullName,
           email: email,
         }));
       } catch (error) {
@@ -70,7 +70,7 @@ const Settings = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        const { fName, email, cuisiningId } = profileResponse.data;
+        const { fullName, email, cuisiningId } = profileResponse.data;
 
 
         // Update state with fetched data
