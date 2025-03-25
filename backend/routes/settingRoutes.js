@@ -17,22 +17,28 @@ router.get('/settings-profile', verifyToken, async (req, res) => {
       return res.status(404).json({ message: 'User not found.' });
     }
 
-    // Fetch profile data (fullName and cuisiningId) from the Profile model
-    const profile = await Profile.findOne({ userID: userId }).select('fullName cuisiningId');
+    // Fetch profile data including the new fields
+    const profile = await Profile.findOne({ userID: userId })
+      .select('fullName cuisiningId avatarUrl region country contactNo gender');
 
     if (!profile) {
       return res.status(404).json({ message: 'Profile not found for this user.' });
     }
 
-    // Send the fullName, email, and cuisiningId as response
+    // Send the complete profile data as response
     res.json({
       fullName: profile.fullName,
       email: user.email,
       cuisiningId: profile.cuisiningId,
+      avatarUrl: profile.avatarUrl || 'https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png',
+      region: profile.region,
+      country: profile.country,
+      contactNo: profile.contactNo,
+      gender: profile.gender
     });
   } catch (error) {
     console.error('Error fetching user data:', error.message);
-    console.error('Stack Trace:', error.stack); // Log the full stack trace
+    console.error('Stack Trace:', error.stack);
     res.status(500).json({ message: 'Internal server error.' });
   }
 });
