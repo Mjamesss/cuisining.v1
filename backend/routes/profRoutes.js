@@ -71,10 +71,11 @@ const router = express.Router();
     console.log("Request body:", req.body);
     console.log("User ID from token:", req.userId);
   
-    const { fullName, avatarUrl, selectedGroup1, selectedGroup2, hasTakenNCII } = req.body;
+    const { fullName, avatarUrl, selectedGroup1, selectedGroup2, hasTakenNCII, region, country, contactNo, gender } = req.body;
   
-    if (!fullName || !selectedGroup1 || !selectedGroup2 || hasTakenNCII === undefined) {
-      return res.status(400).json({ message: "All fields except avatarUrl are required" });
+    if (!fullName || !selectedGroup1 || !selectedGroup2 || hasTakenNCII === undefined || 
+        !region || !country || !contactNo || !gender) {
+      return res.status(400).json({ message: "All fields are required" });
     }
   
     try {
@@ -107,7 +108,11 @@ const router = express.Router();
         selectedGroup2,
         hasTakenNCII,
         cuisiningId,
-        accountCreated, // Use Philippine Time here
+        accountCreated,
+        region,
+        country,
+        contactNo,
+        gender
       });
   
       await newProfile.save();
@@ -125,7 +130,7 @@ const router = express.Router();
       console.error("Error in /submit route:", error);
       res.status(500).json({ message: "Server error", error: error.message });
     }
-  });
+});
 router.get("/profile", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.userId); // req.userId comes from verifyToken middleware

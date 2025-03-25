@@ -9,6 +9,10 @@ const profileSchema = new mongoose.Schema({
   selectedGroup2: { type: String, required: true },
   hasTakenNCII: { type: Boolean, required: true },
   cuisiningId: { type: String, required: true },
+  region: { type: String, required: true},
+  country: { type: String, required: true},
+  contactNo: { type: String, required: true},
+  gender : { type: String, required: true},
   accountCreated: { type: Date }, // No default here; we'll set it manually
 });
 
