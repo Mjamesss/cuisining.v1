@@ -113,7 +113,7 @@ const Homepage = () => {
                 <h1 
                 className="font-weight-bold" 
                 style={{ 
-                    fontSize: "72px", 
+                    fontSize: "65px", 
                     fontFamily: "'Nunito', sans-serif", 
                     fontWeight: "800",
                     marginBottom: "15px",
@@ -195,7 +195,8 @@ const Homepage = () => {
                 </div>
 
                 <div className="d-flex justify-content-center pb-5" style={{ height: "80px" }}>
-                <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ marginRight: "76%", color: "white", width: "12%", height: "70px", fontSize: "18px", marginTop: "40px", borderRadius: "30px" }} onClick={handleOpenEnrollModal}>Enroll now</button>
+                <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ marginRight: "76%", color: "white", width: "11%", height: "60px", 
+                    fontSize: "18px", marginTop: "40px", borderRadius: "25px" }} onClick={handleOpenEnrollModal}>Enroll now</button>
             </div>
 
             {isInitialModalOpen && (
