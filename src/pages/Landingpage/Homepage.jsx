@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import "../../fw-cuisining.css";
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-//import "./Homepage.css"
+
 
 const Homepage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,148 +56,124 @@ const Homepage = () => {
         <>
           <Navbar />
                         
-            {/* Import font styles */}
-             <style>
+          <style>
               @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
                </style>
 
-              {/* Responsive styles - completely separated */}
+              {/* Responsive styles */}
                <style>
                         {`
                             /* Large screens */
                             @media (max-width: 1200px) {
-                            .header-image {
+                              .header-image {
                                 width: 450px !important;
-                            }
+                              }
                             }
                             
                             /* Medium screens */
                             @media (max-width: 992px) {
-                            .header-content {
+                              .header-content {
                                 max-width: 100% !important;
-                            }
-                            .header-image {
+                              }
+                              .header-image {
                                 position: static !important;
                                 transform: none !important;
                                 margin-top: 30px !important;
                                 width: 100% !important;
                                 text-align: center !important;
-                            }
-                            .header-image img {
+                              }
+                              .header-image img {
                                 width: 400px !important;
-                            }
+                              }
+                              /* Fix for wavy image */
+                              .wavy-image-container {
+                                margin-top: 0 !important;
+                                bottom: 50px !important;
+                              }
                             }
                             
                             /* Small screens */
                             @media (max-width: 576px) {
-                            .header-image img {
+                              .header-image img {
                                 width: 100% !important;
-                            }
+                              }
+                              .header-text-content {
+                                bottom: 20px !important;
+                                padding: 0 15px !important;
+                              }
+                              /* Additional fixes for mobile */
+                              .wavy-image-container {
+                                bottom: 30px !important;
+                                margin-top: 20px !important;
+                              }
+                              /* Ensure enrollment button isn't overlapped */
+                              .enroll-button-container {
+                                margin-bottom: 20px !important;
+                                position: relative !important;
+                                z-index: 5 !important;
+                              }
                             }
                         `}
                         </style>
 
-            {/* Header section - with position relative to contain the absolute image */}
+            {/* Header section*/}
             <div 
-            className="header-section position-relative" 
-            style={{ 
-                padding: "20px", 
-                backgroundColor: "#F0F4F8",
-                maxWidth: "1200px", 
-                margin: "80px auto 0 70px",
-                minHeight: "400px" // Added to ensure space for the text even with absolute image
-            }}
+                className="p-3 p-md-5 d-flex justify-content-center align-items-center flex-column-reverse flex-md-row" 
+                style={{ minHeight: "min(100vh, 800px)", backgroundColor: "#F0F4F8", position: "relative", overflow: "hidden",
+                     display: "flex", justifyContent: "center", alignItems: "center",  }}
             >
-            {/* Text content */}
-            <div className="header-content" style={{ maxWidth: "65%", marginTop: "10px" }}>
-                <h1 
-                className="font-weight-bold" 
-                style={{ 
-                    fontSize: "65px", 
-                    fontFamily: "'Nunito', sans-serif", 
-                    fontWeight: "800",
-                    marginBottom: "15px",
-                    lineHeight: "1.1",
-                    position: "relative",
-                    zIndex: "3" // Higher than both images to ensure text stays on top
-                }}
-                >
-                <span style={{ color: "#000000" }}>
-                    Learn, <br/>
-                    Play, and Master the <br/>
-                    Art of Culinary <br/>
-                </span>
-                <span style={{ color: "#C1B857" }}>Excellence.</span>
-                </h1>
-                <p 
-                style={{ 
-                    fontSize: "14px", 
-                    color: "#000000", 
-                    lineHeight: "1.6",
-                    position: "relative",
-                    zIndex: "3" // Higher than both images
-                }}
-                >
-                Welcome to CuiSining. Take the next step in your culinary journey! Master essential <br/>
-                cooking skills and earn your NCII certification with confidence.
-                </p>
-            </div>
-            
-            {/* Second image - positioned underneath */}
-                {/* Second image - positioned underneath */}
+                {/* Text section */}
                 <div 
-                    className="overlay-image" 
-                    style={{ 
-                    position: "absolute",
-                    right: "-370px",
-                    top: "17px",
-                    overflow: "hidden",
-                    zIndex: "1",
-                    pointerEvents: "none"  // Add this line
-                    }}
+                    className="px-2 px-md-5 py-4 py-md-0 text-center text-md-start header-text-content" 
+                    style={{ maxWidth: "1200px", position: "relative",  bottom: "55px",  zIndex: 2 }}
                 >
-                    <img 
-                    src="3dpans.png"
-                    alt="Overlay Image" 
-                    style={{ 
-                        width: "1150px",
-                        height: "auto",
-                        objectFit: "cover",
-                        borderRadius: "8px"
-                    }} 
-                    />
+                    <h1 
+                        className="font-weight-800" 
+                        style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)",  fontFamily: "'Nunito', sans-serif", marginBottom: "1.4rem", 
+                            color: "#000000", lineHeight: "1.2" }}
+                    >
+                        Learn,<br />
+                        Play, and Master <br />
+                        the Art of Culinary <br />
+                        <span style={{ color: "#C1B857" }}>Excellence.</span>
+                    </h1>
+
+                    <p 
+                        className="mb-3 mb-md-4"
+                        style={{ fontSize: "15px", maxWidth: "100%", lineHeight: "1.6", color: "#000000", textAlign: "inherit"
+                        }}
+                    >
+                        Welcome to CuiSining. Take the next step in your culinary journey, master essential <br className="d-none d-md-block"/> cooking skills, and earn your NCII certification with confidence.
+                    </p>
+                    <div className="enroll-button-container">
+                        <button 
+                            className="cbtn cbtn-secondary fw-semibold mt-3 mt-md-4 mx-auto mx-md-0" 
+                            style={{ color: "white",  width: "clamp(150px, 40vw, 180px)",  height: "auto", fontSize: "clamp(1rem, 1.5vw, 1.2rem)", 
+                                padding: "14px 20px", borderRadius: "25px", transition: "transform 0.3s ease", position: "relative", zIndex: 5
+                            }} 
+                            onClick={handleOpenEnrollModal}
+                        >
+                            Enroll now
+                        </button>
+                    </div>
                 </div>
 
-                {/* First image - positoned on top */}
                 <div 
-                    className="header-image" 
-                    style={{ 
-                    position: "absolute",
-                    right: "-190px",
-                    top: "220px",
-                    transform: "translateY(-50%)",
-                    overflow: "hidden",
-                    zIndex: "2",
-                    pointerEvents: "none"  // Add this line
-                    }}
+                    className="d-flex justify-content-center align-items-center header-image" 
+                    style={{ position: "relative", maxWidth: "725px",  height: "auto",  zIndex: 1, left: "4%", bottom: "85px",  }}
                 >
                     <img 
-                    src="pointingchef.png" 
-                    alt="Culinary Excellence" 
-                    style={{ 
-                        width: "600px", 
-                        height: "auto",
-                        objectFit: "cover",
-                        borderRadius: "8px"
-                    }} 
+                        src="arlopointing.png" 
+                        alt="Chef Arlo pointing" 
+                        className="m-2 img-fluid" 
+                        style={{  maxHeight: "auto",  objectFit: "contain",    width: "auto",  }} 
                     />
                 </div>
-                </div>
-
-                <div className="d-flex justify-content-center pb-5" style={{ height: "80px" }}>
-                <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ marginRight: "76%", color: "white", width: "11%", height: "60px", 
-                    fontSize: "18px", marginTop: "40px", borderRadius: "25px" }} onClick={handleOpenEnrollModal}>Enroll now</button>
             </div>
+
+
+
+
 
             {isInitialModalOpen && (
                 <div className="modal-overlay position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" 
@@ -210,76 +186,82 @@ const Homepage = () => {
                         >
                             ✖
                         </span>
-                        <img src="modalLdng.png" alt="Modal" style={{ maxWidth: "100%", height: "auto", display: "block", margin: "0 auto", backgroundColor: "transparent" }} />
+                        <img src="arlomodal.png" alt="Modal" style={{ maxWidth: "100%", height: "auto", display: "block", margin: "0 auto", backgroundColor: "transparent" }} />
                     </div>
                 </div>
             )}
 
             
-{isEnrollModalOpen && (
-  <div
-    className="modal-overlay position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
-    style={{ zIndex: "1000", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-    onClick={handleCloseEnrollModal}
-  >
-    <button
-      className="btn-close position-absolute"
-      style={{ top: "20px", right: "20px" }}
-      onClick={(e) => e.stopPropagation()}
-      aria-label="Close"
-    ></button>
-    <div
-      className="modal-content p-5"
-      style={{
-        backgroundImage: "url(https://res.cloudinary.com/dm6wodni6/image/upload/v1742220019/kitchen_kgilqg.jpg)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundColor: "rgba(255, 255, 255, 0.1)",
-        borderRadius: "20px",
-        width: "80%",
-        maxWidth: "800px",
-        color: "white",
-        border: "2px solid #363100"
-      }}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <h2 className="text-center mb-4" style={{}}>Premium Benefits</h2>
-      <div className="d-flex justify-content-around">
-        <div
-          className="p-4"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", borderRadius: "15px", width: "45%", color: 'white', border: "2px solid #363100" }}
-        >
-          <h3 className="text-center" style={{ color: 'white' }}>FREE USE</h3>
-          <ul>
-            <li>Access to limited courses</li>
-            <li>No certification upon completion</li>
-            <li>Restricted access to certain skill sets</li>
-          </ul>
-        </div>
-        <div
-          className="p-4"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", borderRadius: "15px", width: "45%", color: 'white', border: "2px solid #363100" }}
-        >
-          <h3 className="text-center" style={{ color: 'white' }}>PREMIUM</h3>
-          <ul>
-            <li>Unlock access to all core competencies for NCII Cookery</li>
-            <li>Receive a certificate upon completion</li>
-            <li>Unlock all skill sets for a comprehensive learning experience</li>
-          </ul>
-          <button className="btn w-100 mt-3" style={{ backgroundColor: "#363100", color: "white", border: "2px solid #363100" }}>Avail Premium</button>
-        </div>
-      </div>
-    </div>
-  </div>
-)}
+            {isEnrollModalOpen && (
+            <div
+                className="modal-overlay position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+                style={{ zIndex: "1000", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+                onClick={handleCloseEnrollModal}
+            >
+                <button
+                className="btn-close position-absolute"
+                style={{ top: "20px", right: "20px" }}
+                onClick={(e) => e.stopPropagation()}
+                aria-label="Close"
+                ></button>
+                <div
+                className="modal-content p-5"
+                style={{
+                    backgroundImage: "url(https://res.cloudinary.com/dm6wodni6/image/upload/v1742220019/kitchen_kgilqg.jpg)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    borderRadius: "20px",
+                    width: "80%",
+                    maxWidth: "800px",
+                    color: "white",
+                    border: "2px solid #363100"
+                }}
+                onClick={(e) => e.stopPropagation()}
+                >
+                <h2 className="text-center mb-4" style={{}}>Premium Benefits</h2>
+                <div className="d-flex justify-content-around">
+                    <div
+                    className="p-4"
+                    style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", borderRadius: "15px", width: "45%", color: 'white', border: "2px solid #363100" }}
+                    >
+                    <h3 className="text-center" style={{ color: 'white' }}>FREE USE</h3>
+                    <ul>
+                        <li>Access to limited courses</li>
+                        <li>No certification upon completion</li>
+                        <li>Restricted access to certain skill sets</li>
+                    </ul>
+                    </div>
+                    <div
+                    className="p-4"
+                    style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", borderRadius: "15px", width: "45%", color: 'white', border: "2px solid #363100" }}
+                    >
+                    <h3 className="text-center" style={{ color: 'white' }}>PREMIUM</h3>
+                    <ul>
+                        <li>Unlock access to all core competencies for NCII Cookery</li>
+                        <li>Receive a certificate upon completion</li>
+                        <li>Unlock all skill sets for a comprehensive learning experience</li>
+                    </ul>
+                    <button className="btn w-100 mt-3" style={{ backgroundColor: "#363100", color: "white", border: "2px solid #363100" }}>Avail Premium</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            )}
+    
+            <div className="wavy-image-container" 
+            style={{ position: "relative", zIndex: 1, marginTop: "-180px", marginBottom: "0", width: "100%",overflow: "hidden" }}>
+                <img src="wavy2.png" 
+                     alt="Wave divider" 
+                    style={{ width: "100%", height: "auto", objectFit: "contain", display: "block",  clipPath: "inset(1px 0 0 0)"  }}/>
+                        </div>
 
 
 
-
-
-
-                <div className="p-5 d-flex justify-content-center align-items-center flex-md-row flex-column-reverse" style={{minHeight:"520px", marginTop:"90px"}}>
+                <div className="p-5 d-flex justify-content-center align-items-center flex-md-row flex-column-reverse" 
+                
+                style={{minHeight:"520px", marginTop:"20px"}}>
                     <div className="px-4 me-md-5"> 
                         <h1 className="font-weight-800" style={{ fontSize:"38px", fontFamily:"'Nunito', sans-serif", marginBottom: "30px",
                             color: "#000000" }}>About <span style={{color: "#C1B857"}}>CuiSining</span></h1>
@@ -299,29 +281,21 @@ const Homepage = () => {
                         </p>
                     </div>
     
-                    <img src="good.png" alt="goo" className="m-3 img-fluid" style={{maxHeight:"500px", objectFit:"contain"}}/>
+                    <img src="arlo5.png" alt="goo" className="m-3 img-fluid" style={{maxHeight:"500px", objectFit:"contain"}}/>
                 </div>
                 
-                <div className="p-5 d-flex justify-content-center align-items-start flex-md-row flex-column" style={{minHeight:"520px", marginTop:"10px"}}>
-                <img 
-                    src="present.png" 
-                    alt="present" 
+                <div className="p-5 d-flex justify-content-center align-items-start flex-md-row flex-column" 
+                style={{minHeight:"520px", marginTop:"10px"}}>
+                
+                <img src="arlo4.png" alt="present" 
                     className="m-3 img-fluid" 
-                    style={{maxHeight:"500px", objectFit:"contain",}}
+                    style={{maxHeight:"470px", objectFit:"contain",}}
                 />
                 
                 <div className="px-2 ms-md-9" > 
-                    <h1 className="font-weight-800" style={{ 
-                        fontSize:"38px", 
-                        fontFamily:"'Nunito', sans-serif", 
-                        marginBottom: "35px",
-                        color: "#000000" 
+                    <h1 className="font-weight-800" style= {{ fontSize:"38px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px", color: "#000000" 
                     }}>What we <span style={{color: "#C1B857"}}>Offer</span></h1>
-                    <p className="" style={{ 
-                        fontSize:"18px", 
-                        maxWidth:"700px", 
-                        lineHeight: "1.6",
-                        fontFamily:"'Public Sans', sans-serif"
+                    <p className="" style={{ fontSize:"18px", maxWidth:"700px", lineHeight: "1.6", fontFamily:"'Public Sans', sans-serif"
                     }}>
                     CuiSining is a web-based 3D simulation game designed to assess the 
                     user's cooking knowledge and experience. Through interactive 
@@ -336,22 +310,19 @@ const Homepage = () => {
                     and to practice cooking skills.
                     </p>
                 </div>
+
             </div>
 
-                 <div className="p-5 d-flex justify-content-center align-items-start flex-md-row flex-column-reverse" style={{minHeight:"520px", marginTop:"10px", }}>
+                 <div className="p-5 d-flex justify-content-center align-items-start flex-md-row flex-column-reverse" 
+                 style={{minHeight:"520px", marginTop:"10px", }}>
+
                 <div className="px-5 me-md-1"> 
-                    <h1 className="font-weight-800" style={{ 
-                        fontSize:"38px", 
-                        fontFamily:"'Nunito', sans-serif", 
-                        marginBottom: "35px",
-                        color: "#000000" 
+                    
+                    <h1 className="font-weight-800" 
+                    style={{ fontSize:"38px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px",color: "#000000" 
                     }}>Want to be a certified <span style={{color: "#C1B857"}}>
                         NCII<br></br>Cookery Passer?</span></h1>
-                    <p className="" style={{ 
-                        fontSize:"18px", 
-                        maxWidth:"700px", 
-                        lineHeight: "1.6",
-                        fontFamily:"'Public Sans', sans-serif"
+                    <p className="" style={{ fontSize:"18px", maxWidth:"700px", lineHeight: "1.6", fontFamily:"'Public Sans', sans-serif"
                     }}>
                     CuiSining is a web-based 3D simulation game designed to assess the 
                     user's cooking knowledge and experience. Through interactive 
@@ -367,11 +338,10 @@ const Homepage = () => {
                     </p>
                 </div>
                 
-                <img 
-                    src="look.png" 
+                <img src="arlo3.png" 
                     alt="look" 
                     className="m-1 img-fluid" 
-                    style={{maxHeight:"500px", objectFit:"contain", }}
+                    style={{maxHeight:"470px", objectFit:"contain", }}
                 />
             </div>
 

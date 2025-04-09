@@ -10,24 +10,20 @@ const Footer = () => {
 
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
               
-              {/* Group 1: Logo and Description */}
               <div className="logo-description-group" style={{ flex: '1 1 40%',  minWidth: '300px', textAlign: 'left', display: 'flex', 
                 flexDirection: 'column', height: '100%', marginLeft: '30px', paddingBottom: '10px' }}>
                 
                 {/* Logo */}
                 <img src="ter.png" alt="logo" style={{ width: '200px', height: 'auto', maxWidth: '100%', marginTop: '-20px', marginLeft: '-26px', }}/>
                 
-                {/* Description */}
                 <p className="color-white" style={{ marginBottom: '30px', fontSize: '15px', lineHeight: '1.5', marginTop: '-35px' }}>
                 Cuisining is a web-based 3D simulation game designed to assess the user's cooking knowledge and experience. It features interactive courses, quizzes, and skill-based challenges to help users refine their techniques. Players can earn certificates, track their progress, and build their culinary skillsets while engaging in a fun and immersive learning experience.
                 </p>
               </div>
 
-              {/* Group 3: Right Sections (Pages, Contact Us, Services) */}
               <div className="right-sections-group" style={{ flex: '1 1 50%', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', 
                 alignItems: 'flex-start', marginLeft: '100px',marginTop: '15px', paddingBottom: '20px', }}>
               
-              {/* Pages Section */}
                 <div className="pages" style={{ flex: '5', minWidth: '150px' }}>
                 <h3 className="color #363100" style={{ marginBottom: '20px', fontSize: '18px', fontWeight: '750'}}>Pages</h3>
                 <Link to="/Home-page" className="color-white" style={{ display: 'block', marginBottom: '20px', fontSize: '15px', textDecoration: 'none' }}>Home</Link>
@@ -36,14 +32,12 @@ const Footer = () => {
                 <Link to="/skillset" className="color-white" style={{ display: 'block', marginBottom: '20px', fontSize: '15px', textDecoration: 'none' }}>Skill Set</Link>
               </div>
 
-                {/* Contact Us Section */}
                 <div className="contact-us" style={{ flex: '1 1 30%', minWidth: '150px',}}>
                   <h3 className="color #363100" style={{ marginBottom: '20px', fontSize: '18px', fontWeight: '750' }}>Contact Us</h3>
                   <p className="color-white" style={{ marginBottom: '20px', fontSize: '15px' }}>09486096986</p>
                   <p className="color-white" style={{ marginBottom: '20px', fontSize: '15px' }}>info.cuisining@gmail.com</p>
                 </div>
 
-                {/* Services Section */}
                 <div className="services" style={{ 
                   flex: '1 1 30%', 
                   minWidth: '150px' 
@@ -54,16 +48,15 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Bottom Section: Social Media Icons and Copyright Text */}
             <div className="social-media-group" style={{ 
               width: '100%', 
               display: 'flex', 
               justifyContent: 'flex-start', 
               alignItems: 'center', 
               marginLeft: '30px',
-              marginTop: '25px', // Add padding to separate from the top section
+              marginTop: '25px', 
               width: '95%',
-              borderTop: '1px solid white' // Optional: Add a border to separate sections
+              borderTop: '1px solid white' 
             }}>
               <div className="socmed" style={{ 
                 display: "flex", 
@@ -81,7 +74,6 @@ const Footer = () => {
                 </a>
               </div>
 
-              {/* Copyright Text */}
               <p className="color-white" style={{ fontSize: "12px", marginLeft: '17px', marginTop: '22px' }}>© 2024 Cuisining. All rights reserved</p>
             </div>
           </footer>

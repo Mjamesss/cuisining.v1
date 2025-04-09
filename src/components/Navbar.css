@@ -13,6 +13,7 @@
   background-color: #F0F4F8;
   height: 120px;
   position: relative;
+  z-index: 1000;
 }
 
 /* Logo */

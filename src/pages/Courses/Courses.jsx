@@ -177,7 +177,6 @@ const Courses = () => {
                 `}
             </style>
 
-            {/* Footer */}
             <Footer/>
        </>
     )
