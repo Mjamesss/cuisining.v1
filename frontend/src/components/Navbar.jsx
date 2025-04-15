@@ -203,6 +203,38 @@ const Navbar = () => {
 
   return (
     <>
+      <nav className="navbar pl-4 pr-4 d-flex justify-content-between align-items-center" style={{ height: "120px", height: "120px", 
+       borderRadius: "40px", backgroundColor: "#ffffff", boxShadow: "0px 5px 10px rgba(98, 98, 98, 0.1)", margin: "0 20px", }}>
+    
+    <div className="Navbar_header">
+      <img src="csuinelogo.png" alt="logo" 
+        style={{ height: "auto", marginLeft: "75px" }} 
+      />
+    </div>
+    
+        <button className={`hamburger d-md-none ${isOpen ? "open" : ""}`} onClick={() => setIsOpen(!isOpen)}>☰</button>
+        
+        <div className="Nav-links w-25 d-none d-md-flex justify-content-around font-weight-600">
+        <NavLink to="/home-page" className="text-decoration-none" activeClassName="active">Home</NavLink>
+
+        <div className="dropdown">
+        <NavLink to="/Utensils"className="text-decoration-none dropdown-title">Utensils</NavLink>
+          <div className="dropdown-content">
+            <NavLink to="/Ingredients" className="text-decoration-none">Ingredients</NavLink>
+          </div>
+        </div>
+
+        <NavLink to="/Courses" className="text-decoration-none" activeClassName="active">Courses</NavLink>
+
+        <div className="dropdown">
+          <span className="text-decoration-none dropdown-title">Skillset</span>
+          <div className="dropdown-content">
+            <NavLink to="/Knife-Skills" className="text-decoration-none">Knife Skills</NavLink>
+            <NavLink to="/Mixing-Skills" className="text-decoration-none">Mixing Skills</NavLink>
+          </div>
+        </div>
+      </div>
+
       <nav className="navbar pl-4 pr-4 d-flex justify-content-between align-items-center" style={{ height: "120px", boxShadow: "0px 5px 10px rgba(98, 98, 98, 0.1)" }}>
         <div className="Navbar_header">
           <img src="ter.png" alt="logo" />
@@ -247,6 +279,12 @@ const Navbar = () => {
             )}
           </div>
           <button className="btn-setting profile-btn" onClick={toggleProfileDesktop} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+
+            <img src={profileData.avatarUrl} style={{ borderRadius: "50%", height: "33px", width: "33px", marginLeft: "-15px" }} alt="profile" />
+            <p style={{ margin: 0 }}>{profileData.firstName}</p>
+          </button>
+          {isProfileModalDesktop && (
+            <div className="profile-modal position-absolute p-3 bg-white shadow rounded" style={{ width: "280px", right: "85px", top: "85px", textAlign: "left" }}>
             <img src={profileData.avatarUrl} style={{ borderRadius: "50%", height: "33px", width: "33px", marginLeft: "-8px" }} alt="profile" />
             <p style={{ margin: 0 }}>{profileData.firstName}</p>
           </button>
@@ -271,7 +309,8 @@ const Navbar = () => {
                 <img src="profileSettings.png" alt="Settings and Privacy Icon" style={{ width: "17px", height: "17px" }} />Settings and Privacy
               </button>
               <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "9px" }} onClick={() => navigate("/Help")}>
-                <img src="help.png" alt="Help and Support Icon" style={{ width: "17px", height: "17px" }} />Subscription
+                <img src="help.png" alt="Help and Support Icon" style={{ width: "17px", height: "17px" }} />Help and Support
+                <img src="help.png" alt="Help and Support Icon" style={{ width: "17px", height: "17px" }} />
               </button>
               <hr style={{ margin: "12px 0" }} />
               <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "6px" }} onClick={handleLogout}>

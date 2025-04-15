@@ -18,6 +18,7 @@
 
 /* Logo */
 .Navbar_header img {
+  max-width: 180px;
   max-width: 150px;
   height: auto;
 }
@@ -25,6 +26,8 @@
 /* Desktop Navigation */
 .Nav-links {
   display: flex;
+  gap: 2px;
+  margin-top: 13px;
   gap: 20px;
 }
 
@@ -266,4 +269,56 @@
 
 .notif-dropdown::-webkit-scrollbar-thumb:hover {
   background: #363100; /* Darker blue on hover */
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-title {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 130%;
+  left: 0;
+  background-color: #f8f9ee;
+  min-width: 180px;
+  padding: 10px;
+  border-radius: 19px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.dropdown-content::after {
+  content: "";
+  position: absolute;
+  top: 50%;  
+  left: -15px;
+  margin-top: -7px; 
+  border-width: 9px 17px 9px 0;  
+  border-style: solid;
+  border-color: transparent rgb(248,249,238) transparent transparent; 
+}
+
+
+.dropdown-content a {
+  display: block;
+  padding: 0.1rem 1rem;
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 }

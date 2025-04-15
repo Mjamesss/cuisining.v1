@@ -95,6 +95,11 @@ const Courses = () => {
                     <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742373582/courses4_ym6jsf.png" 
                         width="100%" height="auto" />
                     <h1 className="font-weight-800" 
+                        style={{ position: "absolute", bottom: "165px", left: "30px", fontSize: "18px", 
+                        fontFamily: "'Nunito', sans-serif", color: "#000000" }}>
+                        Salad and Salad <span style={{color: "#C1B857"}}>Dressings</span>
+                    </h1>
+                    <p style={{ width: "280px", position: "absolute", bottom: "85px", left: "30px", fontSize: "14px", color: "#000000", fontWeight: "200" }}>
                         style={{ position: "absolute", bottom: "150px", left: "30px", fontSize: "18px", 
                         fontFamily: "'Nunito', sans-serif", color: "#000000" }}>
                         Salad and Salad <span style={{color: "#C1B857"}}><br></br> Dressings</span>

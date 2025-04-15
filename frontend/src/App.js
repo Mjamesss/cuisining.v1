@@ -16,6 +16,7 @@ import Navbar from './components/Navbar';
 import Homepage from './pages/Landingpage/Homepage';
 import About from './components/About'; 
 import Utensils from './pages/utensilsEng/Utensils';
+import Ingredients from './pages/utensilsEng/Ingredients';
 import Cutting from './pages/utensilsEng/Cutting';
 import Knife from './pages/utensilsEng/Knife';
 import Chefknife from './pages/utensilsEng/CuttingTools/knives/Chefknife';
@@ -291,6 +292,7 @@ const App = () => {
               <Route path="/Home-Page" element={<Homepage />} />
               <Route path="/About" element={<About />} />
               <Route path="/Utensils" element={<Utensils />} />
+              <Route path="/Ingredients" element={<Ingredients />} 
               <Route path="/Cutting" element={<Cutting />} />
               <Route path="/CuisiningLogo" element={<CuisiningLogo />} />
               {/* Knivess*/}

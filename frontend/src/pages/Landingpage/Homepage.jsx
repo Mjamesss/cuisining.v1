@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import "../../fw-cuisining.css";
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-
+import { useRef } from "react";
 
 const Homepage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,6 +50,17 @@ const Homepage = () => {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+    };
+
+    const videoRef = useRef(null);
+
+    const handleVideoClick = () => {
+      const video = videoRef.current;
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
     };
 
     return (
@@ -160,6 +171,8 @@ const Homepage = () => {
 
                 <div 
                     className="d-flex justify-content-center align-items-center header-image" 
+                    style={{ position: "relative", maxWidth: "700px",  height: "auto",  zIndex: 1, left: "4%", bottom: "85px",  }}
+
                     style={{ position: "relative", maxWidth: "725px",  height: "auto",  zIndex: 1, left: "4%", bottom: "85px",  }}
                 >
                     <img 
@@ -261,6 +274,9 @@ const Homepage = () => {
 
                 <div className="p-5 d-flex justify-content-center align-items-center flex-md-row flex-column-reverse" 
                 
+                style={{minHeight:"520px", marginTop:"25px"}}>
+                    <div className="px-4 me-md-5"> 
+                        <h1 className="font-weight-800" style={{ fontSize:"33px", fontFamily:"'Nunito', sans-serif", marginBottom: "30px",
                 style={{minHeight:"520px", marginTop:"20px"}}>
                     <div className="px-4 me-md-5"> 
                         <h1 className="font-weight-800" style={{ fontSize:"38px", fontFamily:"'Nunito', sans-serif", marginBottom: "30px",
@@ -281,6 +297,49 @@ const Homepage = () => {
                         </p>
                     </div>
     
+                    <img src="arlo5.png" alt="goo" className="m-3 img-fluid" style={{maxHeight:"450px", objectFit:"contain"}}/>
+                </div>
+
+                <div
+                className="p-5 d-flex justify-content-center align-items-center flex-column"
+                style={{ minHeight: "520px", marginTop: "5px" }}
+                >
+
+                <div
+                    className="d-flex align-items-center justify-content-center mb-5 w-100"
+                    style={{ gap: "10px" }}
+                >
+                    <div style={{ width: "10px", flex: 1, height: "1px", backgroundColor: "#ccc" }}></div>
+                    <h1 className="text-center m-0" style={{ fontSize:"33px", fontWeight: "800", fontFamily:"'Nunito', sans-serif", color: "#000000" }}>
+                    Meet Arlo, <span style={{color: "#C1B857"}}>Your Kitchen Buddy!</span>                          
+                    </h1>
+                    <div style={{ width: "30%", flex: 1, height: "1px", backgroundColor: "#ccc" }}></div>
+                </div>
+
+                <video
+                  ref={videoRef}
+                  onClick={handleVideoClick}
+                  className="m-3 img-fluid"
+                  style={{ maxHeight: "450px", objectFit: "contain", cursor: "pointer", borderRadius: "25px" }}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  poster="arlocook.png"
+                >
+                  <source src="arloocook.mp4" type="video/mp4" />
+                </video>
+                </div>                
+                <div className="p-5 d-flex justify-content-center align-items-start flex-md-row flex-column" 
+                style={{minHeight:"520px", marginTop:"30px"}}>
+                
+                <img src="arlo4.png" alt="present" 
+                    className="m-3 img-fluid" 
+                    style={{maxHeight:"430px", objectFit:"contain",}}
+                />
+                
+                <div className="px-2 ms-md-9" > 
+                    <h1 className="font-weight-800" style= {{ fontSize:"33px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px", color: "#000000" 
                     <img src="arlo5.png" alt="goo" className="m-3 img-fluid" style={{maxHeight:"500px", objectFit:"contain"}}/>
                 </div>
                 
@@ -314,11 +373,13 @@ const Homepage = () => {
             </div>
 
                  <div className="p-5 d-flex justify-content-center align-items-start flex-md-row flex-column-reverse" 
+                 style={{minHeight:"520px", marginTop:"50px", marginBottom: "160px"  }}>
                  style={{minHeight:"520px", marginTop:"10px", }}>
 
                 <div className="px-5 me-md-1"> 
                     
                     <h1 className="font-weight-800" 
+                    style={{ fontSize:"33px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px", color: "#000000" 
                     style={{ fontSize:"38px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px",color: "#000000" 
                     }}>Want to be a certified <span style={{color: "#C1B857"}}>
                         NCII<br></br>Cookery Passer?</span></h1>
@@ -341,6 +402,7 @@ const Homepage = () => {
                 <img src="arlo3.png" 
                     alt="look" 
                     className="m-1 img-fluid" 
+                    style={{maxHeight:"430px", objectFit:"contain", }}
                     style={{maxHeight:"470px", objectFit:"contain", }}
                 />
             </div>

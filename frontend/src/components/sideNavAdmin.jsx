@@ -108,7 +108,7 @@ const SideNav = () => {
               <img 
                 src="https://res.cloudinary.com/dm6wodni6/image/upload/v1740905480/account_nhrb9f_eizn1j.png" 
                 alt="Accounts" 
-                style={{ width: '20px', marginRight: '10px' }} 
+                style={{ width: '20px', marginRight: 'https://github.com/Mjamesss/cuisining.v1/pull/14/conflict?name=frontend%252Fsrc%252Fcomponents%252FsideNavAdmin.jsx&base_oid=883344fdb8b41ed33d73699c509912c5d9e1309e&head_oid=245b87a544352740443c0f970768f6f26321135b10px' }} 
               />
               Accounts
             </Link>
@@ -136,6 +136,7 @@ const SideNav = () => {
         >
           <img 
             src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741981835/logout_icon.png" 
+            alt="Logout" 
             alt="" 
             style={{ width: '20px', marginRight: '10px' }} 
           />

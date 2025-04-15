@@ -10,6 +10,17 @@ const Utensils = () => {
         </style>
         
             <Navbar />
+            <div style={{ width: "100%", margin: "0", padding: "100px 0" }}>
+                
+                <div style={{ width: "100%", marginBottom: "100px" }}>
+                <h1 style={{fontSize: "26px", fontWeight: "800", margin: "0 auto 40px auto", maxWidth: "1200px", paddingLeft: "4%",
+                        fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "left" }}>
+                    Cooking Utensils Identification
+                    </h1>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))", justifyContent: "center",
+                            gap: "25px", padding: "0 40px", maxWidth: "1200px",  margin: "0 auto", fontWeight: "920", }}>
+
             <div style={{ width: "100%", margin: "0", padding: "90px 0" }}>
                 
                 {/* Cooking Utensils Section */}
@@ -104,6 +115,46 @@ const Utensils = () => {
                         </a>
                     </div>
                 </div>
+            </div>
+            <style>
+                {`
+                    .card-item {
+                        position: relative;
+                        display: block;
+                        overflow: hidden;
+                    }
+
+                    .card-item h1 {
+                        position: absolute;
+                        bottom: 95px;
+                        left: 30px;
+                        font-size: 18px;
+                        font-family: 'Nunito', sans-serif;
+                        color: #000000;
+                    }
+
+                    .card-item p {
+                        position: absolute;
+                        bottom: 45px;
+                        left: 30px;
+                        width: 280px;
+                        font-size: 14px;
+                        color: #fff;
+                        font-weight: 50;
+                    }
+
+                    .card-item button {
+                        position: absolute;
+                        bottom: 5px;
+                        left: 188px;
+                        color: white;
+                        width: 120px;
+                        height: 39px;
+                        font-size: 12px;
+                        border-radius: 15px;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                        font-family: 'Nunito', sans-serif;
+                    }
 
                 <div style={{ height: "40px" }}></div> 
 
@@ -236,6 +287,11 @@ const Utensils = () => {
                             gap: 30px !important;
                             padding: 30px !important;
                         }
+                        .card-item h1 {
+                            font-size: 16px !important;
+                        }
+                    }
+
                         .p-5.d-flex {
                             margin-left: 0 !important;
                             padding: 20px !important;
@@ -250,6 +306,13 @@ const Utensils = () => {
                             gap: 20px !important;
                             padding: 20px !important;
                         }
+                        .card-item h1 {
+                            font-size: 14px !important;
+                            bottom: 75px;
+                        }
+                        .card-item p {
+                            font-size: 12px !important;
+                            bottom: 30px;
                         .p-5.d-flex {
                             margin-left: 0 !important;
                             padding: 15px !important;

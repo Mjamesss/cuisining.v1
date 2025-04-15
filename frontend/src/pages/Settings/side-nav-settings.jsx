@@ -45,6 +45,19 @@ const SideNavSettings = () => {
             Help & Support
           </Link>
         </li>
+        <li className="nav-item mb-2">
+          <Link 
+            to="/settings/subscription" 
+            className={`btn btn-light w-100 text-start rounded-0 position-relative p-font ${location.pathname === '/settings/subscription' ? 'active-tab' : ''}`}
+            style={{
+              borderLeft: location.pathname === '/settings/subscription' ? '4px solid #363100' : '4px solid transparent',
+              transition: 'border-left 0.3s ease',
+              fontWeight:"500",
+            }}
+          >
+            Subscription
+          </Link>
+        </li>
       </ul>
     </nav>
   );
