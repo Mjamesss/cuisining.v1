@@ -19,6 +19,7 @@
 /* Logo */
 .Navbar_header img {
   max-width: 180px;
+  max-width: 150px;
   height: auto;
 }
 
@@ -27,6 +28,7 @@
   display: flex;
   gap: 2px;
   margin-top: 13px;
+  gap: 20px;
 }
 
 .Nav-links a {
@@ -319,3 +321,4 @@
   display: block;
 }
 
+}
