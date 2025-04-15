@@ -147,7 +147,7 @@ const SettingsComponent = () => {
               </div>
             </div>
 
-            <button type="button" className="cbtn cbtn-primary rounded-pill mt-3 px-4">
+            <button type="button" className="cbtn cbtn-primary  mt-3 px-4">
               Edit
             </button>
           </form>

@@ -136,7 +136,7 @@ const SideNav = () => {
         >
           <img 
             src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741981835/logout_icon.png" 
-            alt="Logout" 
+            alt="" 
             style={{ width: '20px', marginRight: '10px' }} 
           />
           Logout

@@ -271,7 +271,7 @@ const Navbar = () => {
                 <img src="profileSettings.png" alt="Settings and Privacy Icon" style={{ width: "17px", height: "17px" }} />Settings and Privacy
               </button>
               <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "9px" }} onClick={() => navigate("/Help")}>
-                <img src="help.png" alt="Help and Support Icon" style={{ width: "17px", height: "17px" }} />Help and Support
+                <img src="help.png" alt="Help and Support Icon" style={{ width: "17px", height: "17px" }} />Subscription
               </button>
               <hr style={{ margin: "12px 0" }} />
               <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "6px" }} onClick={handleLogout}>

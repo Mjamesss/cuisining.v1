@@ -396,12 +396,6 @@ const ProfileForm = () => {
               >
                 <option value="" disabled className="text-muted">Select Country</option>
                 <option value="Philippines">Philippines</option>
-                <option value="United States">United States</option>
-                <option value="Canada">Canada</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="Australia">Australia</option>
-                <option value="Japan">Japan</option>
-                <option value="Other">Other</option>
               </select>
             </div>
 
