@@ -34,7 +34,7 @@ const FundamentalsOfCookery = () => {
               display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))",
               justifyContent: "left", fontWeight: "920"
             }}>
-              <a href="Cutting" style={{ position: "relative", display: "block" }}>
+              <a href="KitchenDepartment" style={{ position: "relative", display: "block" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1744672740/crs1_njxvsn.png"
                   width="100%" height="auto" alt="Cutting" />
                 <h1 className="font-weight-800" style={{
@@ -68,15 +68,15 @@ const FundamentalsOfCookery = () => {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))", justifyContent: "left",
                        gap: "25px", fontWeight: "920"}}>
 
-              <a href="Measuring" style={{ position: "relative", display: "block" }}>
+              <a href="CommonKitchenTools" style={{ position: "relative", display: "block" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1744672741/crs2_s3dtc4.png"
                   width="100%" height="auto" alt="Measuring" />
                 <h1 className="font-weight-800" style={{
-                  position: "absolute", bottom: "95px", left: "48%", fontSize: "16px",
+                  position: "absolute", bottom: "80px", left: "48%", fontSize: "16px",
                   fontFamily: "'Nunito', sans-serif", color: "#000000"
-                }}>Kitchen Department<br></br>and Kitchen Staff</h1>
+                }}>Common Kitchen Tools, Utensils, and Equipment</h1>
                 <p style={{
-                  width: "280px", position: "absolute", bottom: "70px", left: "48%",
+                  width: "280px", position: "absolute", bottom: "59px", left: "48%",
                   fontSize: "11px", color: "#fff", fontWeight: "50"
                 }}>
                   "Master Your Culinary Skills!
@@ -85,16 +85,16 @@ const FundamentalsOfCookery = () => {
                   position: "absolute", bottom: "5px", left: "188px", color: "white",
                   width: "120px", height: "39px", fontSize: "12px", borderRadius: "15px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif"
-                }}>LESSON 1</button>
+                }}>LESSON 2</button>
               </a>
 
-              <a href="Mixing" style={{ position: "relative", display: "block" }}>
+              <a href="MeasurementsAndConversion" style={{ position: "relative", display: "block" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1744672752/crs3_fiivco.png"
                   width="100%" height="auto" alt="Mixing" />
                 <h1 className="font-weight-800" style={{
                   position: "absolute", bottom: "95px", left: "48%", fontSize: "16px",
                   fontFamily: "'Nunito', sans-serif", color: "#000000"
-                }}>Kitchen Department<br></br>and Kitchen Staff</h1>
+                }}>Measurements and Conversions</h1>
                 <p style={{
                   width: "280px", position: "absolute", bottom: "70px", left: "48%",
                   fontSize: "11px", color: "#fff", fontWeight: "50"
@@ -105,18 +105,18 @@ const FundamentalsOfCookery = () => {
                   position: "absolute", bottom: "5px", left: "188px", color: "white",
                   width: "120px", height: "39px", fontSize: "12px", borderRadius: "15px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif"
-                }}>LESSON 1</button>
+                }}>LESSON 3</button>
               </a>
 
-              <a href="GrillingTools" style={{ position: "relative", display: "block" }}>
+              <a href="" style={{ position: "relative", display: "block" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1744672742/crs4_rhuzmg.png"
                   width="100%" height="auto" alt="Grilling Tools" />
                 <h1 className="font-weight-800" style={{
-                  position: "absolute", bottom: "95px", left: "48%", fontSize: "16px",
+                  position: "absolute", bottom: "113px", left: "50%", fontSize: "18px",
                   fontFamily: "'Nunito', sans-serif", color: "#000000"
-                }}>Kitchen Department<br></br>and Kitchen Staff</h1>
+                }}>Food Safety</h1>
                 <p style={{
-                  width: "280px", position: "absolute", bottom: "70px", left: "48%",
+                  width: "280px", position: "absolute", bottom: "80px", left: "50%",
                   fontSize: "11px", color: "#fff", fontWeight: "50"
                 }}>
                   "Master Your Culinary Skills!
@@ -125,16 +125,16 @@ const FundamentalsOfCookery = () => {
                   position: "absolute", bottom: "5px", left: "188px", color: "white",
                   width: "120px", height: "39px", fontSize: "12px", borderRadius: "15px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif"
-                }}>LESSON 1</button>
+                }}>LESSON 4</button>
               </a>
 
-              <a href="Cookware" style={{ position: "relative", display: "block" }}>
+              <a href="" style={{ position: "relative", display: "block" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1744672742/crs5_vpfewi.png"
                   width="100%" height="auto" alt="Cookware" />
                 <h1 className="font-weight-800" style={{
                   position: "absolute", bottom: "95px", left: "48%", fontSize: "16px",
                   fontFamily: "'Nunito', sans-serif", color: "#000000"
-                }}>Kitchen Department<br></br>and Kitchen Staff</h1>
+                }}>Occupational Health and Safety Procedure</h1>
                 <p style={{
                   width: "280px", position: "absolute", bottom: "70px", left: "48%",
                   fontSize: "11px", color: "#fff", fontWeight: "50"
@@ -145,18 +145,18 @@ const FundamentalsOfCookery = () => {
                   position: "absolute", bottom: "5px", left: "188px", color: "white",
                   width: "120px", height: "39px", fontSize: "12px", borderRadius: "15px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif"
-                }}>LESSON 1</button>
+                }}>LESSON 5</button>
               </a>
 
-              <a href="Appliances" style={{ position: "relative", display: "block" }}>
+              <a href="" style={{ position: "relative", display: "block" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1744672741/crs6_if6gog.png"
                   width="100%" height="auto" alt="Appliances" />
                 <h1 className="font-weight-800" style={{
-                  position: "absolute", bottom: "95px", left: "48%", fontSize: "16px",
+                  position: "absolute", bottom: "113px", left: "50%", fontSize: "18px",
                   fontFamily: "'Nunito', sans-serif", color: "#000000"
-                }}>Kitchen Department<br></br>and Kitchen Staff</h1>
+                }}>Knife Skills</h1>
                 <p style={{
-                  width: "280px", position: "absolute", bottom: "70px", left: "48%",
+                  width: "280px", position: "absolute", bottom: "80px", left: "50%",
                   fontSize: "11px", color: "#fff", fontWeight: "50"
                 }}>
                   "Master Your Culinary Skills!
@@ -165,7 +165,7 @@ const FundamentalsOfCookery = () => {
                   position: "absolute", bottom: "5px", left: "188px", color: "white",
                   width: "120px", height: "39px", fontSize: "12px", borderRadius: "15px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif"
-                }}>LESSON 1</button>
+                }}>LESSON 6</button>
               </a>
             </div>
           </div>
