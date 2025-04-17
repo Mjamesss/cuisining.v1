@@ -4,6 +4,7 @@ const Profile = require("../models/profile"); // Import the Profile model
 const Notification = require("../models/Notification"); // Import the Notification model
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middlewares/verifyToken");
+const profile = require("../models/profile");
 const router = express.Router();
 
 router.get('/get-notifications', verifyToken, async (req, res) => {
@@ -35,13 +36,12 @@ router.post("/notifications", async (req, res) => {
       // Find recipients based on recipientType
       let recipients = [];
       if (recipientType === "all") {
-        // Fetch all users from the Profile collection
-        const allProfiles = await Profile.find({}, "userID");
-        recipients = allProfiles.map((profile) => profile.userID);
-      } else if (recipientType === "custom" && cuisiningIds && cuisiningIds.length > 0) {
-        // Fetch specific users by cuisiningId
-        const profiles = await Profile.find({ cuisiningId: { $in: cuisiningIds } }, "userID");
-        recipients = profiles.map((profile) => profile.userID);
+       const allProfiles = await Profile.find ({}, "userID");
+       recipients = allProfiles.map((profile) => profile.userID);
+      }else if (recipientType === "custom" && cuisiningIds && cuisiningIds.length > 0){
+        const profile = await Profile.find({ cuisiningId: { $in: cuisiningIds}}, "userID")
+        recipients = profile.map ((profile) => profile.userID)
+      
       } else {
         return res.status(400).json({ error: "Invalid recipient type or missing cuisiningIds." });
       }

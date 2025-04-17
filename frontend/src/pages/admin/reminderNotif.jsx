@@ -24,7 +24,9 @@ const ReminderAdmin = () => {
   useEffect(() => {
     const fetchReminders = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/notif/notifications'); // Replace with your API endpoint
+        const response = await axios.get(
+          `${process.env.BACKEND_LINK || 'http://localhost:5000'}/api/notif/notifications`
+        );
         if (response.status === 200) {
           console.log('Fetched reminders:', response.data); // Log the response
           setReminders(response.data); // Update the reminders state with the fetched data
