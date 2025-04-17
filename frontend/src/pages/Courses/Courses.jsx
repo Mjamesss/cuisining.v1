@@ -100,11 +100,6 @@ const Courses = () => {
                         Salad and Salad <span style={{color: "#C1B857"}}>Dressings</span>
                     </h1>
                     <p style={{ width: "280px", position: "absolute", bottom: "85px", left: "30px", fontSize: "14px", color: "#000000", fontWeight: "200" }}>
-                        style={{ position: "absolute", bottom: "150px", left: "30px", fontSize: "18px", 
-                        fontFamily: "'Nunito', sans-serif", color: "#000000" }}>
-                        Salad and Salad <span style={{color: "#C1B857"}}><br></br> Dressings</span>
-                    </h1>
-                    <p style={{ width: "280px", position: "absolute", bottom: "74px", left: "30px", fontSize: "14px", color: "#000000", fontWeight: "200" }}>
                         Learn to prepare and present salads and dressings with confidence. Part of Cookery NC II: Preparing Cold Meals.
                     </p>
                      

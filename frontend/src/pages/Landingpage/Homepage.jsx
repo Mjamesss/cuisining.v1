@@ -5,6 +5,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { useRef } from "react";
 
+
 const Homepage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
@@ -62,7 +63,7 @@ const Homepage = () => {
         video.pause();
       }
     };
-
+    
     return (
         <>
           <Navbar />
@@ -172,8 +173,6 @@ const Homepage = () => {
                 <div 
                     className="d-flex justify-content-center align-items-center header-image" 
                     style={{ position: "relative", maxWidth: "700px",  height: "auto",  zIndex: 1, left: "4%", bottom: "85px",  }}
-
-                    style={{ position: "relative", maxWidth: "725px",  height: "auto",  zIndex: 1, left: "4%", bottom: "85px",  }}
                 >
                     <img 
                         src="arlopointing.png" 
@@ -277,9 +276,6 @@ const Homepage = () => {
                 style={{minHeight:"520px", marginTop:"25px"}}>
                     <div className="px-4 me-md-5"> 
                         <h1 className="font-weight-800" style={{ fontSize:"33px", fontFamily:"'Nunito', sans-serif", marginBottom: "30px",
-                style={{minHeight:"520px", marginTop:"20px"}}>
-                    <div className="px-4 me-md-5"> 
-                        <h1 className="font-weight-800" style={{ fontSize:"38px", fontFamily:"'Nunito', sans-serif", marginBottom: "30px",
                             color: "#000000" }}>About <span style={{color: "#C1B857"}}>CuiSining</span></h1>
                         <p className="" style={{ fontSize:"18px", maxWidth:"700px", lineHeight: "1.6",
                         }}>
@@ -340,19 +336,6 @@ const Homepage = () => {
                 
                 <div className="px-2 ms-md-9" > 
                     <h1 className="font-weight-800" style= {{ fontSize:"33px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px", color: "#000000" 
-                    <img src="arlo5.png" alt="goo" className="m-3 img-fluid" style={{maxHeight:"500px", objectFit:"contain"}}/>
-                </div>
-                
-                <div className="p-5 d-flex justify-content-center align-items-start flex-md-row flex-column" 
-                style={{minHeight:"520px", marginTop:"10px"}}>
-                
-                <img src="arlo4.png" alt="present" 
-                    className="m-3 img-fluid" 
-                    style={{maxHeight:"470px", objectFit:"contain",}}
-                />
-                
-                <div className="px-2 ms-md-9" > 
-                    <h1 className="font-weight-800" style= {{ fontSize:"38px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px", color: "#000000" 
                     }}>What we <span style={{color: "#C1B857"}}>Offer</span></h1>
                     <p className="" style={{ fontSize:"18px", maxWidth:"700px", lineHeight: "1.6", fontFamily:"'Public Sans', sans-serif"
                     }}>
@@ -374,13 +357,11 @@ const Homepage = () => {
 
                  <div className="p-5 d-flex justify-content-center align-items-start flex-md-row flex-column-reverse" 
                  style={{minHeight:"520px", marginTop:"50px", marginBottom: "160px"  }}>
-                 style={{minHeight:"520px", marginTop:"10px", }}>
 
                 <div className="px-5 me-md-1"> 
                     
                     <h1 className="font-weight-800" 
                     style={{ fontSize:"33px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px", color: "#000000" 
-                    style={{ fontSize:"38px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px",color: "#000000" 
                     }}>Want to be a certified <span style={{color: "#C1B857"}}>
                         NCII<br></br>Cookery Passer?</span></h1>
                     <p className="" style={{ fontSize:"18px", maxWidth:"700px", lineHeight: "1.6", fontFamily:"'Public Sans', sans-serif"
@@ -403,7 +384,6 @@ const Homepage = () => {
                     alt="look" 
                     className="m-1 img-fluid" 
                     style={{maxHeight:"430px", objectFit:"contain", }}
-                    style={{maxHeight:"470px", objectFit:"contain", }}
                 />
             </div>
 

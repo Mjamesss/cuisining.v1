@@ -292,7 +292,7 @@ const App = () => {
               <Route path="/Home-Page" element={<Homepage />} />
               <Route path="/About" element={<About />} />
               <Route path="/Utensils" element={<Utensils />} />
-              <Route path="/Ingredients" element={<Ingredients />} 
+              <Route path="/Ingredients" element={<Ingredients />} />
               <Route path="/Cutting" element={<Cutting />} />
               <Route path="/CuisiningLogo" element={<CuisiningLogo />} />
               {/* Knivess*/}

@@ -235,17 +235,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      <nav className="navbar pl-4 pr-4 d-flex justify-content-between align-items-center" style={{ height: "120px", boxShadow: "0px 5px 10px rgba(98, 98, 98, 0.1)" }}>
-        <div className="Navbar_header">
-          <img src="ter.png" alt="logo" />
-        </div>
-        <button className={`hamburger d-md-none ${isOpen ? "open" : ""}`} onClick={() => setIsOpen(!isOpen)}>☰</button>
-        <div className="Nav-links w-50 d-none d-md-flex justify-content-around font-weight-600">
-          <NavLink to="/home-page" className="text-decoration-none" activeClassName="active">Home</NavLink>
-          <NavLink to="/Utensils" className="text-decoration-none" activeClassName="active">Utensil & Ingredients</NavLink>
-          <NavLink to="/Courses" className="text-decoration-none" activeClassName="active">Course</NavLink>
-          <NavLink to="/Skillset" className="text-decoration-none" activeClassName="active">Skillset</NavLink>
-        </div>
         <div className="settingsec d-none d-md-flex align-items-center m-4 justify-content-center" ref={profileRefDesktop}>
           <div className="notif-wrapper position-relative" ref={notifRefDesktop}>
             <button className="btn-setting notif-btn" onClick={toggleNotifDesktop}>
@@ -279,17 +268,11 @@ const Navbar = () => {
             )}
           </div>
           <button className="btn-setting profile-btn" onClick={toggleProfileDesktop} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-
             <img src={profileData.avatarUrl} style={{ borderRadius: "50%", height: "33px", width: "33px", marginLeft: "-15px" }} alt="profile" />
             <p style={{ margin: 0 }}>{profileData.firstName}</p>
           </button>
           {isProfileModalDesktop && (
             <div className="profile-modal position-absolute p-3 bg-white shadow rounded" style={{ width: "280px", right: "85px", top: "85px", textAlign: "left" }}>
-            <img src={profileData.avatarUrl} style={{ borderRadius: "50%", height: "33px", width: "33px", marginLeft: "-8px" }} alt="profile" />
-            <p style={{ margin: 0 }}>{profileData.firstName}</p>
-          </button>
-          {isProfileModalDesktop && (
-            <div className="profile-modal position-absolute p-3 bg-white shadow rounded" style={{ width: "280px", right: "80px", top: "95px", textAlign: "left" }}>
               <div className="d-flex align-items-center" style={{ gap: "9px", marginBottom: "10px" }}>
                 <img src={profileData.avatarUrl} alt="Profile" className="rounded-circle" style={{ width: "44px", height: "44px" }} />
                 <div>
@@ -310,7 +293,6 @@ const Navbar = () => {
               </button>
               <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "9px" }} onClick={() => navigate("/Help")}>
                 <img src="help.png" alt="Help and Support Icon" style={{ width: "17px", height: "17px" }} />Help and Support
-                <img src="help.png" alt="Help and Support Icon" style={{ width: "17px", height: "17px" }} />
               </button>
               <hr style={{ margin: "12px 0" }} />
               <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "6px" }} onClick={handleLogout}>
