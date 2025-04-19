@@ -14,6 +14,8 @@ const profileSchema = new mongoose.Schema({
   contactNo: { type: String, required: true},
   gender : { type: String, required: true},
   accountCreated: { type: Date }, // No default here; we'll set it manually
+  lastUpdated: { type: Date },
+  hasEditedProfile: { type: Boolean, default: false } // New field to track first edit
 });
 
 module.exports = mongoose.model("Profile", profileSchema);

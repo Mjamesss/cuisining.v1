@@ -72,7 +72,6 @@ const SettingsComponent = () => {
       alert("Failed to change password.");
     }
   };
-
   const renderContent = () => (
     <div className="card p-4 shadow-sm">
       <h4 className="fw-bold mb-3">Change Password</h4>

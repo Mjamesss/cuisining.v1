@@ -474,8 +474,7 @@ const App = () => {
                {/*Settings */}
                <Route path="/profile" element={<Profile/>}/>
                <Route path="/settings/personal-details" element={<PersonalDetails/>}/>
-               <Route path="/settings/PasswordSecurity" element={<PasswordSecurity/>}/
-               >
+               <Route path="/settings/PasswordSecurity" element={<PasswordSecurity/>}/>
                <Route path="Flatscraper" element={<Flatscraper/>}/>               
                {/*Protein*/}
                <Route path="/proteins" element={<Proteins/>}/>

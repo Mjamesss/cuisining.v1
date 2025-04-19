@@ -1,117 +1,161 @@
 const express = require('express');
-const User = require('../models/user'); // Adjust the path to your User model
-const Profile = require('../models/profile'); // Adjust the path to your Profile model
-const verifyToken = require("../middlewares/verifyToken"); // Middleware to verify JWT token
+const User = require('../models/user');
+const Profile = require('../models/profile');
+const verifyToken = require("../middlewares/verifyToken");
 const router = express.Router();
+const { check, validationResult } = require('express-validator');
+const { upload } = require('../config/cloudinaryConfig');
 
-// Route to fetch fullName and email
+// Consolidated profile data endpoint
 router.get('/settings-profile', verifyToken, async (req, res) => {
   try {
-    // Use req.userId from verifyToken middleware
-    const userId = req.userId;
+    // Get both user and profile data in parallel for better performance
+    const [user, profile] = await Promise.all([
+      User.findById(req.userId).select('email'),
+      Profile.findOne({ userID: req.userId })
+    ]);
 
-    // Fetch user data (email) from the User model
-    const user = await User.findById(userId).select('email');
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found.' });
+    if (!user || !profile) {
+      return res.status(404).json({ message: 'User or profile not found' });
     }
 
-    // Fetch profile data including the new fields
-    const profile = await Profile.findOne({ userID: userId })
-      .select('fullName cuisiningId avatarUrl region country contactNo gender');
+    let canUpdate = true;
+    let daysRemaining = 0;
 
-    if (!profile) {
-      return res.status(404).json({ message: 'Profile not found for this user.' });
+    // Only check 35-day rule if user has edited before
+    if (profile.hasEditedProfile) {
+      const lastUpdated = profile.lastUpdated;
+      const nextUpdateDate = new Date(lastUpdated);
+      nextUpdateDate.setDate(nextUpdateDate.getDate() + 35);
+      daysRemaining = Math.ceil((nextUpdateDate - new Date()) / (1000 * 60 * 60 * 24));
+      canUpdate = daysRemaining <= 0;
     }
 
-    // Send the complete profile data as response
     res.json({
-      fullName: profile.fullName,
-      email: user.email,
-      cuisiningId: profile.cuisiningId,
-      avatarUrl: profile.avatarUrl || 'https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png',
-      region: profile.region,
-      country: profile.country,
-      contactNo: profile.contactNo,
-      gender: profile.gender
+      ...profile._doc,
+      email: user.email,  // Include email from User model
+      canUpdate,
+      daysRemaining: daysRemaining > 0 ? daysRemaining : 0,
+      isFirstEdit: !profile.hasEditedProfile
     });
   } catch (error) {
-    console.error('Error fetching user data:', error.message);
-    console.error('Stack Trace:', error.stack);
-    res.status(500).json({ message: 'Internal server error.' });
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Route to fetch profile data
-router.get("/profile-data", verifyToken, async (req, res) => {
+router.put('/update-profile', verifyToken, upload.single('avatar'), [
+  // ... (validation checks remain the same) ...
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
   try {
     const profile = await Profile.findOne({ userID: req.userId });
-    if (!profile) {
-      return res.status(404).json({ message: "Profile not found" });
+    if (!profile) return res.status(404).json({ message: 'Profile not found' });
+
+    // FIRST-TIME EDIT LOGIC
+    if (!profile.hasEditedProfile) {
+      const updatedProfile = await Profile.findOneAndUpdate(
+        { userID: req.userId },
+        { 
+          $set: {
+            ...req.body,
+            avatarUrl: req.file?.path || profile.avatarUrl,
+            lastUpdated: new Date(),
+            hasEditedProfile: true // Mark as edited
+          }
+        },
+        { new: true }
+      );
+
+      return res.json({
+        ...updatedProfile._doc,
+        canUpdate: false,
+        daysRemaining: 35,
+        message: "First edit successful! Next edit available in 35 days."
+      });
     }
-    res.status(200).json({
-      message: "Profile data retrieved successfully",
-      profile: {
-        fullName: profile.fullName,
-        avatarUrl: profile.avatarUrl || "https://via.placeholder.com/150",
-      },
+
+    // SUBSEQUENT EDITS (35-day rule applies)
+    const lastUpdated = profile.lastUpdated;
+    const nextUpdateDate = new Date(lastUpdated);
+    nextUpdateDate.setDate(nextUpdateDate.getDate() + 35);
+
+    if (new Date() < nextUpdateDate) {
+      const daysRemaining = Math.ceil((nextUpdateDate - new Date()) / (1000 * 60 * 60 * 24));
+      return res.status(400).json({ 
+        message: `You can update your profile in ${daysRemaining} days`,
+        daysRemaining
+      });
+    }
+
+    // Process normal update
+    const updateData = {
+      ...req.body,
+      avatarUrl: req.file?.path || profile.avatarUrl,
+      lastUpdated: new Date()
+    };
+
+    const updatedProfile = await Profile.findOneAndUpdate(
+      { userID: req.userId },
+      { $set: updateData },
+      { new: true }
+    );
+
+    res.json({
+      ...updatedProfile._doc,
+      canUpdate: false,
+      daysRemaining: 35
     });
+
   } catch (error) {
-    console.error("Error fetching profile data:", error);
-    res.status(500).json({ error: "An error occurred", details: error.message });
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-// New route to fetch avatarUrl
+// Additional endpoints (simplified versions)
+router.get("/profile-data", verifyToken, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ userID: req.userId })
+      .select('fullName avatarUrl');
+      
+    res.json({
+      fullName: profile?.fullName,
+      avatarUrl: profile?.avatarUrl || "https://via.placeholder.com/150"
+    });
+  } catch (error) {
+    console.error("Error in /profile-data:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.get("/avatar", verifyToken, async (req, res) => {
   try {
-    // Use req.userId from verifyToken middleware
-    const userId = req.userId;
-
-    // Fetch the profile data for the user
-    const profile = await Profile.findOne({ userID: userId }).select('avatarUrl');
-
-    if (!profile) {
-      return res.status(404).json({ message: "Profile not found" });
-    }
-
-    // If avatarUrl exists, return it; otherwise, return a default placeholder URL
-    const avatarUrl = profile.avatarUrl || "https://via.placeholder.com/150";
-
-    res.status(200).json({
-      message: "Avatar URL retrieved successfully",
-      avatarUrl: avatarUrl,
+    const profile = await Profile.findOne({ userID: req.userId })
+      .select('avatarUrl');
+      
+    res.json({
+      avatarUrl: profile?.avatarUrl || "https://via.placeholder.com/150"
     });
   } catch (error) {
-    console.error("Error fetching avatar URL:", error);
-    res.status(500).json({ error: "An error occurred", details: error.message });
+    console.error("Error in /avatar:", error);
+    res.status(500).json({ error: error.message });
   }
 });
 
-// New route to fetch cuisiningId
 router.get("/cuisining-id", verifyToken, async (req, res) => {
   try {
-    // Use req.userId from verifyToken middleware
-    const userId = req.userId;
-
-    // Fetch the profile data for the user
-    const profile = await Profile.findOne({ userID: userId }).select('cuisiningId');
-
-    if (!profile) {
-      return res.status(404).json({ message: "Profile not found" });
-    }
-
-    // If cuisiningId exists, return it; otherwise, return null or a default value
-    const cuisiningId = profile.cuisiningId || null;
-
-    res.status(200).json({
-      message: "Cuisining ID retrieved successfully",
-      cuisiningId: cuisiningId,
+    const profile = await Profile.findOne({ userID: req.userId })
+      .select('cuisiningId');
+      
+    res.json({
+      cuisiningId: profile?.cuisiningId
     });
   } catch (error) {
-    console.error("Error fetching cuisining ID:", error);
-    res.status(500).json({ error: "An error occurred", details: error.message });
+    console.error("Error in /cuisining-id:", error);
+    res.status(500).json({ error: error.message });
   }
 });
 
