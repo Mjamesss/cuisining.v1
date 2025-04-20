@@ -262,6 +262,8 @@ import Feedback from './pages/admin/feedback';
 import Profile from './pages/Settings/profile';
 import PersonalDetails from './pages/Settings/personal-details';
 import PasswordSecurity from './pages/Settings/password-security';
+import HelpAndSupport from './pages/Settings/help-and-support.jsx';
+import Subscriptions from './pages/Settings/subscription.jsx';
 const App = () => {
   return (
     <Router>
@@ -475,6 +477,8 @@ const App = () => {
                <Route path="/profile" element={<Profile/>}/>
                <Route path="/settings/personal-details" element={<PersonalDetails/>}/>
                <Route path="/settings/PasswordSecurity" element={<PasswordSecurity/>}/>
+               <Route path="/settings/help-support" element={<HelpAndSupport/>}/>
+               <Route path="/settings/subscription" element={<Subscriptions/>}/>
                <Route path="Flatscraper" element={<Flatscraper/>}/>               
                {/*Protein*/}
                <Route path="/proteins" element={<Proteins/>}/>
