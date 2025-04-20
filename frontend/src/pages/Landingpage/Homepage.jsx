@@ -4,6 +4,8 @@ import "../../fw-cuisining.css";
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { useRef } from "react";
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+
 
 
 const Homepage = () => {
@@ -14,6 +16,7 @@ const Homepage = () => {
     
     const [isInitialModalOpen, setIsInitialModalOpen] = useState(false);
     const [isEnrollModalOpen, setIsEnrollModalOpen] = useState(false);
+    const [isPayPalModalOpen, setIsPayPalModalOpen] = useState(false);
 
     useEffect(() => {
         const hasVisited = sessionStorage.getItem('hasVisited');
@@ -63,7 +66,187 @@ const Homepage = () => {
         video.pause();
       }
     };
+
+    const handleOpenPayPalModal = () => setIsPayPalModalOpen(true);
+    const handleClosePayPalModal = () => setIsPayPalModalOpen(false);
+    const [error, setError] = useState(null);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const handlePaymentSuccess = async (details) => {
+      try {
+        const token = localStorage.getItem("authToken");
+        if (!token) throw new Error("Authentication required");
     
+        const paymentData = {
+          amount: details.purchase_units[0].amount.value,
+          modeOfPayment: "paypal",
+          paymentDate: new Date().toISOString(),
+          paypalTransactionId: details.id
+        };
+    
+        const response = await fetch("http://localhost:5000/api/paypal/update-pro-account", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(paymentData)
+        });
+    
+        if (!response.ok) throw new Error((await response.json()).message);
+    
+        const { profile } = await response.json();
+        const formattedDate = new Date(profile.paymentDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+    
+        // Format as Philippine Peso
+        const pesoAmount = new Intl.NumberFormat('en-PH', {
+          style: 'currency',
+          currency: 'PHP'
+        }).format(profile.amount);
+    
+        alert(`Payment Successful!\n
+               Amount: ${pesoAmount}\n
+               Transaction ID: ${profile.transacId}\n
+               Date: ${formattedDate}`);
+    
+        window.location.reload();
+      } catch (error) {
+        console.error("Payment processing failed:", error);
+        alert(`Payment verification failed: ${error.message}`);
+      }
+    };
+    const createOrder = (data, actions) => {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            currency_code: "PHP",  // Set currency to PHP
+            value: "500.00",       // Amount in PHP
+            breakdown: {
+              item_total: {
+                currency_code: "PHP",
+                value: "500.00"
+              }
+            }
+          },
+          items: [{
+            name: "Pro Account Subscription",
+            description: "1 Month Pro Account Access",
+            unit_amount: {
+              currency_code: "PHP",
+              value: "500.00"
+            },
+            quantity: "1",
+            category: "DIGITAL_GOODS"
+          }]
+        }],
+        application_context: {
+          shipping_preference: "NO_SHIPPING"
+        }
+      });
+    };
+    const onApprove = async (data, actions) => {
+      return actions.order.capture().then(async (details) => {
+        try {
+          const token = localStorage.getItem("authToken");
+          if (!token) throw new Error("Authentication required");
+  
+          const paymentData = {
+            amount: details.purchase_units[0].amount.value,
+            currency: details.purchase_units[0].amount.currency_code, // Should be PHP
+            modeOfPayment: "paypal",
+            paymentDate: new Date().toISOString(),
+            paypalTransactionId: details.id
+          };
+  
+          const response = await fetch("http://localhost:5000/api/paypal/update-pro-account", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(paymentData)
+          });
+  
+          if (!response.ok) throw new Error((await response.json()).message);
+  
+          const { profile } = await response.json();
+          const formattedDate = new Date(profile.paymentDate).toLocaleDateString('en-PH', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+  
+          alert(`Payment Successful!\n
+                 Amount: ₱${parseFloat(profile.amount).toLocaleString('en-PH', {
+                   minimumFractionDigits: 2,
+                   maximumFractionDigits: 2
+                 })}\n
+                 Transaction ID: ${profile.transacId}\n
+                 Date: ${formattedDate}`);
+  
+          window.location.reload();
+        } catch (error) {
+          console.error("Payment processing failed:", error);
+          alert(`Payment verification failed: ${error.message}`);
+        }
+      });
+    };
+
+    const [proAccountStatus, setProAccountStatus] = useState(null);
+    const [isCheckingProStatus, setIsCheckingProStatus] = useState(true);
+    useEffect(() => {
+      const checkProStatus = async () => {
+          setIsCheckingProStatus(true);
+          try {
+              const status = await fetchProAccountStatus();
+              setProAccountStatus(status);
+          } catch (error) {
+              console.error("Error checking pro status:", error);
+              setProAccountStatus(false);
+          } finally {
+              setIsCheckingProStatus(false);
+          }
+      };
+      
+      checkProStatus();
+  }, []);
+
+  // Add this function (as you requested)
+  const fetchProAccountStatus = async () => {
+      try {
+          const token = localStorage.getItem("authToken");
+          if (!token) {
+              throw new Error("No token found in localStorage");
+          }
+
+          const response = await fetch("http://localhost:5000/api/settings/subscription", {
+              method: "GET",
+              headers: {
+                  "Authorization": `Bearer ${token}`,
+              },
+          });
+
+          if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(errorData.message || "Failed to fetch proAccount status");
+          }
+
+          const data = await response.json();
+          return data.proAccount; // Return the real proAccount status
+      } catch (err) {
+          console.error("Error fetching proAccount status:", err.message);
+          alert(`⚠️ Failed to fetch proAccount status: ${err.message}`);
+          return null;
+      }
+  };
+
     return (
         <>
           <Navbar />
@@ -158,16 +341,59 @@ const Homepage = () => {
                         Welcome to CuiSining. Take the next step in your culinary journey, master essential <br className="d-none d-md-block"/> cooking skills, and earn your NCII certification with confidence.
                     </p>
                     <div className="enroll-button-container">
-                        <button 
-                            className="cbtn cbtn-secondary fw-semibold mt-3 mt-md-4 mx-auto mx-md-0" 
-                            style={{ color: "white",  width: "clamp(150px, 40vw, 180px)",  height: "auto", fontSize: "clamp(1rem, 1.5vw, 1.2rem)", 
-                                padding: "14px 20px", borderRadius: "25px", transition: "transform 0.3s ease", position: "relative", zIndex: 5
-                            }} 
-                            onClick={handleOpenEnrollModal}
-                        >
-                            Enroll now
-                        </button>
-                    </div>
+                    {isCheckingProStatus ? (
+                      <button 
+                        className="cbtn cbtn-secondary fw-semibold mt-3 mt-md-4 mx-auto mx-md-0" 
+                        style={{ 
+                          color: "white",  
+                          minWidth: "180px", // Set minimum width
+                          height: "auto", 
+                          fontSize: "clamp(1rem, 1.5vw, 1.2rem)", 
+                          padding: "14px 20px", 
+                          borderRadius: "25px",
+                          opacity: 0.7,
+                          whiteSpace: "nowrap" // Prevent text wrapping
+                        }} 
+                        disabled
+                      >
+                        Loading...
+                      </button>
+                    ) : proAccountStatus ? (
+                      <button 
+                        className="cbtn cbtn-success fw-semibold mt-3 mt-md-4 mx-auto mx-md-0" 
+                        style={{ 
+                          color: "white",  
+                          minWidth: "180px", // Set minimum width
+                          height: "auto", 
+                          fontSize: "clamp(1rem, 1.5vw, 1.2rem)", 
+                          padding: "14px 20px", 
+                          borderRadius: "25px",
+                          cursor: "default",
+                          whiteSpace: "nowrap" // Prevent text wrapping
+                        }} 
+                        disabled
+                      >
+                        You are enrolled!
+                      </button>
+                    ) : (
+                      <button 
+                        className="cbtn cbtn-secondary fw-semibold mt-3 mt-md-4 mx-auto mx-md-0" 
+                        style={{ 
+                          color: "white",  
+                          minWidth: "180px", // Set minimum width
+                          height: "auto", 
+                          fontSize: "clamp(1rem, 1.5vw, 1.2rem)", 
+                          padding: "14px 20px", 
+                          borderRadius: "25px",
+                          transition: "transform 0.3s ease",
+                          whiteSpace: "nowrap" // Prevent text wrapping
+                        }} 
+                        onClick={handleOpenEnrollModal}
+                      >
+                        Enroll now
+                          </button>
+                      )}
+                  </div>
                 </div>
 
                 <div 
@@ -204,64 +430,99 @@ const Homepage = () => {
             )}
 
             
+           {/* Enrollment modal */}
             {isEnrollModalOpen && (
-            <div
-                className="modal-overlay position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
-                style={{ zIndex: "1000", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-                onClick={handleCloseEnrollModal}
-            >
-                <button
-                className="btn-close position-absolute"
-                style={{ top: "20px", right: "20px" }}
-                onClick={(e) => e.stopPropagation()}
-                aria-label="Close"
-                ></button>
-                <div
-                className="modal-content p-5"
-                style={{
-                    backgroundImage: "url(https://res.cloudinary.com/dm6wodni6/image/upload/v1742220019/kitchen_kgilqg.jpg)",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    borderRadius: "20px",
-                    width: "80%",
-                    maxWidth: "800px",
-                    color: "white",
-                    border: "2px solid #363100"
-                }}
-                onClick={(e) => e.stopPropagation()}
-                >
-                <h2 className="text-center mb-4" style={{}}>Premium Benefits</h2>
-                <div className="d-flex justify-content-around">
-                    <div
-                    className="p-4"
-                    style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", borderRadius: "15px", width: "45%", color: 'white', border: "2px solid #363100" }}
-                    >
-                    <h3 className="text-center" style={{ color: 'white' }}>FREE USE</h3>
-                    <ul>
-                        <li>Access to limited courses</li>
-                        <li>No certification upon completion</li>
-                        <li>Restricted access to certain skill sets</li>
-                    </ul>
+                    <div className="modal-overlay position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style={{ zIndex: '1000', backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(5px)' }} onClick={handleCloseEnrollModal}>
+                      <div className="modal-content p-5 position-relative" style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)',backgroundImage: "url(https://res.cloudinary.com/dm6wodni6/image/upload/v1744181859/kitchenbg_pwqfxq.jpg)",backgroundRepeat: "no-repeat",
+                backgroundSize: "cover", backgroundPosition: "center", backdropFilter: 'blur(10px)', borderRadius: '20px', width: '80%', maxWidth: '800px', color: 'white', border: '2px solid #363100' }}
+                      onClick={(e) => e.stopPropagation()}>
+                        <button className="position-absolute" onClick={handleCloseEnrollModal} aria-label="Close" style={{ top: '20px', right: '25px', fontSize: '24px', background: 'none', border: 'none', color: 'white', cursor: 'pointer', zIndex: 1 }}>
+                          ✖
+                        </button>
+
+                        <h2 className="text-center mb-4" style={{ color: 'white' }}>Premium Benefits</h2>
+                        <div className="d-flex justify-content-around">
+                          <div className="p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', borderRadius: '15px', width: '45%', border: '2px solid #363100' }}>
+                            <h3 className="text-center text-white">FREE USE</h3>
+                            <ul>
+                              <li>Access to limited courses</li>
+                              <li>No certification upon completion</li>
+                              <li>Restricted access to certain skill sets</li>
+                            </ul>
+                          </div>
+                          <div className="p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', borderRadius: '15px', width: '45%', border: '2px solid #363100' }}>
+                            <h3 className="text-center text-white">PREMIUM</h3>
+                            <ul>
+                              <li>Unlock access to all core competencies for NCII Cookery</li>
+                              <li>Receive a certificate upon completion</li>
+                              <li>Unlock all skill sets for a comprehensive learning experience</li>
+                            </ul>
+
+                            {/* PayPal button for premium */}
+                            <PayPalScriptProvider 
+                              options={{ 
+                                'client-id': 'AU75Cssfi8wU8N9Rxg44W431RY68PjTo1LmE54mAiEqGLPjrTASfzeRedoiYFPexw_5VkLHh4v3Spc-t',
+                                currency: 'PHP', // Set default currency to PHP
+                                intent: 'capture'
+                              }}
+                            >
+                              <PayPalButtons
+                                style={{
+                                  layout: 'vertical',
+                                  color: 'gold',
+                                  shape: 'rect',
+                                  label: 'paypal'
+                                }}
+                                createOrder={(data, actions) => {
+                                  return actions.order.create({
+                                    purchase_units: [{
+                                      amount: {
+                                        currency_code: 'PHP', // Explicitly set currency
+                                        value: '199.00', // Amount in PHP
+                                        breakdown: {
+                                          item_total: {
+                                            currency_code: 'PHP',
+                                            value: '199.00'
+                                          }
+                                        }
+                                      },
+                                      items: [{
+                                        name: 'Pro Account Subscription',
+                                        description: '1 Month Pro Account Access',
+                                        unit_amount: {
+                                          currency_code: 'PHP',
+                                          value: '199.00'
+                                        },
+                                        quantity: '1',
+                                        category: 'DIGITAL_GOODS'
+                                      }]
+                                    }],
+                                    application_context: {
+                                      shipping_preference: 'NO_SHIPPING',
+                                      user_action: 'PAY_NOW'
+                                    }
+                                  });
+                                }}
+                                onApprove={(data, actions) => {
+                                  return actions.order.capture().then((details) => {
+                                    handlePaymentSuccess(details);
+                                  });
+                                }}
+                                onError={(err) => {
+                                  console.error('PayPal error:', err);
+                                  alert('There was an error processing your payment. Please try again.');
+                                }}
+                                onCancel={(data) => {
+                                  console.log('Payment cancelled:', data);
+                                  alert('Payment was cancelled. You can try again anytime.');
+                                }}
+                              />
+                            </PayPalScriptProvider>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div
-                    className="p-4"
-                    style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", borderRadius: "15px", width: "45%", color: 'white', border: "2px solid #363100" }}
-                    >
-                    <h3 className="text-center" style={{ color: 'white' }}>PREMIUM</h3>
-                    <ul>
-                        <li>Unlock access to all core competencies for NCII Cookery</li>
-                        <li>Receive a certificate upon completion</li>
-                        <li>Unlock all skill sets for a comprehensive learning experience</li>
-                    </ul>
-                    <button className="btn w-100 mt-3" style={{ backgroundColor: "#363100", color: "white", border: "2px solid #363100" }}>Avail Premium</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-            )}
-    
+                  )}
             <div className="wavy-image-container" 
             style={{ position: "relative", zIndex: 1, marginTop: "-180px", marginBottom: "0", width: "100%",overflow: "hidden" }}>
                 <img src="wavy2.png" 

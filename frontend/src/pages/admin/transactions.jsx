@@ -1,114 +1,301 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-    import SideNav from '../../components/sideNavAdmin';
+import SideNav from '../../components/sideNavAdmin';
 
 const Transactions = () => {
+  const [transactions, setTransactions] = useState([]);
+  const [metadata, setMetadata] = useState({ 
+    totalProUsers: 0, 
+    currentPage: 1, 
+    totalPages: 0 
+  });
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ 
+    key: 'paymentDate', 
+    direction: 'desc' 
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const limit = 10;
 
-  const transactions = [
-    { id: '#5089', customer: 'Christian Antonio', date: '6 April, 2023', total: '$250', method: 'GC', status: 'Failed' },
-    { id: '#5089', customer: 'Michael Tiu', date: '6 April, 2023', total: '$250', method: 'GC', status: 'Success' },
-    { id: '#5089', customer: 'Ariay D.', date: '6 April, 2023', total: '$250', method: 'GC', status: 'Pending' },
-    { id: '#5089', customer: 'Karl Mirenda', date: '6 April, 2023', total: '$250', method: 'GC', status: 'Pending' },
-    { id: '#5089', customer: 'Karl Briz', date: '6 April, 2023', total: '$250', method: 'GC', status: 'Pending' },
-    { id: '#5089', customer: 'Shawn France', date: '6 April, 2023', total: '$250', method: 'GC', status: 'Pending' },
-    { id: '#5089', customer: 'Kenneth Shee', date: '6 April, 2023', total: '$250', method: 'GC', status: 'Pending' },
-    { id: '#5089', customer: 'Mark J.J', date: '6 April, 2023', total: '$250', method: 'GC', status: 'Pending' },
-    { id: '#5089', customer: 'Aaroon Dadivas', date: '6 April, 2023', total: '$250', method: 'GC', status: 'Pending' },
-    { id: '#5089', customer: 'Kareem Abdul', date: '6 April, 2023', total: '$250', method: 'GC', status: 'Pending' },
-  ];
-
-  const filteredTransactions = transactions.filter(transaction =>
-    transaction.id.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handleRefund = (transaction) => {
-    setSelectedTransaction(transaction);
-    setShowModal(true);
+  // Format date with time
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    
+    const options = { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+    return new Date(dateString).toLocaleDateString('en-US', options);
   };
 
-  const confirmRefund = () => {
-    // Handle refund logic here
-    console.log('Refunding transaction:', selectedTransaction);
-    setShowModal(false);
+  // Validate and normalize transaction data
+  const normalizeTransaction = (transaction) => ({
+    ...transaction,
+    _id: transaction._id || Math.random().toString(36).substr(2, 9),
+    transacId: transaction.transacId || 'N/A',
+    fullName: transaction.fullName || 'Unknown Customer',
+    amount: typeof transaction.amount === 'number' ? 
+           transaction.amount : 
+           parseFloat(transaction.amount) || 0,
+    paymentDate: transaction.paymentDate || new Date().toISOString(),
+    modeOfPayment: transaction.modeOfPayment || 'unknown'
+  });
+
+  // Fetch data from the backend
+  const fetchData = async (page = 1) => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/transactions/pro-users?page=${page}&limit=${limit}&search=${searchTerm}&sort=${sortConfig.key}&order=${sortConfig.direction}`
+      );
+      
+      if (!response.ok) {
+        throw new Error(`Server returned ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      // Validate and normalize all transactions
+      const validatedTransactions = data.users.map(normalizeTransaction);
+      
+      setTransactions(validatedTransactions);
+      setMetadata({
+        totalProUsers: data.totalProUsers,
+        currentPage: data.currentPage,
+        totalPages: data.totalPages,
+      });
+    } catch (err) {
+      console.error('Error fetching transactions:', err);
+      setError(err.message);
+      setTransactions([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Fetch data on component mount and when dependencies change
+  useEffect(() => {
+    fetchData(currentPage);
+  }, [currentPage, searchTerm, sortConfig]);
+
+  // Handle search with debounce
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
+
+  // Handle sort
+  const requestSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  // Render sort indicator
+  const renderSortIndicator = (key) => {
+    if (sortConfig.key !== key) return null;
+    return (
+      <i className={`bi bi-chevron-${sortConfig.direction === 'asc' ? 'up' : 'down'}`} />
+    );
+  };
+
+  // Generate pagination range
+  const getPaginationRange = () => {
+    const totalPages = metadata.totalPages;
+    const currentPage = metadata.currentPage;
+    const delta = 2;
+    const range = [];
+
+    // Show all pages if total pages is less than 7
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        range.push(i);
+      }
+      return range;
+    }
+
+    // Add pages around current page
+    for (let i = Math.max(2, currentPage - delta); i <= Math.min(totalPages - 1, currentPage + delta); i++) {
+      range.push(i);
+    }
+
+    // Add first page and possible ellipsis
+    if (currentPage - delta > 2) {
+      range.unshift('...');
+    }
+    range.unshift(1);
+
+    // Add last page and possible ellipsis
+    if (currentPage + delta < totalPages - 1) {
+      range.push('...');
+    }
+    range.push(totalPages);
+
+    return range;
   };
 
   return (
     <div className="container-fluid">
       <div className="row">
-        {/* Side Navigation */}
         <SideNav />
-
-        {/* Main Content */}
         <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          <h1 className='mt-2'>Transactions</h1>
+          <h1 className="mt-2">Transactions</h1>
+
+          {/* Error Alert */}
+          {error && (
+            <div className="alert alert-danger" role="alert">
+              Error loading transactions: {error}
+            </div>
+          )}
+
+          {/* Loading Indicator */}
+          {isLoading && (
+            <div className="text-center my-4">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          )}
 
           {/* Search Bar */}
           <div className="mb-3">
             <input
               type="text"
               className="form-control"
-              placeholder="Search by Transaction ID"
+              placeholder="Search by Transaction ID or Customer Name"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleSearch}
+              disabled={isLoading}
             />
           </div>
 
           {/* Transactions Table */}
-          <table className="table">
-            <thead>
-              <tr>
-                <th>TRANSACTION ID</th>
-                <th>CUSTOMER</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>METHOD</th>
-                <th>ACTION</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredTransactions.map((transaction, index) => (
-                <tr key={index}>
-                  <td>{transaction.id}</td>
-                  <td>{transaction.customer}</td>
-                  <td>{transaction.date}</td>
-                  <td>{transaction.total}</td>
-                  <td>{transaction.method}</td>
-                  <td>
-                    <div className="dropdown">
-                      <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        ...
-                      </button>
-                      <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><button className="dropdown-item" onClick={() => handleRefund(transaction)}>Refund</button></li>
-                      </ul>
-                    </div>
-                  </td>
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead className="table-light">
+                <tr>
+                  <th onClick={() => !isLoading && requestSort('transacId')}>
+                    Transaction ID {renderSortIndicator('transacId')}
+                  </th>
+                  <th onClick={() => !isLoading && requestSort('fullName')}>
+                    Customer {renderSortIndicator('fullName')}
+                  </th>
+                  <th onClick={() => !isLoading && requestSort('paymentDate')}>
+                    Date & Time {renderSortIndicator('paymentDate')}
+                  </th>
+                  <th onClick={() => !isLoading && requestSort('amount')}>
+                    Amount {renderSortIndicator('amount')}
+                  </th>
+                  <th>Payment Method</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* Refund Confirmation Modal */}
-          <div className={`modal fade ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'block' : 'none' }}>
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">Confirm Refund</h5>
-                  <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
-                </div>
-                <div className="modal-body">
-                  Are you sure you want to refund transaction {selectedTransaction?.id}?
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>No</button>
-                  <button type="button" className="btn btn-primary" onClick={confirmRefund}>Yes</button>
-                </div>
-              </div>
-            </div>
+              </thead>
+              <tbody>
+                {transactions.length > 0 ? (
+                  transactions.map((transaction) => (
+                    <tr key={transaction._id}>
+                      <td>{transaction.transacId}</td>
+                      <td>{transaction.fullName}</td>
+                      <td>{formatDate(transaction.paymentDate)}</td>
+                      <td>₱{transaction.amount.toFixed(2)}</td>
+                      <td>{transaction.modeOfPayment.toUpperCase()}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="text-center">
+                      {isLoading ? 'Loading...' : 'No transactions found'}
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
+
+          {/* Pagination */}
+          {!isLoading && metadata.totalPages > 1 && (
+            <nav aria-label="Page navigation">
+              <ul className="pagination justify-content-center flex-wrap">
+                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                  <button 
+                    className="page-link" 
+                    onClick={() => setCurrentPage(1)}
+                    disabled={currentPage === 1}
+                    aria-label="First"
+                  >
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                  </button>
+                </li>
+                
+                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                  <button 
+                    className="page-link" 
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    aria-label="Previous"
+                  >
+                    <span aria-hidden="true">&laquo;</span>
+                  </button>
+                </li>
+                
+                {getPaginationRange().map((page, index) => (
+                  <li 
+                    key={index} 
+                    className={`page-item ${page === '...' ? 'disabled' : ''} ${currentPage === page ? 'active' : ''}`}
+                  >
+                    {page === '...' ? (
+                      <span className="page-link">...</span>
+                    ) : (
+                      <button 
+                        className="page-link" 
+                        onClick={() => setCurrentPage(page)}
+                        disabled={page === '...'}
+                      >
+                        {page}
+                      </button>
+                    )}
+                  </li>
+                ))}
+                
+                <li className={`page-item ${currentPage === metadata.totalPages ? 'disabled' : ''}`}>
+                  <button 
+                    className="page-link" 
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, metadata.totalPages))}
+                    disabled={currentPage === metadata.totalPages}
+                    aria-label="Next"
+                  >
+                    <span aria-hidden="true">&raquo;</span>
+                  </button>
+                </li>
+                
+                <li className={`page-item ${currentPage === metadata.totalPages ? 'disabled' : ''}`}>
+                  <button 
+                    className="page-link" 
+                    onClick={() => setCurrentPage(metadata.totalPages)}
+                    disabled={currentPage === metadata.totalPages}
+                    aria-label="Last"
+                  >
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                  </button>
+                </li>
+              </ul>
+              
+              <div className="text-center mt-2">
+                <small className="text-muted">
+                  Showing page {currentPage} of {metadata.totalPages} | 
+                  Total {metadata.totalProUsers} transactions
+                </small>
+              </div>
+            </nav>
+          )}
         </main>
       </div>
     </div>

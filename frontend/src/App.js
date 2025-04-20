@@ -264,6 +264,9 @@ import PersonalDetails from './pages/Settings/personal-details';
 import PasswordSecurity from './pages/Settings/password-security';
 import HelpAndSupport from './pages/Settings/help-and-support.jsx';
 import Subscriptions from './pages/Settings/subscription.jsx';
+
+import FinalAssessment from './pages/Courses/FinalAssesstment/FinalAssessment.jsx';
+import CookingGame from './CookingGame.jsx';
 const App = () => {
   return (
     <Router>
@@ -549,6 +552,9 @@ const App = () => {
               <Route path="IntroToEggDishes" element={<IntroToEggDishes/>}/>
               <Route path="SaladAndSaladDressing" element={<SaladAndSaladDressing/>}/>
               <Route path="PreparingSandwich" element={<PreparingSandwich/>}/>
+
+              <Route path="FinalAssessment" element={<FinalAssessment/>}/>
+              <Route path="CookingGame" element={<CookingGame/>}/>
             </Routes>
           </Col>
         </Row>

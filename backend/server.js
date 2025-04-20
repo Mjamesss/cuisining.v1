@@ -14,6 +14,10 @@ const oAuthRoutes = require("./routes/googleAuthRoutes");
 const settingsRoutes = require("./routes/settingRoutes");
 const notifRoutes = require("./routes/notifRoutes");
 const userRoutes = require("./routes/usersRoutes");
+const paypalRoutes = require('./routes/paypalRoutes');
+const transactionRoutes = require("./routes/transactionRoutes");
+const FinalAssessment = require("./routes/final-assessmentRoutes")
+
 // Import Google Strategy (Ensure it's required)
 require("./routes/googleAuthRoutes");
 // ✅ Make sure routes come AFTER Passport initialization
@@ -55,6 +59,11 @@ app.use("/api/oauth", oAuthRoutes);
 app.use("/api/settings", settingsRoutes); 
 app.use("/api/notif/", notifRoutes);
 app.use ("/api/user/", userRoutes);
+app.use('/api/paypal', paypalRoutes);
+app.use("/api/profiles", profileRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/game", FinalAssessment);
+
 
 
 app.use(passport.initialize());

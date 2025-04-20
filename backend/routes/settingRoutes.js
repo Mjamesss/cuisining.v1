@@ -7,6 +7,38 @@ const { check, validationResult } = require('express-validator');
 const { upload } = require('../config/cloudinaryConfig');
 const bcrypt = require("bcryptjs");
 
+
+router.get('/subscription', verifyToken, async (req, res) => {
+  try {
+    const userId = req.userId;
+    console.log(`Fetching proAccount status for userID: ${userId}`);
+
+    // Find the user's profile in the database
+    const profile = await Profile.findOne({ userID: userId }, 'proAccount'); // Only fetch the `proAccount` field
+
+    if (!profile) {
+      console.error(`Profile not found for userID: ${userId}`);
+      return res.status(404).json({
+        success: false,
+        message: 'Profile not found',
+        userIdUsed: userId, // For debugging
+      });
+    }
+
+    console.log(`Pro account status fetched successfully:`, profile.proAccount);
+    res.json({
+      success: true,
+      proAccount: profile.proAccount, // Return the proAccount status
+    });
+  } catch (error) {
+    console.error('Error fetching proAccount status:', error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch proAccount status',
+      error: error.message,
+    });
+  }
+});
 router.post('/change-password', verifyToken, [
   check('currentPassword', 'Current password is required').not().isEmpty(),
   check('newPassword', 'New password must be at least 6 characters').isLength({ min: 6 })

@@ -118,9 +118,13 @@ const router = express.Router();
       await newProfile.save();
       console.log("Profile saved successfully:", newProfile);
   
+      // Update the User document
       const updatedUser = await User.findByIdAndUpdate(
         req.userId,
-        { isProfileCustomized: true },
+        { 
+          isProfileCustomized: true,
+          isFirstLogin: false // Update isFirstLogin to false
+        },
         { new: true }
       );
   
@@ -130,7 +134,7 @@ const router = express.Router();
       console.error("Error in /submit route:", error);
       res.status(500).json({ message: "Server error", error: error.message });
     }
-});
+  });
 router.get("/profile", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.userId); // req.userId comes from verifyToken middleware

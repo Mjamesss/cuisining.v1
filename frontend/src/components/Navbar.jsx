@@ -280,10 +280,6 @@ const Navbar = () => {
                   <p style={{ margin: 0, fontSize: "13.5px", color: "#6c757d" }}>Personal account</p>
                 </div>
               </div>
-              <div className="upgrade-section">
-                <button className="btn btn-sm btn-outline-dark w-100 mb-2 upgrade-btn">Upgrade</button>
-                <p className="upgrade-text">Unlock and explore more features with our <span className="proaccount">Pro account</span>.</p>
-              </div>
               <hr style={{ margin: "0px 0" }} />
               <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "9px" }} onClick={() => navigate("/profile")}>
                 <img src="profileprofile.png" alt="Profile Icon" style={{ width: "17px", height: "17px" }} />Profile

@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png", 
   },
+  googleId: String,
+  email: String,
+  isProfileCustomized: { type: Boolean, default: false },
+  isFirstLogin: { type: Boolean, default: true }
 });
 
 const User = mongoose.model("User", userSchema);
