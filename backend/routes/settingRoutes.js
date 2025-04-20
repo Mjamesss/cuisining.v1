@@ -5,6 +5,65 @@ const verifyToken = require("../middlewares/verifyToken");
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const { upload } = require('../config/cloudinaryConfig');
+const bcrypt = require("bcryptjs");
+
+router.post('/change-password', verifyToken, [
+  check('currentPassword', 'Current password is required').not().isEmpty(),
+  check('newPassword', 'New password must be at least 6 characters').isLength({ min: 6 })
+], async (req, res) => {
+  // Validate input
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const userId = req.userId;
+
+    // Find user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Verify current password
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Current password is incorrect' });
+    }
+
+    // Hash new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // Update password
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ message: 'Password updated successfully' });
+
+  } catch (error) {
+    console.error('Error changing password:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.get('/provider', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select('provider');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ provider: user.provider });
+  } catch (error) {
+    console.error('Error getting provider:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 
 // Consolidated profile data endpoint
 router.get('/settings-profile', verifyToken, async (req, res) => {
