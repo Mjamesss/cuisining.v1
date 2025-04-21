@@ -23,7 +23,7 @@ const Utensils = () => {
                        gap: "25px", fontWeight: "920", paddingLeft: "6%"}}>
 
                         <a href="Cutting" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742524580/utensils1_dmakse.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047191/utensils1_f4miqw.png" 
                                 width="100%" height="auto" alt="Cutting" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Cutting Tools</h1>
@@ -37,7 +37,7 @@ const Utensils = () => {
                         </a> 
 
                         <a href="Measuring" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742524579/utensils2_xdpqzh.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047194/utensils2_ifjqzy.png" 
                                 width="100%" height="auto" alt="Measuring" />
                              <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Measuring Tools</h1>
@@ -51,7 +51,7 @@ const Utensils = () => {
                         </a>
 
                         <a href="Mixing" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742524580/utensils3_xv3nqv.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047190/utensils3_oapdpf.png" 
                                 width="100%" height="auto" alt="Mixing" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Mixing Tools</h1>
@@ -65,7 +65,7 @@ const Utensils = () => {
                         </a>
 
                         <a href="GrillingTools" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742524579/utensils4_rldvk1.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047190/utensils4_dtz7w2.png" 
                                 width="100%" height="auto" alt="Grilling Tools" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}> Grilling Tools</h1>
@@ -79,7 +79,7 @@ const Utensils = () => {
                         </a>
 
                         <a href="Cookware" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742524579/utensils5_r7ck5r.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047190/utensils5_uyutio.png" 
                                 width="100%" height="auto" alt="Cookware" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}> Cookware</h1>
@@ -93,7 +93,7 @@ const Utensils = () => {
                         </a>
 
                         <a href="Appliances" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742524577/utensils6_n5efaj.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047189/utensils6_xedwg2.png" 
                                 width="100%" height="auto" alt="Appliances" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}> Appliances</h1>
