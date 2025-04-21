@@ -22,7 +22,7 @@ const Ingridients = () => {
                        gap: "25px", fontWeight: "920", paddingLeft: "6%"}}>
                             
                         <a href="Proteins" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742698465/ingrid2_wpshzb.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047470/ing2_jkujgj.png" 
                                 width="100%" height="auto" alt="Proteins" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "90px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Proteins</h1>
@@ -36,7 +36,7 @@ const Ingridients = () => {
                         </a>
 
                         <a href="Dairies" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742698474/ingrid1_dle8ci.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047471/ing1_ybckba.png" 
                                 width="100%" height="auto" alt="Dairies" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "90px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Dairies</h1>
@@ -50,7 +50,7 @@ const Ingridients = () => {
                         </a>
 
                         <a href="GrainStarches" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742698465/ingrid4_evjbis.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047470/ing4_padmsp.png" 
                                 width="100%" height="auto" alt="Grain Starches" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "90px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Grains & Starches</h1>
@@ -64,7 +64,7 @@ const Ingridients = () => {
                         </a>
 
                         <a href="Fruits" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742698469/ingrid3_oko19a.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047471/ing3_r9y0je.png" 
                                 width="100%" height="auto" alt="Fruits" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "90px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Fruits</h1>
@@ -78,7 +78,7 @@ const Ingridients = () => {
                         </a>
 
                         <a href="Vegetables" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742698469/ingrid5_aq4ech.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047472/ing5_kfy52k.png" 
                                 width="100%" height="auto" alt="Vegetables" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "90px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Vegetables</h1>
@@ -92,7 +92,7 @@ const Ingridients = () => {
                         </a>
 
                         <a href="HerbsSpices" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742698467/ingrid6_ngqbwy.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047469/ing6_h2gkpz.png" 
                                 width="100%" height="auto" alt="Herbs and Spices" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "90px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Herbs & Spices</h1>
@@ -106,7 +106,7 @@ const Ingridients = () => {
                         </a>
 
                         <a href="OilFats" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742698479/ingrid7_tmdky2.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047474/ing7_wghob2.png" 
                                 width="100%" height="auto" alt="Oil and Fats" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "90px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Oil & Fats</h1>
@@ -120,7 +120,7 @@ const Ingridients = () => {
                         </a>
 
                         <a href="SeasoningCondiments" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1742698943/ingrid8_shxlvl.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047475/ing8_yuynyw.png" 
                                 width="100%" height="auto" alt="Seasoning and Condiments" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "90px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Seasonings & Condiments</h1>

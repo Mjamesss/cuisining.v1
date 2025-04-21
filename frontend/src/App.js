@@ -251,6 +251,7 @@ import PreparingEggVagetable from './pages/Courses/PreparingEggVagetable/Prepari
 import IntroToEggDishes from './pages/Courses/PreparingEggVagetable/IntroToEggDishes';
 import SaladAndSaladDressing from './pages/Courses/SaladAndSaladDressing/SaladAndSaladDressing';
 import PreparingSandwich from './pages/Courses/PreparingSandwiches/PreparingSandwich';
+import FinalAssesstment from './pages/Courses/FinalAssesstment/FinalAssesstment';
 
 import AdminLogin from './pages/admin/adminLogin';
 import Dashboard from './pages/admin/dashboard';
@@ -546,6 +547,8 @@ const App = () => {
               <Route path="IntroToEggDishes" element={<IntroToEggDishes/>}/>
               <Route path="SaladAndSaladDressing" element={<SaladAndSaladDressing/>}/>
               <Route path="PreparingSandwich" element={<PreparingSandwich/>}/>
+              <Route path="FinalAssesstmentt" element={<FinalAssesstment/>}/>
+              
             </Routes>
           </Col>
         </Row>

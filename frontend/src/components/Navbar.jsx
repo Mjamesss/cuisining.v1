@@ -218,8 +218,9 @@ const Navbar = () => {
         <NavLink to="/home-page" className="text-decoration-none" activeClassName="active">Home</NavLink>
 
         <div className="dropdown">
-        <NavLink to="/Utensils"className="text-decoration-none dropdown-title">Utensils</NavLink>
+          <span className="text-decoration-none dropdown-title">Kitchenware</span>
           <div className="dropdown-content">
+            <NavLink to="/Utensils" className="text-decoration-none">Utensils</NavLink>
             <NavLink to="/Ingredients" className="text-decoration-none">Ingredients</NavLink>
           </div>
         </div>
