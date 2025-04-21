@@ -267,6 +267,8 @@ import Subscriptions from './pages/Settings/subscription.jsx';
 
 import FinalAssessment from './pages/Courses/FinalAssesstment/FinalAssessment.jsx';
 import CookingGame from './CookingGame.jsx';
+import Certtesting from './certtesting.jsx';
+
 const App = () => {
   return (
     <Router>
@@ -555,6 +557,7 @@ const App = () => {
 
               <Route path="FinalAssessment" element={<FinalAssessment/>}/>
               <Route path="CookingGame" element={<CookingGame/>}/>
+              <Route path="/certtesting" element={<Certtesting/>}/>
             </Routes>
           </Col>
         </Row>

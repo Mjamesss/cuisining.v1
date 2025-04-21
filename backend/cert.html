@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate of Completion</title>
+  <style>
+    /* Base styles from your original code */
+    body {
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      width: 277mm;
+      height: 210mm;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Certificate container */
+    .certificate {
+      position: relative;
+      width: 260mm;
+      height: 190mm;
+      background-color: white;
+      border: 15px double #C1B857;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="%23C1B857" fill-opacity="0.05" d="M30,10 L50,30 L70,10 L90,30 L70,50 L90,70 L70,90 L50,70 L30,90 L10,70 L30,50 L10,30 Z"/></svg>');
+      background-size: 150px;
+      background-repeat: repeat;
+    }
+    
+    /* Certificate header */
+    .certificate-header {
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .certificate-title {
+      font-size: 36px;
+      color: #363100;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    
+    .certificate-subtitle {
+      font-size: 16px;
+      color: #948F5C;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+    }
+    
+    /* Main content */
+    .certificate-content {
+      margin: 40px 0;
+    }
+    
+    .certificate-text {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #363100;
+      margin-bottom: 30px;
+    }
+    
+    .recipient-name {
+      font-size: 32px;
+      color: #C1B857;
+      font-weight: 700;
+      margin: 30px 0;
+      padding: 15px 0;
+      border-top: 2px solid #C1B857;
+      border-bottom: 2px solid #C1B857;
+    }
+    
+    .course-name {
+      font-size: 24px;
+      font-weight: 600;
+      color: #363100;
+      margin: 20px 0;
+    }
+    
+    /* Footer section */
+    .certificate-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+    }
+    
+    .signature-block {
+      width: 200px;
+      text-align: center;
+    }
+    
+    .signature-line {
+      border-top: 1px solid #363100;
+      margin: 10px auto;
+      width: 80%;
+    }
+    
+    .signature-name {
+      font-size: 14px;
+      color: #363100;
+      font-weight: 600;
+    }
+    
+    .certificate-date {
+      margin-top: 30px;
+      font-size: 16px;
+      color: #363100;
+    }
+    
+    /* Decorative elements */
+    .corner-decoration {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+    }
+    
+    .top-left {
+      top: 20px;
+      left: 20px;
+      border-top: 3px solid #C1B857;
+      border-left: 3px solid #C1B857;
+    }
+    
+    .top-right {
+      top: 20px;
+      right: 20px;
+      border-top: 3px solid #C1B857;
+      border-right: 3px solid #C1B857;
+    }
+    
+    .bottom-left {
+      bottom: 20px;
+      left: 20px;
+      border-bottom: 3px solid #C1B857;
+      border-left: 3px solid #C1B857;
+    }
+    
+    .bottom-right {
+      bottom: 20px;
+      right: 20px;
+      border-bottom: 3px solid #C1B857;
+      border-right: 3px solid #C1B857;
+    }
+    
+    .certificate-id {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      font-size: 12px;
+      color: #948F5C;
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate">
+    <!-- Decorative corners -->
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration top-right"></div>
+    <div class="corner-decoration bottom-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    
+    <!-- Header section -->
+    <div class="certificate-header">
+      <div class="certificate-title">Certificate of Completion</div>
+      <div class="certificate-subtitle">This Certificate is Awarded To</div>
+    </div>
+    
+    <!-- Main content -->
+    <div class="certificate-content">
+      <div class="certificate-text">
+        In recognition of having successfully completed all the requirements and examinations for
+      </div>
+      
+      <div class="recipient-name">{{Full Name}}</div>
+      
+      <div class="certificate-text">
+        for the course of study in
+      </div>
+      
+      <div class="course-name">{{Course/Program Name}}</div>
+      
+      <div class="certificate-text">
+        with distinction and honor.
+      </div>
+    </div>
+    
+    <!-- Footer with signatures -->
+    <div class="certificate-footer">
+      <div class="signature-block">
+        <div class="signature-line"></div>
+        <div class="signature-name">Authorized Signature</div>
+      </div>
+      
+      <div class="certificate-date">
+        Date: {{Completion Date}}
+      </div>
+      
+      <div class="signature-block">
+        <div class="signature-line"></div>
+        <div class="signature-name">Director of Education</div>
+      </div>
+    </div>
+    
+    <!-- Certificate ID (bottom right) -->
+    <div class="certificate-id">
+      Certificate ID: {{Certificate ID}}
+    </div>
+  </div>
+</body>
+</html>
