@@ -128,7 +128,7 @@ const Homepage = () => {
                         `}
                         </style>
 
-            {/* Header section*/}
+            {/* Header section part*/}
 
             <div 
                 className="p-4 p-md-5 d-flex justify-content-center align-items-center flex-column-reverse flex-md-row" 
