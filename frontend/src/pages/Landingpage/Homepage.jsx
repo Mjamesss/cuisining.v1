@@ -50,7 +50,7 @@ const Homepage = () => {
         }
 
         // No cleanup function needed
-    }, []); // Empty dependency array means it only runs once on mount
+    }, []); // Empty dependency array means it only runs 
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
