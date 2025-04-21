@@ -174,7 +174,7 @@ position: 'fixed',
 
   return (
     <>
-      {/* Quiz Button - Now in normal document flow */}
+      {/* Quiz Button  */}
       {quizState === 'idle' && (
         <div style={{
           textAlign: 'center',
@@ -450,7 +450,6 @@ const KitchenDepartment = () => {
 
       <Navbar />
       <Breadcrumb />
-      
       <div style={{ width: "100%", margin: 0, padding: "0px 0" }}>
         <div style={{ width: "100%", marginBottom: "50px" }}>
           <div className="main-content-container" style={{
