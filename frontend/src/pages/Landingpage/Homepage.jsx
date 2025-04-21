@@ -130,7 +130,6 @@ const Homepage = () => {
 
             {/* Header section*/}
 
-            <div> classname="" style={{}}</div>
             <div 
                 className="p-4 p-md-5 d-flex justify-content-center align-items-center flex-column-reverse flex-md-row" 
                 style={{ minHeight: "min(100vh, 800px)", backgroundColor: "#F0F4F8", position: "relative", overflow: "hidden",
