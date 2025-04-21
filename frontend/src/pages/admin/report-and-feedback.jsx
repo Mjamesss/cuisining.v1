@@ -10,17 +10,20 @@ const ReportFeedbackAdmin = () => {
   const [metadata, setMetadata] = useState({ 
     totalItems: 0, 
     currentPage: 1, 
-    totalPages: 0 
+    totalPages: 0,
+    hasNextPage: false,
+    hasPreviousPage: false
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({ 
-    key: 'date', 
+    key: 'createdAt', 
     direction: 'desc' 
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const limit = 10;
+  const [averageRating, setAverageRating] = useState(0);
+  const limit = 8;
 
   // Format date with time
   const formatDate = (dateString) => {
@@ -42,7 +45,8 @@ const ReportFeedbackAdmin = () => {
     setError(null);
     
     try {
-      const url = `http://localhost:5000/api/${activeTab}?page=${page}&limit=${limit}&search=${searchTerm}&sort=${sortConfig.key}&order=${sortConfig.direction}`;
+      const endpoint = activeTab === 'reports' ? 'reports' : 'ratings';
+      const url = `http://localhost:5000/api/${endpoint}?page=${page}&limit=${limit}`;
       
       const response = await fetch(url);
       
@@ -53,33 +57,40 @@ const ReportFeedbackAdmin = () => {
       const data = await response.json();
       
       if (activeTab === 'reports') {
-        setReports(data.items);
+        setReports(data.data || []);
+        setMetadata({
+          totalItems: data.pagination.totalReports || 0,
+          currentPage: data.pagination.currentPage || 1,
+          totalPages: data.pagination.totalPages || 0,
+          hasNextPage: data.pagination.hasNextPage || false,
+          hasPreviousPage: data.pagination.hasPreviousPage || false
+        });
       } else {
-        setFeedback(data.items);
+        setFeedback(data.data || []);
+        setAverageRating(data.averageRating || 0);
+        setMetadata({
+          totalItems: data.pagination.totalRatings || 0,
+          currentPage: data.pagination.currentPage || 1,
+          totalPages: data.pagination.totalPages || 0,
+          hasNextPage: data.pagination.hasNextPage || false,
+          hasPreviousPage: data.pagination.hasPreviousPage || false
+        });
       }
-      
-      setMetadata({
-        totalItems: data.totalItems,
-        currentPage: data.currentPage,
-        totalPages: data.totalPages,
-      });
     } catch (err) {
       console.error(`Error fetching ${activeTab}:`, err);
       setError(err.message);
-      if (activeTab === 'reports') {
-        setReports([]);
-      } else {
-        setFeedback([]);
-      }
+      // Ensure arrays are never undefined
+      setReports([]);
+      setFeedback([]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Fetch data when tab, page, search or sort changes
+  // Fetch data when tab or page changes
   useEffect(() => {
     fetchData(currentPage);
-  }, [activeTab, currentPage, searchTerm, sortConfig]);
+  }, [activeTab, currentPage]);
 
   // Handle search with debounce
   const handleSearch = (e) => {
@@ -89,11 +100,13 @@ const ReportFeedbackAdmin = () => {
 
   // Handle sort
   const requestSort = (key) => {
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
+    let direction = 'desc';
+    if (sortConfig.key === key && sortConfig.direction === 'desc') {
+      direction = 'asc';
     }
     setSortConfig({ key, direction });
+    // Note: Your backend currently doesn't support custom sorting
+    // You would need to implement this in your API routes
   };
 
   // Render sort indicator
@@ -106,8 +119,8 @@ const ReportFeedbackAdmin = () => {
 
   // Generate pagination range
   const getPaginationRange = () => {
-    const totalPages = metadata.totalPages;
-    const currentPage = metadata.currentPage;
+    const totalPages = metadata.totalPages || 0;
+    const currentPage = metadata.currentPage || 1;
     const delta = 2;
     const range = [];
 
@@ -192,40 +205,36 @@ const ReportFeedbackAdmin = () => {
                               <th onClick={() => !isLoading && requestSort('user')}>
                                 User {renderSortIndicator('user')}
                               </th>
-                              <th onClick={() => !isLoading && requestSort('type')}>
-                                Type {renderSortIndicator('type')}
-                              </th>
-                              <th onClick={() => !isLoading && requestSort('status')}>
-                                Status {renderSortIndicator('status')}
-                              </th>
-                              <th onClick={() => !isLoading && requestSort('date')}>
-                                Date {renderSortIndicator('date')}
+                              <th>Type</th>
+                              <th>Status</th>
+                              <th onClick={() => !isLoading && requestSort('createdAt')}>
+                                Date {renderSortIndicator('createdAt')}
                               </th>
                               <th>Actions</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {reports.length > 0 ? (
+                            {reports && reports.length > 0 ? (
                               reports.map((report) => (
                                 <tr key={report._id}>
-                                  <td>{report.user || 'Anonymous'}</td>
+                                  <td>{report.userId?.name || 'Anonymous'}</td>
                                   <td>
-                                    <span className={`badge ${report.type === 'Bug' ? 'bg-danger' : 'bg-warning'}`}>
-                                      {report.type}
+                                    <span className="badge bg-danger">
+                                      Report
                                     </span>
                                   </td>
                                   <td>
-                                    <span className={`badge ${report.status === 'Resolved' ? 'bg-success' : report.status === 'Pending' ? 'bg-secondary' : 'bg-primary'}`}>
-                                      {report.status}
+                                    <span className={`badge ${report.status === 'resolved' ? 'bg-success' : 'bg-secondary'}`}>
+                                      {report.status || 'pending'}
                                     </span>
                                   </td>
-                                  <td>{formatDate(report.date)}</td>
+                                  <td>{formatDate(report.createdAt)}</td>
                                   <td>
                                     <button className="btn btn-sm btn-outline-primary me-2">
                                       View
                                     </button>
                                     <button className="btn btn-sm btn-outline-success">
-                                      Resolve
+                                      {report.status === 'resolved' ? 'Reopen' : 'Resolve'}
                                     </button>
                                   </td>
                                 </tr>
@@ -249,6 +258,10 @@ const ReportFeedbackAdmin = () => {
             <Tab eventKey="feedback" title="Feedback">
               <div className="row mt-3">
                 <div className="col-12">
+                  <div className="alert alert-info">
+                    Average Rating: <strong>{averageRating.toFixed(1)}</strong> / 5
+                  </div>
+                  
                   {/* Search Bar */}
                   <div className="mb-3">
                     <input
@@ -274,23 +287,24 @@ const ReportFeedbackAdmin = () => {
                               <th onClick={() => !isLoading && requestSort('rating')}>
                                 Rating {renderSortIndicator('rating')}
                               </th>
-                              <th onClick={() => !isLoading && requestSort('date')}>
-                                Date {renderSortIndicator('date')}
+                              <th onClick={() => !isLoading && requestSort('createdAt')}>
+                                Date {renderSortIndicator('createdAt')}
                               </th>
                               <th>Actions</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {feedback.length > 0 ? (
+                            {feedback && feedback.length > 0 ? (
                               feedback.map((item) => (
                                 <tr key={item._id}>
-                                  <td>{item.user || 'Anonymous'}</td>
+                                  <td>{item.userId?.name || 'Anonymous'}</td>
                                   <td>
                                     <span className="text-warning">
                                       {'★'.repeat(item.rating || 0)}{'☆'.repeat(5 - (item.rating || 0))}
+                                      <span className="text-dark ms-2">({item.rating})</span>
                                     </span>
                                   </td>
-                                  <td>{formatDate(item.date)}</td>
+                                  <td>{formatDate(item.createdAt)}</td>
                                   <td>
                                     <button className="btn btn-sm btn-outline-primary">
                                       View Details
@@ -330,11 +344,11 @@ const ReportFeedbackAdmin = () => {
                   </button>
                 </li>
                 
-                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                <li className={`page-item ${!metadata.hasPreviousPage ? 'disabled' : ''}`}>
                   <button 
                     className="page-link" 
                     onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                    disabled={currentPage === 1}
+                    disabled={!metadata.hasPreviousPage}
                     aria-label="Previous"
                   >
                     <span aria-hidden="true">&laquo;</span>
@@ -360,11 +374,11 @@ const ReportFeedbackAdmin = () => {
                   </li>
                 ))}
                 
-                <li className={`page-item ${currentPage === metadata.totalPages ? 'disabled' : ''}`}>
+                <li className={`page-item ${!metadata.hasNextPage ? 'disabled' : ''}`}>
                   <button 
                     className="page-link" 
                     onClick={() => setCurrentPage(prev => Math.min(prev + 1, metadata.totalPages))}
-                    disabled={currentPage === metadata.totalPages}
+                    disabled={!metadata.hasNextPage}
                     aria-label="Next"
                   >
                     <span aria-hidden="true">&raquo;</span>
