@@ -16,7 +16,8 @@ const notifRoutes = require("./routes/notifRoutes");
 const userRoutes = require("./routes/usersRoutes");
 const paypalRoutes = require('./routes/paypalRoutes');
 const transactionRoutes = require("./routes/transactionRoutes");
-const FinalAssessment = require("./routes/final-assessmentRoutes")
+const FinalAssessment = require("./routes/final-assessmentRoutes");
+const reportRoute = require('./routes/hasRoutes');
 
 // Import Google Strategy (Ensure it's required)
 require("./routes/googleAuthRoutes");
@@ -63,6 +64,7 @@ app.use('/api/paypal', paypalRoutes);
 app.use("/api/profiles", profileRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/game", FinalAssessment);
+app.use('/api/', reportRoute);
 
 
 

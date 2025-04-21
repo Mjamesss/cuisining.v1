@@ -113,6 +113,25 @@ const SideNav = () => {
               Accounts
             </Link>
           </li>
+          <li className="nav-item mb-2">
+            <Link
+              to="/report&feedback"
+              className={`nav-link text-white ${activeLink === '/report&feedback' ? 'active' : ''}`}
+              onClick={() => handleLinkClick('/report&feedback')}
+              style={{ 
+                backgroundColor: activeLink === '/report&feedback' ? '#B3A369' : '', 
+                borderRadius: '5px',
+                transition: 'background-color 0.3s ease'
+              }}
+            >
+              <img 
+                src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745182641/survey_hnbsml.png" 
+                alt="Accreport&feedbackounts" 
+                style={{ width: '20px', marginRight: '10px' }} 
+              />
+              Report and Feedback
+            </Link>
+          </li>
         </ul>
       </div>
 
@@ -135,7 +154,7 @@ const SideNav = () => {
           }}
         >
           <img 
-            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1741981835/logout_icon.png" 
+            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745182641/survey_hnbsml.png" 
             style={{ width: '20px', marginRight: '10px' }} 
           />
           Logout

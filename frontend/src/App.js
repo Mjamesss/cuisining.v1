@@ -257,7 +257,7 @@ import Dashboard from './pages/admin/dashboard';
 import Transaction from './pages/admin/transactions';
 import Announcement from './pages/admin/reminderNotif';
 import UserAdmin from './pages/admin/usersAdmin';
-import Feedback from './pages/admin/feedback';
+import Feedback from './pages/admin/report-and-feedback.jsx';
 
 import Profile from './pages/Settings/profile';
 import PersonalDetails from './pages/Settings/personal-details';
@@ -280,7 +280,7 @@ const App = () => {
               <Route path="/transactions" element={<Transaction />} />
               <Route path="/announcement" element={<Announcement />} />
               <Route path="/userAdmin" element={<UserAdmin />} />
-              <Route path="/feedback" element={<Feedback />} />
+              <Route path="/report&feedback" element={<Feedback />} />
               {/* Login Pages */}
               <Route path="/" element={<L />} />
               <Route path="/signup" element={<S />} />
