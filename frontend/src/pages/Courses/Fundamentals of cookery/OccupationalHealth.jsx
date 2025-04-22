@@ -19,7 +19,7 @@ const Breadcrumb = () => {
         <span style={{ margin: "0 10px" }}>&gt;</span>
         <li className="breadcrumb-item"><a href="/FundamentalsOfCookery" style={{ color: "black", textDecoration: "none" }}>Fundamentals Of Professional Cookery</a></li>
         <span style={{ margin: "0 10px" }}>&gt;</span>
-        <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Lesson 1 & 2</li>
+        <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Lesson 4</li>
       </ol>
     </nav>
   );
@@ -38,55 +38,31 @@ const Quiz = ({ onQuizComplete }) => {
 
   const allQuestions = [
     {
-      question: "Oversees all the production in the kitchen including quality, hiring, managing, controlling cost, meeting quotas, and coordinating departments.  ?",
-      options: ["Sous Chef", "Butcher Chef", "Pastry Chef", "Executive Chef"],
-      correctAnswer: "Executive Chef"
+      question: "What is the purpose of Personal Protective Equipment (PPE) in the kitchen?",
+      options: ["To make the chef look professional", "To protect employees from health and safety hazards", "To decorate the kitchen", "To speed up cooking"],
+      correctAnswer: "To protect employees from health and safety hazards"
     },
     {
-      question: "They are in charge of the butcher shop. They prepare meats, fish, and poultry.?",
-      options: ["Chef Gardmangers", "Sous Chef", "Butcher Chef", "Sauciers"],
-      correctAnswer: "Butcher Chef"
+      question: "Which of the following is NOT considered Personal Protective Equipment (PPE)? s?",
+      options: ["Chef's Uniform", "Gloves", "Apron", "Knife"],
+      correctAnswer: "Knife"
     },
     {
-      question: "Also Known as grill cooks, or chef grillardin. They fall under the Rottieseur?",
-      options: ["Savoury Cook", "Chef De Parties", "Banquet Chef", "Chef Tournants"],
-      correctAnswer: "Savoury Cook"
+      question: "What should food handlers always do before preparing food?",
+      options: ["Wear gloves", "Wash their hands", "Eat a snack", "Remove hairnet"],
+      correctAnswer: "Wash their hands"
     },
     {
-      question: "They act as trainees helping out in day-to-day operationst?",
-      options: ["Apprenties", "Entremetier", "Pastry Chef", "Poissonier"],
-      correctAnswer: "JavaScript"
+      question: "Which hygienic practice is required to prevent food contamination?",
+      options: ["Wearing hairnets", "Using perfumes", "Wearing jewelry", "Painting nails"],
+      correctAnswer: "Wearing hairnets"
     },
     {
-      question: "They are responsible in preparing all sauces and sauces-related dishes. ?",
-      options: ["Pastry Chef", "Sauciers", "Sous Chef", "Executive Chef"],
-      correctAnswer: "Sauciers"
+      question: "5.	What should employees do if they feel sick with symptoms like diarrhea or fever?",
+      options: ["Continue working", "Notify the supervisor and stay home", "Eat medicine and go to work", "Hide the symptoms"],
+      correctAnswer: "Notify the supervisor and stay home"
     },
-    {
-      question: "What is the recommended time to arrive at work as a kitchen staff?",
-      options: ["On time", "Late", "Early", "Anytime"],
-      correctAnswer: "On time"
-    },
-    {
-      question: "What does FIFO stand for in kitchen practices?",
-      options: ["First In, Fast Out", "First In, First Out", "Food In, Food Out", "Fresh Ingredients, Fresh Out"],
-      correctAnswer: "First In, First Out"
-    },
-    {
-      question: "Why is it important to taste everything in your station?",
-      options: ["To satisfy curiosity","To ensure quality and consistency", "To impress co-workers", "To waste time"],
-      correctAnswer: "To ensure quality and consistency"
-    },
-    {
-      question: "What should you do if you are sick before your shift?",
-      options: ["Go to work and hide it","Tell the chef beforehand", "Ignore it", "Ask a co-worker to cover for you without telling anyone"],
-      correctAnswer: "Tell the chef beforehand"
-    },
-    {
-      question: "What should you avoid when handling products in the kitchen?",
-      options: ["Over-preparation leading to waste","Preparing fresh products daily", "Measuring time with ise en place", "Helping co-workers in need"],
-      correctAnswer: "Over-preparation leading to waste"
-    },
+  
   ];
 
   // Function to shuffle an array using Fisher-Yates algorithm
@@ -464,7 +440,7 @@ const Quiz = ({ onQuizComplete }) => {
   );
 };
 
-const KitchenDepartment = () => {
+const OccupationalHealth = () => {
   // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
@@ -599,7 +575,7 @@ const KitchenDepartment = () => {
                   color: "#000000",
                   textAlign: "left"
                 }}>
-                  <span style={{ color: "#adb44e", }}>UNIT 1:</span> Lesson 1 & 2 Kitchen Department and The Kitchen Staff
+                  <span style={{ color: "#adb44e", }}>UNIT 2:</span> Lesson 4  Occupational Health And Safety Procedure
                 </h1>
               </div>
 
@@ -615,7 +591,7 @@ const KitchenDepartment = () => {
                   borderRadius: "15px",
                   overflow: "hidden"
                 }}>
-                  <iframe 
+                <iframe 
                     style={{
                       position: "absolute",
                       top: 0,
@@ -625,7 +601,7 @@ const KitchenDepartment = () => {
                       border: "none",
                       borderRadius: "15px"
                     }}
-                    src="https://www.youtube.com/embed/55FNElP8UYU?si=q490sA5PSSIiTR8-" 
+                    src="https://www.youtube.com/embed/HgQfwUzMUec?si=aTpVWh65HeEvRMlu"
                     title="YouTube video player" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowFullScreen
@@ -650,20 +626,10 @@ const KitchenDepartment = () => {
                   About This Lesson
                 </h3>
                 <p style={{ marginBottom: "15px", }}>  
-                It is very important for any kitchen staff to first and foremost, understand the workplace. As a kitchen staff, you should be familiar with the organizational structure of the kitchen or the kitchen hierarchy so that you will know who's in charge and who to report to.
+                To avoid accidents and problems in the workstation and in food preparation, you must practice occupational safety and proper health procedure. The lesson includes the use of PPEs, proper hand washing techniques, good hygienic practices, and kitchen safety measures.
                 </p>
-                <p style={{ marginBottom: "15px" }}>
-                As a kitchen staff, it is your responsibility to complete the task that is being assigned to you. One of your primary duties is to always keep the kitchen clean. Every kitchen maintains a hygiene and sanitation standard to ensure the health and safety of the employees and customers.
-                </p>
-                <h6><span style={{ fontFamily: "'Nunito', sans-serif", fontWeight: "bold"}}>At the end of this unit, you should be able to:</span></h6>
-                <ul>
-                  <li>Knowledge on kitchen hygiene and sanitation</li>
-                  <li>Basic kitchen equipment knowledge</li>
-                  <li>Basic knife techniques</li>
-                  <li>Ability to read accurate measurements</li>
-                  <li>Ability to carefully follow directions</li>
-                  <li>Ability to lift items on a daily basis</li>
-                </ul>
+                
+               
               </div>
             </div>
             
@@ -754,4 +720,4 @@ const KitchenDepartment = () => {
   );
 }
 
-export default KitchenDepartment;
+export default OccupationalHealth;

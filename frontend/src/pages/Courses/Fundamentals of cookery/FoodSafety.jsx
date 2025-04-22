@@ -19,7 +19,7 @@ const Breadcrumb = () => {
         <span style={{ margin: "0 10px" }}>&gt;</span>
         <li className="breadcrumb-item"><a href="/FundamentalsOfCookery" style={{ color: "black", textDecoration: "none" }}>Fundamentals Of Professional Cookery</a></li>
         <span style={{ margin: "0 10px" }}>&gt;</span>
-        <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Lesson 1 & 2</li>
+        <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Lesson 3</li>
       </ol>
     </nav>
   );
@@ -38,55 +38,31 @@ const Quiz = ({ onQuizComplete }) => {
 
   const allQuestions = [
     {
-      question: "Oversees all the production in the kitchen including quality, hiring, managing, controlling cost, meeting quotas, and coordinating departments.  ?",
-      options: ["Sous Chef", "Butcher Chef", "Pastry Chef", "Executive Chef"],
-      correctAnswer: "Executive Chef"
+      question: "1.	What is the recommended method for washing fruits and vegetables with smooth surfaces?",
+      options: ["Soak them in water for 15 minutes", "Use soap and water", "Gently scrub with a vegetable scrub", "Rinse in hot water"],
+      correctAnswer: "Gently scrub with a vegetable scrub"
     },
     {
-      question: "They are in charge of the butcher shop. They prepare meats, fish, and poultry.?",
-      options: ["Chef Gardmangers", "Sous Chef", "Butcher Chef", "Sauciers"],
-      correctAnswer: "Butcher Chef"
+      question: "How should chicken and pork be washed according to the guidelines?",
+      options: ["Rinse with hot water only", "Freeze before washing", "Soak in water with salt and lemon for 10-15 minutes", "Wash with vinegar only"],
+      correctAnswer: "Soak in water with salt and lemon for 10-15 minutes"
     },
     {
-      question: "Also Known as grill cooks, or chef grillardin. They fall under the Rottieseur?",
-      options: ["Savoury Cook", "Chef De Parties", "Banquet Chef", "Chef Tournants"],
-      correctAnswer: "Savoury Cook"
+      question: "What temperature range is considered the Food Danger Zone?",
+      options: ["165°F - 212°F", "0°F - 32°F", "41°F - 135°F", "57°F - 74°F"],
+      correctAnswer: "41°F - 135°F"
     },
     {
-      question: "They act as trainees helping out in day-to-day operationst?",
-      options: ["Apprenties", "Entremetier", "Pastry Chef", "Poissonier"],
-      correctAnswer: "JavaScript"
+      question: "How should mussels and clams be cleaned before cooking?",
+      options: ["Use soap and water", "Scrub the shell and rinse with water", "Boil them immediately", "Freeze them before cooking"],
+      correctAnswer: "Scrub the shell and rinse with water"
     },
     {
-      question: "They are responsible in preparing all sauces and sauces-related dishes. ?",
-      options: ["Pastry Chef", "Sauciers", "Sous Chef", "Executive Chef"],
-      correctAnswer: "Sauciers"
+      question: "What is the purpose of rinsing vegetables again after cutting?",
+      options: ["To improve taste", "To remove bacteria", "To add more moisture", "To preserve color"],
+      correctAnswer: "To remove bacteria"
     },
-    {
-      question: "What is the recommended time to arrive at work as a kitchen staff?",
-      options: ["On time", "Late", "Early", "Anytime"],
-      correctAnswer: "On time"
-    },
-    {
-      question: "What does FIFO stand for in kitchen practices?",
-      options: ["First In, Fast Out", "First In, First Out", "Food In, Food Out", "Fresh Ingredients, Fresh Out"],
-      correctAnswer: "First In, First Out"
-    },
-    {
-      question: "Why is it important to taste everything in your station?",
-      options: ["To satisfy curiosity","To ensure quality and consistency", "To impress co-workers", "To waste time"],
-      correctAnswer: "To ensure quality and consistency"
-    },
-    {
-      question: "What should you do if you are sick before your shift?",
-      options: ["Go to work and hide it","Tell the chef beforehand", "Ignore it", "Ask a co-worker to cover for you without telling anyone"],
-      correctAnswer: "Tell the chef beforehand"
-    },
-    {
-      question: "What should you avoid when handling products in the kitchen?",
-      options: ["Over-preparation leading to waste","Preparing fresh products daily", "Measuring time with ise en place", "Helping co-workers in need"],
-      correctAnswer: "Over-preparation leading to waste"
-    },
+  
   ];
 
   // Function to shuffle an array using Fisher-Yates algorithm
@@ -464,7 +440,7 @@ const Quiz = ({ onQuizComplete }) => {
   );
 };
 
-const KitchenDepartment = () => {
+const FoodSafety = () => {
   // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
@@ -599,7 +575,7 @@ const KitchenDepartment = () => {
                   color: "#000000",
                   textAlign: "left"
                 }}>
-                  <span style={{ color: "#adb44e", }}>UNIT 1:</span> Lesson 1 & 2 Kitchen Department and The Kitchen Staff
+                  <span style={{ color: "#adb44e", }}>UNIT 2:</span> Lesson 3  Food And Safety
                 </h1>
               </div>
 
@@ -615,7 +591,7 @@ const KitchenDepartment = () => {
                   borderRadius: "15px",
                   overflow: "hidden"
                 }}>
-                  <iframe 
+                <iframe 
                     style={{
                       position: "absolute",
                       top: 0,
@@ -625,7 +601,7 @@ const KitchenDepartment = () => {
                       border: "none",
                       borderRadius: "15px"
                     }}
-                    src="https://www.youtube.com/embed/55FNElP8UYU?si=q490sA5PSSIiTR8-" 
+                    src="https://www.youtube.com/embed/6C8NGu-WvXM?si=fL-4HHO8z2HhcUJl"
                     title="YouTube video player" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowFullScreen
@@ -650,20 +626,10 @@ const KitchenDepartment = () => {
                   About This Lesson
                 </h3>
                 <p style={{ marginBottom: "15px", }}>  
-                It is very important for any kitchen staff to first and foremost, understand the workplace. As a kitchen staff, you should be familiar with the organizational structure of the kitchen or the kitchen hierarchy so that you will know who's in charge and who to report to.
+                Knowing which tools to use can make cooking easier and safer. At the same time, knowing how to prepare and clean your cooking stations, tools and equipment will make cooking more efficient and safe - for you and those who wil consume the food you prepare.
                 </p>
-                <p style={{ marginBottom: "15px" }}>
-                As a kitchen staff, it is your responsibility to complete the task that is being assigned to you. One of your primary duties is to always keep the kitchen clean. Every kitchen maintains a hygiene and sanitation standard to ensure the health and safety of the employees and customers.
-                </p>
-                <h6><span style={{ fontFamily: "'Nunito', sans-serif", fontWeight: "bold"}}>At the end of this unit, you should be able to:</span></h6>
-                <ul>
-                  <li>Knowledge on kitchen hygiene and sanitation</li>
-                  <li>Basic kitchen equipment knowledge</li>
-                  <li>Basic knife techniques</li>
-                  <li>Ability to read accurate measurements</li>
-                  <li>Ability to carefully follow directions</li>
-                  <li>Ability to lift items on a daily basis</li>
-                </ul>
+                
+               
               </div>
             </div>
             
@@ -754,4 +720,4 @@ const KitchenDepartment = () => {
   );
 }
 
-export default KitchenDepartment;
+export default FoodSafety;
