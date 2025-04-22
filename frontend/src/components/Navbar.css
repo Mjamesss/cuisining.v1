@@ -13,7 +13,7 @@
   background-color: #F0F4F8;
   height: 120px;
   position: relative;
-  z-index: 1000;
+  z-index: 999;
 }
 
 /* Logo */
@@ -39,11 +39,11 @@
 }
 
 .Nav-links a:hover {
-  color: #C1B857; /* Hover effect */
+  color: #ADB44E; /* Hover effect */
 }
 
 .Nav-links a.active {
-  color: #C1B857 !important; /* Stay highlighted when clicked */
+  color: #ADB44E !important; /* Stay highlighted when clicked */
 }
 
 /* Mobile Menu */

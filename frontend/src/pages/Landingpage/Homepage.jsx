@@ -330,7 +330,7 @@ const Homepage = () => {
                         Learn,<br />
                         Play, and Master <br />
                         the Art of Culinary <br />
-                        <span style={{ color: "#C1B857" }}>Excellence.</span>
+                        <span style={{ color: "#adb44e" }}>Excellence.</span>
                     </h1>
 
                     <p 
@@ -537,7 +537,7 @@ const Homepage = () => {
                 style={{minHeight:"520px", marginTop:"25px"}}>
                     <div className="px-4 me-md-5"> 
                         <h1 className="font-weight-800" style={{ fontSize:"33px", fontFamily:"'Nunito', sans-serif", marginBottom: "30px",
-                            color: "#000000" }}>About <span style={{color: "#C1B857"}}>CuiSining</span></h1>
+                            color: "#000000" }}>About <span style={{color: "#adb44e"}}>CuiSining</span></h1>
                         <p className="" style={{ fontSize:"18px", maxWidth:"700px", lineHeight: "1.6",
                         }}>
                         CuiSining is a web-based 3D simulation game designed to assess the 
@@ -568,7 +568,7 @@ const Homepage = () => {
                 >
                     <div style={{ width: "10px", flex: 1, height: "1px", backgroundColor: "#ccc" }}></div>
                     <h1 className="text-center m-0" style={{ fontSize:"33px", fontWeight: "800", fontFamily:"'Nunito', sans-serif", color: "#000000" }}>
-                    Meet Arlo, <span style={{color: "#C1B857"}}>Your Kitchen Buddy!</span>                          
+                    Meet Arlo, <span style={{color: "#adb44e"}}>Your Kitchen Buddy!</span>                          
                     </h1>
                     <div style={{ width: "30%", flex: 1, height: "1px", backgroundColor: "#ccc" }}></div>
                 </div>
@@ -597,7 +597,7 @@ const Homepage = () => {
                 
                 <div className="px-2 ms-md-9" > 
                     <h1 className="font-weight-800" style= {{ fontSize:"33px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px", color: "#000000" 
-                    }}>What we <span style={{color: "#C1B857"}}>Offer</span></h1>
+                    }}>What we <span style={{color: "#adb44e"}}>Offer</span></h1>
                     <p className="" style={{ fontSize:"18px", maxWidth:"700px", lineHeight: "1.6", fontFamily:"'Public Sans', sans-serif"
                     }}>
                     CuiSining is a web-based 3D simulation game designed to assess the 
@@ -623,7 +623,7 @@ const Homepage = () => {
                     
                     <h1 className="font-weight-800" 
                     style={{ fontSize:"33px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px", color: "#000000" 
-                    }}>Want to be a certified <span style={{color: "#C1B857"}}>
+                    }}>Want to be a certified <span style={{color: "#adb44e"}}>
                         NCII<br></br>Cookery Passer?</span></h1>
                     <p className="" style={{ fontSize:"18px", maxWidth:"700px", lineHeight: "1.6", fontFamily:"'Public Sans', sans-serif"
                     }}>
