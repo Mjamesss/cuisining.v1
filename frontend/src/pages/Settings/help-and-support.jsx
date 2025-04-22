@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import SideNavSettings from './side-nav-settings';
 import axios from 'axios';
-import '../login/sidenotif.css'; // Create this file for the notification styles
+import '../login/sidenotif.css';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const HelpSupportPage = () => {
   const navigate = useNavigate();
@@ -14,15 +15,44 @@ const HelpSupportPage = () => {
   const [reportMessage, setReportMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ success: null, message: '' });
-  
-  // Notification state
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
+  const [cooldownStatus, setCooldownStatus] = useState({
+    report: { canSubmit: true, nextAvailable: null, firstTime: true },
+    feedback: { canSubmit: true, nextAvailable: null, firstTime: true }
+  });
 
   // Get token from localStorage
   const getToken = () => {
     return localStorage.getItem('authToken');
   };
+
+  // Fetch cooldown status on component mount
+  useEffect(() => {
+    const fetchCooldownStatus = async () => {
+      const token = getToken();
+      if (!token) return;
+
+      try {
+        const response = await axios.get(
+          'http://localhost:5000/api/cooldown-status',
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            }
+          }
+        );
+
+        if (response.data.success) {
+          setCooldownStatus(response.data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching cooldown status:', error);
+      }
+    };
+
+    fetchCooldownStatus();
+  }, []);
 
   // Show notification and auto-hide after 3 seconds
   const displayNotification = (message) => {
@@ -76,6 +106,16 @@ const HelpSupportPage = () => {
       setSubmitStatus({ success: true, message: 'Report submitted successfully!' });
       displayNotification('Report submitted successfully!');
       
+      // Update cooldown status based on the response
+      setCooldownStatus(prev => ({
+        ...prev,
+        report: {
+          canSubmit: false,
+          nextAvailable: new Date(response.data.data.nextAvailable),
+          firstTime: false
+        }
+      }));
+      
       setTimeout(() => {
         setShowModalA(false);
         setSubmitStatus({ success: null, message: '' });
@@ -90,6 +130,16 @@ const HelpSupportPage = () => {
           errorMessage = 'Please complete your profile before submitting a report.';
         } else if (error.response.data?.message) {
           errorMessage = error.response.data.message;
+        } else if (error.response.status === 429) {
+          errorMessage = error.response.data.message;
+          setCooldownStatus(prev => ({
+            ...prev,
+            report: {
+              canSubmit: false,
+              nextAvailable: new Date(error.response.data.nextAvailable),
+              firstTime: false
+            }
+          }));
         }
       }
       
@@ -134,6 +184,16 @@ const HelpSupportPage = () => {
       setSubmitStatus({ success: true, message: 'Thank you for your feedback!' });
       displayNotification('Thank you for your feedback!');
       
+      // Update cooldown status based on the response
+      setCooldownStatus(prev => ({
+        ...prev,
+        feedback: {
+          canSubmit: false,
+          nextAvailable: new Date(response.data.data.nextAvailable),
+          firstTime: false
+        }
+      }));
+      
       setTimeout(() => {
         setShowModalB(false);
         setSubmitStatus({ success: null, message: '' });
@@ -142,12 +202,51 @@ const HelpSupportPage = () => {
       }, 1500);
     } catch (error) {
       console.error('Error submitting rating:', error);
-      const errorMessage = error.response?.data?.message || 'Failed to submit feedback. Please try again.';
+      let errorMessage = error.response?.data?.message || 'Failed to submit feedback. Please try again.';
+      
+      if (error.response?.status === 429) {
+        setCooldownStatus(prev => ({
+          ...prev,
+          feedback: {
+            canSubmit: false,
+            nextAvailable: new Date(error.response.data.nextAvailable),
+            firstTime: false
+          }
+        }));
+      }
+      
       setSubmitStatus({ success: false, message: errorMessage });
       displayNotification(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleOpenReportModal = () => {
+    if (!cooldownStatus.report.canSubmit) {
+      const nextDate = new Date(cooldownStatus.report.nextAvailable).toLocaleDateString();
+      displayNotification(`You can submit another report on ${nextDate}`);
+      return;
+    }
+    setShowModalA(true);
+  };
+
+  const handleOpenFeedbackModal = () => {
+    if (!cooldownStatus.feedback.canSubmit) {
+      const nextDate = new Date(cooldownStatus.feedback.nextAvailable).toLocaleDateString();
+      displayNotification(`You can submit another feedback on ${nextDate}`);
+      return;
+    }
+    setShowModalB(true);
+  };
+
+  const formatDate = (date) => {
+    if (!date) return '';
+    return new Date(date).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
   };
 
   // Notification Component
@@ -159,9 +258,23 @@ const HelpSupportPage = () => {
     );
   };
 
+  // Cooldown Tooltip Component
+  const CooldownTooltip = ({ children, type }) => {
+    const nextAvailable = cooldownStatus[type].nextAvailable;
+    const message = `Available on ${formatDate(nextAvailable)}`;
+    
+    return (
+      <OverlayTrigger
+        placement="top"
+        overlay={<Tooltip id={`${type}-tooltip`}>{message}</Tooltip>}
+      >
+        {children}
+      </OverlayTrigger>
+    );
+  };
+
   return (
     <div style={{ minHeight: '100vh', background: '#f1f1f1' }}>
-      {/* Notification component */}
       <Notification />
       
       <div className="container-fluid">
@@ -184,13 +297,35 @@ const HelpSupportPage = () => {
                       <p className="card-text">
                         Let us know if you encounter any issues with a feature. Our team will investigate and get back to you.
                       </p>
-                      <button
-                        className="btn btn-outline-primary"
-                        onClick={() => setShowModalA(true)}
-                        disabled={isSubmitting}
-                      >
-                        Report an Issue
-                      </button>
+                      {!cooldownStatus.report.canSubmit ? (
+                        <CooldownTooltip type="report">
+                          <button
+                            className="btn btn-outline-primary"
+                            disabled
+                            style={{ cursor: 'not-allowed' }}
+                          >
+                            Report an Issue
+                          </button>
+                        </CooldownTooltip>
+                      ) : (
+                        <button
+                          className="btn btn-outline-primary"
+                          onClick={handleOpenReportModal}
+                          disabled={isSubmitting}
+                        >
+                          {cooldownStatus.report.firstTime ? "Submit Your First Report" : "Report an Issue"}
+                        </button>
+                      )}
+                      {!cooldownStatus.report.canSubmit && (
+                        <p className="text-muted mt-2 small">
+                          Next submission available: {formatDate(cooldownStatus.report.nextAvailable)}
+                        </p>
+                      )}
+                      {cooldownStatus.report.firstTime && cooldownStatus.report.canSubmit && (
+                        <p className="text-success mt-2 small">
+                          <i className="fas fa-info-circle"></i> First-time reports can be submitted immediately!
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -202,13 +337,35 @@ const HelpSupportPage = () => {
                       <p className="card-text">
                         Rate your experience and share your suggestions with us. We value your feedback!
                       </p>
-                      <button
-                        className="btn btn-outline-primary"
-                        onClick={() => setShowModalB(true)}
-                        disabled={isSubmitting}
-                      >
-                        Provide Feedback
-                      </button>
+                      {!cooldownStatus.feedback.canSubmit ? (
+                        <CooldownTooltip type="feedback">
+                          <button
+                            className="btn btn-outline-primary"
+                            disabled
+                            style={{ cursor: 'not-allowed' }}
+                          >
+                            Provide Feedback
+                          </button>
+                        </CooldownTooltip>
+                      ) : (
+                        <button
+                          className="btn btn-outline-primary"
+                          onClick={handleOpenFeedbackModal}
+                          disabled={isSubmitting}
+                        >
+                          {cooldownStatus.feedback.firstTime ? "Submit Your First Feedback" : "Provide Feedback"}
+                        </button>
+                      )}
+                      {!cooldownStatus.feedback.canSubmit && (
+                        <p className="text-muted mt-2 small">
+                          Next submission available: {formatDate(cooldownStatus.feedback.nextAvailable)}
+                        </p>
+                      )}
+                      {cooldownStatus.feedback.firstTime && cooldownStatus.feedback.canSubmit && (
+                        <p className="text-success mt-2 small">
+                          <i className="fas fa-info-circle"></i> First-time feedback can be submitted immediately!
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -230,7 +387,9 @@ const HelpSupportPage = () => {
                     alt="Report Issue Icon"
                     style={{ width: '70px', height: '70px', marginBottom: '10px' }}
                   />
-                  <h5 className="modal-title text-center">Something Went Wrong</h5>
+                  <h5 className="modal-title text-center">
+                    {cooldownStatus.report.firstTime ? "Submit Your First Report" : "Something Went Wrong"}
+                  </h5>
                 </div>
                 <button 
                   type="button" 
@@ -244,6 +403,11 @@ const HelpSupportPage = () => {
                 />
               </div>
               <div className="modal-body">
+                {cooldownStatus.report.firstTime && (
+                  <div className="alert alert-info mb-3" role="alert">
+                    <i className="fas fa-info-circle me-2"></i> This is your first report. After submission, you'll need to wait 3 days before submitting another one.
+                  </div>
+                )}
                 <textarea
                   className="form-control mb-3"
                   placeholder="Describe the issue (up to 60 characters)"
@@ -304,7 +468,9 @@ const HelpSupportPage = () => {
                     alt="Feedback Icon"
                     style={{ width: '70px', height: '70px', marginBottom: '10px' }}
                   />
-                  <h5 className="modal-title text-center">Help Us Improve</h5>
+                  <h5 className="modal-title text-center">
+                    {cooldownStatus.feedback.firstTime ? "Submit Your First Feedback" : "Help Us Improve"}
+                  </h5>
                 </div>
                 <button 
                   type="button" 
@@ -319,6 +485,11 @@ const HelpSupportPage = () => {
                 />
               </div>
               <div className="modal-body">
+                {cooldownStatus.feedback.firstTime && (
+                  <div className="alert alert-info mb-3" role="alert">
+                    <i className="fas fa-info-circle me-2"></i> This is your first feedback. After submission, you'll need to wait 3 days before submitting another one.
+                  </div>
+                )}
                 <div className="mb-4">
                   <label className="form-label d-block text-center">Rate your experience:</label>
                   <div className="d-flex justify-content-center">
