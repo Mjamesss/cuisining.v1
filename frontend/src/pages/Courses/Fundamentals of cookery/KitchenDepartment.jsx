@@ -9,10 +9,9 @@ const Breadcrumb = () => {
       marginBottom: "40px", 
       paddingTop: "30px",
       fontSize: "15px",
-      marginLeft: "65px"
+      marginLeft: "45px"
     }}>
       <ol className="breadcrumb" style={{ 
-        backgroundColor: "transparent", 
         padding: 0,
         margin: 0
       }}>
@@ -26,16 +25,18 @@ const Breadcrumb = () => {
   );
 };
 
-const Quiz = () => {
+const Quiz = ({ onQuizComplete }) => {
   const [quizState, setQuizState] = useState('idle'); // 'idle', 'rules', 'playing', 'finished'
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [timeLeft, setTimeLeft] = useState(10);
   const [timerActive, setTimerActive] = useState(false);
-  const [reviewTime, setReviewTime] = useState(3); // New state for review time
+  const [reviewTime, setReviewTime] = useState(3);
+  const [shuffledQuestions, setShuffledQuestions] = useState([]);
+  const [shuffledOptions, setShuffledOptions] = useState([]);
 
-  const questions = [
+  const allQuestions = [
     {
       question: "What is the Capital of Pakistan?",
       options: ["New York", "Islamabad", "Paris", "Peshawar"],
@@ -63,6 +64,23 @@ const Quiz = () => {
     }
   ];
 
+  // Function to shuffle an array using Fisher-Yates algorithm
+  const shuffleArray = (array) => {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  };
+
+  // Shuffle options for the current question
+  const shuffleCurrentOptions = () => {
+    if (shuffledQuestions.length > 0 && currentQuestion < shuffledQuestions.length) {
+      setShuffledOptions(shuffleArray(shuffledQuestions[currentQuestion].options));
+    }
+  };
+
   // Timer effect for question time
   useEffect(() => {
     let timer;
@@ -85,13 +103,14 @@ const Quiz = () => {
     return () => clearTimeout(reviewTimer);
   }, [reviewTime, selectedAnswer]);
 
-  // Reset timers when question changes
+  // Reset timers and shuffle options when question changes
   useEffect(() => {
     if (quizState === 'playing') {
       setTimeLeft(10);
       setReviewTime(3);
       setTimerActive(true);
       setSelectedAnswer(null);
+      shuffleCurrentOptions();
     }
   }, [currentQuestion, quizState]);
 
@@ -103,10 +122,16 @@ const Quiz = () => {
 
   const moveToNextQuestion = () => {
     const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < questions.length) {
+    if (nextQuestion < shuffledQuestions.length) {
       setCurrentQuestion(nextQuestion);
     } else {
       setQuizState('finished');
+      onQuizComplete(score); // Notify parent component of quiz completion with score
+      
+      // Save to localStorage if perfect score
+      if (score === allQuestions.length) {
+        localStorage.setItem('quizPerfectScore', 'true');
+      }
     }
   };
 
@@ -117,7 +142,7 @@ const Quiz = () => {
     setTimerActive(false);
     setReviewTime(3); // Start review period
     
-    if (option === questions[currentQuestion].correctAnswer) {
+    if (option === shuffledQuestions[currentQuestion].correctAnswer) {
       setScore(score + 1);
     }
   };
@@ -127,6 +152,9 @@ const Quiz = () => {
   };
 
   const startPlaying = () => {
+    // Shuffle questions when starting the quiz
+    const shuffled = shuffleArray(allQuestions);
+    setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
     setQuizState('playing');
@@ -137,6 +165,9 @@ const Quiz = () => {
   };
 
   const restartQuiz = () => {
+    // Shuffle questions again when restarting
+    const shuffled = shuffleArray(allQuestions);
+    setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
     setQuizState('playing');
@@ -147,7 +178,7 @@ const Quiz = () => {
   const modalHeight = '500px';
 
   const modalStyle = {
-position: 'fixed',
+    position: 'fixed',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
@@ -174,28 +205,22 @@ position: 'fixed',
 
   return (
     <>
-      {/* Quiz Button  */}
+      {/* Quiz Button */}
       {quizState === 'idle' && (
-        <div style={{
-          textAlign: 'center',
-          margin: '20px 0'
-        }}>
-          <button 
-            onClick={startQuiz}
-            style={{
-              padding: '12px 24px',
-              backgroundColor: '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              fontSize: '18px',
-              cursor: 'pointer',
-              transition: 'background-color 0.3s'
-            }}
-          >
-            Qui<span style={{ fontWeight: "bold", color: "#ffffff", fontFamily: "'Nunito', sans-serif"}}>Zining</span>
-          </button>
-        </div>
+        <button onClick={startQuiz} style={{ padding: '30px 30px 30px 100px', backgroundColor: '#ffffff', height: 'auto', minHeight: '150px', color: '#000000', fontWeight: "500", border: 'none', borderRadius: '15px', cursor: 'pointer', transition: 'background-color 0.3s', width: '100%', marginTop: '20px', textAlign: 'left', display: 'flex', flexDirection: 'column', boxSizing: 'border-box', position: 'relative' }}>
+          {/* Custom Image Icon */}
+          <div style={{ position: 'absolute', left: '5px', top: '50%', transform: 'translateY(-50%)', width: '100px', height: '100px', backgroundImage: 'url(/quizicon.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
+          
+          {/* Text Content */}
+          <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '10px' }}>
+            <span style={{ color: "#BCC444", fontSize: "41px", fontWeight: "750", fontFamily: "'Nunito', sans-serif", lineHeight: '1' }}>Q</span>
+            <span style={{ color: "#000000", fontSize: "30px", fontWeight: "750", fontFamily: "'Nunito', sans-serif", lineHeight: '1' }}>uizining</span>
+          </div>
+          <div style={{ fontSize: "14px", lineHeight: "1.4", color: "#000000",marginLeft: '5px'}}>
+            <p style={{ margin: '0 0 5px ' }}>Heads up! You need to finish the quiz before you can continue to the next lesson.</p>
+            <p style={{ color: "#9aa045", fontStyle: "italic", fontSize: "12px", margin: 0 }}>Click me! to go to the quiz</p>
+          </div>
+        </button>
       )}
 
       {/* Modal Overlay - Only shown when modal is active */}
@@ -214,14 +239,14 @@ position: 'fixed',
               {quizState === 'rules' && (
                 <>
                   <div>
-                    <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#333' }}>Quiz Rules</h2>
-                    <ul style={{ marginBottom: '20px', paddingLeft: '20px' }}>
-                      <li style={{ marginBottom: '10px' }}>You have 10 seconds to answer each question</li>
-                      <li style={{ marginBottom: '10px' }}>After answering, you'll have 5 seconds to review</li>
-                      <li style={{ marginBottom: '10px' }}>Correct answers will be highlighted in green</li>
-                      <li style={{ marginBottom: '10px' }}>Wrong answers will be highlighted in red</li>
-                      <li style={{ marginBottom: '10px' }}>You can't change your answer after selection</li>
-                      <li>Your score will be shown at the end</li>
+                    <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#000000', fontFamily: "'Nunito', sans-serif", fontWeight: "750", marginTop: "15px" }}>Quiz <span style={{ color: '#adb44e' }}>Rules</span></h2>
+                    <ul style={{ marginBottom: '20px', paddingLeft: '0', textAlign: 'center', marginTop: '50px', listStylePosition: 'inside', listStyleType: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <li style={{ marginBottom: '10px', position: 'relative', paddingLeft: '20px', textAlign: 'left', width: 'fit-content' }}><span style={{ position: 'absolute', left: '0', color: '#adb44e' }}>•</span>You have 10 seconds to answer each question</li>
+                      <li style={{ marginBottom: '10px', position: 'relative', paddingLeft: '20px', textAlign: 'left', width: 'fit-content' }}><span style={{ position: 'absolute', left: '0', color: '#adb44e' }}>•</span>After answering, you'll have 5 seconds to review</li>
+                      <li style={{ marginBottom: '10px', position: 'relative', paddingLeft: '20px', textAlign: 'left', width: 'fit-content' }}><span style={{ position: 'absolute', left: '0', color: '#adb44e' }}>•</span>Correct answers will be highlighted in green</li>
+                      <li style={{ marginBottom: '10px', position: 'relative', paddingLeft: '20px', textAlign: 'left', width: 'fit-content' }}><span style={{ position: 'absolute', left: '0', color: '#adb44e' }}>•</span>Wrong answers will be highlighted in red</li>
+                      <li style={{ marginBottom: '10px', position: 'relative', paddingLeft: '20px', textAlign: 'left', width: 'fit-content' }}><span style={{ position: 'absolute', left: '0', color: '#adb44e' }}>•</span>You can't change your answer after selection</li>
+                      <li style={{ position: 'relative', paddingLeft: '20px', textAlign: 'left', width: 'fit-content' }}><span style={{ position: 'absolute', left: '0', color: '#adb44e' }}>•</span>Your score will be shown at the end</li>
                     </ul>
                   </div>
                   <button 
@@ -230,7 +255,7 @@ position: 'fixed',
                       display: 'block',
                       margin: '20px auto 0',
                       padding: '10px 20px',
-                      backgroundColor: '#4CAF50',
+                      backgroundColor: '#adb44e',
                       color: 'white',
                       border: 'none',
                       borderRadius: '5px',
@@ -243,13 +268,13 @@ position: 'fixed',
                 </>
               )}
 
-              {quizState === 'playing' && (
+              {quizState === 'playing' && shuffledQuestions.length > 0 && shuffledOptions.length > 0 && (
                 <>
                   <div>
                     <div style={{
                       height: '10px',
                       backgroundColor: '#e0e0e0',
-                      borderRadius: '5px',
+                      borderRadius: '15px',
                       marginBottom: '20px',
                       overflow: 'hidden'
                     }}>
@@ -257,24 +282,26 @@ position: 'fixed',
                         height: '100%',
                         width: `${selectedAnswer === null ? (timeLeft / 10) * 100 : (reviewTime / 3) * 100}%`,
                         backgroundColor: selectedAnswer === null 
-                          ? (timeLeft > 3 ? '#4CAF50' : '#f44336')
-                          : '#2196F3',
+                          ? (timeLeft > 3 ? '#c1c857' : '#da420e')
+                          : '#2196f3',
                         transition: 'width 1s linear, background-color 0.3s'
                       }}></div>
                     </div>
                     
                     <h1 style={{
                       textAlign: 'center',
-                      color: '#333',
+                      color: '#000000',
                       marginBottom: '20px',
-                      fontSize: '24px'
+                      fontSize: '30px',
+                      fontFamily: "'Nunito', sans-serif",
+                      fontWeight: "750",
                     }}>Quiz App</h1>
                     <h2 style={{
-                      color: '#444',
+                      color: '#333',
                       marginBottom: '20px',
                       fontSize: '18px',
-                      minHeight: '60px'
-                    }}>{questions[currentQuestion].question}</h2>
+                      minHeight: '60px',
+                    }}>{shuffledQuestions[currentQuestion].question}</h2>
                     
                     <div style={{
                       display: 'flex',
@@ -282,7 +309,7 @@ position: 'fixed',
                       gap: '10px',
                       marginBottom: '20px'
                     }}>
-                      {questions[currentQuestion].options.map((option, index) => {
+                      {shuffledOptions.map((option, index) => {
                         let buttonStyle = {
                           padding: '12px',
                           backgroundColor: '#f0f0f0',
@@ -294,10 +321,10 @@ position: 'fixed',
                         };
 
                         if (selectedAnswer) {
-                          if (option === questions[currentQuestion].correctAnswer) {
+                          if (option === shuffledQuestions[currentQuestion].correctAnswer) {
                             buttonStyle.backgroundColor = '#a5d6a7';
                             buttonStyle.color = '#2e7d32';
-                          } else if (option === selectedAnswer && option !== questions[currentQuestion].correctAnswer) {
+                          } else if (option === selectedAnswer && option !== shuffledQuestions[currentQuestion].correctAnswer) {
                             buttonStyle.backgroundColor = '#ffab91';
                             buttonStyle.color = '#c62828';
                           }
@@ -326,12 +353,12 @@ position: 'fixed',
                       color: '#666',
                       fontSize: '14px'
                     }}>
-                      Question {currentQuestion + 1} of {questions.length}
+                      Question {currentQuestion + 1} of {shuffledQuestions.length}
                     </div>
                     <div style={{
                       color: selectedAnswer === null 
-                        ? (timeLeft > 3 ? '#4CAF50' : '#f44336')
-                        : '#2196F3',
+                        ? (timeLeft > 3 ? '#c1c857' : '#da420e')
+                        : '#2196f3',
                       fontWeight: 'bold'
                     }}>
                       {selectedAnswer === null ? `${timeLeft}s` : `Review: ${reviewTime}s`}
@@ -352,13 +379,19 @@ position: 'fixed',
                   <h2 style={{
                     color: '#333',
                     marginBottom: '20px',
-                    fontSize: '24px'
-                  }}>Your Score: {score}/{questions.length}</h2>
+                    fontSize: '24px',
+                    fontFamily: "'Nunito', sans-serif",
+                    fontWeight: "700",
+                  }}>Your Score: {score}/{shuffledQuestions.length}</h2>
                   <p style={{
                     fontSize: '24px',
-                    color: '#4CAF50',
-                    marginBottom: '30px'
-                  }}>Done!</p>
+                    color: score === shuffledQuestions.length ? '#4CAF50' : '#da420e',
+                    marginBottom: '30px',
+                    fontFamily: "'Nunito', sans-serif",
+                    fontWeight: "750",
+                  }}>
+                    {score === shuffledQuestions.length ? 'Perfect Score!' : 'Try Again!'}
+                  </p>
                   <div style={{
                     display: 'flex',
                     justifyContent: 'center',
@@ -369,7 +402,7 @@ position: 'fixed',
                       onClick={restartQuiz}
                       style={{
                         padding: '10px 20px',
-                        backgroundColor: '#4CAF50',
+                        backgroundColor: '#adb44e',
                         color: 'white',
                         border: 'none',
                         borderRadius: '5px',
@@ -384,7 +417,7 @@ position: 'fixed',
                       onClick={closeQuiz}
                       style={{
                         padding: '10px 20px',
-                        backgroundColor: '#f44336',
+                        backgroundColor: '#da420e',
                         color: 'white',
                         border: 'none',
                         borderRadius: '5px',
@@ -407,6 +440,69 @@ position: 'fixed',
 };
 
 const KitchenDepartment = () => {
+  // Track whether user has started interacting with the page
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [perfectScore, setPerfectScore] = useState(() => {
+    // Check localStorage for existing perfect score
+    return localStorage.getItem('quizPerfectScore') === 'true';
+  });
+
+  // Set up interaction tracking when component mounts
+  useEffect(() => {
+    const markAsInteracted = () => {
+      setHasInteracted(true);
+    };
+
+    // Track any user interaction with the page
+    window.addEventListener('click', markAsInteracted);
+    window.addEventListener('keydown', markAsInteracted);
+    window.addEventListener('scroll', markAsInteracted);
+
+    return () => {
+      window.removeEventListener('click', markAsInteracted);
+      window.removeEventListener('keydown', markAsInteracted);
+      window.removeEventListener('scroll', markAsInteracted);
+    };
+  }, []);
+
+  // Handle beforeunload to prevent accidental refresh - fixed alert logic
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      // Only show the alert if the user has interacted with the page
+      // and hasn't completed the quiz with a perfect score
+      if (hasInteracted && !perfectScore) {
+        // Standard way to trigger the confirmation dialog
+        e.preventDefault();
+        // Message shown in most browsers (though some use their own default text)
+        e.returnValue = 'Changes you made may not be saved. Are you sure you want to leave this page?';
+        return e.returnValue;
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [hasInteracted, quizCompleted, perfectScore]);
+
+  // Handle quiz completion
+  const handleQuizComplete = (score) => {
+    setQuizCompleted(true);
+    if (score === 5) {
+      setPerfectScore(true);
+    }
+  };
+
+  // Handle next lesson button click
+  const handleNextLessonClick = (e) => {
+    if (!perfectScore) {
+      e.preventDefault();
+      alert('You need to complete the quiz with a perfect score (5/5) to proceed to the next lesson.');
+    }
+  };
+
   return (
     <>
       <style>
@@ -444,6 +540,11 @@ const KitchenDepartment = () => {
               margin-top: 30px !important;
               padding-right: 20px !important;
             }
+            .quiz-button-container {
+              margin-left: 20px !important;
+              margin-top: 20px !important;
+              width: calc(100% - 40px) !important;
+            }
           }
         `}
       </style>
@@ -461,25 +562,25 @@ const KitchenDepartment = () => {
           }}>
             <div style={{ flex: 2 }}>
               <div className="content-container" style={{ 
-                margin: "0 0 0 90px",
+                margin: "0 0 0 50px",
                 padding: "0 20px 0 0",
                 marginTop: "10px"
               }}>
                 <h1 className="unit-title" style={{
                   fontSize: "26px",
-                  fontWeight: "800",
+                  fontWeight: "750",
                   margin: "0 0 30px 0",
                   fontFamily: "'Nunito', sans-serif",
                   color: "#000000",
                   textAlign: "left"
                 }}>
-                  UNIT 1: Lesson 1 & 2 Kitchen Department and The Kitchen Staff
+                  <span style={{ color: "#adb44e", }}>UNIT 1:</span> Lesson 1 & 2 Kitchen Department and The Kitchen Staff
                 </h1>
               </div>
 
               <div className="video-container" style={{ 
                 maxWidth: "800px",
-                margin: "0 0 30px 90px",
+                margin: "0 0 30px 50px",
                 padding: "0 20px 0 0"
               }}>
                 <div style={{
@@ -509,7 +610,7 @@ const KitchenDepartment = () => {
 
               <div className="video-description" style={{
                 maxWidth: "800px",
-                margin: "0 0 40px 90px",
+                margin: "0 0 40px 50px",
                 padding: "0",
                 fontFamily: "'Poppins', sans-serif;",
                 lineHeight: "1.6",
@@ -541,60 +642,88 @@ const KitchenDepartment = () => {
               </div>
             </div>
             
-            <div className="right-side-container" style={{
+            <div style={{
               flex: 1,
-              marginLeft: "40px",
-              padding: "20px",
-              backgroundColor: "#f8f9fa",
-              borderRadius: "10px",
-              height: "520px",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.1)"
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start'
             }}>
-              <h3 style={{
-                fontFamily: "'Nunito', sans-serif",
-                fontSize: "24px",
-                color: "#333",
-                marginBottom: "20px",
-                borderBottom: "2px solid #ddd",
-                paddingBottom: "10px",
-                fontWeight: "750",
+              {/* Right side container */}
+              <div className="right-side-container" style={{
+                marginLeft: "1px",
+                marginTop: "10px",
+                padding: "20px",
+                backgroundColor: "#c7cd67",
+                borderRadius: "15px",
+                height: "500px",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                width: '100%'
               }}>
-                Lesson Contents
-              </h3>
-              <ul style={{
-                listStyleType: "none",
-                padding: 0,
-                margin: 0,
-                fontSize: "16px",
+                <h3 style={{
+                  fontFamily: "'Nunito', sans-serif",
+                  fontSize: "24px",
+                  color: "#333",
+                  marginBottom: "20px",
+                  borderBottom: "1px solid #000000",
+                  paddingBottom: "10px",
+                  fontWeight: "750",
+                }}>
+                  Lesson Contents
+                </h3>
+                <ul style={{
+                  listStyleType: "none",
+                  padding: 0,
+                  margin: 0,
+                  fontSize: "16px",
+                }}>
+                  <li style={{ padding: "8px 0",  }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}>Introduction</a>
+                  </li>
+                  <li style={{ padding: "8px 0",  }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Organizational Structure in the Kitchen</a>
+                  </li>
+                  <li style={{ padding: "8px 0",  }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Knowing your Role as a Kitchen Staff</a>
+                  </li>
+                  <li style={{ padding: "8px 0",  }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 3: Duties and Responsibilities of a Kitchen Staff</a>
+                  </li>
+                  <li style={{ padding: "8px 0" }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 4: Professional Work Habits and Skills of a Kitchen Staff</a>
+                  </li>
+                </ul>
+              </div>
+              
+              {/* Quiz Button Container - Now positioned directly below the right-side-container */}
+              <div className="quiz-button-container" style={{
+                width: '100%'
               }}>
-                <li style={{ padding: "8px 0", borderBottom: "1px solid #eee" }}>
-                  <a style={{ textDecoration: "none", color: "#000000" }}>Introduction</a>
-                </li>
-                <li style={{ padding: "8px 0", borderBottom: "1px solid #eee" }}>
-                  <a style={{ textDecoration: "none", color: "#000000" }}> TOPIC 1: Organizational Structure in the Kitchen</a>
-                </li>
-                <li style={{ padding: "8px 0", borderBottom: "1px solid #eee" }}>
-                  <a style={{ textDecoration: "none", color: "#000000" }}> TOPIC 2: Knowing your Role as a Kitchen Staff</a>
-                </li>
-                <li style={{ padding: "8px 0", borderBottom: "1px solid #eee" }}>
-                  <a style={{ textDecoration: "none", color: "#000000" }}> TOPIC 3: Duties and Responsibilities of a Kitchen Staff</a>
-                </li>
-                <li style={{ padding: "8px 0" }}>
-                  <a style={{ textDecoration: "none", color: "#000000" }}> TOPIC 4: Professional Work Habits and Skills of a Kitchen Staff</a>
-                </li>
-              </ul>
+                <Quiz onQuizComplete={handleQuizComplete} />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="d-flex justify-content-end p5" style={{ marginBottom: "100px" }}>
-        <button className="cbtn cbtn-secondary done-button" style={{ width: "150px", height: "50px", marginRight: "105px" }}>
-          Done
+      <div className="d-flex justify-content-end p5" style={{ marginBottom: "30px" }}>
+        <button 
+          className="cbtn cbtn-secondary done-button" 
+          style={{ 
+            marginTop: "-45px", 
+            width: "170px", 
+            height: "60px", 
+            marginRight: "35px", 
+            borderRadius: "15px",
+            opacity: perfectScore ? 1 : 0.6,
+            cursor: perfectScore ? 'pointer' : 'not-allowed'
+          }}
+          onClick={handleNextLessonClick}
+          disabled={!perfectScore}
+        >
+          Next Lesson
         </button>
       </div>
       
-      <Quiz />
       <Footer/>
     </>
   );

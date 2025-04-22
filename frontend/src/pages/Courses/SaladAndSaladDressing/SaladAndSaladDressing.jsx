@@ -27,7 +27,7 @@ const SaladAndSaladDressing = () => {
             <h1 style={{
               fontSize: "26px", fontWeight: "800", margin: "0 0 30px 0",
               fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "center", color: "#000000" }}>
-                SALAD AND <span style={{color: "#C1B857"}}>SALAD DRESSINGS</span></h1>
+                SALAD AND <span style={{color: "#ADB44E"}}>SALAD DRESSINGS</span></h1>
             <p className="" 
                        style={{ marginLeft: "5%", marginBottom: "50px", marginTop:"1%", fontSize:"18px", maxWidth:"87%", lineHeight: "1.6", textAlign: "center",}}>
                               In this course, we will present to you the knowledge and skills that you must have in order to perform the 
