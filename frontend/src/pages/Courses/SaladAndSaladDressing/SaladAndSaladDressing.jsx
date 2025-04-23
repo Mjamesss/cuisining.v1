@@ -1,15 +1,51 @@
+import { useState } from "react";
 import "../../../fw-cuisining.css";
 import Navbar from '../../../components/Navbar';
 
 const SaladAndSaladDressing = () => {
-  // Define the JSON object for lesson lock status
-  // true means unlocked, false means locked
-  const lessonLockStatus = {
+  // State for lesson lock status
+  const [lessonLockStatus, setLessonLockStatus] = useState({
     SaladTypes: true, // First lesson always unlocked
     KitchenSafety: false,
     SaladDressings: false,
     PreparingSalad: false,
     PlatingSalad: false
+  });
+
+  // State for lesson completion status
+  const [lessonCompletionStatus, setLessonCompletionStatus] = useState({
+    SaladTypes: true,
+    KitchenSafety: false,
+    SaladDressings: false,
+    PreparingSalad: false,
+    PlatingSalad: false
+  });
+
+  // Function to handle lesson completion
+  const completeLesson = (lessonName) => {
+    // Mark the lesson as completed
+    setLessonCompletionStatus(prev => ({
+      ...prev,
+      [lessonName]: true
+    }));
+
+    // Unlock the next lesson if available
+    const lessonsOrder = [
+      'SaladTypes',
+      'KitchenSafety',
+      'SaladDressings',
+      'PreparingSalad',
+      'PlatingSalad'
+    ];
+    
+    const currentIndex = lessonsOrder.indexOf(lessonName);
+    if (currentIndex < lessonsOrder.length - 1) {
+      const nextLesson = lessonsOrder[currentIndex + 1];
+      setLessonLockStatus(prev => ({
+        ...prev,
+        [nextLesson]: true
+      }));
+    }
   };
 
   return (
@@ -26,17 +62,17 @@ const SaladAndSaladDressing = () => {
           <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px" }}>
             <h1 style={{
               fontSize: "26px", fontWeight: "800", margin: "0 0 30px 0",
-              fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "center", color: "#000000" }}>
+              fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "center" }}>
                 SALAD AND <span style={{color: "#ADB44E"}}>SALAD DRESSINGS</span></h1>
             <p className="" 
-                       style={{ marginLeft: "5%", marginBottom: "50px", marginTop:"1%", fontSize:"18px", maxWidth:"87%", lineHeight: "1.6", textAlign: "center",}}>
-                              In this course, we will present to you the knowledge and skills that you must have in order to perform the 
-                              procedures for preparing appetizers and hors d'oeuvres properly.
+              style={{ marginLeft: "5%", marginBottom: "50px", marginTop:"1%", fontSize:"18px", maxWidth:"87%", lineHeight: "1.6", textAlign: "center"}}>
+              In this course, we will present to you the knowledge and skills that you must have in order to perform the 
+              procedures for preparing appetizers and hors d'oeuvres properly.
             </p>
 
             <h1 style={{
               fontSize: "26px", fontWeight: "800", margin: "0 0 50px 0",
-              fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "left", }}>
+              fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "left" }}>
                 UNIT 1: Introduction to Salads and Salad Dressings</h1>
               
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))", justifyContent: "left",
@@ -45,7 +81,11 @@ const SaladAndSaladDressing = () => {
               <a href={lessonLockStatus.SaladTypes ? "SaladTypes" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.SaladTypes ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745048540/crsd1_eduohm.png"
                   width="100%" height="auto" alt="SaladTypes" />
-                {!lessonLockStatus.SaladTypes && (
+                {lessonCompletionStatus.SaladTypes ? (
+                  <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
+                  </div>
+                ) : !lessonLockStatus.SaladTypes && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -70,14 +110,18 @@ const SaladAndSaladDressing = () => {
                   backgroundColor: lessonLockStatus.SaladTypes ? "" : "#cccccc",
                   cursor: lessonLockStatus.SaladTypes ? "pointer" : "not-allowed"
                 }}>
-                  {lessonLockStatus.SaladTypes ? "LESSON 1" : "LOCKED"}
+                  {lessonCompletionStatus.SaladTypes ? "COMPLETED" : lessonLockStatus.SaladTypes ? "LESSON 1" : "LOCKED"}
                 </button>
               </a>
 
               <a href={lessonLockStatus.KitchenSafety ? "KitchenSafety" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745051476/crsd2_f9glge.png"
                   width="100%" height="auto" alt="KitchenSafety" />
-                {!lessonLockStatus.KitchenSafety && (
+                {lessonCompletionStatus.KitchenSafety ? (
+                  <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
+                  </div>
+                ) : !lessonLockStatus.KitchenSafety && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -102,7 +146,7 @@ const SaladAndSaladDressing = () => {
                   backgroundColor: lessonLockStatus.KitchenSafety ? "" : "#cccccc",
                   cursor: lessonLockStatus.KitchenSafety ? "pointer" : "not-allowed"
                 }}>
-                  {lessonLockStatus.KitchenSafety ? "LESSON 2" : "LOCKED"}
+                  {lessonCompletionStatus.KitchenSafety ? "COMPLETED" : lessonLockStatus.KitchenSafety ? "LESSON 2" : "LOCKED"}
                 </button>
               </a>
             </div>
@@ -122,7 +166,11 @@ const SaladAndSaladDressing = () => {
               <a href={lessonLockStatus.SaladDressings ? "SaladDressings" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.SaladDressings ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745048540/crsd3_b2yyqg.png"
                   width="100%" height="auto" alt="SaladDressings" />
-                {!lessonLockStatus.SaladDressings && (
+                {lessonCompletionStatus.SaladDressings ? (
+                  <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
+                  </div>
+                ) : !lessonLockStatus.SaladDressings && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -147,14 +195,18 @@ const SaladAndSaladDressing = () => {
                   backgroundColor: lessonLockStatus.SaladDressings ? "" : "#cccccc",
                   cursor: lessonLockStatus.SaladDressings ? "pointer" : "not-allowed"
                 }}>
-                  {lessonLockStatus.SaladDressings ? "LESSON 1" : "LOCKED"}
+                  {lessonCompletionStatus.SaladDressings ? "COMPLETED" : lessonLockStatus.SaladDressings ? "LESSON 1" : "LOCKED"}
                 </button>
               </a>
 
               <a href={lessonLockStatus.PreparingSalad ? "PreparingSalad" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PreparingSalad ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745048545/crsd4_fjyjsq.png"
                   width="100%" height="auto" alt="PreparingSalad" />
-                {!lessonLockStatus.PreparingSalad && (
+                {lessonCompletionStatus.PreparingSalad ? (
+                  <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
+                  </div>
+                ) : !lessonLockStatus.PreparingSalad && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -179,14 +231,18 @@ const SaladAndSaladDressing = () => {
                   backgroundColor: lessonLockStatus.PreparingSalad ? "" : "#cccccc",
                   cursor: lessonLockStatus.PreparingSalad ? "pointer" : "not-allowed"
                 }}>
-                  {lessonLockStatus.PreparingSalad ? "LESSON 2" : "LOCKED"}
+                  {lessonCompletionStatus.PreparingSalad ? "COMPLETED" : lessonLockStatus.PreparingSalad ? "LESSON 2" : "LOCKED"}
                 </button>
               </a>
 
               <a href={lessonLockStatus.PlatingSalad ? "PlatingSalad" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PlatingSalad ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745048539/crsd5_nygzgc.png"
                   width="100%" height="auto" alt="PlatingSalad" />
-                {!lessonLockStatus.PlatingSalad && (
+                {lessonCompletionStatus.PlatingSalad ? (
+                  <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
+                  </div>
+                ) : !lessonLockStatus.PlatingSalad && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -211,7 +267,7 @@ const SaladAndSaladDressing = () => {
                   backgroundColor: lessonLockStatus.PlatingSalad ? "" : "#cccccc",
                   cursor: lessonLockStatus.PlatingSalad ? "pointer" : "not-allowed"
                 }}>
-                  {lessonLockStatus.PlatingSalad ? "LESSON 3" : "LOCKED"}
+                  {lessonCompletionStatus.PlatingSalad ? "COMPLETED" : lessonLockStatus.PlatingSalad ? "LESSON 3" : "LOCKED"}
                 </button>
               </a>
             </div>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "../../../fw-cuisining.css";
 import Navbar from '../../../components/Navbar';
 
@@ -16,13 +17,51 @@ const Breadcrumb = () => {
 const FundamentalsOfCookery = () => {
   // Define the JSON object for lesson lock status
   // true means unlocked, false means locked
-  const lessonLockStatus = {
+  const [lessonLockStatus, setLessonLockStatus] = useState({
     KitchenDepartment: true, // First lesson always unlocked
     CommonKitchenTools: false,
     MeasurementsAndConversion: false,
     FoodSafety: false,
     OccupationalHealthAndSafety: false,
     KnifeSkills: false
+  });
+
+  // Track completion status for each lesson
+  const [lessonCompletionStatus, setLessonCompletionStatus] = useState({
+    KitchenDepartment: false,
+    CommonKitchenTools: false,
+    MeasurementsAndConversion: false,
+    FoodSafety: false,
+    OccupationalHealthAndSafety: false,
+    KnifeSkills: false
+  });
+
+  // Function to handle lesson completion
+  const completeLesson = (lessonName) => {
+    // Mark the lesson as completed
+    setLessonCompletionStatus(prev => ({
+      ...prev,
+      [lessonName]: true
+    }));
+
+    // Unlock the next lesson if available
+    const lessonsOrder = [
+      'KitchenDepartment',
+      'CommonKitchenTools',
+      'MeasurementsAndConversion',
+      'FoodSafety',
+      'OccupationalHealthAndSafety',
+      'KnifeSkills'
+    ];
+    
+    const currentIndex = lessonsOrder.indexOf(lessonName);
+    if (currentIndex < lessonsOrder.length - 1) {
+      const nextLesson = lessonsOrder[currentIndex + 1];
+      setLessonLockStatus(prev => ({
+        ...prev,
+        [nextLesson]: true
+      }));
+    }
   };
 
   return (
@@ -61,7 +100,11 @@ const FundamentalsOfCookery = () => {
               <a href={lessonLockStatus.KitchenDepartment ? "KitchenDepartment" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KitchenDepartment ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066397/crsh1_x3vt3r.png"
                   width="100%" height="auto" alt="KitchenDepartment" />
-                {!lessonLockStatus.KitchenDepartment && (
+                {lessonCompletionStatus.KitchenDepartment ? (
+                  <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
+                  </div>
+                ) : !lessonLockStatus.KitchenDepartment && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -86,7 +129,7 @@ const FundamentalsOfCookery = () => {
                   backgroundColor: lessonLockStatus.KitchenDepartment ? "" : "#cccccc",
                   cursor: lessonLockStatus.KitchenDepartment ? "pointer" : "not-allowed"
                 }}>
-                  {lessonLockStatus.KitchenDepartment ? "LESSON 1" : "LOCKED"}
+                  {lessonCompletionStatus.KitchenDepartment ? "COMPLETED" : lessonLockStatus.KitchenDepartment ? "LESSON 1" : "LOCKED"}
                 </button>
               </a>
             </div>
@@ -107,7 +150,11 @@ const FundamentalsOfCookery = () => {
               <a href={lessonLockStatus.CommonKitchenTools ? "CommonKitchenTools" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.CommonKitchenTools ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046797/crsl2_kn5wae.png"
                   width="100%" height="auto" alt="Measuring" />
-                {!lessonLockStatus.CommonKitchenTools && (
+                {lessonCompletionStatus.CommonKitchenTools ? (
+                  <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
+                  </div>
+                ) : !lessonLockStatus.CommonKitchenTools && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -132,14 +179,18 @@ const FundamentalsOfCookery = () => {
                   backgroundColor: lessonLockStatus.CommonKitchenTools ? "" : "#cccccc",
                   cursor: lessonLockStatus.CommonKitchenTools ? "pointer" : "not-allowed"
                 }}>
-                  {lessonLockStatus.CommonKitchenTools ? "LESSON 1" : "LOCKED"}
+                  {lessonCompletionStatus.CommonKitchenTools ? "COMPLETED" : lessonLockStatus.CommonKitchenTools ? "LESSON 1" : "LOCKED"}
                 </button>
               </a>
 
               <a href={lessonLockStatus.MeasurementsAndConversion ? "MeasurementsAndConversion" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.MeasurementsAndConversion ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046796/crsl3_dloi62.png"
                   width="100%" height="auto" alt="Mixing" />
-                {!lessonLockStatus.MeasurementsAndConversion && (
+                {lessonCompletionStatus.MeasurementsAndConversion ? (
+                  <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
+                  </div>
+                ) : !lessonLockStatus.MeasurementsAndConversion && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -164,14 +215,18 @@ const FundamentalsOfCookery = () => {
                   backgroundColor: lessonLockStatus.MeasurementsAndConversion ? "" : "#cccccc",
                   cursor: lessonLockStatus.MeasurementsAndConversion ? "pointer" : "not-allowed"
                 }}>
-                  {lessonLockStatus.MeasurementsAndConversion ? "LESSON 2" : "LOCKED"}
+                  {lessonCompletionStatus.MeasurementsAndConversion ? "COMPLETED" : lessonLockStatus.MeasurementsAndConversion ? "LESSON 2" : "LOCKED"}
                 </button>
               </a>
 
               <a href={lessonLockStatus.FoodSafety ? "FoodSafety" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.FoodSafety ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066397/crsh4_h5p6wu.png"
                   width="100%" height="auto" alt="Grilling Tools" />
-                {!lessonLockStatus.FoodSafety && (
+                {lessonCompletionStatus.FoodSafety ? (
+                  <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
+                  </div>
+                ) : !lessonLockStatus.FoodSafety && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -196,14 +251,18 @@ const FundamentalsOfCookery = () => {
                   backgroundColor: lessonLockStatus.FoodSafety ? "" : "#cccccc",
                   cursor: lessonLockStatus.FoodSafety ? "pointer" : "not-allowed"
                 }}>
-                  {lessonLockStatus.FoodSafety ? "LESSON 3" : "LOCKED"}
+                  {lessonCompletionStatus.FoodSafety ? "COMPLETED" : lessonLockStatus.FoodSafety ? "LESSON 3" : "LOCKED"}
                 </button>
               </a>
 
               <a href={lessonLockStatus.OccupationalHealthAndSafety ? "OccupationalHealthAndSafety" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.OccupationalHealthAndSafety ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066397/crsh5_vvoips.png"
                   width="100%" height="auto" alt="Cookware" />
-                {!lessonLockStatus.OccupationalHealthAndSafety && (
+                {lessonCompletionStatus.OccupationalHealthAndSafety ? (
+                  <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
+                  </div>
+                ) : !lessonLockStatus.OccupationalHealthAndSafety && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -228,14 +287,18 @@ const FundamentalsOfCookery = () => {
                   backgroundColor: lessonLockStatus.OccupationalHealthAndSafety ? "" : "#cccccc",
                   cursor: lessonLockStatus.OccupationalHealthAndSafety ? "pointer" : "not-allowed"
                 }}>
-                  {lessonLockStatus.OccupationalHealthAndSafety ? "LESSON 4" : "LOCKED"}
+                  {lessonCompletionStatus.OccupationalHealthAndSafety ? "COMPLETED" : lessonLockStatus.OccupationalHealthAndSafety ? "LESSON 4" : "LOCKED"}
                 </button>
               </a>
 
               <a href={lessonLockStatus.KnifeSkills ? "KnifeSkills" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KnifeSkills ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066397/crsh6_nnksyg.png"
                   width="100%" height="auto" alt="Appliances" />
-                {!lessonLockStatus.KnifeSkills && (
+                {lessonCompletionStatus.KnifeSkills ? (
+                  <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                    <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
+                  </div>
+                ) : !lessonLockStatus.KnifeSkills && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -260,7 +323,7 @@ const FundamentalsOfCookery = () => {
                   backgroundColor: lessonLockStatus.KnifeSkills ? "" : "#cccccc",
                   cursor: lessonLockStatus.KnifeSkills ? "pointer" : "not-allowed"
                 }}>
-                  {lessonLockStatus.KnifeSkills ? "LESSON 5" : "LOCKED"}
+                  {lessonCompletionStatus.KnifeSkills ? "COMPLETED" : lessonLockStatus.KnifeSkills ? "LESSON 5" : "LOCKED"}
                 </button>
               </a>
             </div>

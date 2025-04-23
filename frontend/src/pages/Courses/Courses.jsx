@@ -1,19 +1,88 @@
+import { useState, useEffect } from "react";
 import "../../fw-cuisining.css";
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import axios from 'axios';
 
 const Courses = () => {
-    // Define the JSON object for course lock status
-    // Now true means unlocked, false means locked
-    const courseLockStatus = {
-        FundamentalsOfCookery: true, // Always unlocked
-        PreparingAppetizers: true,
-        PreparingEggVegetable: true,
-        SaladAndSaladDressing: true,
-        PreparingSandwich: true,
-        FinalAssessment: false
-    };
+    // State for course lock status (from backend)
+    const [courseLockStatus, setCourseLockStatus] = useState({
+        FundamentalsOfCookery: false,
+        PreparingAppetizers: false,
+        PreparingEggVegetable: false,
+        SaladAndSaladDressing: false,
+        PreparingSandwich: false,
+        FinalAssessment: false,
+    });
 
+    // State for course completion status
+    const [courseCompletionStatus, setCourseCompletionStatus] = useState({
+        FundamentalsOfCookery: false,
+        PreparingAppetizers: false,
+        PreparingEggVegetable: false,
+        SaladAndSaladDressing: false,
+        PreparingSandwich: false,
+        FinalAssessment: false,
+    });
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+        // Get token from localStorage
+        const getToken = () => {
+            return localStorage.getItem('authToken');
+        };
+
+    // Fetch course status from backend
+    useEffect(() => {
+        const fetchCourseStatus = async () => {
+            try {
+                const token = getToken();
+                if (!token) return;
+                // Fetch lock status
+                const lockStatusResponse = await axios.get('http://localhost:5000/api/course-stats', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                
+                setCourseLockStatus(lockStatusResponse.data);
+
+                // If you have completion status endpoint, fetch it here
+                // const completionResponse = await axios.get('/api/course-completion', {...});
+                // setCourseCompletionStatus(completionResponse.data);
+
+            } catch (err) {
+                setError(err.response?.data?.message || err.message || 'Failed to fetch course status');
+                console.error('Fetch error:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCourseStatus();
+    }, []);
+
+    // Check if all courses except FinalAssessment are completed
+    const allCoursesCompleted = 
+        courseCompletionStatus.FundamentalsOfCookery &&
+        courseCompletionStatus.PreparingAppetizers &&
+        courseCompletionStatus.PreparingEggVegetable &&
+        courseCompletionStatus.SaladAndSaladDressing &&
+        courseCompletionStatus.PreparingSandwich;
+
+    if (loading) return (
+        <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+            <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    );
+
+    if (error) return (
+        <div className="alert alert-danger m-4">
+            Error: {error}
+        </div>
+    );
     return (
         <>
             <style>
@@ -41,6 +110,11 @@ const Courses = () => {
                     {/* FundamentalsOfCookery - always unlocked */}
                     <a href="FundamentalsOfCookery" style={{ position: "relative", opacity: courseLockStatus.FundamentalsOfCookery ? "1" : "0.5" }}>
                         <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046409/courses1_upv9d5.png" width="100%" height="auto" alt="FundamentalsOfCookery" />
+                        {courseCompletionStatus.FundamentalsOfCookery && (
+                            <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="50" height="50" alt="Completed" />
+                            </div>
+                        )}
                         <h1 className="font-weight-800" style={{ position: "absolute", bottom: "150px", left: "30px", fontSize: "18px", fontFamily: "'Nunito', sans-serif", color: "#000000" }}>
                             Fundamentals Of <span style={{ color: "#C1B857" }}><br></br>Professional Cookery</span>
                         </h1>
@@ -48,14 +122,18 @@ const Courses = () => {
                             Gain essential kitchen knowledge and skills before hands-on food preparation.
                         </p>
                         <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ position: "absolute", bottom: "10px", left: "188px", color: "white", width: "124px", height: "40px", fontSize: "12px", borderRadius: "15px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif", backgroundColor: courseLockStatus.FundamentalsOfCookery ? "" : "#cccccc" }}>
-                            {courseLockStatus.FundamentalsOfCookery ? "ENROLL NOW" : "LOCKED"}
+                            {courseCompletionStatus.FundamentalsOfCookery ? "COMPLETED" : "ENROLL NOW"}
                         </button>
                     </a>
 
                     {/* PreparingAppetizers */}
                     <a href={courseLockStatus.PreparingAppetizers ? "PreparingAppetizers" : "#"} style={{ position: "relative", opacity: courseLockStatus.PreparingAppetizers ? "1" : "0.5" }}>
                         <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046409/courses2_pjssfc.png" width="100%" height="auto" alt="PreparingAppetizers" />
-                        {!courseLockStatus.PreparingAppetizers && (
+                        {courseCompletionStatus.PreparingAppetizers ? (
+                            <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="50" height="50" alt="Completed" />
+                            </div>
+                        ) : !courseLockStatus.PreparingAppetizers && (
                             <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -70,14 +148,18 @@ const Courses = () => {
                             Learn the skills to prepare and present appetizers and hors d'oeuvres. Preparing Cold Meals cluster.
                         </p>
                         <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ position: "absolute", bottom: "10px", left: "188px", color: "white", width: "124px", height: "40px", fontSize: "12px", borderRadius: "15px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif", backgroundColor: courseLockStatus.PreparingAppetizers ? "" : "#cccccc", cursor: courseLockStatus.PreparingAppetizers ? "pointer" : "not-allowed" }}>
-                            {courseLockStatus.PreparingAppetizers ? "ENROLL NOW" : "LOCKED"}
+                            {courseCompletionStatus.PreparingAppetizers ? "COMPLETED" : courseLockStatus.PreparingAppetizers ? "ENROLL NOW" : "LOCKED"}
                         </button>
                     </a>
 
                     {/* PreparingEggVegetable */}
                     <a href={courseLockStatus.PreparingEggVegetable ? "PreparingEggVagetable" : "#"} style={{ position: "relative", opacity: courseLockStatus.PreparingEggVegetable ? "1" : "0.5" }}>
                         <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046409/courses3_zeohhg.png" width="100%" height="auto" alt="PreparingEggVegetable" />
-                        {!courseLockStatus.PreparingEggVegetable && (
+                        {courseCompletionStatus.PreparingEggVegetable ? (
+                            <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="50" height="50" alt="Completed" />
+                            </div>
+                        ) : !courseLockStatus.PreparingEggVegetable && (
                             <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -92,14 +174,18 @@ const Courses = () => {
                             Learn essential skills in egg cookery and basic procedures for preparing vegetables and starch dishes.
                         </p>
                         <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ position: "absolute", bottom: "10px", left: "188px", color: "white", width: "124px", height: "40px", fontSize: "12px", borderRadius: "15px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif", backgroundColor: courseLockStatus.PreparingEggVegetable ? "" : "#cccccc", cursor: courseLockStatus.PreparingEggVegetable ? "pointer" : "not-allowed" }}>
-                            {courseLockStatus.PreparingEggVegetable ? "ENROLL NOW" : "LOCKED"}
+                            {courseCompletionStatus.PreparingEggVegetable ? "COMPLETED" : courseLockStatus.PreparingEggVegetable ? "ENROLL NOW" : "LOCKED"}
                         </button>
                     </a>
 
                     {/* SaladAndSaladDressing */}
                     <a href={courseLockStatus.SaladAndSaladDressing ? "SaladAndSaladDressing" : "#"} style={{ position: "relative", opacity: courseLockStatus.SaladAndSaladDressing ? "1" : "0.5" }}>
                         <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046412/courses4_vkm4ty.png" width="100%" height="auto" alt="SaladAndSaladDressing" />
-                        {!courseLockStatus.SaladAndSaladDressing && (
+                        {courseCompletionStatus.SaladAndSaladDressing ? (
+                            <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="50" height="50" alt="Completed" />
+                            </div>
+                        ) : !courseLockStatus.SaladAndSaladDressing && (
                             <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -114,14 +200,18 @@ const Courses = () => {
                             Learn to prepare and present salads and dressings with confidence. Part of Cookery NC II: Preparing Cold Meals.
                         </p>
                         <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ position: "absolute", bottom: "10px", left: "188px", color: "white", width: "124px", height: "40px", fontSize: "12px", borderRadius: "15px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif", backgroundColor: courseLockStatus.SaladAndSaladDressing ? "" : "#cccccc", cursor: courseLockStatus.SaladAndSaladDressing ? "pointer" : "not-allowed" }}>
-                            {courseLockStatus.SaladAndSaladDressing ? "ENROLL NOW" : "LOCKED"}
+                            {courseCompletionStatus.SaladAndSaladDressing ? "COMPLETED" : courseLockStatus.SaladAndSaladDressing ? "ENROLL NOW" : "LOCKED"}
                         </button>
                     </a>
 
                     {/* PreparingSandwich */}
                     <a href={courseLockStatus.PreparingSandwich ? "PreparingSandwich" : "#"} style={{ position: "relative", opacity: courseLockStatus.PreparingSandwich ? "1" : "0.5" }}>
                         <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046408/courses5_nebpvb.png" width="100%" height="auto" alt="PreparingSandwich" />
-                        {!courseLockStatus.PreparingSandwich && (
+                        {courseCompletionStatus.PreparingSandwich ? (
+                            <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="50" height="50" alt="Completed" />
+                            </div>
+                        ) : !courseLockStatus.PreparingSandwich && (
                             <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -136,14 +226,18 @@ const Courses = () => {
                             Master the skills to prepare and present salads and dressings. Part of the Cookery NC II: Preparing Cold Meals cluster.
                         </p>
                         <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ position: "absolute", bottom: "10px", left: "188px", color: "white", width: "124px", height: "40px", fontSize: "12px", borderRadius: "15px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif", backgroundColor: courseLockStatus.PreparingSandwich ? "" : "#cccccc", cursor: courseLockStatus.PreparingSandwich ? "pointer" : "not-allowed" }}>
-                            {courseLockStatus.PreparingSandwich ? "ENROLL NOW" : "LOCKED"}
+                            {courseCompletionStatus.PreparingSandwich ? "COMPLETED" : courseLockStatus.PreparingSandwich ? "ENROLL NOW" : "LOCKED"}
                         </button>
                     </a>
 
                     {/* FinalAssessment */}
-                    <a href={courseLockStatus.FinalAssessment ? "FinalAssessment" : "#"} style={{ position: "relative", opacity: courseLockStatus.FinalAssessment ? "1" : "0.5" }}>
+                    <a href={allCoursesCompleted && courseLockStatus.FinalAssessment ? "FinalAssessment" : "#"} style={{ position: "relative", opacity: courseLockStatus.FinalAssessment ? "1" : "0.5" }}>
                         <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046408/courses6_bifmxk.png" width="100%" height="auto" alt="FinalAssessment" />
-                        {!courseLockStatus.FinalAssessment && (
+                        {courseCompletionStatus.FinalAssessment ? (
+                            <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+                                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="50" height="50" alt="Completed" />
+                            </div>
+                        ) : !courseLockStatus.FinalAssessment && (
                             <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -157,9 +251,50 @@ const Courses = () => {
                         <p style={{ width: "280px", position: "absolute", bottom: "90px", left: "30px", fontSize: "14px", color: "#000000", fontWeight: "200" }}>
                             Showcase your skills and knowledge through a complete assessment of everything you've learned.
                         </p>
-                        <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ position: "absolute", bottom: "10px", left: "188px", color: "white", width: "124px", height: "40px", fontSize: "12px", borderRadius: "15px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif", backgroundColor: courseLockStatus.FinalAssessment ? "" : "#cccccc", cursor: courseLockStatus.FinalAssessment ? "pointer" : "not-allowed" }}>
-                            {courseLockStatus.FinalAssessment ? "ENROLL NOW" : "LOCKED"}
-                        </button>
+                        
+                        {/* Hint message only - no LOCKED button */}
+                        {!allCoursesCompleted && !courseCompletionStatus.FinalAssessment && (
+                            <div style={{ 
+                                position: "absolute", 
+                                bottom: "20px", 
+                                left: "30px", 
+                                right: "30px",
+                                backgroundColor: "rgba(248, 249, 250, 0.95)", 
+                                padding: "12px", 
+                                borderRadius: "10px",
+                                border: "1px solid #E9ECEF",
+                                fontSize: "12px",
+                                boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px"
+                            }}>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+                                    <path d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#C1B857" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                                <span style={{ fontFamily: "'Nunito', sans-serif", color: "#495057", fontWeight: "500" }}>Complete all courses to unlock</span>
+                            </div>
+                        )}
+                        
+                        {/* If assessment is completed or all courses are completed, show the button */}
+                        {(courseCompletionStatus.FinalAssessment || allCoursesCompleted) && (
+                            <button className="cbtn cbtn-secondary font-weight-600 trans-y" style={{ 
+                                position: "absolute", 
+                                bottom: "10px", 
+                                left: "188px", 
+                                width: "124px", 
+                                height: "40px", 
+                                fontSize: "12px", 
+                                borderRadius: "15px", 
+                                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                                fontFamily: "'Nunito', sans-serif", 
+                                backgroundColor: courseLockStatus.FinalAssessment ? "" : "#E9ECEF", 
+                                cursor: courseLockStatus.FinalAssessment ? "pointer" : "not-allowed",
+                                color: "white"
+                            }}>
+                                {courseCompletionStatus.FinalAssessment ? "COMPLETED" : "ENROLL NOW"}
+                            </button>
+                        )}
                     </a>
                 </div>
                 {/* Responsive Styles */}
