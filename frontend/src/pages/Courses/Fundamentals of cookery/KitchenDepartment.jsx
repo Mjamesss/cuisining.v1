@@ -2,6 +2,7 @@ import "../../../fw-cuisining.css";
 import Footer from "../../../components/Footer";
 import Navbar from "../../../components/Navbar";
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 
 const Breadcrumb = () => {
   return (
@@ -55,7 +56,7 @@ const Quiz = ({ onQuizComplete }) => {
     {
       question: "They act as trainees helping out in day-to-day operationst?",
       options: ["Apprenties", "Entremetier", "Pastry Chef", "Poissonier"],
-      correctAnswer: "JavaScript"
+      correctAnswer: "Apprenties"
     },
     {
       question: "They are responsible in preparing all sauces and sauces-related dishes. ?",
@@ -132,7 +133,7 @@ const Quiz = ({ onQuizComplete }) => {
   useEffect(() => {
     if (quizState === 'playing') {
       setTimeLeft(10);
-      setReviewTime(3);
+      setReviewTime(2);
       setTimerActive(true);
       setSelectedAnswer(null);
       shuffleCurrentOptions();
@@ -153,9 +154,9 @@ const Quiz = ({ onQuizComplete }) => {
       setQuizState('finished');
       onQuizComplete(score); // Notify parent component of quiz completion with score
       
-      // Save to localStorage if perfect score
-      if (score === allQuestions.length) {
-        localStorage.setItem('quizPerfectScore', 'true');
+      // Save to localStorage if perfect score (8 or more correct answers)
+      if (score >= 8) {
+        localStorage.setItem('quizPassed', 'true');
       }
     }
   };
@@ -410,12 +411,12 @@ const Quiz = ({ onQuizComplete }) => {
                   }}>Your Score: {score}/{shuffledQuestions.length}</h2>
                   <p style={{
                     fontSize: '24px',
-                    color: score === shuffledQuestions.length ? '#4CAF50' : '#da420e',
+                    color: score >= 8 ? '#4CAF50' : '#da420e',
                     marginBottom: '30px',
                     fontFamily: "'Nunito', sans-serif",
                     fontWeight: "750",
                   }}>
-                    {score === shuffledQuestions.length ? 'Perfect Score!' : 'Try Again!'}
+                    {score >= 8 ? 'Great Job! You passed!' : 'Try Again! You need at least 8 correct answers'}
                   </p>
                   <div style={{
                     display: 'flex',
@@ -468,9 +469,9 @@ const KitchenDepartment = () => {
   // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [perfectScore, setPerfectScore] = useState(() => {
-    // Check localStorage for existing perfect score
-    return localStorage.getItem('quizPerfectScore') === 'true';
+  const [passedQuiz, setPassedQuiz] = useState(() => {
+    // Check localStorage for existing quiz pass status
+    return localStorage.getItem('quizPassed') === 'true';
   });
 
   // Set up interaction tracking when component mounts
@@ -495,8 +496,8 @@ const KitchenDepartment = () => {
   useEffect(() => {
     const handleBeforeUnload = (e) => {
       // Only show the alert if the user has interacted with the page
-      // and hasn't completed the quiz with a perfect score
-      if (hasInteracted && !perfectScore) {
+      // and hasn't completed the quiz with a passing score
+      if (hasInteracted && !passedQuiz) {
         // Standard way to trigger the confirmation dialog
         e.preventDefault();
         // Message shown in most browsers (though some use their own default text)
@@ -510,21 +511,44 @@ const KitchenDepartment = () => {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [hasInteracted, quizCompleted, perfectScore]);
+  }, [hasInteracted, quizCompleted, passedQuiz]);
 
   // Handle quiz completion
   const handleQuizComplete = (score) => {
     setQuizCompleted(true);
-    if (score === 5) {
-      setPerfectScore(true);
+    if (score >= 8) {
+      setPassedQuiz(true);
     }
   };
 
   // Handle next lesson button click
-  const handleNextLessonClick = (e) => {
-    if (!perfectScore) {
+  const handleNextLessonClick = async (e) => {
+    if (!passedQuiz) {
       e.preventDefault();
-      alert('You need to complete the quiz with a perfect score (5/5) to proceed to the next lesson.');
+      alert('You need to complete the quiz with at least 8 correct answers to proceed to the next lesson.');
+    } else {
+      try {
+        const getToken = () => {
+          return localStorage.getItem('authToken');
+        };
+        // Send a POST request to update the lesson statuses
+        const token = getToken(); // Get JWT token from local storage
+        if (!token) return;
+        const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
+          lessonName: 'KitchenDepartment'
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        console.log('Lesson updated:', response.data);
+
+        // Redirect to the next lesson
+        window.location.href = '/CommonKitchenTools';
+      } catch (error) {
+        console.error('Error updating lesson status:', error.message);
+      }
     }
   };
 
@@ -731,19 +755,20 @@ const KitchenDepartment = () => {
       </div>
 
       <div className="d-flex justify-content-end p5" style={{ marginBottom: "30px" }}>
-        <button 
-          className="cbtn cbtn-secondary done-button" 
-          style={{ 
-            marginTop: "-45px", 
-            width: "170px", 
-            height: "60px", 
-            marginRight: "35px", 
+        <button
+          className="cbtn cbtn-secondary done-button"
+          style={{
+            marginTop: "-45px",
+            width: "170px",
+            height: "60px",
+            marginRight: "35px",
             borderRadius: "15px",
-            opacity: perfectScore ? 1 : 0.6,
-            cursor: perfectScore ? 'pointer' : 'not-allowed'
+            opacity: passedQuiz ? 1 : 0.6,
+            cursor: passedQuiz ? 'pointer' : 'not-allowed',
+            backgroundColor: passedQuiz ? '#adb44e' : '#cccccc'
           }}
           onClick={handleNextLessonClick}
-          disabled={!perfectScore}
+          disabled={!passedQuiz}
         >
           Next Lesson
         </button>

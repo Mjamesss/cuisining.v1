@@ -25,4 +25,29 @@ const profileSchema = new mongoose.Schema({
   //final assessment
   finalAssessment1: { type: Boolean, default: false },
 });
+
+profileSchema.post('save', async function(user) {
+  if (user.proAccount) {
+    console.log("Pro account detected. Unlocking courses...");
+    const CourseLockStatus = require('../models/course'); // Correct import
+
+    try {
+      const result = await CourseLockStatus.findOneAndUpdate(
+        { userID: user._id },
+        { 
+          $set: {
+            'courseLockStatus.PreparingAppetizers': true,
+            'courseLockStatus.PreparingEggVegetable': true,
+            'courseLockStatus.SaladAndSaladDressing': true,
+            'courseLockStatus.PreparingSandwich': true
+          }
+        },
+        { upsert: true, new: true }
+      );
+      console.log("CourseLockStatus updated:", result);
+    } catch (error) {
+      console.error("Error updating CourseLockStatus:", error);
+    }
+  }
+});
 module.exports = mongoose.model("Profile", profileSchema);
