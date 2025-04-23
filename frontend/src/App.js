@@ -269,6 +269,9 @@ import FinalAssessment from './pages/Courses/FinalAssesstment/FinalAssessment.js
 import CookingGame from './CookingGame.jsx';
 import Certtesting from './certtesting.jsx';
 
+import FoodSafety from './pages/Courses/Fundamentals of cookery/FoodSafety.jsx';
+import OccupationalHealth from './pages/Courses/Fundamentals of cookery/OccupationalHealth.jsx'
+
 const App = () => {
   return (
     <Router>
@@ -555,9 +558,13 @@ const App = () => {
               <Route path="SaladAndSaladDressing" element={<SaladAndSaladDressing/>}/>
               <Route path="PreparingSandwich" element={<PreparingSandwich/>}/>
 
+
               <Route path="FinalAssessment" element={<FinalAssessment/>}/>
               <Route path="CookingGame" element={<CookingGame/>}/>
               <Route path="/certtesting" element={<Certtesting/>}/>
+
+              <Route path="FoodSafety" element={<FoodSafety/>}/>
+              <Route path="OccupationalHealth" element={<OccupationalHealth/>}/>
             </Routes>
           </Col>
         </Row>

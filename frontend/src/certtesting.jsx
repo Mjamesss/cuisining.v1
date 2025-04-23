@@ -10,7 +10,7 @@ const CertificateGenerator = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
+//asda
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
