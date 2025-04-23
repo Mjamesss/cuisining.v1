@@ -85,7 +85,7 @@ const PreparingAppetizers = () => {
                   {lessonLockStatus.TypesOfAppetizers ? "LESSON 1" : "LOCKED"}
                 </button>
               </a>
-
+             
               <a href={lessonLockStatus.KitchenSafety ? "ObservingKitchen" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh1_w1gvoc.png"
                   width="100%" height="auto" alt="KitchenSafety" />
@@ -130,7 +130,7 @@ const PreparingAppetizers = () => {
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))", justifyContent: "left",
                        gap: "30px", fontWeight: "920"}}>
-
+{/**andsdiawd */}
               <a href={lessonLockStatus.PreparingAppetizers ? "PreparingCommonTypesAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PreparingAppetizers ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046061/crsh4_a1jlql.png"
                   width="100%" height="auto" alt="PreparingAppetizers" />
