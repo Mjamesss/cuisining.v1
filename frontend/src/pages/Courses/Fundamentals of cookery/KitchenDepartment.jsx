@@ -39,12 +39,12 @@ const Quiz = ({ onQuizComplete }) => {
 
   const allQuestions = [
     {
-      question: "Oversees all the production in the kitchen including quality, hiring, managing, controlling cost, meeting quotas, and coordinating departments.  ?",
+      question: "Oversees kitchen production: quality, hiring, cost, quotas, and coordination?",
       options: ["Sous Chef", "Butcher Chef", "Pastry Chef", "Executive Chef"],
       correctAnswer: "Executive Chef"
     },
     {
-      question: "They are in charge of the butcher shop. They prepare meats, fish, and poultry.?",
+      question: "They are in charge of the butcher shop. They prepare meats, fish, and poultry?",
       options: ["Chef Gardmangers", "Sous Chef", "Butcher Chef", "Sauciers"],
       correctAnswer: "Butcher Chef"
     },
@@ -59,7 +59,7 @@ const Quiz = ({ onQuizComplete }) => {
       correctAnswer: "Apprenties"
     },
     {
-      question: "They are responsible in preparing all sauces and sauces-related dishes. ?",
+      question: "They are responsible in preparing all sauces and sauces-related dishes?",
       options: ["Pastry Chef", "Sauciers", "Sous Chef", "Executive Chef"],
       correctAnswer: "Sauciers"
     },
