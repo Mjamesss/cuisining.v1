@@ -74,6 +74,8 @@ const LoginForm = () => {
   const handleGoogleLogin = () => {
     window.location.href = "http://localhost:5000/api/oauth/google";
   };
+  
+  
 
   return (
     <div>

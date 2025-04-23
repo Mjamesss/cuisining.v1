@@ -6,6 +6,13 @@ const User = require("../models/user"); // Import User model
 const router = express.Router();
 
 // Google OAuth Strategy
+const generateToken = (userId) => {
+  if (!process.env.JWT_SECRET_KEY) {
+    throw new Error("JWT secret key is missing");
+  }
+  return jwt.sign({ userId }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+};
+
 passport.use(
   new GoogleStrategy(
     {
@@ -15,39 +22,34 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        console.log("Google Profile:", profile); // Log the entire profile object
-
-        // Ensure the profile contains an email
         const email = profile.emails?.[0]?.value;
-        if (!email) return done(new Error("No email associated with Google account"), null);
+        if (!email) return done(new Error("No email from Google"), null);
 
-        // Check if the user already exists
         let user = await User.findOne({ email });
-        if (!user) {
-          // Create a new user with the full name and profile picture from Google
-          const fullName = `${profile.name.givenName} ${profile.name.familyName}`;
-          const profilePicture = profile.photos?.[0]?.value; // Fetch profile picture URL
-            console.log("Profile Picture URL:", profilePicture); // Log the profile picture URL
+        const profilePicture = profile.photos?.[0]?.value;
+        const fullName = `${profile.name.givenName} ${profile.name.familyName}`;
 
-            user = new User({
-              fName: fullName, // Use full name instead of just givenName
-              email,
-              username: email,
-              provider: "Google",
-              profilePicture: profilePicture || "https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png", // Default if no picture
-            });
-            await user.save();
-        } else {
-          // Update the profile picture if it's not set or has changed
-          const profilePicture = profile.photos?.[0]?.value;
-          if (profilePicture && user.profilePicture !== profilePicture) {
-            user.profilePicture = profilePicture;
-            await user.save();
-          }
+        if (!user) {
+          user = new User({
+            fName: fullName,
+            email,
+            username: email,
+            provider: "Google",
+            profilePicture: profilePicture || "default_url",
+          });
+          await user.save();
+        } else if (profilePicture && user.profilePicture !== profilePicture) {
+          user.profilePicture = profilePicture;
+          await user.save();
         }
+
+        // ✅ Generate JWT token
+        const token = generateToken(user._id);
+        user._jwtToken = token;
+
         done(null, user);
       } catch (err) {
-        console.error("Error in Google OAuth strategy:", err);
+        console.error("Google strategy error:", err);
         done(err, null);
       }
     }
