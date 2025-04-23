@@ -11,7 +11,7 @@ const Courses = () => {
         PreparingEggVegetable: true,
         SaladAndSaladDressing: true,
         PreparingSandwich: true,
-        FinalAssessment: false
+        FinalAssessment: true,
     };
 
     return (
