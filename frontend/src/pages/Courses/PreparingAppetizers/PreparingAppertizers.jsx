@@ -54,7 +54,7 @@ const PreparingAppetizers = () => {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))", justifyContent: "left",
                        gap: "30px", fontWeight: "920"}}>
 
-              <a href={lessonLockStatus.TypesOfAppetizers ? "TypesOfAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.TypesOfAppetizers ? "1" : "0.5" }}>
+              <a href={lessonLockStatus.TypesOfAppetizers ? "TypeOfAppetisers" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.TypesOfAppetizers ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh2_hiipsb.png"
                   width="100%" height="auto" alt="TypesOfAppetizers" />
                 {!lessonLockStatus.TypesOfAppetizers && (
@@ -86,7 +86,7 @@ const PreparingAppetizers = () => {
                 </button>
               </a>
 
-              <a href={lessonLockStatus.KitchenSafety ? "KitchenSafety" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
+              <a href={lessonLockStatus.KitchenSafety ? "ObervingKitchen" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh1_w1gvoc.png"
                   width="100%" height="auto" alt="KitchenSafety" />
                 {!lessonLockStatus.KitchenSafety && (
@@ -131,7 +131,7 @@ const PreparingAppetizers = () => {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))", justifyContent: "left",
                        gap: "30px", fontWeight: "920"}}>
 
-              <a href={lessonLockStatus.PreparingAppetizers ? "PreparingAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PreparingAppetizers ? "1" : "0.5" }}>
+              <a href={lessonLockStatus.PreparingAppetizers ? "PreparingCommonTypesAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PreparingAppetizers ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046061/crsh4_a1jlql.png"
                   width="100%" height="auto" alt="PreparingAppetizers" />
                 {!lessonLockStatus.PreparingAppetizers && (
