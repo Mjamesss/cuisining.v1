@@ -562,15 +562,18 @@ const App = () => {
               <Route path="IntroToEggDishes" element={<IntroToEggDishes/>}/>
               <Route path="SaladAndSaladDressing" element={<SaladAndSaladDressing/>}/>
               <Route path="PreparingSandwich" element={<PreparingSandwich/>}/>
+              <Route path="FoodSafety" element={<FoodSafety/>}/>
+              <Route path="OccupationalHealth" element={<OccupationalHealth/>}/>
+              <Route path="KnifeSkills" element={<KnifeSkills/>}/>
 
 
               <Route path="FinalAssessment" element={<FinalAssessment/>}/>
               <Route path="CookingGame" element={<CookingGame/>}/>
               <Route path="/certtesting" element={<Certtesting/>}/>
 
-              <Route path="FoodSafety" element={<FoodSafety/>}/>
-              <Route path="OccupationalHealth" element={<OccupationalHealth/>}/>
-              <Route path="KnifeSkills" element={<KnifeSkills/>}/>
+              
+              
+              
               <Route path="TypeOfAppetizers" element={<TypesOfAppetizers/>}/>
               <Route path="ObservingKitchen" element={<ObservingKitchen/>}/>
               <Route path="PreparingCommonTypeAppetizers" element={<PreparingCommonTypesAppetizers/>}/>

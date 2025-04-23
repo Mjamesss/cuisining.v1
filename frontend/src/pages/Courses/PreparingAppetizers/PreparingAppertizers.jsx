@@ -18,9 +18,9 @@ const PreparingAppetizers = () => {
   // State for lesson lock status
   const [lessonLockStatus, setLessonLockStatus] = useState({
     TypesOfAppetizers: true, // First lesson always unlocked
-    KitchenSafety: false,
-    PreparingAppetizers: false,
-    PlatingAppetizers: false
+    KitchenSafety: true,
+    PreparingAppetizers: true,
+    PlatingAppetizers: true
   });
 
   // State for lesson completion status
@@ -88,7 +88,7 @@ const PreparingAppetizers = () => {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))", justifyContent: "left",
                        gap: "30px", fontWeight: "920"}}>
 
-              <a href={lessonLockStatus.TypesOfAppetizers ? "TypeOfAppetisers" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.TypesOfAppetizers ? "1" : "0.5" }}>
+              <a href={lessonLockStatus.TypesOfAppetizers ? "TypeOfAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.TypesOfAppetizers ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh2_hiipsb.png"
                   width="100%" height="auto" alt="TypesOfAppetizers" />
                 {lessonCompletionStatus.TypesOfAppetizers ? (
@@ -124,7 +124,7 @@ const PreparingAppetizers = () => {
                 </button>
               </a>
 
-              <a href={lessonLockStatus.KitchenSafety ? "ObervingKitchen" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
+              <a href={lessonLockStatus.KitchenSafety ? "ObservingKitchen" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh1_w1gvoc.png"
                   width="100%" height="auto" alt="KitchenSafety" />
                 {lessonCompletionStatus.KitchenSafety ? (

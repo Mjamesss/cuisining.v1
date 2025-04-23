@@ -2,6 +2,7 @@ import "../../../fw-cuisining.css";
 import Footer from "../../../components/Footer";
 import Navbar from "../../../components/Navbar";
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 
 const Breadcrumb = () => {
   return (
@@ -35,6 +36,8 @@ const Quiz = ({ onQuizComplete }) => {
   const [reviewTime, setReviewTime] = useState(3);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [shuffledOptions, setShuffledOptions] = useState([]);
+  //backend
+  
 
   const allQuestions = [
     {
@@ -203,7 +206,7 @@ const Quiz = ({ onQuizComplete }) => {
     flexDirection: 'column',
     justifyContent: 'space-between'
   };
-
+  
   return (
     <>
       {/* Quiz Button */}
@@ -496,11 +499,38 @@ const CommonKitchenTools = () => {
     }
   };
 
-  // Handle next lesson button click
-  const handleNextLessonClick = (e) => {
-    if (!perfectScore) {
+  //backend
+  const [passedQuiz, setPassedQuiz] = useState(() => {
+    // Check localStorage for existing quiz pass status
+    return localStorage.getItem('quizPassed') === 'true';
+  });
+  const handleNextLessonClick = async (e) => {
+    if (!passedQuiz) {
       e.preventDefault();
-      alert('You need to complete the quiz with a perfect score (5/5) to proceed to the next lesson.');
+      alert('You need to complete the quiz with at least 8 correct answers to proceed to the next lesson.');
+    } else {
+      try {
+        const getToken = () => {
+          return localStorage.getItem('authToken');
+        };
+        // Send a POST request to update the lesson statuses
+        const token = getToken(); // Get JWT token from local storage
+        if (!token) return;
+        const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
+          lessonName: 'CommonKitchenTools'
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+  
+        console.log('Lesson updated:', response.data);
+  
+        // Redirect to the next lesson
+        window.location.href = '/MeasurementsAndConversion';
+      } catch (error) {
+        console.error('Error updating lesson status:', error.message);
+      }
     }
   };
 
@@ -721,5 +751,7 @@ const CommonKitchenTools = () => {
     </>
   );
 }
+
+
 
 export default CommonKitchenTools;
