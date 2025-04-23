@@ -3,6 +3,7 @@ import Footer from "../../../components/Footer";
 import Navbar from "../../../components/Navbar";
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import Joyride from 'react-joyride';
 
 const Breadcrumb = () => {
   return (
@@ -27,7 +28,7 @@ const Breadcrumb = () => {
 };
 
 const Quiz = ({ onQuizComplete }) => {
-  const [quizState, setQuizState] = useState('idle'); // 'idle', 'rules', 'playing', 'finished'
+  const [quizState, setQuizState] = useState('idle');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -36,6 +37,8 @@ const Quiz = ({ onQuizComplete }) => {
   const [reviewTime, setReviewTime] = useState(3);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [shuffledOptions, setShuffledOptions] = useState([]);
+  const [passedQuiz, setPassedQuiz] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const allQuestions = [
     {
@@ -90,7 +93,6 @@ const Quiz = ({ onQuizComplete }) => {
     },
   ];
 
-  // Function to shuffle an array using Fisher-Yates algorithm
   const shuffleArray = (array) => {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -100,14 +102,12 @@ const Quiz = ({ onQuizComplete }) => {
     return newArray;
   };
 
-  // Shuffle options for the current question
   const shuffleCurrentOptions = () => {
     if (shuffledQuestions.length > 0 && currentQuestion < shuffledQuestions.length) {
       setShuffledOptions(shuffleArray(shuffledQuestions[currentQuestion].options));
     }
   };
 
-  // Timer effect for question time
   useEffect(() => {
     let timer;
     if (timerActive && timeLeft > 0) {
@@ -118,7 +118,6 @@ const Quiz = ({ onQuizComplete }) => {
     return () => clearTimeout(timer);
   }, [timeLeft, timerActive]);
 
-  // Review time effect
   useEffect(() => {
     let reviewTimer;
     if (selectedAnswer !== null && reviewTime > 0) {
@@ -129,7 +128,6 @@ const Quiz = ({ onQuizComplete }) => {
     return () => clearTimeout(reviewTimer);
   }, [reviewTime, selectedAnswer]);
 
-  // Reset timers and shuffle options when question changes
   useEffect(() => {
     if (quizState === 'playing') {
       setTimeLeft(10);
@@ -143,7 +141,7 @@ const Quiz = ({ onQuizComplete }) => {
   const handleTimeUp = () => {
     setSelectedAnswer('timeout');
     setTimerActive(false);
-    setReviewTime(3); // Start review period
+    setReviewTime(3);
   };
 
   const moveToNextQuestion = () => {
@@ -152,10 +150,11 @@ const Quiz = ({ onQuizComplete }) => {
       setCurrentQuestion(nextQuestion);
     } else {
       setQuizState('finished');
-      onQuizComplete(score); // Notify parent component of quiz completion with score
+      const passed = score >= 8;
+      setPassedQuiz(passed);
+      onQuizComplete(score);
       
-      // Save to localStorage if perfect score (8 or more correct answers)
-      if (score >= 8) {
+      if (passed) {
         localStorage.setItem('quizPassed', 'true');
       }
     }
@@ -166,7 +165,7 @@ const Quiz = ({ onQuizComplete }) => {
     
     setSelectedAnswer(option);
     setTimerActive(false);
-    setReviewTime(3); // Start review period
+    setReviewTime(3);
     
     if (option === shuffledQuestions[currentQuestion].correctAnswer) {
       setScore(score + 1);
@@ -178,38 +177,66 @@ const Quiz = ({ onQuizComplete }) => {
   };
 
   const startPlaying = () => {
-    // Shuffle questions when starting the quiz
     const shuffled = shuffleArray(allQuestions);
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
+    setPassedQuiz(false);
     setQuizState('playing');
+  };
+
+  const handleCloseQuiz = () => {
+    if (passedQuiz && quizState === 'finished') {
+      setShowExitConfirm(true);
+    } else {
+      closeQuiz();
+    }
   };
 
   const closeQuiz = () => {
     setQuizState('idle');
+    setShowExitConfirm(false);
   };
 
   const restartQuiz = () => {
-    // Shuffle questions again when restarting
     const shuffled = shuffleArray(allQuestions);
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
+    setPassedQuiz(false);
     setQuizState('playing');
   };
 
-  // Fixed modal dimensions
-  const modalWidth = '500px';
-  const modalHeight = '500px';
+  const handleNextLessonClick = async () => {
+    try {
+      const getToken = () => {
+        return localStorage.getItem('authToken');
+      };
+      const token = getToken();
+      if (!token) return;
+      
+      const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
+        lessonName: 'KitchenDepartment'
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      console.log('Lesson updated:', response.data);
+      window.location.href = '/CommonKitchenTools';
+    } catch (error) {
+      console.error('Error updating lesson status:', error.message);
+    }
+  };
 
   const modalStyle = {
     position: 'fixed',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: modalWidth,
-    height: modalHeight,
+    width: '500px',
+    height: '500px',
     maxWidth: '90%',
     maxHeight: '90vh',
     backgroundColor: 'white',
@@ -231,13 +258,9 @@ const Quiz = ({ onQuizComplete }) => {
 
   return (
     <>
-      {/* Quiz Button */}
       {quizState === 'idle' && (
         <button onClick={startQuiz} style={{ padding: '30px 30px 30px 100px', backgroundColor: '#ffffff', height: 'auto', minHeight: '150px', color: '#000000', fontWeight: "500", border: 'none', borderRadius: '15px', cursor: 'pointer', transition: 'background-color 0.3s', width: '100%', marginTop: '20px', textAlign: 'left', display: 'flex', flexDirection: 'column', boxSizing: 'border-box', position: 'relative' }}>
-          {/* Custom Image Icon */}
           <div style={{ position: 'absolute', left: '5px', top: '50%', transform: 'translateY(-50%)', width: '100px', height: '100px', backgroundImage: 'url(/quizicon.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
-          
-          {/* Text Content */}
           <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '10px' }}>
             <span style={{ color: "#BCC444", fontSize: "41px", fontWeight: "750", fontFamily: "'Nunito', sans-serif", lineHeight: '1' }}>Q</span>
             <span style={{ color: "#000000", fontSize: "30px", fontWeight: "750", fontFamily: "'Nunito', sans-serif", lineHeight: '1' }}>uizining</span>
@@ -249,7 +272,6 @@ const Quiz = ({ onQuizComplete }) => {
         </button>
       )}
 
-      {/* Modal Overlay - Only shown when modal is active */}
       {(quizState === 'rules' || quizState === 'playing' || quizState === 'finished') && (
         <div style={{
           position: 'fixed',
@@ -261,6 +283,55 @@ const Quiz = ({ onQuizComplete }) => {
           zIndex: 999
         }}>
           <div style={modalStyle}>
+            {showExitConfirm && (
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(255,255,255,0.9)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                zIndex: 1001,
+                padding: '20px',
+                textAlign: 'center'
+              }}>
+                <h3 style={{ marginBottom: '20px' }}>You have passed the quiz!</h3>
+                <p style={{ marginBottom: '30px' }}>Are you sure you want to exit without proceeding to the next lesson?</p>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button 
+                    onClick={closeQuiz}
+                    style={{
+                      padding: '10px 20px',
+                      backgroundColor: '#da420e',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '5px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Exit Anyway
+                  </button>
+                  <button 
+                    onClick={() => setShowExitConfirm(false)}
+                    style={{
+                      padding: '10px 20px',
+                      backgroundColor: '#adb44e',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '5px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div style={contentStyle}>
               {quizState === 'rules' && (
                 <>
@@ -422,37 +493,42 @@ const Quiz = ({ onQuizComplete }) => {
                     display: 'flex',
                     justifyContent: 'center',
                     gap: '20px',
-                    width: '100%'
+                    width: '100%',
+                    flexDirection: 'column'
                   }}>
+                    {passedQuiz && (
+                      <button 
+                        onClick={handleNextLessonClick}
+                        style={{
+                          padding: '10px 20px',
+                          backgroundColor: '#4CAF50',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '5px',
+                          cursor: 'pointer',
+                          fontSize: '16px',
+                          transition: 'background-color 0.3s',
+                          width: '100%'
+                        }}
+                      >
+                        Proceed to Next Lesson
+                      </button>
+                    )}
                     <button 
-                      onClick={restartQuiz}
+                      onClick={passedQuiz ? handleCloseQuiz : closeQuiz}
                       style={{
                         padding: '10px 20px',
-                        backgroundColor: '#adb44e',
+                        backgroundColor: passedQuiz ? '#adb44e' : '#da420e',
                         color: 'white',
                         border: 'none',
                         borderRadius: '5px',
                         cursor: 'pointer',
                         fontSize: '16px',
-                        transition: 'background-color 0.3s'
+                        transition: 'background-color 0.3s',
+                        width: passedQuiz ? '100%' : 'auto'
                       }}
                     >
-                      Try Again
-                    </button>
-                    <button 
-                      onClick={closeQuiz}
-                      style={{
-                        padding: '10px 20px',
-                        backgroundColor: '#da420e',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer',
-                        fontSize: '16px',
-                        transition: 'background-color 0.3s'
-                      }}
-                    >
-                      Close
+                      {passedQuiz ? 'Close Quiz' : 'Close'}
                     </button>
                   </div>
                 </div>
@@ -466,54 +542,22 @@ const Quiz = ({ onQuizComplete }) => {
 };
 
 const KitchenDepartment = () => {
-  // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [passedQuiz, setPassedQuiz] = useState(() => {
-    // Check localStorage for existing quiz pass status
     return localStorage.getItem('quizPassed') === 'true';
   });
+  const [runTour, setRunTour] = useState(false);
+  const [tourStepIndex, setTourStepIndex] = useState(0);
 
-  // Set up interaction tracking when component mounts
   useEffect(() => {
-    const markAsInteracted = () => {
-      setHasInteracted(true);
-    };
-
-    // Track any user interaction with the page
-    window.addEventListener('click', markAsInteracted);
-    window.addEventListener('keydown', markAsInteracted);
-    window.addEventListener('scroll', markAsInteracted);
-
-    return () => {
-      window.removeEventListener('click', markAsInteracted);
-      window.removeEventListener('keydown', markAsInteracted);
-      window.removeEventListener('scroll', markAsInteracted);
-    };
+    const hasVisited = localStorage.getItem('hasVisitedKitchenDepartment');
+    if (!hasVisited) {
+      setRunTour(true);
+      localStorage.setItem('hasVisitedKitchenDepartment', 'true');
+    }
   }, []);
 
-  // Handle beforeunload to prevent accidental refresh - fixed alert logic
-  useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      // Only show the alert if the user has interacted with the page
-      // and hasn't completed the quiz with a passing score
-      if (hasInteracted && !passedQuiz) {
-        // Standard way to trigger the confirmation dialog
-        e.preventDefault();
-        // Message shown in most browsers (though some use their own default text)
-        e.returnValue = 'Changes you made may not be saved. Are you sure you want to leave this page?';
-        return e.returnValue;
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [hasInteracted, quizCompleted, passedQuiz]);
-
-  // Handle quiz completion
   const handleQuizComplete = (score) => {
     setQuizCompleted(true);
     if (score >= 8) {
@@ -521,34 +565,42 @@ const KitchenDepartment = () => {
     }
   };
 
-  // Handle next lesson button click
-  const handleNextLessonClick = async (e) => {
-    if (!passedQuiz) {
-      e.preventDefault();
-      alert('You need to complete the quiz with at least 8 correct answers to proceed to the next lesson.');
-    } else {
-      try {
-        const getToken = () => {
-          return localStorage.getItem('authToken');
-        };
-        // Send a POST request to update the lesson statuses
-        const token = getToken(); // Get JWT token from local storage
-        if (!token) return;
-        const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
-          lessonName: 'KitchenDepartment'
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+  const [steps] = useState([
+    {
+      target: '.video-container',
+      content: 'Watch this video introduction to learn about kitchen departments',
+      disableBeacon: true, // This makes the tour start immediately
+      placement: 'right'
+    },
+    {
+      target: '.right-side-container',
+      content: 'Here you can navigate through all lesson topics',
+      placement: 'left'
+    },
+    {
+      target: '.video-description',
+      content: 'This section explains what you will learn in this lesson',
+      placement: 'top'
+    },
+    {
+      target: '.quiz-button-container',
+      content: 'Complete the quiz to proceed to the next lesson',
+      placement: 'top'
+    }
+  ]);
 
-        console.log('Lesson updated:', response.data);
-
-        // Redirect to the next lesson
-        window.location.href = '/CommonKitchenTools';
-      } catch (error) {
-        console.error('Error updating lesson status:', error.message);
-      }
+  const handleJoyrideCallback = (data) => {
+    const { action, index, type, status } = data;
+    
+    // If close button clicked, end the tour
+    if (action === 'close' || type === 'tour:end') {
+      setRunTour(false);
+      return;
+    }
+    
+    // Continue with the tour
+    if (type === 'step:after' || action === 'next') {
+      // You could add additional logic here if needed
     }
   };
 
@@ -600,6 +652,39 @@ const KitchenDepartment = () => {
 
       <Navbar />
       <Breadcrumb />
+      
+      <Joyride
+        steps={steps}
+        run={runTour}
+        callback={handleJoyrideCallback}
+        continuous={true}
+        showProgress={true}
+        showSkipButton={true}
+        styles={{
+          options: {
+            zIndex: 10000,
+            primaryColor: '#c1c857',
+            textColor: '#333',
+            backgroundColor: '#fff',
+            arrowColor: '#fff',
+          },
+          tooltip: {
+            fontSize: 16,
+            padding: 20,
+          },
+          buttonNext: {
+            backgroundColor: '#c1c857',
+            color: '#fff'
+          },
+          buttonBack: {
+            color: '#c1c857'
+          },
+          buttonSkip: {
+            color: '#da420e'
+          }
+        }}
+      />
+      
       <div style={{ width: "100%", margin: 0, padding: "0px 0" }}>
         <div style={{ width: "100%", marginBottom: "50px" }}>
           <div className="main-content-container" style={{
@@ -697,7 +782,6 @@ const KitchenDepartment = () => {
               flexDirection: 'column',
               alignItems: 'flex-start'
             }}>
-              {/* Right side container */}
               <div className="right-side-container" style={{
                 marginLeft: "1px",
                 marginTop: "10px",
@@ -743,7 +827,6 @@ const KitchenDepartment = () => {
                 </ul>
               </div>
               
-              {/* Quiz Button Container - Now positioned directly below the right-side-container */}
               <div className="quiz-button-container" style={{
                 width: '100%'
               }}>
@@ -752,26 +835,6 @@ const KitchenDepartment = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="d-flex justify-content-end p5" style={{ marginBottom: "30px" }}>
-        <button
-          className="cbtn cbtn-secondary done-button"
-          style={{
-            marginTop: "-45px",
-            width: "170px",
-            height: "60px",
-            marginRight: "35px",
-            borderRadius: "15px",
-            opacity: passedQuiz ? 1 : 0.6,
-            cursor: passedQuiz ? 'pointer' : 'not-allowed',
-            backgroundColor: passedQuiz ? '#adb44e' : '#cccccc'
-          }}
-          onClick={handleNextLessonClick}
-          disabled={!passedQuiz}
-        >
-          Next Lesson
-        </button>
       </div>
       
       <Footer/>
