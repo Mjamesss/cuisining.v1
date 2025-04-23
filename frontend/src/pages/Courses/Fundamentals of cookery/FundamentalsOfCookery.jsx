@@ -41,7 +41,7 @@ const FundamentalsOfCookery = () => {
     return localStorage.getItem('authToken');
   };
 
-  // Fetch lesson status on component mount
+  // Fetch lesson status on component mountt
   useEffect(() => {
     const fetchLessonStatus = async () => {
       try {
