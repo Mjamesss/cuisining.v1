@@ -5,7 +5,6 @@
   "dependencies": {
     "@cloudinary/url-gen": "^1.21.0",
     "axios": "^1.8.4",
-    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "bootstrap": "^5.3.3",
@@ -47,7 +46,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "preinstall": "npm rebuild bcrypt"
+    "preinstall": "npm install --build-from-source bcrypt"
   },
   "eslintConfig": {
     "extends": [
