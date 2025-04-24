@@ -2,6 +2,7 @@ import "../../../fw-cuisining.css";
 import Footer from "../../../components/Footer";
 import Navbar from "../../../components/Navbar";
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 
 const Breadcrumb = () => {
   return (
@@ -35,10 +36,12 @@ const Quiz = ({ onQuizComplete }) => {
   const [reviewTime, setReviewTime] = useState(3);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [shuffledOptions, setShuffledOptions] = useState([]);
+  const [passedQuiz, setPassedQuiz] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const allQuestions = [
     {
-      question: "What is the main purpose of an appetizer??",
+      question: "What is the main purpose of an appetizer?",
       options: ["To act as a dessert", "To replace the main dish", "To stimulate one’s appetite", "To cleanse the palate before dessert"],
       correctAnswer: "To stimulate one’s appetite"
     },
@@ -63,6 +66,7 @@ const Quiz = ({ onQuizComplete }) => {
       correctAnswer: "Mushy texture"
     },
   ];
+
 
   // Function to shuffle an array using Fisher-Yates algorithm
   const shuffleArray = (array) => {
@@ -126,11 +130,12 @@ const Quiz = ({ onQuizComplete }) => {
       setCurrentQuestion(nextQuestion);
     } else {
       setQuizState('finished');
-      onQuizComplete(score); // Notify parent component of quiz completion with score
+      const passed = score === allQuestions.length; // Changed to require all correct
+      setPassedQuiz(passed);
+      onQuizComplete(score);
       
-      // Save to localStorage if perfect score
-      if (score === allQuestions.length) {
-        localStorage.setItem('quizPerfectScore', 'true');
+      if (passed) {
+        localStorage.setItem('quizPassed', 'true');
       }
     }
   };
@@ -157,11 +162,22 @@ const Quiz = ({ onQuizComplete }) => {
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
+    setPassedQuiz(false);
     setQuizState('playing');
+  };
+
+  // Handle modal close with confirmation
+  const handleCloseQuiz = () => {
+    if (passedQuiz && quizState === 'finished') {
+      setShowExitConfirm(true);
+    } else {
+      closeQuiz();
+    }
   };
 
   const closeQuiz = () => {
     setQuizState('idle');
+    setShowExitConfirm(false);
   };
 
   const restartQuiz = () => {
@@ -170,7 +186,31 @@ const Quiz = ({ onQuizComplete }) => {
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
+    setPassedQuiz(false);
     setQuizState('playing');
+  };
+
+  const handleNextLessonClick = async () => {
+    try {
+      const getToken = () => {
+        return localStorage.getItem('authToken');
+      };
+      const token = getToken();
+      if (!token) return;
+      
+      const response = await axios.post('http://localhost:5000/api/course/PreparingAppetizers/update', {
+        lessonName: 'TypesOfAppetizers'
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      console.log('Lesson updated:', response.data);
+      window.location.href = '/MeasurementsAndConversion';
+    } catch (error) {
+      console.error('Error updating lesson status:', error.message);
+    }
   };
 
   // Fixed modal dimensions
@@ -235,6 +275,56 @@ const Quiz = ({ onQuizComplete }) => {
           zIndex: 999
         }}>
           <div style={modalStyle}>
+            {/* Exit Confirmation Dialog */}
+            {showExitConfirm && (
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(255,255,255,0.9)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                zIndex: 1001,
+                padding: '20px',
+                textAlign: 'center'
+              }}>
+                <h3 style={{ marginBottom: '20px' }}>You have passed the quiz!</h3>
+                <p style={{ marginBottom: '30px' }}>Are you sure you want to exit without proceeding to the next lesson?</p>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button 
+                    onClick={closeQuiz}
+                    style={{
+                      padding: '10px 20px',
+                      backgroundColor: '#da420e',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '5px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Exit Anyway
+                  </button>
+                  <button 
+                    onClick={() => setShowExitConfirm(false)}
+                    style={{
+                      padding: '10px 20px',
+                      backgroundColor: '#adb44e',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '5px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div style={contentStyle}>
               {quizState === 'rules' && (
                 <>
@@ -291,14 +381,14 @@ const Quiz = ({ onQuizComplete }) => {
                     <h1 style={{
                       textAlign: 'center',
                       color: '#000000',
-                      marginBottom: '20px',
+                      marginBottom: '30px',
                       fontSize: '30px',
                       fontFamily: "'Nunito', sans-serif",
                       fontWeight: "750",
                     }}>Quiz App</h1>
                     <h2 style={{
                       color: '#333',
-                      marginBottom: '20px',
+                      marginBottom: '1px',
                       fontSize: '18px',
                       minHeight: '60px',
                     }}>{shuffledQuestions[currentQuestion].question}</h2>
@@ -390,43 +480,48 @@ const Quiz = ({ onQuizComplete }) => {
                     fontFamily: "'Nunito', sans-serif",
                     fontWeight: "750",
                   }}>
-                    {score === shuffledQuestions.length ? 'Perfect Score!' : 'Try Again!'}
+                    {score === shuffledQuestions.length ? 'Perfect Score! You passed!' : 'Try Again! You need all 5 correct answers to pass'}
                   </p>
                   <div style={{
                     display: 'flex',
                     justifyContent: 'center',
                     gap: '20px',
-                    width: '100%'
+                    width: '100%',
+                    flexDirection: 'column'
                   }}>
+                    {passedQuiz && (
+                      <button 
+                        onClick={handleNextLessonClick}
+                        style={{
+                          padding: '10px 20px',
+                          backgroundColor: '#4CAF50',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '5px',
+                          cursor: 'pointer',
+                          fontSize: '16px',
+                          transition: 'background-color 0.3s',
+                          width: '100%'
+                        }}
+                      >
+                        Proceed to Next Lesson
+                      </button>
+                    )}
                     <button 
-                      onClick={restartQuiz}
+                      onClick={passedQuiz ? handleCloseQuiz : closeQuiz}
                       style={{
                         padding: '10px 20px',
-                        backgroundColor: '#adb44e',
+                        backgroundColor: passedQuiz ? '#adb44e' : '#da420e',
                         color: 'white',
                         border: 'none',
                         borderRadius: '5px',
                         cursor: 'pointer',
                         fontSize: '16px',
-                        transition: 'background-color 0.3s'
+                        transition: 'background-color 0.3s',
+                        width: passedQuiz ? '100%' : 'auto'
                       }}
                     >
-                      Try Again
-                    </button>
-                    <button 
-                      onClick={closeQuiz}
-                      style={{
-                        padding: '10px 20px',
-                        backgroundColor: '#da420e',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer',
-                        fontSize: '16px',
-                        transition: 'background-color 0.3s'
-                      }}
-                    >
-                      Close
+                      {passedQuiz ? 'Close Quiz' : 'Close'}
                     </button>
                   </div>
                 </div>
@@ -443,9 +538,8 @@ const TypesOfAppetizers = () => {
   // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [perfectScore, setPerfectScore] = useState(() => {
-    // Check localStorage for existing perfect score
-    return localStorage.getItem('quizPerfectScore') === 'true';
+  const [passedQuiz, setPassedQuiz] = useState(() => {
+    return localStorage.getItem('quizPassed') === 'true';
   });
 
   // Set up interaction tracking when component mounts
@@ -454,7 +548,6 @@ const TypesOfAppetizers = () => {
       setHasInteracted(true);
     };
 
-    // Track any user interaction with the page
     window.addEventListener('click', markAsInteracted);
     window.addEventListener('keydown', markAsInteracted);
     window.addEventListener('scroll', markAsInteracted);
@@ -466,40 +559,11 @@ const TypesOfAppetizers = () => {
     };
   }, []);
 
-  // Handle beforeunload to prevent accidental refresh - fixed alert logic
-  useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      // Only show the alert if the user has interacted with the page
-      // and hasn't completed the quiz with a perfect score
-      if (hasInteracted && !perfectScore) {
-        // Standard way to trigger the confirmation dialog
-        e.preventDefault();
-        // Message shown in most browsers (though some use their own default text)
-        e.returnValue = 'Changes you made may not be saved. Are you sure you want to leave this page?';
-        return e.returnValue;
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [hasInteracted, quizCompleted, perfectScore]);
-
   // Handle quiz completion
   const handleQuizComplete = (score) => {
     setQuizCompleted(true);
-    if (score === 5) {
-      setPerfectScore(true);
-    }
-  };
-
-  // Handle next lesson button click
-  const handleNextLessonClick = (e) => {
-    if (!perfectScore) {
-      e.preventDefault();
-      alert('You need to complete the quiz with a perfect score (5/5) to proceed to the next lesson.');
+    if (score >= 5) {
+      setPassedQuiz(true);
     }
   };
 
@@ -614,7 +678,8 @@ const TypesOfAppetizers = () => {
                 padding: "0",
                 fontFamily: "'Poppins', sans-serif;",
                 lineHeight: "1.6",
-                color: "#333"
+                color: "#333",
+                marginBottom: "165px"
               }}>
                 <h3 style={{
                   fontSize: "24px",
@@ -636,6 +701,12 @@ const TypesOfAppetizers = () => {
                 <p style={{ marginBottom: "15px" }}>
                 From being just the first dish in a multi-course meal, appetizers are now also being served as individual dishes, not connected to a meal, during events and gatherings.
                 </p>
+                <h6><span style={{ fontFamily: "'Nunito', sans-serif", fontWeight: "bold"}}>At the end of this unit, you should be able to:</span></h6>
+                <ul>
+                  <li>Prepare common types of appetizers properly;</li>
+                  <li>Plate and serve common appetizer dishes according to standards; and</li>
+                  <li>Identify the current trend in plating appetizer dishes.</li>
+                </ul>
               </div>
             </div>
             
@@ -677,16 +748,19 @@ const TypesOfAppetizers = () => {
                     <a style={{ textDecoration: "none", color: "#000000" }}>Introduction</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Organizational Structure in the Kitchen</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Common Types of Appetizers and Hors d’oeuvres</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Knowing your Role as a Kitchen Staff</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Common Appetizer and Hors d’oeurve Ingredients</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 3: Duties and Responsibilities of a Kitchen Staff</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Baked Items</a>
                   </li>
                   <li style={{ padding: "8px 0" }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 4: Professional Work Habits and Skills of a Kitchen Staff</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Protein-Rich Products</a>
+                  </li>
+                  <li style={{ padding: "8px 0" }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Fresh and Pickled Vegetables</a>
                   </li>
                 </ul>
               </div>
@@ -700,25 +774,6 @@ const TypesOfAppetizers = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="d-flex justify-content-end p5" style={{ marginBottom: "30px" }}>
-        <button 
-          className="cbtn cbtn-secondary done-button" 
-          style={{ 
-            marginTop: "-45px", 
-            width: "170px", 
-            height: "60px", 
-            marginRight: "35px", 
-            borderRadius: "15px",
-            opacity: perfectScore ? 1 : 0.6,
-            cursor: perfectScore ? 'pointer' : 'not-allowed'
-          }}
-          onClick={handleNextLessonClick}
-          disabled={!perfectScore}
-        >
-          Next Lesson
-        </button>
       </div>
       
       <Footer/>

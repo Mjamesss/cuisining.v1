@@ -578,7 +578,7 @@ const App = () => {
               
               <Route path="TypeOfAppetizers" element={<TypesOfAppetizers/>}/>
               <Route path="ObservingKitchen" element={<ObservingKitchen/>}/>
-              <Route path="PreparingCommonTypeAppetizers" element={<PreparingCommonTypesAppetizers/>}/>
+              <Route path="PreparingCommonTypesAppetizers" element={<PreparingCommonTypesAppetizers/>}/>
               <Route path="PlatingAppetizers" element={<PlatingAppetizers/>}/>
 
               {/*Preparing Sandwiches */}
