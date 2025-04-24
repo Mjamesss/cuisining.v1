@@ -560,7 +560,7 @@ const App = () => {
               <Route path="KitchenDepartment" element={<KitchenDepartment/>}/>
               <Route path="MeasurementsAndConversion" element={<MeasurementsAndConversion/>}/>
               <Route path="PreparingAppetizers" element={<PreparingAppetizers/>}/>
-              <Route path="PreparingEggVagetable" element={<PreparingEggVagetable/>}/>
+              <Route path="PreparingEggVegetable" element={<PreparingEggVagetable/>}/>
               <Route path="IntroToEggDishes" element={<IntroToEggDishes/>}/>
               <Route path="SaladAndSaladDressing" element={<SaladAndSaladDressing/>}/>
               <Route path="PreparingSandwich" element={<PreparingSandwich/>}/>

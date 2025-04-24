@@ -204,11 +204,10 @@ const Quiz = ({ onQuizComplete }) => {
         
 
         if (response.data.finalAssessmentUnlocked) {
-            alert('🌟 All courses completed! Final Assessment is now available!');
-        } else {
-            alert(`✅ Fundamentals of Cookery completed!`);
-        }
-
+          console.log('🌟 All courses completed! Final Assessment is now available!');
+      } else {
+          console.log('✅ Fundamentals of Cookery completed!');
+      }      
         window.location.href = '/Courses';
 
     } catch (error) {
@@ -482,7 +481,7 @@ const Quiz = ({ onQuizComplete }) => {
                     fontFamily: "'Nunito', sans-serif",
                     fontWeight: "750",
                   }}>
-                    {score === shuffledQuestions.length ? 'Perfect Score! You passed!' : 'Try Again! You need all 5 correct answers to pass'}
+                    {score === shuffledQuestions.length ? 'Perfect Score! You passed! You have completed all lessons in this course.' : 'Try Again! You need all 5 correct answers to pass'}
                   </p>
                   <div style={{
                     display: 'flex',
@@ -506,7 +505,7 @@ const Quiz = ({ onQuizComplete }) => {
                           width: '100%'
                         }}
                       >
-                        Proceed to Next Lesson
+                        Proceed to course
                       </button>
                     )}
                     <button 
