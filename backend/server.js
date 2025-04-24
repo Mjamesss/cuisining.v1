@@ -48,9 +48,20 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://cuisining-main.vercel.app"
+];
+
 app.use(
   cors({
-    origin: "http://localhost:3000", 
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
