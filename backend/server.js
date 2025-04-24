@@ -27,10 +27,14 @@ const course = require('./routes/courseRoutes');
 // Import Google Strategy (Ensure it's required)
 require("./routes/googleAuthRoutes");
 // ✅ Make sure routes come AFTER Passport initialization
-
+const modelsDir = path.join(__dirname, 'models');
+console.log('Contents of models directory:');
+fs.readdirSync(modelsDir).forEach(file => {
+  console.log(`- ${file}`);
+});
 const profilePath = path.join(__dirname, 'models', 'profile.js');
-console.log(`Profile path: ${profilePath}`);
-console.log(`File exists: ${fs.existsSync(profilePath)}`);
+console.log(`Profile.js exists: ${fs.existsSync(profilePath)}`);
+console.log(`Profile.js path: ${profilePath}`);
 
 const cors = require("cors");
 

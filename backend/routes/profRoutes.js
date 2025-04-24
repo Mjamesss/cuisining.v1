@@ -5,7 +5,8 @@ const User = require("../models/user"); // Import the User model
 const multer = require('multer');
 const checkProfileCustomized = require("../middlewares/checkProfileCustomized");
 const moment = require("moment-timezone");
-const Profile = require('../models/profile.js'); // lowercase
+const path = require('path');
+const Profile = require(path.join(__dirname, '../models/profile.js'));
 
 
 const router = express.Router();
