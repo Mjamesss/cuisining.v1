@@ -63,7 +63,6 @@ app.use("/api/settings", settingsRoutes);
 app.use("/api/notif/", notifRoutes);
 app.use ("/api/user/", userRoutes);
 app.use('/api/paypal', paypalRoutes);
-app.use("/api/profiles", profileRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/game", FinalAssessment);
 app.use('/api/', reportRoute);
