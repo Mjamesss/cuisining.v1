@@ -43,13 +43,13 @@ const LoginForm = () => {
     }
     try {
       const response = await fetch(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/auth/login`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/auth/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         }
-      );      
+      );  
       const data = await response.json();
       console.log("Login response:", data);
 
