@@ -191,26 +191,30 @@ const Quiz = ({ onQuizComplete }) => {
 
   const handleNextLessonClick = async () => {
     try {
-      const getToken = () => {
-        return localStorage.getItem('authToken');
-      };
-      const token = getToken();
-      if (!token) return;
-      
-      const response = await axios.post('http://localhost:5000/api/course/PreparingAppetizers/update', {
-        lessonName: 'PlatingAppetizers'
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert('Please login to save progress');
+            return;
         }
-      });
 
-      console.log('Lesson updated:', response.data);
-      window.location.href = '/MeasurementsAndConversion';
+        const response = await axios.post(
+            'http://localhost:5000/api/complete-final-unit',
+            { unitName: 'PlatingAppetizers' },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+        
+
+        if (response.data.finalAssessmentUnlocked) {
+          console.log('🌟 All courses completed! Final Assessment is now available!');
+      } else {
+          console.log('✅ Fundamentals of Cookery completed!');
+      }      
+        window.location.href = '/Courses';
+
     } catch (error) {
-      console.error('Error updating lesson status:', error.message);
+        alert(`Error: ${error.response?.data?.error || error.message}`);
     }
-  };
+};
 
   // Fixed modal dimensions
   const modalWidth = '500px';

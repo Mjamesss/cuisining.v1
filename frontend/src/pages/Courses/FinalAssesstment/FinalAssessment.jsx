@@ -55,10 +55,10 @@ const FinalAssessment = () => {
       }
     };
 
-    window.TriggerCallback = handleGameCompletion;
+    window.TriggerCallback1 = handleGameCompletion;
 
     return () => {
-      delete window.TriggerCallback;
+      delete window.TriggerCallback1;
     };
   }, []);
 
@@ -215,7 +215,7 @@ const FinalAssessment = () => {
               </div>
             )}
             <iframe
-              src={gameStarted ? "/CuisineWebglBuild/index.html" : "about:blank"}
+              src={gameStarted ? "/CuisineWebglBuildChopping/index.html" : "about:blank"}
               title="Cooking Assessment"
               style={{
                 position: "absolute",

@@ -198,7 +198,7 @@ const Quiz = ({ onQuizComplete }) => {
       const token = getToken();
       if (!token) return;
       
-      const response = await axios.post('http://localhost:5000/api/course/PreparingAppetizers/update', {
+      const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
         lessonName: 'TypesOfAppetizers'
       }, {
         headers: {

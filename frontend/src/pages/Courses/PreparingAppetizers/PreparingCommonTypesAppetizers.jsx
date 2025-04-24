@@ -197,8 +197,8 @@ const Quiz = ({ onQuizComplete }) => {
       const token = getToken();
       if (!token) return;
       
-      const response = await axios.post('http://localhost:5000/api/course/PreparingAppetizers/update', {
-        lessonName: 'PreparingCommonTypesAppetizers'
+      const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
+        lessonName: 'PreparingAppetizers'
       }, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -206,7 +206,7 @@ const Quiz = ({ onQuizComplete }) => {
       });
 
       console.log('Lesson updated:', response.data);
-      window.location.href = '/MeasurementsAndConversion';
+      window.location.href = '/PlatingAppetizers';
     } catch (error) {
       console.error('Error updating lesson status:', error.message);
     }
