@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Profile = require("../models/profile"); // Import the Profile model
+const Profile = require("../models/Profile"); // Import the Profile model
 const Notification = require("../models/Notification"); // Import the Notification model
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middlewares/verifyToken");

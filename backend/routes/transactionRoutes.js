@@ -1,7 +1,7 @@
 // Profile.js (or your router file)
 const express = require('express');
 const router = express.Router();
-const Profile = require('../models/profile'); // Adjust the path to your Profile model
+const Profile = require('../models/Profile'); // Adjust the path to your Profile model
 
 router.get('/pro-users', async (req, res) => {
     try {

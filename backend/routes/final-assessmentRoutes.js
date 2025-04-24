@@ -1,7 +1,7 @@
 // routes/game.js
 const express = require('express');
 const router = express.Router();
-const Profile = require('../models/profile');
+require('../models/Profile.js')
 const verifyToken = require('../middlewares/verifyToken');
 
 // Route to mark final assessment as completed

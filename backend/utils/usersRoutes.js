@@ -1,5 +1,5 @@
 const express = require("express");
-const Profile = require("../models/profile");
+const Profile = require("../models/Profile");
 const User = require("../models/user"); // Import the User model
 const mongoose = require("mongoose");
 const router = express.Router();
