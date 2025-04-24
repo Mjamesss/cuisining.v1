@@ -4,6 +4,9 @@ const passport = require("passport"); // ✅ Ensure this is required
 require("dotenv").config();
 const bodyParser = require('body-parser');
 const session = require("express-session");
+const fs = require('fs');
+const path = require('path');
+
 
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
@@ -25,7 +28,9 @@ const course = require('./routes/courseRoutes');
 require("./routes/googleAuthRoutes");
 // ✅ Make sure routes come AFTER Passport initialization
 
-
+const profilePath = path.join(__dirname, 'models', 'profile.js');
+console.log(`Profile path: ${profilePath}`);
+console.log(`File exists: ${fs.existsSync(profilePath)}`);
 
 const cors = require("cors");
 
