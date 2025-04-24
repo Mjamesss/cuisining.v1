@@ -790,26 +790,6 @@ const MeasurementAndConversion = () => {
           </div>
         </div>
       </div>
-
-      <div className="d-flex justify-content-end p5" style={{ marginBottom: "30px" }}>
-        <button 
-          className="cbtn cbtn-secondary done-button" 
-          style={{ 
-            marginTop: "-45px", 
-            width: "170px", 
-            height: "60px", 
-            marginRight: "35px", 
-            borderRadius: "15px",
-            opacity: passedQuiz ? 1 : 0.6,
-            cursor: passedQuiz ? 'pointer' : 'not-allowed'
-          }}
-          onClick={handleNextLessonClick}
-          disabled={!passedQuiz}
-        >
-          Next Lesson
-        </button>
-      </div>
-      
       <Footer/>
     </>
   );

@@ -2,7 +2,6 @@ import "../../../fw-cuisining.css";
 import Footer from "../../../components/Footer";
 import Navbar from "../../../components/Navbar";
 import React, { useState, useEffect } from 'react';
-import axios from "axios";
 
 const Breadcrumb = () => {
   return (
@@ -20,7 +19,7 @@ const Breadcrumb = () => {
         <span style={{ margin: "0 10px" }}>&gt;</span>
         <li className="breadcrumb-item"><a href="/FundamentalsOfCookery" style={{ color: "black", textDecoration: "none" }}>Fundamentals Of Professional Cookery</a></li>
         <span style={{ margin: "0 10px" }}>&gt;</span>
-        <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Lesson 2: Measurements and Conversion</li>
+        <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Lesson 5</li>
       </ol>
     </nav>
   );
@@ -36,38 +35,36 @@ const Quiz = ({ onQuizComplete }) => {
   const [reviewTime, setReviewTime] = useState(3);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [shuffledOptions, setShuffledOptions] = useState([]);
-  const [passedQuiz, setPassedQuiz] = useState(false);
-  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const allQuestions = [
     {
-      question: "What is the purpose of Personal Protective Equipment (PPE) in the kitchen?",
-      options: ["To make the chef look professional", "To protect employees from health and safety hazards", "To decorate the kitchen", "To speed up cooking"],
-      correctAnswer: "To protect employees from health and safety hazards"
+      question: "What does the Coarse cut refer to?",
+      options: ["Cutting food into small cubes", "Rough cuts for irregularly-shaped vegetables", "Thin strips of leafy vegetables", "Football-shaped cuts"],
+      correctAnswer: "Rough cuts for irregularly-shaped vegetables"
     },
     {
-      question: "Which of the following is NOT considered Personal Protective Equipment (PPE)? s?",
-      options: ["Chef's Uniform", "Gloves", "Apron", "Knife"],
-      correctAnswer: "Knife"
+      question: "What is the Batonnet cut commonly used for?",
+      options: ["Cutting vegetables into strips", "Cutting leafy vegetables into ribbons", "Small uniform cubes", "Football-shaped vegetables"],
+      correctAnswer: "Cutting vegetables into stripsf"
     },
     {
-      question: "What should food handlers always do before preparing food?",
-      options: ["Wear gloves", "Wash their hands", "Eat a snack", "Remove hairnet"],
-      correctAnswer: "Wash their hands"
+      question: "Which cut is used for cutting small uniform cubes measuring 5mm?",
+      options: ["Paysanne", "Chiffonade", "Julienne", "Macedoine"],
+      correctAnswer: "Macedoine"
     },
     {
-      question: "Which hygienic practice is required to prevent food contamination?",
-      options: ["Wearing hairnets", "Using perfumes", "Wearing jewelry", "Painting nails"],
-      correctAnswer: "Wearing hairnets"
+      question: "What is the Julienne cut used for?",
+      options: ["Cutting vegetables into football shapes", "Cutting vegetables into thin lengthwise strips", "Rough irregular shapes", "Cutting leafy vegetables into ribbons"],
+      correctAnswer: "Cutting vegetables into thin lengthwise strips"
     },
     {
-      question: "What should employees do if they feel sick with symptoms like diarrhea or fever?",
-      options: ["Continue working", "Notify the supervisor and stay home", "Eat medicine and go to work", "Hide the symptoms"],
-      correctAnswer: "Notify the supervisor and stay home"
+      question: "Which cut refers to a football-shaped vegetable with seven equal sides?",
+      options: ["Tournee", "Paysanne", "Batonnet", "Jardiniere"],
+      correctAnswer: "Tournee"
     },
-  
   ];
 
+  // Function to shuffle an array using Fisher-Yates algorithm
   const shuffleArray = (array) => {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -77,12 +74,14 @@ const Quiz = ({ onQuizComplete }) => {
     return newArray;
   };
 
+  // Shuffle options for the current question
   const shuffleCurrentOptions = () => {
     if (shuffledQuestions.length > 0 && currentQuestion < shuffledQuestions.length) {
       setShuffledOptions(shuffleArray(shuffledQuestions[currentQuestion].options));
     }
   };
 
+  // Timer effect for question time
   useEffect(() => {
     let timer;
     if (timerActive && timeLeft > 0) {
@@ -93,6 +92,7 @@ const Quiz = ({ onQuizComplete }) => {
     return () => clearTimeout(timer);
   }, [timeLeft, timerActive]);
 
+  // Review time effect
   useEffect(() => {
     let reviewTimer;
     if (selectedAnswer !== null && reviewTime > 0) {
@@ -103,6 +103,7 @@ const Quiz = ({ onQuizComplete }) => {
     return () => clearTimeout(reviewTimer);
   }, [reviewTime, selectedAnswer]);
 
+  // Reset timers and shuffle options when question changes
   useEffect(() => {
     if (quizState === 'playing') {
       setTimeLeft(10);
@@ -116,7 +117,7 @@ const Quiz = ({ onQuizComplete }) => {
   const handleTimeUp = () => {
     setSelectedAnswer('timeout');
     setTimerActive(false);
-    setReviewTime(3);
+    setReviewTime(3); // Start review period
   };
 
   const moveToNextQuestion = () => {
@@ -125,12 +126,11 @@ const Quiz = ({ onQuizComplete }) => {
       setCurrentQuestion(nextQuestion);
     } else {
       setQuizState('finished');
-      const passed = score === allQuestions.length;
-      setPassedQuiz(passed);
-      onQuizComplete(score);
+      onQuizComplete(score); // Notify parent component of quiz completion with score
       
-      if (passed) {
-        localStorage.setItem('quizPassed', 'true');
+      // Save to localStorage if perfect score
+      if (score === allQuestions.length) {
+        localStorage.setItem('quizPerfectScore', 'true');
       }
     }
   };
@@ -140,7 +140,7 @@ const Quiz = ({ onQuizComplete }) => {
     
     setSelectedAnswer(option);
     setTimerActive(false);
-    setReviewTime(3);
+    setReviewTime(3); // Start review period
     
     if (option === shuffledQuestions[currentQuestion].correctAnswer) {
       setScore(score + 1);
@@ -152,59 +152,28 @@ const Quiz = ({ onQuizComplete }) => {
   };
 
   const startPlaying = () => {
+    // Shuffle questions when starting the quiz
     const shuffled = shuffleArray(allQuestions);
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
-    setPassedQuiz(false);
     setQuizState('playing');
-  };
-
-  const handleCloseQuiz = () => {
-    if (passedQuiz && quizState === 'finished') {
-      setShowExitConfirm(true);
-    } else {
-      closeQuiz();
-    }
   };
 
   const closeQuiz = () => {
     setQuizState('idle');
-    setShowExitConfirm(false);
   };
 
   const restartQuiz = () => {
+    // Shuffle questions again when restarting
     const shuffled = shuffleArray(allQuestions);
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
-    setPassedQuiz(false);
     setQuizState('playing');
   };
 
-  const handleNextLessonClick = async () => {
-    try {
-      const getToken = () => {
-        return localStorage.getItem('authToken');
-      };
-      const token = getToken();
-      if (!token) return;
-      
-      const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
-        lessonName: 'OccupationalHealthAndSafety'
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      console.log('Lesson updated:', response.data);
-      window.location.href = '/KnifeSkills';
-    } catch (error) {
-      console.error('Error updating lesson status:', error.message);
-    }
-  };
-
+  // Fixed modal dimensions
   const modalWidth = '500px';
   const modalHeight = '500px';
 
@@ -236,9 +205,13 @@ const Quiz = ({ onQuizComplete }) => {
 
   return (
     <>
+      {/* Quiz Button */}
       {quizState === 'idle' && (
         <button onClick={startQuiz} style={{ padding: '30px 30px 30px 100px', backgroundColor: '#ffffff', height: 'auto', minHeight: '150px', color: '#000000', fontWeight: "500", border: 'none', borderRadius: '15px', cursor: 'pointer', transition: 'background-color 0.3s', width: '100%', marginTop: '20px', textAlign: 'left', display: 'flex', flexDirection: 'column', boxSizing: 'border-box', position: 'relative' }}>
+          {/* Custom Image Icon */}
           <div style={{ position: 'absolute', left: '5px', top: '50%', transform: 'translateY(-50%)', width: '100px', height: '100px', backgroundImage: 'url(/quizicon.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
+          
+          {/* Text Content */}
           <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '10px' }}>
             <span style={{ color: "#BCC444", fontSize: "41px", fontWeight: "750", fontFamily: "'Nunito', sans-serif", lineHeight: '1' }}>Q</span>
             <span style={{ color: "#000000", fontSize: "30px", fontWeight: "750", fontFamily: "'Nunito', sans-serif", lineHeight: '1' }}>uizining</span>
@@ -250,6 +223,7 @@ const Quiz = ({ onQuizComplete }) => {
         </button>
       )}
 
+      {/* Modal Overlay - Only shown when modal is active */}
       {(quizState === 'rules' || quizState === 'playing' || quizState === 'finished') && (
         <div style={{
           position: 'fixed',
@@ -261,55 +235,6 @@ const Quiz = ({ onQuizComplete }) => {
           zIndex: 999
         }}>
           <div style={modalStyle}>
-            {showExitConfirm && (
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: 'rgba(255,255,255,0.9)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                zIndex: 1001,
-                padding: '20px',
-                textAlign: 'center'
-              }}>
-                <h3 style={{ marginBottom: '20px' }}>You have passed the quiz!</h3>
-                <p style={{ marginBottom: '30px' }}>Are you sure you want to exit without proceeding to the next lesson?</p>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <button 
-                    onClick={closeQuiz}
-                    style={{
-                      padding: '10px 20px',
-                      backgroundColor: '#da420e',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '5px',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Exit Anyway
-                  </button>
-                  <button 
-                    onClick={() => setShowExitConfirm(false)}
-                    style={{
-                      padding: '10px 20px',
-                      backgroundColor: '#adb44e',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '5px',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
-
             <div style={contentStyle}>
               {quizState === 'rules' && (
                 <>
@@ -366,14 +291,14 @@ const Quiz = ({ onQuizComplete }) => {
                     <h1 style={{
                       textAlign: 'center',
                       color: '#000000',
-                      marginBottom: '30px',
+                      marginBottom: '20px',
                       fontSize: '30px',
                       fontFamily: "'Nunito', sans-serif",
                       fontWeight: "750",
                     }}>Quiz App</h1>
                     <h2 style={{
                       color: '#333',
-                      marginBottom: '1px',
+                      marginBottom: '20px',
                       fontSize: '18px',
                       minHeight: '60px',
                     }}>{shuffledQuestions[currentQuestion].question}</h2>
@@ -465,48 +390,43 @@ const Quiz = ({ onQuizComplete }) => {
                     fontFamily: "'Nunito', sans-serif",
                     fontWeight: "750",
                   }}>
-                    {score === shuffledQuestions.length ? 'Perfect Score! You passed!' : 'Try Again! You need all 5 correct answers to pass'}
+                    {score === shuffledQuestions.length ? 'Perfect Score!' : 'Try Again!'}
                   </p>
                   <div style={{
                     display: 'flex',
                     justifyContent: 'center',
                     gap: '20px',
-                    width: '100%',
-                    flexDirection: 'column'
+                    width: '100%'
                   }}>
-                    {passedQuiz && (
-                      <button 
-                        onClick={handleNextLessonClick}
-                        style={{
-                          padding: '10px 20px',
-                          backgroundColor: '#4CAF50',
-                          color: 'white',
-                          border: 'none',
-                          borderRadius: '5px',
-                          cursor: 'pointer',
-                          fontSize: '16px',
-                          transition: 'background-color 0.3s',
-                          width: '100%'
-                        }}
-                      >
-                        Proceed to Next Lesson
-                      </button>
-                    )}
                     <button 
-                      onClick={passedQuiz ? handleCloseQuiz : closeQuiz}
+                      onClick={restartQuiz}
                       style={{
                         padding: '10px 20px',
-                        backgroundColor: passedQuiz ? '#adb44e' : '#da420e',
+                        backgroundColor: '#adb44e',
                         color: 'white',
                         border: 'none',
                         borderRadius: '5px',
                         cursor: 'pointer',
                         fontSize: '16px',
-                        transition: 'background-color 0.3s',
-                        width: passedQuiz ? '100%' : 'auto'
+                        transition: 'background-color 0.3s'
                       }}
                     >
-                      {passedQuiz ? 'Close Quiz' : 'Close'}
+                      Try Again
+                    </button>
+                    <button 
+                      onClick={closeQuiz}
+                      style={{
+                        padding: '10px 20px',
+                        backgroundColor: '#da420e',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        fontSize: '16px',
+                        transition: 'background-color 0.3s'
+                      }}
+                    >
+                      Close
                     </button>
                   </div>
                 </div>
@@ -519,18 +439,22 @@ const Quiz = ({ onQuizComplete }) => {
   );
 };
 
-const MeasurementAndConversion = () => {
+const KnifeSkills = () => {
+  // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [passedQuiz, setPassedQuiz] = useState(() => {
-    return localStorage.getItem('quizPassed') === 'true';
+  const [perfectScore, setPerfectScore] = useState(() => {
+    // Check localStorage for existing perfect score
+    return localStorage.getItem('quizPerfectScore') === 'true';
   });
 
+  // Set up interaction tracking when component mounts
   useEffect(() => {
     const markAsInteracted = () => {
       setHasInteracted(true);
     };
 
+    // Track any user interaction with the page
     window.addEventListener('click', markAsInteracted);
     window.addEventListener('keydown', markAsInteracted);
     window.addEventListener('scroll', markAsInteracted);
@@ -542,10 +466,15 @@ const MeasurementAndConversion = () => {
     };
   }, []);
 
+  // Handle beforeunload to prevent accidental refresh - fixed alert logic
   useEffect(() => {
     const handleBeforeUnload = (e) => {
-      if (hasInteracted && !passedQuiz) {
+      // Only show the alert if the user has interacted with the page
+      // and hasn't completed the quiz with a perfect score
+      if (hasInteracted && !perfectScore) {
+        // Standard way to trigger the confirmation dialog
         e.preventDefault();
+        // Message shown in most browsers (though some use their own default text)
         e.returnValue = 'Changes you made may not be saved. Are you sure you want to leave this page?';
         return e.returnValue;
       }
@@ -556,42 +485,21 @@ const MeasurementAndConversion = () => {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [hasInteracted, passedQuiz]);
+  }, [hasInteracted, quizCompleted, perfectScore]);
 
+  // Handle quiz completion
   const handleQuizComplete = (score) => {
     setQuizCompleted(true);
     if (score === 5) {
-      setPassedQuiz(true);
+      setPerfectScore(true);
     }
   };
 
-  const handleNextLessonClick = async (e) => {
-    if (!passedQuiz) {
+  // Handle next lesson button click
+  const handleNextLessonClick = (e) => {
+    if (!perfectScore) {
       e.preventDefault();
-      alert('You need to complete the quiz with at least 8 correct answers to proceed to the next lesson.');
-    } else {
-      try {
-        const getToken = () => {
-          return localStorage.getItem('authToken');
-        };
-        // Send a POST request to update the lesson statuses
-        const token = getToken(); // Get JWT token from local storage
-        if (!token) return;
-        const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
-          lessonName: 'OccupationalHealthAndSafety'
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-  
-        console.log('Lesson updated:', response.data);
-  
-        // Redirect to the next lesson
-        window.location.href = '/KnifeSkills';
-      } catch (error) {
-        console.error('Error updating lesson status:', error.message);
-      }
+      alert('You need to complete the quiz with a perfect score (5/5) to proceed to the next lesson.');
     }
   };
 
@@ -666,7 +574,7 @@ const MeasurementAndConversion = () => {
                   color: "#000000",
                   textAlign: "left"
                 }}>
-                  <span style={{ color: "#adb44e", }}>UNIT 2:</span> Lesson 4  Occupational Health And Safety Procedure
+                  <span style={{ color: "#adb44e", }}>UNIT 2:</span> Lesson 5 Knife Skills
                 </h1>
               </div>
 
@@ -692,7 +600,7 @@ const MeasurementAndConversion = () => {
                       border: "none",
                       borderRadius: "15px"
                     }}
-                    src="https://www.youtube.com/embed/UzwMn4tlCkE?si=F90apCeU3_0_ARpZ"
+                    src="https://www.youtube.com/embed/55FNElP8UYU?si=q490sA5PSSIiTR8-" 
                     title="YouTube video player" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowFullScreen
@@ -717,8 +625,18 @@ const MeasurementAndConversion = () => {
                   About This Lesson
                 </h3>
                 <p style={{ marginBottom: "15px", }}>  
-                To avoid accidents and problems in the workstation and in food preparation, you must practice occupational safety and proper health procedure. The lesson includes the use of PPEs, proper hand washing techniques, good hygienic practices, and kitchen safety measures.
+                Knife skills are one of the basic requirements in performing mise en place.  It is also important to learn how to properly hold the chef's knife. A good grip will give you control over the knife to prevent accidents and improve your efficiency and accuracy. Holding the blade with the thumb and forefinger is the best position for handling the knife.
                 </p>
+                <p style={{ marginBottom: "15px" }}>
+                Remember that in holding the knife,
+                </p>
+                <h6><span style={{ fontFamily: "'Nunito', sans-serif", fontWeight: "bold"}}></span></h6>
+                <ul>
+                  <li>Hold firmly to the item you are cutting so it will not slip.</li>
+                  <li>Guide the knife so that the knife blade slides along the fingers since the position of your hand will control the cut.</li>
+                  <li>Curl your fingertips to avoid accidents</li>
+             
+                </ul>
               </div>
             </div>
             
@@ -728,6 +646,7 @@ const MeasurementAndConversion = () => {
               flexDirection: 'column',
               alignItems: 'flex-start'
             }}>
+              {/* Right side container */}
               <div className="right-side-container" style={{
                 marginLeft: "1px",
                 marginTop: "10px",
@@ -759,20 +678,21 @@ const MeasurementAndConversion = () => {
                     <a style={{ textDecoration: "none", color: "#000000" }}>Introduction</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Volume Measurements</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Organizational Structure in the Kitchen</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Weight Conversions</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Knowing your Role as a Kitchen Staff</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 3: Temperature Conversions</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 3: Duties and Responsibilities of a Kitchen Staff</a>
                   </li>
                   <li style={{ padding: "8px 0" }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 4: Recipe Scaling</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 4: Professional Work Habits and Skills of a Kitchen Staff</a>
                   </li>
                 </ul>
               </div>
               
+              {/* Quiz Button Container - Now positioned directly below the right-side-container */}
               <div className="quiz-button-container" style={{
                 width: '100%'
               }}>
@@ -782,9 +702,29 @@ const MeasurementAndConversion = () => {
           </div>
         </div>
       </div>
+
+      <div className="d-flex justify-content-end p5" style={{ marginBottom: "30px" }}>
+        <button 
+          className="cbtn cbtn-secondary done-button" 
+          style={{ 
+            marginTop: "-45px", 
+            width: "170px", 
+            height: "60px", 
+            marginRight: "35px", 
+            borderRadius: "15px",
+            opacity: perfectScore ? 1 : 0.6,
+            cursor: perfectScore ? 'pointer' : 'not-allowed'
+          }}
+          onClick={handleNextLessonClick}
+          disabled={!perfectScore}
+        >
+          Next Lesson
+        </button>
+      </div>
+      
       <Footer/>
     </>
   );
 }
 
-export default MeasurementAndConversion;
+export default KnifeSkills;

@@ -2,6 +2,7 @@ import "../../../fw-cuisining.css";
 import Footer from "../../../components/Footer";
 import Navbar from "../../../components/Navbar";
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 
 const Breadcrumb = () => {
   return (
@@ -35,6 +36,8 @@ const Quiz = ({ onQuizComplete }) => {
   const [reviewTime, setReviewTime] = useState(3);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [shuffledOptions, setShuffledOptions] = useState([]);
+  const [passedQuiz, setPassedQuiz] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const allQuestions = [
     {
@@ -45,7 +48,7 @@ const Quiz = ({ onQuizComplete }) => {
     {
       question: "What is the Batonnet cut commonly used for?",
       options: ["Cutting vegetables into strips", "Cutting leafy vegetables into ribbons", "Small uniform cubes", "Football-shaped vegetables"],
-      correctAnswer: "Cutting vegetables into stripsf"
+      correctAnswer: "Cutting vegetables into strips"
     },
     {
       question: "Which cut is used for cutting small uniform cubes measuring 5mm?",
@@ -63,7 +66,6 @@ const Quiz = ({ onQuizComplete }) => {
       correctAnswer: "Tournee"
     },
   ];
-
   // Function to shuffle an array using Fisher-Yates algorithm
   const shuffleArray = (array) => {
     const newArray = [...array];
@@ -126,11 +128,12 @@ const Quiz = ({ onQuizComplete }) => {
       setCurrentQuestion(nextQuestion);
     } else {
       setQuizState('finished');
-      onQuizComplete(score); // Notify parent component of quiz completion with score
+      const passed = score === allQuestions.length; // Changed to require all correct
+      setPassedQuiz(passed);
+      onQuizComplete(score);
       
-      // Save to localStorage if perfect score
-      if (score === allQuestions.length) {
-        localStorage.setItem('quizPerfectScore', 'true');
+      if (passed) {
+        localStorage.setItem('quizPassed', 'true');
       }
     }
   };
@@ -157,11 +160,22 @@ const Quiz = ({ onQuizComplete }) => {
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
+    setPassedQuiz(false);
     setQuizState('playing');
+  };
+
+  // Handle modal close with confirmation
+  const handleCloseQuiz = () => {
+    if (passedQuiz && quizState === 'finished') {
+      setShowExitConfirm(true);
+    } else {
+      closeQuiz();
+    }
   };
 
   const closeQuiz = () => {
     setQuizState('idle');
+    setShowExitConfirm(false);
   };
 
   const restartQuiz = () => {
@@ -170,9 +184,37 @@ const Quiz = ({ onQuizComplete }) => {
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
+    setPassedQuiz(false);
     setQuizState('playing');
   };
 
+  const handleNextLessonClick = async () => {
+    try {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert('Please login to save progress');
+            return;
+        }
+
+        const response = await axios.post(
+            'http://localhost:5000/api/complete-final-unit',
+            { unitName: 'KnifeSkills' },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+        
+
+        if (response.data.finalAssessmentUnlocked) {
+            alert('🌟 All courses completed! Final Assessment is now available!');
+        } else {
+            alert(`✅ Fundamentals of Cookery completed!`);
+        }
+
+        window.location.href = '/Courses';
+
+    } catch (error) {
+        alert(`Error: ${error.response?.data?.error || error.message}`);
+    }
+};
   // Fixed modal dimensions
   const modalWidth = '500px';
   const modalHeight = '500px';
@@ -235,6 +277,56 @@ const Quiz = ({ onQuizComplete }) => {
           zIndex: 999
         }}>
           <div style={modalStyle}>
+            {/* Exit Confirmation Dialog */}
+            {showExitConfirm && (
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(255,255,255,0.9)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                zIndex: 1001,
+                padding: '20px',
+                textAlign: 'center'
+              }}>
+                <h3 style={{ marginBottom: '20px' }}>You have passed the quiz!</h3>
+                <p style={{ marginBottom: '30px' }}>Are you sure you want to exit without proceeding to the next lesson?</p>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button 
+                    onClick={closeQuiz}
+                    style={{
+                      padding: '10px 20px',
+                      backgroundColor: '#da420e',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '5px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Exit Anyway
+                  </button>
+                  <button 
+                    onClick={() => setShowExitConfirm(false)}
+                    style={{
+                      padding: '10px 20px',
+                      backgroundColor: '#adb44e',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '5px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div style={contentStyle}>
               {quizState === 'rules' && (
                 <>
@@ -291,14 +383,14 @@ const Quiz = ({ onQuizComplete }) => {
                     <h1 style={{
                       textAlign: 'center',
                       color: '#000000',
-                      marginBottom: '20px',
+                      marginBottom: '30px',
                       fontSize: '30px',
                       fontFamily: "'Nunito', sans-serif",
                       fontWeight: "750",
                     }}>Quiz App</h1>
                     <h2 style={{
                       color: '#333',
-                      marginBottom: '20px',
+                      marginBottom: '1px',
                       fontSize: '18px',
                       minHeight: '60px',
                     }}>{shuffledQuestions[currentQuestion].question}</h2>
@@ -390,43 +482,48 @@ const Quiz = ({ onQuizComplete }) => {
                     fontFamily: "'Nunito', sans-serif",
                     fontWeight: "750",
                   }}>
-                    {score === shuffledQuestions.length ? 'Perfect Score!' : 'Try Again!'}
+                    {score === shuffledQuestions.length ? 'Perfect Score! You passed!' : 'Try Again! You need all 5 correct answers to pass'}
                   </p>
                   <div style={{
                     display: 'flex',
                     justifyContent: 'center',
                     gap: '20px',
-                    width: '100%'
+                    width: '100%',
+                    flexDirection: 'column'
                   }}>
+                    {passedQuiz && (
+                      <button 
+                        onClick={handleNextLessonClick}
+                        style={{
+                          padding: '10px 20px',
+                          backgroundColor: '#4CAF50',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '5px',
+                          cursor: 'pointer',
+                          fontSize: '16px',
+                          transition: 'background-color 0.3s',
+                          width: '100%'
+                        }}
+                      >
+                        Proceed to Next Lesson
+                      </button>
+                    )}
                     <button 
-                      onClick={restartQuiz}
+                      onClick={passedQuiz ? handleCloseQuiz : closeQuiz}
                       style={{
                         padding: '10px 20px',
-                        backgroundColor: '#adb44e',
+                        backgroundColor: passedQuiz ? '#adb44e' : '#da420e',
                         color: 'white',
                         border: 'none',
                         borderRadius: '5px',
                         cursor: 'pointer',
                         fontSize: '16px',
-                        transition: 'background-color 0.3s'
+                        transition: 'background-color 0.3s',
+                        width: passedQuiz ? '100%' : 'auto'
                       }}
                     >
-                      Try Again
-                    </button>
-                    <button 
-                      onClick={closeQuiz}
-                      style={{
-                        padding: '10px 20px',
-                        backgroundColor: '#da420e',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer',
-                        fontSize: '16px',
-                        transition: 'background-color 0.3s'
-                      }}
-                    >
-                      Close
+                      {passedQuiz ? 'Close Quiz' : 'Close'}
                     </button>
                   </div>
                 </div>
@@ -439,13 +536,12 @@ const Quiz = ({ onQuizComplete }) => {
   );
 };
 
-const KnifeSkills = () => {
+const CommonKitchenTools = () => {
   // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [perfectScore, setPerfectScore] = useState(() => {
-    // Check localStorage for existing perfect score
-    return localStorage.getItem('quizPerfectScore') === 'true';
+  const [passedQuiz, setPassedQuiz] = useState(() => {
+    return localStorage.getItem('quizPassed') === 'true';
   });
 
   // Set up interaction tracking when component mounts
@@ -454,7 +550,6 @@ const KnifeSkills = () => {
       setHasInteracted(true);
     };
 
-    // Track any user interaction with the page
     window.addEventListener('click', markAsInteracted);
     window.addEventListener('keydown', markAsInteracted);
     window.addEventListener('scroll', markAsInteracted);
@@ -466,40 +561,11 @@ const KnifeSkills = () => {
     };
   }, []);
 
-  // Handle beforeunload to prevent accidental refresh - fixed alert logic
-  useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      // Only show the alert if the user has interacted with the page
-      // and hasn't completed the quiz with a perfect score
-      if (hasInteracted && !perfectScore) {
-        // Standard way to trigger the confirmation dialog
-        e.preventDefault();
-        // Message shown in most browsers (though some use their own default text)
-        e.returnValue = 'Changes you made may not be saved. Are you sure you want to leave this page?';
-        return e.returnValue;
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [hasInteracted, quizCompleted, perfectScore]);
-
   // Handle quiz completion
   const handleQuizComplete = (score) => {
     setQuizCompleted(true);
-    if (score === 5) {
-      setPerfectScore(true);
-    }
-  };
-
-  // Handle next lesson button click
-  const handleNextLessonClick = (e) => {
-    if (!perfectScore) {
-      e.preventDefault();
-      alert('You need to complete the quiz with a perfect score (5/5) to proceed to the next lesson.');
+    if (score >= 5) {
+      setPassedQuiz(true);
     }
   };
 
@@ -600,7 +666,7 @@ const KnifeSkills = () => {
                       border: "none",
                       borderRadius: "15px"
                     }}
-                    src="https://www.youtube.com/embed/55FNElP8UYU?si=q490sA5PSSIiTR8-" 
+                    src="https://www.youtube.com/embed/wW2whLYcYLE?si=r0R7xwkz4BI96CCQ" 
                     title="YouTube video player" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowFullScreen
@@ -635,7 +701,6 @@ const KnifeSkills = () => {
                   <li>Hold firmly to the item you are cutting so it will not slip.</li>
                   <li>Guide the knife so that the knife blade slides along the fingers since the position of your hand will control the cut.</li>
                   <li>Curl your fingertips to avoid accidents</li>
-             
                 </ul>
               </div>
             </div>
@@ -702,29 +767,10 @@ const KnifeSkills = () => {
           </div>
         </div>
       </div>
-
-      <div className="d-flex justify-content-end p5" style={{ marginBottom: "30px" }}>
-        <button 
-          className="cbtn cbtn-secondary done-button" 
-          style={{ 
-            marginTop: "-45px", 
-            width: "170px", 
-            height: "60px", 
-            marginRight: "35px", 
-            borderRadius: "15px",
-            opacity: perfectScore ? 1 : 0.6,
-            cursor: perfectScore ? 'pointer' : 'not-allowed'
-          }}
-          onClick={handleNextLessonClick}
-          disabled={!perfectScore}
-        >
-          Next Lesson
-        </button>
-      </div>
       
       <Footer/>
     </>
   );
 }
 
-export default KnifeSkills;
+export default CommonKitchenTools;
