@@ -5,26 +5,26 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
 const Breadcrumb = () => {
-  return (
-    <nav aria-label="breadcrumb" className="px-3 px-md-5" style={{ 
-      marginBottom: "40px", 
-      paddingTop: "30px",
-      fontSize: "15px",
-      marginLeft: "45px",
-    }}>
-      <ol className="breadcrumb" style={{ 
-        padding: 0,
-        margin: 0
+    return (
+      <nav aria-label="breadcrumb" className="px-3 px-md-5" style={{ 
+        marginBottom: "40px", 
+        paddingTop: "30px",
+        fontSize: "15px",
+        marginLeft: "45px",
       }}>
-        <li className="breadcrumb-item"><a href="/Courses" style={{ color: "black", textDecoration: "none" }}>Courses</a></li>
-        <span style={{ margin: "0 10px" }}>&gt;</span>
-        <li className="breadcrumb-item"><a href="/PreparingEggVegetable" style={{ color: "black", textDecoration: "none" }}>Preparing Egg, Vegetable and Farinaceous Dishes</a></li>
-        <span style={{ margin: "0 10px" }}>&gt;</span>
-        <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Lesson 1</li>
-      </ol>
-    </nav>
-  );
-};
+        <ol className="breadcrumb" style={{ 
+          padding: 0,
+          margin: 0
+        }}>
+          <li className="breadcrumb-item"><a href="/Courses" style={{ color: "black", textDecoration: "none" }}>Courses</a></li>
+          <span style={{ margin: "0 10px" }}>&gt;</span>
+          <li className="breadcrumb-item"><a href="/PreparingEggVegetable" style={{ color: "black", textDecoration: "none" }}>Preparing Egg, Vegetable and Farinaceous Dishes</a></li>
+          <span style={{ margin: "0 10px" }}>&gt;</span>
+          <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Lesson 3</li>
+        </ol>
+      </nav>
+    );
+  };
 
 const Quiz = ({ onQuizComplete }) => {
   const [quizState, setQuizState] = useState('idle'); // 'idle', 'rules', 'playing', 'finished'
@@ -199,7 +199,7 @@ const Quiz = ({ onQuizComplete }) => {
       if (!token) return;
       
       const response = await axios.post('http://localhost:5000/api/course/PreparingEggVegetable/update', {
-        lessonName: 'IntroToEggDishes'
+        lessonName: 'PreparingRiceDishes'
       }, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -534,7 +534,7 @@ const Quiz = ({ onQuizComplete }) => {
   );
 };
 
-const IntroToEggDishes = () => {
+const PreparingRiceDishes = () => {
   // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
@@ -638,7 +638,7 @@ const IntroToEggDishes = () => {
                   color: "#000000",
                   textAlign: "left"
                 }}>
-                  <span style={{ color: "#adb44e", }}>UNIT 1:</span> Lesson 1 Introduction to Egg Dishes
+                  <span style={{ color: "#adb44e", }}>UNIT 3:</span> LESSON 3 Preparing Rice Dishes
                 </h1>
               </div>
 
@@ -690,15 +690,8 @@ const IntroToEggDishes = () => {
                   About This Lesson
                 </h3>
                 <p style={{ marginBottom: "15px", }}>  
-                Eggs are one of the most versatile ingredients in the kitchen. These can be prepared and cooked in many ways. The most commonly used eggs are chicken eggs because of its blandness, availability and variety of sizes. Additionally, eggs contain a large amount of protein which coagulates when heated. Eggs are ideally cooked slowly and with moderate heat.
+                Rice is a popular cereal crop usually used as human food. It is a type of grass that belongs to a family of plants that includes cereals such as wheat and corn. It is rich in nutrients and contains vitamins and minerals that are lost during milling and polishing. This process turns brown rice into white rice by removing the outer rice husk and bran to reveal the white grain.
                 </p>
-                <h6><span style={{ fontFamily: "'Nunito', sans-serif", fontWeight: "bold"}}>At the end of this unit, you should be able to:</span></h6>
-                <ul>
-                  <li>Identify the components of an egg;</li>
-                  <li>Determine the desirable qualities of eggs;</li>
-                  <li>Handle and store fresh eggs properly; and</li>
-                  <li>Prepare eggs using various cooking methods.</li>
-                </ul>
               </div>
             </div>
             
@@ -740,13 +733,16 @@ const IntroToEggDishes = () => {
                     <a style={{ textDecoration: "none", color: "#000000" }}>Introduction</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Composition of Eggs</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Handling and Storing Rice</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Quality Grades of Eggs</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Cooking Rice</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 3: Storing Fresh Eggs</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Boiling and Steaming Rice</a>
+                  </li>
+                  <li style={{ padding: "8px 0",  }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Pasta Method of Cooking Rice</a>
                   </li>
                 </ul>
               </div>
@@ -767,4 +763,4 @@ const IntroToEggDishes = () => {
   );
 }
 
-export default IntroToEggDishes;
+export default PreparingRiceDishes;

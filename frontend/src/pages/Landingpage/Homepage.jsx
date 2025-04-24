@@ -363,9 +363,10 @@ const Homepage = () => {
                     </button>
                   ) : proAccountStatus ? (
                     <button 
-                      className="cbtn cbtn-success fw-semibold mt-3 mt-md-4 mx-auto mx-md-0" 
+                      className="cbtn fw-semibold mt-3 mt-md-4 mx-auto mx-md-0" 
                       style={{ 
-                        color: "white",  
+                        color: "white", 
+                        backgroundColor: "#C1C857", 
                         minWidth: "180px",
                         height: "auto", 
                         fontSize: "clamp(1rem, 1.5vw, 1.2rem)", 
