@@ -25,7 +25,7 @@ const ProfileForm = () => {
   const fetchUserProfile = async (token) => {
     try {
       const profileResponse = await fetch(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/auth/profile`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/auth/profile`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
@@ -42,7 +42,7 @@ const ProfileForm = () => {
       console.log("User Profile Data:", profileData);
 
       const gprofResponse = await fetch(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/profile/gprof`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/profile/gprof`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
@@ -155,7 +155,7 @@ const ProfileForm = () => {
       };
 
       const response = await fetch(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/profile/submit`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/profile/submit`,
         {
           method: "POST",
           headers: {
@@ -194,7 +194,7 @@ const ProfileForm = () => {
     const token = localStorage.getItem("authToken");
     try {
       const response = await fetch(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/profile/upload-avatar`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/profile/upload-avatar`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },

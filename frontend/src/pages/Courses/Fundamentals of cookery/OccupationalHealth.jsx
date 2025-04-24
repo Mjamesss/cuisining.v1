@@ -191,7 +191,7 @@ const Quiz = ({ onQuizComplete }) => {
       if (!token) return;
       
       const response = await axios.post(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
         { lessonName: 'OccupationalHealthAndSafety' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -576,13 +576,18 @@ const MeasurementAndConversion = () => {
         // Send a POST request to update the lesson statuses
         const token = getToken(); // Get JWT token from local storage
         if (!token) return;
-        const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
-          lessonName: 'OccupationalHealthAndSafety'
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ lessonName: 'OccupationalHealthAndSafety' }),
           }
-        });
+        );
+        
   
         console.log('Lesson updated:', response.data);
   

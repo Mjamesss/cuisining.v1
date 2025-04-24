@@ -23,19 +23,27 @@ const ReminderAdmin = () => {
   useEffect(() => {
     const fetchReminders = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.BACKEND_LINK || 'http://localhost:5000'}/api/notif/notifications`
-        );
-        if (response.status === 200) {
-          console.log('Fetched reminders:', response.data);
-          setReminders(response.data);
+        const backendURL = process.env.REACT_APP_BACKEND_LINK || 'http://localhost:5000';
+    
+        const response = await fetch(`${backendURL}/api/notif/notifications`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+    
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Fetched reminders:', data);
+          setReminders(data);
+        } else {
+          throw new Error(`Status: ${response.status}`);
         }
       } catch (error) {
         console.error('Error fetching reminders:', error);
         setValidationMessage("Failed to fetch reminders. Please try again.");
       }
-    };
-
+    };    
     fetchReminders();
   }, []);
 
@@ -55,10 +63,16 @@ const ReminderAdmin = () => {
         cuisiningIds: recipientType === 'custom' ? users : undefined,
       };
 
-      const response = await axios.post(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/notif/notifications`,
-        payload
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/notif/notifications`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
       );
+      
+
       
       if (response.status === 201) {
         const now = new Date();
@@ -101,7 +115,7 @@ const ReminderAdmin = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/notif/check-user`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/notif/check-user`,
         { cuisiningId: searchUserId }
       );      
 

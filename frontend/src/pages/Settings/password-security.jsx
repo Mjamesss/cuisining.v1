@@ -31,7 +31,7 @@ const SettingsComponent = () => {
         }
 
         const profileResponse = await axios.get(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -102,7 +102,7 @@ const SettingsComponent = () => {
       }
 
       const response = await axios.post(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/change-password`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/change-password`,
         {
           currentPassword: passwordData.currentPassword,
           newPassword: passwordData.newPassword,

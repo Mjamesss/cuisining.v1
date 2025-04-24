@@ -45,7 +45,7 @@ const SettingsComponent = () => {
           throw new Error("No token found in localStorage.");
         }
         const response = await axios.get(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -156,7 +156,7 @@ const SettingsComponent = () => {
       }
 
       const response = await axios.put(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/update-profile`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/update-profile`,
         formDataToSend,
         {
           headers: { 

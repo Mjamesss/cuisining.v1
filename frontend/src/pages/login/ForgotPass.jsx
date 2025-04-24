@@ -115,7 +115,7 @@ const ForgotPasswordForm = () => {
     setMessage('');
     try {
       const response = await axios.post(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/password/forgot-password`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/password/forgot-password`,
         { email }
       );
       setMessage(response.data.message);      

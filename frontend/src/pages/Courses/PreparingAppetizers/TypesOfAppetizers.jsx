@@ -199,7 +199,7 @@ const Quiz = ({ onQuizComplete }) => {
       if (!token) return;
       
       const response = await axios.post(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
         { lessonName: 'TypesOfAppetizers' },
         { headers: { Authorization: `Bearer ${token}` } }
       );

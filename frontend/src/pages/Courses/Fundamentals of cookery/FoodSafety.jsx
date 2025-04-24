@@ -194,7 +194,7 @@ const Quiz = ({ onQuizComplete }) => {
         const token = getToken(); // Get JWT token from local storage
         if (!token) return;
         const response = await axios.post(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
           { lessonName: 'FoodSafety' },
           {
             headers: {
@@ -585,13 +585,18 @@ const MeasurementAndConversion = () => {
         const token = getToken();
         if (!token) return;
         
-        const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
-          lessonName: 'MeasurementsAndConversion'
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ lessonName: 'MeasurementsAndConversion' }),
           }
-        });
+        );
+        
 
         console.log('Lesson updated:', response.data);
         window.location.href = '/FoodSafety';

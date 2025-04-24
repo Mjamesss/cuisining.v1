@@ -23,7 +23,7 @@ const SideNavSettings = () => {
         }
 
         const response = await axios.get(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/provider`,
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/provider`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -46,7 +46,7 @@ const PreparingAppetizers = () => {
           if (!token) return;
 
           const response = await axios.get(
-            `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/status`,
+            `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/status`,
             {
               headers: {
                 Authorization: `Bearer ${token}`

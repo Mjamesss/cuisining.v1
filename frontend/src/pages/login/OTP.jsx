@@ -28,7 +28,7 @@ const Done = () => {
   const fetchUserProfile = async (token) => {
     try {
       const response = await fetch(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/auth/profile`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/auth/profile`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },

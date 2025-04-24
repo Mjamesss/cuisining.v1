@@ -59,7 +59,7 @@ const SetNewPassword = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/password/reset-password`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/password/reset-password`,
         {
           token,
           newPassword: password,

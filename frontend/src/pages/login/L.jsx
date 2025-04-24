@@ -75,7 +75,7 @@ const LoginForm = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/oauth/google`;
+    window.location.href = `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/oauth/google`;
   };
   
   

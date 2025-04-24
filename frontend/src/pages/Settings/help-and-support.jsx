@@ -35,7 +35,7 @@ const HelpSupportPage = () => {
 
       try {
         const response = await axios.get(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/cooldown-status`,
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/cooldown-status`,
           {
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -94,7 +94,7 @@ const HelpSupportPage = () => {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/report`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/report`,
         { reportMessage: reportMessage.trim() },
         {
           headers: {
@@ -170,7 +170,7 @@ const HelpSupportPage = () => {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/rate`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/rate`,
         { 
           rating, 
           feedback: feedbackText.trim() || '' 

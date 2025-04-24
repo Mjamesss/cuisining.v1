@@ -18,7 +18,7 @@ const AdminUserManagement = () => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/user/user-data`
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/user/user-data`
         );
         // Replace with your actual API endpoint
         if (!response.ok) {
@@ -74,13 +74,20 @@ const AdminUserManagement = () => {
         throw new Error("Invalid user ID");
       }
   
-      const response = await fetch(`http://localhost:5000/api/user/update-name/${editUser._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ fullName: editUser.name }),
-      });
+      const backendURL = process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000";
+
+      const response = await fetch(
+        `${backendURL}/api/user/update-name/${editUser._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ fullName: editUser.name }),
+        }
+      );
+
+      
   
       if (!response.ok) {
         const errorData = await response.json();

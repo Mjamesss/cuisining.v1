@@ -53,7 +53,7 @@ const Transactions = () => {
     
     try {
       const response = await fetch(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/transactions/pro-users?page=${page}&limit=${limit}&search=${searchTerm}&sort=${sortConfig.key}&order=${sortConfig.direction}`
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/transactions/pro-users?page=${page}&limit=${limit}&search=${searchTerm}&sort=${sortConfig.key}&order=${sortConfig.direction}`
       );      
       
       if (!response.ok) {

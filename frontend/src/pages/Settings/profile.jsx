@@ -41,7 +41,7 @@ const Settings = () => {
 
         // Fetch fName and email from /settings-profile endpoint
         const profileResponse = await axios.get(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -71,7 +71,7 @@ const Settings = () => {
 
         // Fetch fName and email from /settings-profile endpoint
         const profileResponse = await axios.get(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/cuisining-id`,
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/cuisining-id`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -105,7 +105,7 @@ const Settings = () => {
         }
   
         const response = await fetch(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/avatar`,
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/avatar`,
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },

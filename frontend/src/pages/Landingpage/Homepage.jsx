@@ -88,7 +88,7 @@ const Homepage = () => {
           }
 
           const response = await fetch(
-            `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/subscription`,
+            `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/subscription`,
             {
               method: "GET",
               headers: {
@@ -142,7 +142,7 @@ const Homepage = () => {
         };
     
         const response = await fetch(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/paypal/update-pro-account`,
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/paypal/update-pro-account`,
           {
             method: "POST",
             headers: {
@@ -226,7 +226,7 @@ const Homepage = () => {
           };
   
           const response = await fetch(
-            `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/paypal/update-pro-account`,
+            `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/paypal/update-pro-account`,
             {
               method: "POST",
               headers: {

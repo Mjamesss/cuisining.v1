@@ -43,7 +43,7 @@ const Courses = () => {
                     return;
                 }
                 
-                const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/course-stats`, {
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_LINK || 'http://localhost:5000'}/api/course-stats`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 console.log('Lock status response:', response.data);
@@ -64,7 +64,7 @@ const Courses = () => {
                     return;
                 }
                 
-                const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/course-completion`, {
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_LINK || 'http://localhost:5000'}/api/course-completion`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 console.log('Completion status response:', response.data);

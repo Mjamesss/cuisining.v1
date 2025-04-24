@@ -197,7 +197,7 @@ const Quiz = ({ onQuizComplete }) => {
         }
 
         const response = await axios.post(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/complete-final-unit`,
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/complete-final-unit`,
           { unitName: 'KnifeSkills' },
           { headers: { Authorization: `Bearer ${token}` } }
         );

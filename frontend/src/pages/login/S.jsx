@@ -107,7 +107,7 @@ const SignUpForm = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/otp/send-otp`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/otp/send-otp`,
         { email: formData.email }
       );
       
@@ -149,7 +149,7 @@ const SignUpForm = () => {
     try {
       // Verify OTP
       const verifyResponse = await axios.post(
-        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/otp/verify-otp`,
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/otp/verify-otp`,
         {
           email: formData.email,
           otpCode: userEnteredCode,
@@ -160,7 +160,7 @@ const SignUpForm = () => {
       if (verifyResponse.status === 200) {
         // OTP verified, proceed with signup
         const signupResponse = await axios.post(
-          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/auth/signup`,
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/auth/signup`,
           {
             fName: formData.fullname,
             email: formData.email,
@@ -184,7 +184,7 @@ const SignUpForm = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/oauth/google`;
+    window.location.href = `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/oauth/google`;
   };
   
 
