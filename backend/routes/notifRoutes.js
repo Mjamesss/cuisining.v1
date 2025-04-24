@@ -4,7 +4,6 @@ const Profile = require("../models/profile"); // Import the Profile model
 const Notification = require("../models/Notification"); // Import the Notification model
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middlewares/verifyToken");
-const profile = require("../models/profile");
 const router = express.Router();
 
 router.get('/get-notifications', verifyToken, async (req, res) => {

@@ -30,9 +30,13 @@ const SettingsComponent = () => {
           return;
         }
 
-        const profileResponse = await axios.get("http://localhost:5000/api/settings/settings-profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const profileResponse = await axios.get(
+          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        
 
         const { fullName, email } = profileResponse.data;
 
@@ -98,7 +102,7 @@ const SettingsComponent = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:5000/api/settings/change-password",
+        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/change-password`,
         {
           currentPassword: passwordData.currentPassword,
           newPassword: passwordData.newPassword,
@@ -107,6 +111,7 @@ const SettingsComponent = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      
 
       setSuccessMessage(response.data.message || 'Password changed successfully!');
       setPasswordData({

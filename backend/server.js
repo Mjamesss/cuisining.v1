@@ -77,7 +77,7 @@ app.use(passport.session());
 
 
 app.get("/", (req, res) => {
-  res.send("Our Server");
+  res.send("The Cuisining server is already hosted globally.");
 });
 
 const PORT = process.env.PORT || 5000;

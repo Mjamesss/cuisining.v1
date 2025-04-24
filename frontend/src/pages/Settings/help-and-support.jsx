@@ -35,13 +35,14 @@ const HelpSupportPage = () => {
 
       try {
         const response = await axios.get(
-          'http://localhost:5000/api/cooldown-status',
+          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/cooldown-status`,
           {
             headers: {
               'Authorization': `Bearer ${token}`,
-            }
+            },
           }
         );
+        
 
         if (response.data.success) {
           setCooldownStatus(response.data.data);
@@ -93,15 +94,16 @@ const HelpSupportPage = () => {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/report',
+        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/report`,
         { reportMessage: reportMessage.trim() },
         {
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         }
       );
+      
 
       setSubmitStatus({ success: true, message: 'Report submitted successfully!' });
       displayNotification('Report submitted successfully!');
@@ -168,7 +170,7 @@ const HelpSupportPage = () => {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/rate',
+        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/rate`,
         { 
           rating, 
           feedback: feedbackText.trim() || '' 
@@ -176,10 +178,11 @@ const HelpSupportPage = () => {
         {
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         }
       );
+      
 
       setSubmitStatus({ success: true, message: 'Thank you for your feedback!' });
       displayNotification('Thank you for your feedback!');

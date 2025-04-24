@@ -87,12 +87,16 @@ const Homepage = () => {
               throw new Error("No token found in localStorage");
           }
 
-          const response = await fetch("http://localhost:5000/api/settings/subscription", {
+          const response = await fetch(
+            `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/settings/subscription`,
+            {
               method: "GET",
               headers: {
-                  "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${token}`,
               },
-          });
+            }
+          );
+          
 
           if (!response.ok) {
               const errorData = await response.json();
@@ -137,15 +141,18 @@ const Homepage = () => {
           paypalTransactionId: details.id
         };
     
-        const response = await fetch("http://localhost:5000/api/paypal/update-pro-account", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify(paymentData)
-        });
-    
+        const response = await fetch(
+          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/paypal/update-pro-account`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(paymentData),
+          }
+        );
+      
         if (!response.ok) throw new Error((await response.json()).message);
     
         const { profile } = await response.json();
@@ -192,7 +199,7 @@ const Homepage = () => {
             description: "1 Month Pro Account Access",
             unit_amount: {
               currency_code: "PHP",
-              value: "500.00"
+              value: "199.00"
             },
             quantity: "1",
             category: "DIGITAL_GOODS"
@@ -218,14 +225,17 @@ const Homepage = () => {
             paypalTransactionId: details.id
           };
   
-          const response = await fetch("http://localhost:5000/api/paypal/update-pro-account", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(paymentData)
-          });
+          const response = await fetch(
+            `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/paypal/update-pro-account`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+              },
+              body: JSON.stringify(paymentData),
+            }
+          );          
   
           if (!response.ok) throw new Error((await response.json()).message);
   

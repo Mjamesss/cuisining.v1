@@ -106,9 +106,11 @@ const SignUpForm = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/otp/send-otp", {
-        email: formData.email,
-      });
+      const response = await axios.post(
+        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/otp/send-otp`,
+        { email: formData.email }
+      );
+      
 
       if (response.status === 200) {
         setCodeSent(true);
@@ -146,19 +148,27 @@ const SignUpForm = () => {
 
     try {
       // Verify OTP
-      const verifyResponse = await axios.post("http://localhost:5000/api/otp/verify-otp", {
-        email: formData.email,
-        otpCode: userEnteredCode,
-      });
+      const verifyResponse = await axios.post(
+        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/otp/verify-otp`,
+        {
+          email: formData.email,
+          otpCode: userEnteredCode,
+        }
+      );
+      
 
       if (verifyResponse.status === 200) {
         // OTP verified, proceed with signup
-        const signupResponse = await axios.post("http://localhost:5000/api/auth/signup", {
-          fName: formData.fullname,
-          email: formData.email,
-          password: formData.password,
-          otpCode: userEnteredCode,
-        });
+        const signupResponse = await axios.post(
+          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/auth/signup`,
+          {
+            fName: formData.fullname,
+            email: formData.email,
+            password: formData.password,
+            otpCode: userEnteredCode,
+          }
+        );
+        
 
         if (signupResponse.status === 201) {
           console.log("Signup successful", signupResponse.data);
@@ -174,8 +184,9 @@ const SignUpForm = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:5000/api/oauth/google";
+    window.location.href = `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/oauth/google`;
   };
+  
 
   const styles = {
     background: {

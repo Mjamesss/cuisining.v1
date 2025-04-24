@@ -114,8 +114,11 @@ const ForgotPasswordForm = () => {
     e.preventDefault();
     setMessage('');
     try {
-      const response = await axios.post('http://localhost:5000/api/password/forgot-password', { email });
-      setMessage(response.data.message);
+      const response = await axios.post(
+        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/password/forgot-password`,
+        { email }
+      );
+      setMessage(response.data.message);      
     } catch (error) {
       setMessage(error.response?.data?.message || 'Error sending email');
     }

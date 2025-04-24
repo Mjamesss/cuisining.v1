@@ -193,14 +193,16 @@ const Quiz = ({ onQuizComplete }) => {
         // Send a POST request to update the lesson statuses
         const token = getToken(); // Get JWT token from local storage
         if (!token) return;
-        const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
-          lessonName: 'FoodSafety'
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const response = await axios.post(
+          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
+          { lessonName: 'FoodSafety' },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
           }
-        });
-  
+        );        
+
         console.log('Lesson updated:', response.data);
   
         // Redirect to the next lesson

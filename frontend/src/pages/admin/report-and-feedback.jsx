@@ -50,7 +50,8 @@ const ReportFeedbackAdmin = () => {
     
     try {
       const endpoint = activeTab === 'reports' ? 'reports' : 'ratings';
-      const url = `http://localhost:5000/api/${endpoint}?page=${page}&limit=${limit}`;
+      const url = `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/${endpoint}?page=${page}&limit=${limit}`;
+
       
       const response = await fetch(url);
       
@@ -175,7 +176,7 @@ const handleSubmitResponse = async (e) => {
     // Get the admin's email (you might get this from your auth context or props)
     const adminEmail = 'admin@example.com'; // Replace with actual admin email from your auth system
 
-    const url = `http://localhost:5000/api/respond/${selectedItem._id}`;
+    const url = `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/respond/${selectedItem._id}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -236,7 +237,7 @@ const handleSubmitResponse = async (e) => {
     setIsLoading(true);
     
     try {
-      const url = `http://localhost:5000/api/status/${item._id}`;
+      const url = `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/status/${item._id}`;
       const response = await fetch(url, {
         method: 'PUT',
         headers: {

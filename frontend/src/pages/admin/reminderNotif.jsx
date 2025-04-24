@@ -55,7 +55,11 @@ const ReminderAdmin = () => {
         cuisiningIds: recipientType === 'custom' ? users : undefined,
       };
 
-      const response = await axios.post('http://localhost:5000/api/notif/notifications', payload);
+      const response = await axios.post(
+        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/notif/notifications`,
+        payload
+      );
+      
       if (response.status === 201) {
         const now = new Date();
         const date = now.toLocaleDateString();
@@ -96,9 +100,10 @@ const ReminderAdmin = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/notif/check-user', {
-        cuisiningId: searchUserId,
-      });
+      const response = await axios.post(
+        `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/notif/check-user`,
+        { cuisiningId: searchUserId }
+      );      
 
       if (response.status === 200) {
         setUsers([...users, searchUserId]);

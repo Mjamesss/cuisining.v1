@@ -47,12 +47,14 @@ const FundamentalsOfCookery = () => {
       try {
         const token = getToken();
         if (!token) return;
-        const response = await axios.get('http://localhost:5000/api/course/fundamentalsofcokery/status', {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const response = await axios.get(
+          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/status`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
           }
-        });
-        
+        );        
         setLessonStatus(response.data);
         setLoading(false);
       } catch (err) {

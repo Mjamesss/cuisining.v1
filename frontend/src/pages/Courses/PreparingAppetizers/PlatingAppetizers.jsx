@@ -198,12 +198,10 @@ const Quiz = ({ onQuizComplete }) => {
         }
 
         const response = await axios.post(
-            'http://localhost:5000/api/complete-final-unit',
-            { unitName: 'PlatingAppetizers' },
-            { headers: { Authorization: `Bearer ${token}` } }
-        );
-        
-
+          `${process.env.BACKEND_LINK || "http://localhost:5000"}/api/complete-final-unit`,
+          { unitName: 'PlatingAppetizers' },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );        
         if (response.data.finalAssessmentUnlocked) {
           console.log('🌟 All courses completed! Final Assessment is now available!');
       } else {
