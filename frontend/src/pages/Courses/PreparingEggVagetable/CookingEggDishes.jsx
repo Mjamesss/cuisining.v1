@@ -5,27 +5,27 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
 const Breadcrumb = () => {
-  return (
-    <nav aria-label="breadcrumb" className="px-3 px-md-5" style={{ 
-      marginBottom: "40px", 
-      paddingTop: "30px",
-      fontSize: "15px",
-      marginLeft: "45px",
-    }}>
-      <ol className="breadcrumb" style={{ 
-        padding: 0,
-        margin: 0
+    return (
+      <nav aria-label="breadcrumb" className="px-3 px-md-5" style={{ 
+        marginBottom: "40px", 
+        paddingTop: "30px",
+        fontSize: "15px",
+        marginLeft: "45px",
       }}>
-        <li className="breadcrumb-item"><a href="/Courses" style={{ color: "black", textDecoration: "none" }}>Courses</a></li>
-        <span style={{ margin: "0 10px" }}>&gt;</span>
-        <li className="breadcrumb-item"><a href="/PreparingEggVegetable" style={{ color: "black", textDecoration: "none" }}>Preparing Egg, Vegetable and Farinaceous Dishes</a></li>
-        <span style={{ margin: "0 10px" }}>&gt;</span>
-        <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Lesson 1</li>
-      </ol>
-    </nav>
-  );
-};
-
+        <ol className="breadcrumb" style={{ 
+          padding: 0,
+          margin: 0
+        }}>
+          <li className="breadcrumb-item"><a href="/Courses" style={{ color: "black", textDecoration: "none" }}>Courses</a></li>
+          <span style={{ margin: "0 10px" }}>&gt;</span>
+          <li className="breadcrumb-item"><a href="/PreparingEggVegetable" style={{ color: "black", textDecoration: "none" }}>Preparing Egg, Vegetable and Farinaceous Dishes</a></li>
+          <span style={{ margin: "0 10px" }}>&gt;</span>
+          <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Lesson 2</li>
+        </ol>
+      </nav>
+    );
+  };
+  
 const Quiz = ({ onQuizComplete }) => {
   const [quizState, setQuizState] = useState('idle'); // 'idle', 'rules', 'playing', 'finished'
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -41,29 +41,29 @@ const Quiz = ({ onQuizComplete }) => {
 
   const allQuestions = [
     {
-      question: "What quality of egg has a firm yolk and egg white?",
-      options: ["Grade A", "Grade B", "Grade AA", "Grade C"],
-      correctAnswer: "Grade AA"
+      question: "Which of the following is considered a root vegetable??",
+      options: ["Broccoli", "Carrot", "Tomato", "Spinach"],
+      correctAnswer: "Carrot"
     },
     {
-      question: "What quality of egg is this, it is best used for hard-cooked egg but needs to held in the refrigerator a few days?",
-      options: ["Grade B", "Grade A", "Grade AA", "Grade C"],
-      correctAnswer: "Grade A"
+      question: "How should green-pigmented vegetables be cooked to maintain their bright color?",
+      options: ["Cooked covered for a long time", "Cooked uncovered for a short time", "Cooked in large batches and held on a steam table", "Boiled with lemon juice"],
+      correctAnswer: "Cooked uncovered for a short time"
     },
     {
-      question: "Best for fried and poached egg",
-      options: ["Grade AA", "Grade A", "Grade B", "Grade C"],
-      correctAnswer: "Grade AA"
+      question: "What is the best way to preserve the red color in beets during cooking?",
+      options: ["Peel and slice before boiling", "Cook with salt and lemon juice", "Cook whole and unpeeled with part of the stem attached", "Steam in perforated pans"],
+      correctAnswer: "Cook whole and unpeeled with part of the stem attached"
     },
     {
-      question: "High in both fat and protein?",
-      options: ["Egg White", "Yolk", "Egg Shell", "Egg"],
-      correctAnswer: "Yolk"
+      question: "Which method helps control flavor loss in vegetables during cooking?",
+      options: ["Soaking in cold water", "Cooking in unsalted water", "Using just enough water to cover the vegetables", "Adding sugar to all vegetables"],
+      correctAnswer: "Using just enough water to cover the vegetables"
     },
     {
-      question: "Used to foam and leaven many foods?",
-      options: ["Egg Shell", "Yolk", "Egg White", "Egg"],
-      correctAnswer: "Egg White"
+      question: "How can the sweetness of older vegetables be enhanced during cooking?",
+      options: ["Cook for a longer time", "Use lemon juice", "Add a small amount of sugar to the water", "Use unsalted boiling water"],
+      correctAnswer: "Add a small amount of sugar to the water"
     },
   
   ];
@@ -199,7 +199,7 @@ const Quiz = ({ onQuizComplete }) => {
       if (!token) return;
       
       const response = await axios.post('http://localhost:5000/api/course/PreparingEggVegetable/update', {
-        lessonName: 'IntroToEggDishes'
+        lessonName: 'CookingEggDishes'
       }, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -534,7 +534,7 @@ const Quiz = ({ onQuizComplete }) => {
   );
 };
 
-const IntroToEggDishes = () => {
+const CookingEggDishes = () => {
   // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
@@ -638,7 +638,7 @@ const IntroToEggDishes = () => {
                   color: "#000000",
                   textAlign: "left"
                 }}>
-                  <span style={{ color: "#adb44e", }}>UNIT 1:</span> Lesson 1 Introduction to Egg Dishes
+                  <span style={{ color: "#adb44e", }}>UNIT 1:</span> Lesson 2 Cooking Egg Dishes
                 </h1>
               </div>
 
@@ -664,7 +664,7 @@ const IntroToEggDishes = () => {
                       border: "none",
                       borderRadius: "15px"
                     }}
-                    src="https://www.youtube.com/embed/1HlfVQoN-yM?si=CEnVS8OlCAEJST_j" 
+                    src="https://www.youtube.com/embed/3ejOtL9aW40?si=MGvzJDTtFaSuNzn9" 
                     title="YouTube video player" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowFullScreen
@@ -690,14 +690,14 @@ const IntroToEggDishes = () => {
                   About This Lesson
                 </h3>
                 <p style={{ marginBottom: "15px", }}>  
-                Eggs are one of the most versatile ingredients in the kitchen. These can be prepared and cooked in many ways. The most commonly used eggs are chicken eggs because of its blandness, availability and variety of sizes. Additionally, eggs contain a large amount of protein which coagulates when heated. Eggs are ideally cooked slowly and with moderate heat.
+                One of the most important rules of egg cookery is to avoid high temperature and long cooking time to prevent eggs from being overcooked. Overcooking produces tough eggs, causes discoloration and affects flavor. Each part of the egg needs a different temperature level to be cooked.
                 </p>
                 <h6><span style={{ fontFamily: "'Nunito', sans-serif", fontWeight: "bold"}}>At the end of this unit, you should be able to:</span></h6>
                 <ul>
-                  <li>Identify the components of an egg;</li>
-                  <li>Determine the desirable qualities of eggs;</li>
-                  <li>Handle and store fresh eggs properly; and</li>
-                  <li>Prepare eggs using various cooking methods.</li>
+                  <li>Determine the types and characteristics of vegetables;</li>
+                  <li>Identify the qualities of vegetables;</li>
+                  <li>Prepare vegetable dishes; and</li>
+                  <li>Perform procedures for controlling changes in the quality of vegetables.</li>
                 </ul>
               </div>
             </div>
@@ -740,13 +740,25 @@ const IntroToEggDishes = () => {
                     <a style={{ textDecoration: "none", color: "#000000" }}>Introduction</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Composition of Eggs</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Boiling Eggs</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Quality Grades of Eggs</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Poaching Eggs</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 3: Storing Fresh Eggs</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 3: Preparing Fried Eggs</a>
+                  </li>
+                  <li style={{ padding: "8px 0" }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 4: Preparing Shirred Eggs</a>
+                  </li>
+                  <li style={{ padding: "8px 0" }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 5: Preparing Scrambled Eggs</a>
+                  </li>
+                  <li style={{ padding: "8px 0" }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 6: Preparing Omelets</a>
+                  </li>
+                  <li style={{ padding: "8px 0" }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 7: Preparing Soufflés</a>
                   </li>
                 </ul>
               </div>
@@ -767,4 +779,4 @@ const IntroToEggDishes = () => {
   );
 }
 
-export default IntroToEggDishes;
+export default CookingEggDishes;
