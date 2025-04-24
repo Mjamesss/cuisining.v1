@@ -14,7 +14,7 @@ const SideNav = () => {
   const handleLogout = () => {
     // Add your logout logic here
     localStorage.removeItem('authToken');
-    navigate('/login');
+    navigate('/');
   };
 
   return (
@@ -154,7 +154,7 @@ const SideNav = () => {
           }}
         >
           <img 
-            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745182641/survey_hnbsml.png" 
+            src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745463642/sign-out_xfcnka.png" 
             style={{ width: '20px', marginRight: '10px' }} 
           />
           Logout

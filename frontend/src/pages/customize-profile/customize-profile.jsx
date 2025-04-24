@@ -11,7 +11,7 @@ const ProfileForm = () => {
   const [hasTakenNCII, setHasTakenNCII] = useState(null);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [fullName, setFullName] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png');
+  const [avatarUrl, setAvatarUrl] = useState('https://res.cloudinary.com/dm6wodni6/image/upload/v1740905480/account_nhrb9f_eizn1j.png');
   const [error, setError] = useState("");
   const [email, setEmail] = useState('');
   const [contactNumber, setContactNumber] = useState('');
