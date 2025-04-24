@@ -1,7 +1,8 @@
 const express = require("express");
 const { upload, cloudinary } = require("../config/cloudinaryConfig");
 const verifyToken = require("../middlewares/verifyToken");
-const Profile = require ("../models/profile");
+const Profile = require('../models/profile');
+
 const User = require("../models/user"); // Import the User model
 const multer = require('multer');
 const checkProfileCustomized = require("../middlewares/checkProfileCustomized");

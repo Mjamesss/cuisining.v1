@@ -29,7 +29,7 @@ const profileSchema = new mongoose.Schema({
 profileSchema.post('save', async function(user) {
   if (user.proAccount) {
     console.log("Pro account detected. Unlocking courses...");
-    const CourseLockStatus = require('../models/course'); // Correct import
+    const CourseLockStatus = require('./course'); // Correct import
 
     try {
       const result = await CourseLockStatus.findOneAndUpdate(
