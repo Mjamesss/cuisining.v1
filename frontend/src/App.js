@@ -274,7 +274,7 @@ import Certtesting from './certtesting.jsx';
 import FoodSafety from './pages/Courses/Fundamentals of cookery/FoodSafety.jsx';
 import OccupationalHealth from './pages/Courses/Fundamentals of cookery/OccupationalHealth.jsx'
 import KnifeSkills from './pages/Courses/Fundamentals of cookery/KnifeSkills.jsx';
-import TypesOfAppetizers from './pages/Courses/PreparingAppetizers/TypesOfAppetisers.jsx';
+import TypesOfAppetizers from './pages/Courses/PreparingAppetizers/TypesOfAppetizers.jsx';
 import ObservingKitchen from './pages/Courses/PreparingAppetizers/ObservingKitchen.jsx';
 import PreparingCommonTypesAppetizers from './pages/Courses/PreparingAppetizers/PreparingCommonTypesAppetizers.jsx';
 import PlatingAppetizers from './pages/Courses/PreparingAppetizers/PlatingAppetizers.jsx';
