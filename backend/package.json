@@ -46,7 +46,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "preinstall": "npm install --build-from-source bcrypt"
+    "preinstall": "npm install"
   },
   "eslintConfig": {
     "extends": [
