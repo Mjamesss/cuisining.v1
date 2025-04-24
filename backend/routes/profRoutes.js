@@ -6,7 +6,7 @@ const multer = require('multer');
 const checkProfileCustomized = require("../middlewares/checkProfileCustomized");
 const moment = require("moment-timezone");
 const path = require('path');
-const Profile = require(path.join(__dirname, '../models/profile.js'));
+const Profile = require('../models/Profile');
 
 
 const router = express.Router();
