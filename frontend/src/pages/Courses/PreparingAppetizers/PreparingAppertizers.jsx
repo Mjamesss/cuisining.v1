@@ -18,14 +18,14 @@ const PreparingAppetizers = () => {
   // State for lesson lock status
   const [lessonLockStatus, setLessonLockStatus] = useState({
     TypesOfAppetizers: true, // First lesson always unlocked
-    KitchenSafety: true,
-    PreparingAppetizers: true,
-    PlatingAppetizers: true
+    KitchenSafety: false,
+    PreparingAppetizers: false,
+    PlatingAppetizers: false
   });
 
   // State for lesson completion status
   const [lessonCompletionStatus, setLessonCompletionStatus] = useState({
-    TypesOfAppetizers: true,
+    TypesOfAppetizers: false,
     KitchenSafety: false,
     PreparingAppetizers: false,
     PlatingAppetizers: false
