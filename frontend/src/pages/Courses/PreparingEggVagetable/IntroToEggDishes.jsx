@@ -2,7 +2,6 @@ import "../../../fw-cuisining.css";
 import Footer from "../../../components/Footer";
 import Navbar from "../../../components/Navbar";
 import React, { useState, useEffect } from 'react';
-import axios from "axios";
 
 const Breadcrumb = () => {
   return (
@@ -10,7 +9,7 @@ const Breadcrumb = () => {
       marginBottom: "40px", 
       paddingTop: "30px",
       fontSize: "15px",
-      marginLeft: "45px",
+      marginLeft: "45px"
     }}>
       <ol className="breadcrumb" style={{ 
         padding: 0,
@@ -18,7 +17,7 @@ const Breadcrumb = () => {
       }}>
         <li className="breadcrumb-item"><a href="/Courses" style={{ color: "black", textDecoration: "none" }}>Courses</a></li>
         <span style={{ margin: "0 10px" }}>&gt;</span>
-        <li className="breadcrumb-item"><a href="/PreparingEggVegetable" style={{ color: "black", textDecoration: "none" }}>Preparing Egg, Vegetable and Farinaceous Dishes</a></li>
+        <li className="breadcrumb-item"><a href="/PreparingEggVagetable" style={{ color: "black", textDecoration: "none" }}>Preparing Egg Vagetable And  Farinaceous Dishes</a></li>
         <span style={{ margin: "0 10px" }}>&gt;</span>
         <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Lesson 1</li>
       </ol>
@@ -36,34 +35,32 @@ const Quiz = ({ onQuizComplete }) => {
   const [reviewTime, setReviewTime] = useState(3);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [shuffledOptions, setShuffledOptions] = useState([]);
-  const [passedQuiz, setPassedQuiz] = useState(false);
-  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const allQuestions = [
     {
-      question: "What quality of egg has a firm yolk and egg white?",
-      options: ["Grade A", "Grade B", "Grade AA", "Grade C"],
-      correctAnswer: "Grade AA"
+      question: "Most used knife in the kitchen for chopping, slicing, dicing, etc?",
+      options: ["Chef's Knife", "Santoku Knife", "Pairing Knife", "Boning Knife"],
+      correctAnswer: "Chef's Knife"
     },
     {
-      question: "What quality of egg is this, it is best used for hard-cooked egg but needs to held in the refrigerator a few days?",
-      options: ["Grade B", "Grade A", "Grade AA", "Grade C"],
-      correctAnswer: "Grade A"
+      question: "Used in measuring small volumes of dry and semi-dry ingredients?",
+      options: ["Measuring Cup", "Thermometer", "Scales", "Measuring Spoons"],
+      correctAnswer: "Measuring Spoons"
     },
     {
-      question: "Best for fried and poached egg",
-      options: ["Grade AA", "Grade A", "Grade B", "Grade C"],
-      correctAnswer: "Grade AA"
+      question: "A four-sided metal box with grids of varying sizes. Used for shredding and grating vegetables, cheese, citrus rinds, and other foods?",
+      options: ["Offset Spatula", "Mandoline", "Grater", "Pastry Wheel"],
+      correctAnswer: "Grater"
     },
     {
-      question: "High in both fat and protein?",
-      options: ["Egg White", "Yolk", "Egg Shell", "Egg"],
-      correctAnswer: "Yolk"
+      question: "Most used knife in the kitchen for chopping, slicing, dicing, etc.  ?",
+      options: ["Chef's Knife", "Santoku Knife", "Paring Knife", "Boning Knife"],
+      correctAnswer: "Chef's Knife"
     },
     {
-      question: "Used to foam and leaven many foods?",
-      options: ["Egg Shell", "Yolk", "Egg White", "Egg"],
-      correctAnswer: "Egg White"
+      question: "Used for boning raw meat and poultry.  ?",
+      options: ["Scimitar", "Cleaver", "Oyster Knife", "Clam Knife"],
+      correctAnswer: "Clam Knife"
     },
   
   ];
@@ -130,12 +127,11 @@ const Quiz = ({ onQuizComplete }) => {
       setCurrentQuestion(nextQuestion);
     } else {
       setQuizState('finished');
-      const passed = score === allQuestions.length; // Changed to require all correct
-      setPassedQuiz(passed);
-      onQuizComplete(score);
+      onQuizComplete(score); // Notify parent component of quiz completion with score
       
-      if (passed) {
-        localStorage.setItem('quizPassed', 'true');
+      // Save to localStorage if perfect score
+      if (score === allQuestions.length) {
+        localStorage.setItem('quizPerfectScore', 'true');
       }
     }
   };
@@ -162,22 +158,11 @@ const Quiz = ({ onQuizComplete }) => {
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
-    setPassedQuiz(false);
     setQuizState('playing');
-  };
-
-  // Handle modal close with confirmation
-  const handleCloseQuiz = () => {
-    if (passedQuiz && quizState === 'finished') {
-      setShowExitConfirm(true);
-    } else {
-      closeQuiz();
-    }
   };
 
   const closeQuiz = () => {
     setQuizState('idle');
-    setShowExitConfirm(false);
   };
 
   const restartQuiz = () => {
@@ -186,31 +171,7 @@ const Quiz = ({ onQuizComplete }) => {
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
-    setPassedQuiz(false);
     setQuizState('playing');
-  };
-
-  const handleNextLessonClick = async () => {
-    try {
-      const getToken = () => {
-        return localStorage.getItem('authToken');
-      };
-      const token = getToken();
-      if (!token) return;
-      
-      const response = await axios.post('http://localhost:5000/api/course/PreparingEggVegetable/update', {
-        lessonName: 'IntroToEggDishes'
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      console.log('Lesson updated:', response.data);
-      window.location.href = '/MeasurementsAndConversion';
-    } catch (error) {
-      console.error('Error updating lesson status:', error.message);
-    }
   };
 
   // Fixed modal dimensions
@@ -275,56 +236,6 @@ const Quiz = ({ onQuizComplete }) => {
           zIndex: 999
         }}>
           <div style={modalStyle}>
-            {/* Exit Confirmation Dialog */}
-            {showExitConfirm && (
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: 'rgba(255,255,255,0.9)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                zIndex: 1001,
-                padding: '20px',
-                textAlign: 'center'
-              }}>
-                <h3 style={{ marginBottom: '20px' }}>You have passed the quiz!</h3>
-                <p style={{ marginBottom: '30px' }}>Are you sure you want to exit without proceeding to the next lesson?</p>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <button 
-                    onClick={closeQuiz}
-                    style={{
-                      padding: '10px 20px',
-                      backgroundColor: '#da420e',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '5px',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Exit Anyway
-                  </button>
-                  <button 
-                    onClick={() => setShowExitConfirm(false)}
-                    style={{
-                      padding: '10px 20px',
-                      backgroundColor: '#adb44e',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '5px',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
-
             <div style={contentStyle}>
               {quizState === 'rules' && (
                 <>
@@ -381,14 +292,14 @@ const Quiz = ({ onQuizComplete }) => {
                     <h1 style={{
                       textAlign: 'center',
                       color: '#000000',
-                      marginBottom: '30px',
+                      marginBottom: '20px',
                       fontSize: '30px',
                       fontFamily: "'Nunito', sans-serif",
                       fontWeight: "750",
                     }}>Quiz App</h1>
                     <h2 style={{
                       color: '#333',
-                      marginBottom: '1px',
+                      marginBottom: '20px',
                       fontSize: '18px',
                       minHeight: '60px',
                     }}>{shuffledQuestions[currentQuestion].question}</h2>
@@ -480,48 +391,43 @@ const Quiz = ({ onQuizComplete }) => {
                     fontFamily: "'Nunito', sans-serif",
                     fontWeight: "750",
                   }}>
-                    {score === shuffledQuestions.length ? 'Perfect Score! You passed!' : 'Try Again! You need all 5 correct answers to pass'}
+                    {score === shuffledQuestions.length ? 'Perfect Score!' : 'Try Again!'}
                   </p>
                   <div style={{
                     display: 'flex',
                     justifyContent: 'center',
                     gap: '20px',
-                    width: '100%',
-                    flexDirection: 'column'
+                    width: '100%'
                   }}>
-                    {passedQuiz && (
-                      <button 
-                        onClick={handleNextLessonClick}
-                        style={{
-                          padding: '10px 20px',
-                          backgroundColor: '#4CAF50',
-                          color: 'white',
-                          border: 'none',
-                          borderRadius: '5px',
-                          cursor: 'pointer',
-                          fontSize: '16px',
-                          transition: 'background-color 0.3s',
-                          width: '100%'
-                        }}
-                      >
-                        Proceed to Next Lesson
-                      </button>
-                    )}
                     <button 
-                      onClick={passedQuiz ? handleCloseQuiz : closeQuiz}
+                      onClick={restartQuiz}
                       style={{
                         padding: '10px 20px',
-                        backgroundColor: passedQuiz ? '#adb44e' : '#da420e',
+                        backgroundColor: '#adb44e',
                         color: 'white',
                         border: 'none',
                         borderRadius: '5px',
                         cursor: 'pointer',
                         fontSize: '16px',
-                        transition: 'background-color 0.3s',
-                        width: passedQuiz ? '100%' : 'auto'
+                        transition: 'background-color 0.3s'
                       }}
                     >
-                      {passedQuiz ? 'Close Quiz' : 'Close'}
+                      Try Again
+                    </button>
+                    <button 
+                      onClick={closeQuiz}
+                      style={{
+                        padding: '10px 20px',
+                        backgroundColor: '#da420e',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        fontSize: '16px',
+                        transition: 'background-color 0.3s'
+                      }}
+                    >
+                      Close
                     </button>
                   </div>
                 </div>
@@ -538,8 +444,9 @@ const IntroToEggDishes = () => {
   // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [passedQuiz, setPassedQuiz] = useState(() => {
-    return localStorage.getItem('quizPassed') === 'true';
+  const [perfectScore, setPerfectScore] = useState(() => {
+    // Check localStorage for existing perfect score
+    return localStorage.getItem('quizPerfectScore') === 'true';
   });
 
   // Set up interaction tracking when component mounts
@@ -548,6 +455,7 @@ const IntroToEggDishes = () => {
       setHasInteracted(true);
     };
 
+    // Track any user interaction with the page
     window.addEventListener('click', markAsInteracted);
     window.addEventListener('keydown', markAsInteracted);
     window.addEventListener('scroll', markAsInteracted);
@@ -559,11 +467,40 @@ const IntroToEggDishes = () => {
     };
   }, []);
 
+  // Handle beforeunload to prevent accidental refresh - fixed alert logic
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      // Only show the alert if the user has interacted with the page
+      // and hasn't completed the quiz with a perfect score
+      if (hasInteracted && !perfectScore) {
+        // Standard way to trigger the confirmation dialog
+        e.preventDefault();
+        // Message shown in most browsers (though some use their own default text)
+        e.returnValue = 'Changes you made may not be saved. Are you sure you want to leave this page?';
+        return e.returnValue;
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [hasInteracted, quizCompleted, perfectScore]);
+
   // Handle quiz completion
   const handleQuizComplete = (score) => {
     setQuizCompleted(true);
-    if (score >= 5) {
-      setPassedQuiz(true);
+    if (score === 5) {
+      setPerfectScore(true);
+    }
+  };
+
+  // Handle next lesson button click
+  const handleNextLessonClick = (e) => {
+    if (!perfectScore) {
+      e.preventDefault();
+      alert('You need to complete the quiz with a perfect score (5/5) to proceed to the next lesson.');
     }
   };
 
@@ -638,7 +575,7 @@ const IntroToEggDishes = () => {
                   color: "#000000",
                   textAlign: "left"
                 }}>
-                  <span style={{ color: "#adb44e", }}>UNIT 1:</span> Lesson 1 Introduction to Egg Dishes
+                  <span style={{ color: "#adb44e", }}>UNIT 2:</span> Lesson 1  Common Kitchen Tools
                 </h1>
               </div>
 
@@ -654,7 +591,7 @@ const IntroToEggDishes = () => {
                   borderRadius: "15px",
                   overflow: "hidden"
                 }}>
-                  <iframe 
+                <iframe 
                     style={{
                       position: "absolute",
                       top: 0,
@@ -664,7 +601,7 @@ const IntroToEggDishes = () => {
                       border: "none",
                       borderRadius: "15px"
                     }}
-                    src="https://www.youtube.com/embed/1HlfVQoN-yM?si=CEnVS8OlCAEJST_j" 
+                    src="https://www.youtube.com/embed/wW2whLYcYLE?si=r0R7xwkz4BI96CCQ"
                     title="YouTube video player" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowFullScreen
@@ -678,8 +615,7 @@ const IntroToEggDishes = () => {
                 padding: "0",
                 fontFamily: "'Poppins', sans-serif;",
                 lineHeight: "1.6",
-                color: "#333",
-                marginBottom: "165px"
+                color: "#333"
               }}>
                 <h3 style={{
                   fontSize: "24px",
@@ -690,15 +626,12 @@ const IntroToEggDishes = () => {
                   About This Lesson
                 </h3>
                 <p style={{ marginBottom: "15px", }}>  
-                Eggs are one of the most versatile ingredients in the kitchen. These can be prepared and cooked in many ways. The most commonly used eggs are chicken eggs because of its blandness, availability and variety of sizes. Additionally, eggs contain a large amount of protein which coagulates when heated. Eggs are ideally cooked slowly and with moderate heat.
+                This unit will discuss most of the basic prerequisite knowledge and skills that is required of any kitchen staff in the professional cookery industry
                 </p>
-                <h6><span style={{ fontFamily: "'Nunito', sans-serif", fontWeight: "bold"}}>At the end of this unit, you should be able to:</span></h6>
-                <ul>
-                  <li>Identify the components of an egg;</li>
-                  <li>Determine the desirable qualities of eggs;</li>
-                  <li>Handle and store fresh eggs properly; and</li>
-                  <li>Prepare eggs using various cooking methods.</li>
-                </ul>
+                <p style={{ marginBottom: "15px" }}>
+                Familiarizing yourself in the kitchen also requires knowledge of knowing all the names of the equipment and tools that are present and used by the kitchen staff. It is also important to be able to read and convert basic measurements used in servings.
+                </p>
+               
               </div>
             </div>
             
@@ -740,13 +673,16 @@ const IntroToEggDishes = () => {
                     <a style={{ textDecoration: "none", color: "#000000" }}>Introduction</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Composition of Eggs</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Organizational Structure in the Kitchen</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Quality Grades of Eggs</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Knowing your Role as a Kitchen Staff</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 3: Storing Fresh Eggs</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 3: Duties and Responsibilities of a Kitchen Staff</a>
+                  </li>
+                  <li style={{ padding: "8px 0" }}>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 4: Professional Work Habits and Skills of a Kitchen Staff</a>
                   </li>
                 </ul>
               </div>
@@ -760,6 +696,25 @@ const IntroToEggDishes = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="d-flex justify-content-end p5" style={{ marginBottom: "30px" }}>
+        <button 
+          className="cbtn cbtn-secondary done-button" 
+          style={{ 
+            marginTop: "-45px", 
+            width: "170px", 
+            height: "60px", 
+            marginRight: "35px", 
+            borderRadius: "15px",
+            opacity: perfectScore ? 1 : 0.6,
+            cursor: perfectScore ? 'pointer' : 'not-allowed'
+          }}
+          onClick={handleNextLessonClick}
+          disabled={!perfectScore}
+        >
+          Next Lesson
+        </button>
       </div>
       
       <Footer/>

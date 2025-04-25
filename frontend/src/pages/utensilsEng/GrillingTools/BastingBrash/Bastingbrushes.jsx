@@ -25,6 +25,11 @@ const Breadcrumb = () => {
 
 // Basting Brushes Page
 const Bastingbrushes = () => {
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Basting Brushes";
+      }, []);
+      
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

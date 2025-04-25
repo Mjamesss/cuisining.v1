@@ -1,7 +1,14 @@
 
 import "../../../../fw-cuisining.css";
+import { useEffect } from "react";
 
 const Tongs = () => {
+
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Tongs";
+      }, []);
+
     return (
        <>
       <div className="p5 ">

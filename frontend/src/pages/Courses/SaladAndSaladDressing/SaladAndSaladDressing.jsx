@@ -4,6 +4,11 @@ import Navbar from '../../../components/Navbar';
 import axios from "axios";
 
 const SaladAndSaladDressing = () => {
+
+   useEffect(() => {
+      // Change the document title when this page is rendered
+      document.title = "CuiSining - Salad And Salad Dressing";
+    }, []);
   // State for lesson lock status
   const [lessonLockStatus, setLessonLockStatus] = useState({
     Unit31: true, // First lesson always unlocked

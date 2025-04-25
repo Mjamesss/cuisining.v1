@@ -27,6 +27,11 @@ const Breadcrumb = () => {
 };
 
 const Grater = () => {
+
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Grater";
+      }, []);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

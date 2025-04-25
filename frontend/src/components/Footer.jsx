@@ -69,7 +69,7 @@ const Footer = () => {
                 <a href="https://instagram.com">
                   <img src="insta.png" alt="Instagram" style={{ width: "32px", height: "32px" }} />
                 </a>
-                <a href="https://youtube.com">
+                <a href="https://www.youtube.com/@Cuisining/UCZj2uoxOxFLXtmw8OXevXEw" target="_blank">
                   <img src="yt.png" alt="Youtube" style={{ width: "32px", height: "32px" }} />
                 </a>
               </div>

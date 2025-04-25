@@ -1,5 +1,6 @@
 import "../../../../fw-cuisining.css";
 import Navbar from '../../../../components/Navbar';
+import { useEffect } from "react";
 
 // Breadcrumb Component
 const Breadcrumb = () => {
@@ -18,6 +19,11 @@ const Breadcrumb = () => {
 
 // Grills Page
 const Grills = () => {
+    
+     useEffect(() => {
+                // Change the document title when this page is rendered
+                document.title = "CuiSining - Grills";
+              }, []);
     return (
         <>
             <Navbar />

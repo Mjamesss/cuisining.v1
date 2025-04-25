@@ -27,6 +27,10 @@ const Breadcrumb = () => {
 };
 
 const Timer = () => {
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Timer";
+      }, []);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

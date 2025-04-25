@@ -16,6 +16,11 @@ const Breadcrumb = () => {
 };
 
 const PreparingAppetizers = () => {
+
+   useEffect(() => {
+      // Change the document title when this page is rendered
+      document.title = "CuiSining - Preparing Appetizers";
+    }, []);
   // Define state for lesson status
   const [lessonStatus, setLessonStatus] = useState({
     lessonLockStatus: {

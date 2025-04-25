@@ -7,7 +7,7 @@ const Breadcrumb = () => {
         <nav aria-label="breadcrumb" className="px-3 px-md-5" style={{ marginLeft: "80px", marginBottom: "30px", marginTop: "30px" }}>
             <ol className="breadcrumb" style={{ backgroundColor: "transparent", margin: 65, padding: 0 }}>
                 <li className="breadcrumb-item" style={{ display: "inline" }}>
-                    <a href="/Utensils" style={{ color: "black", textDecoration: "none" }}>Utensils</a>
+                    <a href="/Ingredients" style={{ color: "black", textDecoration: "none" }}>Ingredients</a>
                 </li>
                 <span style={{ margin: "0 10px" }}>&gt;</span>
                 <li className="breadcrumb-item active" aria-current="page" style={{ 
@@ -23,6 +23,10 @@ const Breadcrumb = () => {
 };
 
 const Dairies = () => {
+     useEffect(() => {
+                // Change the document title when this page is rendered
+                document.title = "CuiSining - Daires";
+              }, []);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

@@ -27,6 +27,11 @@ const Breadcrumb = () => {
 };
 
 const Peelers = () => {
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Peelers";
+      }, []);
+      
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

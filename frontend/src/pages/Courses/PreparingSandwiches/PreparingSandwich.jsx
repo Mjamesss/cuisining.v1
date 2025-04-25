@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../../fw-cuisining.css";
 import Navbar from '../../../components/Navbar';
 
@@ -15,6 +15,12 @@ const Breadcrumb = () => {
 };
 
 const PreparingSandwich = () => {
+
+   useEffect(() => {
+      // Change the document title when this page is rendered
+      document.title = "CuiSining - Preparing Sandwiches";
+    }, []);
+
   // State for lesson lock status
   const [lessonLockStatus, setLessonLockStatus] = useState({
     SandwichComponents: true, // First lesson always unlocked

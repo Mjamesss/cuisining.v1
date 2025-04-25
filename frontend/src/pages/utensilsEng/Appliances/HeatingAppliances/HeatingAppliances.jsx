@@ -1,6 +1,11 @@
 import "../../../../fw-cuisining.css";
+import { useEffect } from "react";
 
 const HeatingAppliances = () =>{
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Heating Appliances";
+      }, []);
     return (
         <>
         <div className="p5 ">

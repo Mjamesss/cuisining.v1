@@ -16,6 +16,11 @@ const Breadcrumb = () => {
 };
 
 const FundamentalsOfCookery = () => {
+
+    useEffect(() => {
+              // Change the document title when this page is rendered
+              document.title = "CuiSining - Fundamentals of Cookery";
+            }, []);
   // Define state for lesson status
   const [lessonStatus, setLessonStatus] = useState({
     lessonLockStatus: {

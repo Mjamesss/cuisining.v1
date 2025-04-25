@@ -21,6 +21,10 @@ const Breadcrumb = () => {
 };
 
 const Spatula = () => {
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Spatula";
+      }, []);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {

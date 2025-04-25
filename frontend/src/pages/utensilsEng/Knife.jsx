@@ -27,6 +27,12 @@ const Breadcrumb = () => {
 };
 
 const Knife = () => {
+
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Knife";
+      }, []);
+
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

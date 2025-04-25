@@ -1,7 +1,7 @@
 import "../../../fw-cuisining.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense,useEffect } from "react";
 import Navbar from '../../../components/Navbar';
 
 // 3D Model Component
@@ -35,6 +35,10 @@ const Breadcrumb = () => {
 
 // Milk Page
 const Milk = () => {
+     useEffect(() => {
+                    // Change the document title when this page is rendered
+                    document.title = "CuiSining - Daires";
+                  }, []);
     return (
         <>
             <style>

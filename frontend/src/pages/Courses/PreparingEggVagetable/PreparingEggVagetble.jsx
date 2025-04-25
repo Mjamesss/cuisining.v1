@@ -16,6 +16,12 @@ const Breadcrumb = () => {
 };
 
 const PreparingEggVegetable = () => {
+
+   useEffect(() => {
+      // Change the document title when this page is rendered
+      document.title = "CuiSining - Preparing Egg Vagetable";
+    }, []);
+
   // State for lesson lock status
   const [lessonLockStatus, setLessonLockStatus] = useState({
     EggDishesIntro: true, // First lesson always unlocked

@@ -7,6 +7,12 @@ import { useRef } from "react";
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 const Homepage = () => {
+
+   useEffect(() => {
+          // Change the document title when this page is rendered
+          document.title = "CuiSining";
+        }, []);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();

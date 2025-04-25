@@ -6,6 +6,12 @@ import axios from 'axios';
 
 const Courses = () => {
     // State for course lock status (from backend)
+
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Courses";
+      }, []);
+      
     const [courseLockStatus, setCourseLockStatus] = useState({
         FundamentalsOfCookery: true, // Default first course is unlocked
         PreparingAppetizers: false,

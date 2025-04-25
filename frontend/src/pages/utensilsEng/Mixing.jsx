@@ -23,6 +23,12 @@ const Breadcrumb = () => {
 };
 
 const MixingTools = () => {
+
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Mixing Tools";
+      }, []);
+      
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

@@ -27,6 +27,10 @@ const Breadcrumb = () => {
 };
 
 const Kitchenscale = () => {
+     useEffect(() => {
+            // Change the document title when this page is rendered
+            document.title = "CuiSining - Kitchen Scale";
+          }, []);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

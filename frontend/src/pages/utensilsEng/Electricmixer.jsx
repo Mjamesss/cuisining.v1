@@ -27,6 +27,10 @@ const Breadcrumb = () => {
 };
 
 const ElectricMixer = () => {
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Electric Mixer";
+      }, []);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

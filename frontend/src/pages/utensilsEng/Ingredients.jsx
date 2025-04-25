@@ -1,8 +1,13 @@
 import "../../fw-cuisining.css";
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-
+import { useEffect } from "react";
 const Ingridients = () => {
+
+     useEffect(() => {
+            // Change the document title when this page is rendered
+            document.title = "CuiSining - Ingredients";
+          }, []);
     return (
         <>
         <style>
