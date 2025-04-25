@@ -6,7 +6,7 @@ const Footer = () => {
         
      return (
           <footer className="footer" style={{ backgroundColor: '#948f5c', padding: '40px', display: 'flex', flexDirection: 'column', 
-            justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '400px' }}>
+            justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '400px', fontFamily:"'Public Sans', sans-serif" }}>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
               
