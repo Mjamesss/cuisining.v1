@@ -1,5 +1,5 @@
-import "../../../fw-cuisining.css";
-import Navbar from '../../../components/Navbar';
+import "../../fw-cuisining.css";
+import Navbar from '../../components/Navbar';
 import React, { useEffect, useState } from "react";
 
 const Breadcrumb = () => {
@@ -14,15 +14,15 @@ const Breadcrumb = () => {
         padding: 0,
         margin: 0
       }}>
-        <li className="breadcrumb-item"><a href="/Courses" style={{ color: "black", textDecoration: "none" }}>Courses</a></li>
+        <li className="breadcrumb-item"><a href="/Home-page" style={{ color: "black", textDecoration: "none" }}>Home</a></li>
         <span style={{ margin: "0 10px" }}>&gt;</span>
-        <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Final Assessment</li>
+        <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>Knife Skills</li>
       </ol>
     </nav>
   );
 };
 
-const FinalAssessment = () => {
+const KnifeSkill = () => {
   const [gameStatus, setGameStatus] = useState("in-progress");
   const [gameStarted, setGameStarted] = useState(false);
 
@@ -188,7 +188,7 @@ const FinalAssessment = () => {
             color: "#adb44e",
             textAlign: "left"
           }}>
-            <span style={{ color: "#000000" }}>Final</span> Assessment
+            <span style={{ color: "#000000" }}>Knife</span> Skills
           </h1>
         </div>
         
@@ -215,7 +215,7 @@ const FinalAssessment = () => {
               </div>
             )}
             <iframe
-              src={gameStarted ? "/CuisineWebglEggCooking/index.html" : "about:blank"}
+              src={gameStarted ? "/CuisineWebglBuildChopping/index.html" : "about:blank"}
               title="Cooking Assessment"
               style={{
                 position: "absolute",
@@ -251,7 +251,7 @@ const FinalAssessment = () => {
               borderBottom: "2px solid #f0f0f0",
               paddingBottom: "10px"
             }}>
-              Assessment Instructions
+              Instructions
             </h2>
             
             <div style={{ marginBottom: "25px" }}>
@@ -268,7 +268,8 @@ const FinalAssessment = () => {
                 lineHeight: "1.6",
                 color: "#000000"
               }}>
-                Complete the cooking challenge by following all the steps correctly to prepare the dish.
+                Showcase your knife skills by completing the cutting challenge. Perform each technique correctly to progress 
+                through the task.
               </p>
             </div>
             
@@ -287,10 +288,10 @@ const FinalAssessment = () => {
                 color: "#000000",
                 paddingLeft: "20px"
               }}>
-                <li style={{ marginBottom: "8px" }}>Gather all required ingredients</li>
-                <li style={{ marginBottom: "8px" }}>Prepare the ingredients as instructed</li>
-                <li style={{ marginBottom: "8px" }}>Cook the dish following the proper sequence</li>
-                <li style={{ marginBottom: "8px" }}>Plate the dish for serving</li>
+                <li style={{ marginBottom: "8px" }}>Read the instructions carefully before starting.</li>
+                <li style={{ marginBottom: "8px" }}>Perform each cutting technique as prompted—slice, dice, or mince.</li>
+                <li style={{ marginBottom: "8px" }}>Ensure your cuts are clean, accurate, and consistent.</li>
+                <li style={{ marginBottom: "8px" }}>Complete the task to finish the task.</li>
               </ol>
             </div>
             
@@ -313,7 +314,7 @@ const FinalAssessment = () => {
                 lineHeight: "1.6",
                 color: "#555"
               }}>
-                Pay attention to the instructions shown in the game. You can restart the assessment if you make a mistake.
+                Stay focused and follow the on-screen instructions closely. You can retry the challenge if you make a mistake.
               </p>
             </div>
           </div>
@@ -344,9 +345,9 @@ const FinalAssessment = () => {
 
           <div>
             <p style={{ marginTop: "0px", paddingLeft: "0" }}>
-            In this final assessment, You'll be tasked with preparing hot meals dishes to 
-            complete the challenge. Make sure everything is cooked to perfection progress only counts when the dishes 
-            are successfully completed. Ready to show your skills?
+            In this knife skills challenge, you’ll be tasked with slicing, dicing, and mincing with speed and precision. 
+            Each cut needs to be clean, precise, and on point. Progress only counts when your technique is flawless. Ready to 
+            grip the knife and prove your skills?
             </p>
           </div>
 
@@ -385,7 +386,7 @@ const FinalAssessment = () => {
                 ? "Congratulations! You've successfully completed the assessment." 
                 : gameStarted 
                   ? "Assessment in progress. Follow the instructions to complete."
-                  : "Click the play button to start the assessment."}
+                  : "Click the play button to start the game."}
             </p>
           </div>
         </div>
@@ -394,4 +395,4 @@ const FinalAssessment = () => {
   );
 };
 
-export default FinalAssessment;
+export default KnifeSkill;

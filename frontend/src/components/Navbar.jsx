@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Navbar.css";
 import "../fw-cuisining.css";
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -237,7 +238,7 @@ const Navbar = () => {
         <div className="dropdown">
           <span className="text-decoration-none dropdown-title">Skillset</span>
           <div className="dropdown-content">
-            <NavLink to="/Knife-Skills" className="text-decoration-none">Knife Skills</NavLink>
+            <NavLink to="/KnifeSkill" className="text-decoration-none">Knife Skills</NavLink>
           </div>
         </div>
       </div>
@@ -287,15 +288,18 @@ const Navbar = () => {
                   <p style={{ margin: 0, fontSize: "13.5px", color: "#6c757d" }}>Personal account</p>
                 </div>
               </div>
+              <div className="upgrade-section">
+              <Link to="/about">
+                <button className="btn btn-sm btn-outline-dark w-100 mb-2 upgrade-btn">Learn More </button>
+                <p className="upgrade-text">Note, Challenges are opportunities in disguise<span className="proaccount">you’ve got this!</span></p>
+                </Link>
+              </div>
               <hr style={{ margin: "0px 0" }} />
               <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "9px" }} onClick={() => navigate("/profile")}>
                 <img src="profileprofile.png" alt="Profile Icon" style={{ width: "17px", height: "17px" }} />Profile
               </button>
               <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "9px" }} onClick={() => navigate("/settings/personal-details")}>
-                <img src="profileSettings.png" alt="Settings and Privacy Icon" style={{ width: "17px", height: "17px" }} />Settings and Privacy
-              </button>
-              <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "9px" }} onClick={() => navigate("/Help")}>
-                <img src="help.png" alt="Help and Support Icon" style={{ width: "17px", height: "17px" }} />Help and Support
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745606025/ProfileSettings_crdwgn.png" alt="Settings and Privacy Icon" style={{ width: "17px", height: "17px" }} />Settings and Privacy
               </button>
               <hr style={{ margin: "12px 0" }} />
               <button className="btn w-100 text-left" style={{ display: "flex", alignItems: "center", gap: "6px" }} onClick={handleLogout}>

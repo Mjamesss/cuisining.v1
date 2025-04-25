@@ -20,7 +20,7 @@ const Breadcrumb = () => {
           <span style={{ margin: "0 10px" }}>&gt;</span>
           <li className="breadcrumb-item"><a href="/PreparingSandwich" style={{ color: "black", textDecoration: "none" }}>Preparing Sandwiches</a></li>
           <span style={{ margin: "0 10px" }}>&gt;</span>
-          <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>LESSON 2</li>
+          <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>LESSON 1</li>
         </ol>
       </nav>
     );
@@ -200,7 +200,7 @@ const Quiz = ({ onQuizComplete }) => {
       
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/PreparingSandwich/update`,
-        { lessonName: 'SandwichTools' },
+        { lessonName: 'BasicPreparationTechniques' },
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -535,7 +535,7 @@ const Quiz = ({ onQuizComplete }) => {
   );
 };
 
-const SandwichTools = () => {
+const BasicPreparationTechniques = () => {
   // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
@@ -639,7 +639,7 @@ const SandwichTools = () => {
                   color: "#000000",
                   textAlign: "left"
                 }}>
-                  <span style={{ color: "#adb44e", }}>UNIT 1:</span> LESSON 2 Common Sandwich Preparation Tools and Equipment
+                  <span style={{ color: "#adb44e", }}>UNIT 2:</span> LESSON 1 Basic Sandwich Preparation Techniques
                 </h1>
               </div>
 
@@ -690,16 +690,13 @@ const SandwichTools = () => {
                   About This Lesson
                 </h3>
                 <p style={{ marginBottom: "15px", }}>  
-                Identifying and knowing how to use the tools and equipment is essential in the easy and quick sandwich preparation. Furthermore, you as a kitchen staff should also be observant of the measures intended to keep the good and efficient condition of tools and equipment used in sandwich-making.
-                </p>
-                <p style={{ marginBottom: "15px" }}>
-                The following are the most commonly-used tools and equipment in sandwich preparation as well as the measures you must observe in order to keep them in good working condition.                </p>
-                <h6><span style={{ fontFamily: "'Nunito', sans-serif", fontWeight: "bold"}}>At the end of this unit, you should be able to:</span></h6>
+                Sandwich-making starts with having mastered the fundamental procedures. Having the basic skills at hand will enable you to prepare sandwiches easy and fast. Some of the basic techniques that you must be able to perform are:</p>
                 <ul>
-                  <li>Define what is a sandwich;</li>
-                  <li>Determine the types of sandwiches and the components of a sandwich;</li>
-                  <li>Identify the common tool and equipment used in preparing sandwiches; and</li>
-                  <li>Perform and apply the basic techniques in preparing sandwiches.</li>
+                  <li>Spreading </li>
+                  <li>Layering </li>
+                  <li>Piping </li>
+                  <li>Cutting </li>
+                  <li>Toasting</li>
                 </ul>
               </div>
             </div>
@@ -742,22 +739,19 @@ const SandwichTools = () => {
                     <a style={{ textDecoration: "none", color: "#000000" }}>Introduction</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Common Sandwich</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Spreading</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Preparation Tools and Equipment</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Layering</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Storage Tools and Equipment</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 3: Piping</a>
                   </li>
                   <li style={{ padding: "8px 0" }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Hand Tools</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 4: Cutting</a>
                   </li>
                   <li style={{ padding: "8px 0" }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Heating Equipment</a>
-                  </li>
-                  <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Using Tools and Equipment Properly</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 4: Toasting</a>
                   </li>
                 </ul>
               </div>
@@ -778,4 +772,4 @@ const SandwichTools = () => {
   );
 }
 
-export default SandwichTools;
+export default BasicPreparationTechniques;

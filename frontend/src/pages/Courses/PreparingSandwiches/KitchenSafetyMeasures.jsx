@@ -20,7 +20,7 @@ const Breadcrumb = () => {
           <span style={{ margin: "0 10px" }}>&gt;</span>
           <li className="breadcrumb-item"><a href="/PreparingSandwich" style={{ color: "black", textDecoration: "none" }}>Preparing Sandwiches</a></li>
           <span style={{ margin: "0 10px" }}>&gt;</span>
-          <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>LESSON 2</li>
+          <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "750" }}>LESSON 3</li>
         </ol>
       </nav>
     );
@@ -41,29 +41,29 @@ const Quiz = ({ onQuizComplete }) => {
 
   const allQuestions = [
     {
-      question: "What is the proper way to spread a spread on bread to avoid tearing it?",
-      options: ["Use a cold and hard spread directly from the refrigerator", "Apply spread in circular motion only", "Ensure the spread is soft and spread gently in one direction", "Spread only the center of the bread"],
-      correctAnswer: "Ensure the spread is soft and spread gently in one direction"
+      question: "Which bread is crescent-shaped and has a flaky texture, often used in brunch sandwiches?",
+      options: ["Bagel", "Croissant", "Roll", "Flat Bread"],
+      correctAnswer: "Croissant"
     },
     {
-      question: "When layering sandwich fillings, where should you place cheeses and cold cuts?",
-      options: ["In the center of the sandwich", "On top of vegetables", "Next to the bread", "Between the sauces"],
-      correctAnswer: "Next to the bread"
+      question: "What type of bread is traditionally dense and chewy with a crisp crust, typically used for breakfast or brunch sandwiches?",
+      options: ["Sourdough", "Bun", "Bagel", "White Bread"],
+      correctAnswer: "Bagel"
     },
     {
-      question: "Why do some people prefer using squeeze bottles over piping bags for applying condiments?",
-      options: ["They look nicer", "They are more colorful", "They are easier to clean", "They can be stored more easily"],
-      correctAnswer: "They can be stored more easily"
+      question: "Which bread is best for making burgers due to its soft interior and golden-brown crust?",
+      options: ["Flat Bread", "Bun", "Whole Wheat Bread", "Roll"],
+      correctAnswer: "Bun"
     },
     {
-      question: "How should sandwiches be cut for better presentation?",
-      options: ["Only into squares", "Always in circles", "Into halves or quarters, ensuring cuts go all the way through", "Random shapes to look fun"],
-      correctAnswer: "Into halves or quarters, ensuring cuts go all the way through"
+      question: "Which type of bread has a slightly sour taste and a thick, crisp crust?",
+      options: ["White Bread", "Sourdough", "Whole Wheat Bread", "Croissant"],
+      correctAnswer: "Sourdough"
     },
     {
-      question: "What is the recommended oven temperature and time for toasting bread properly?",
-      options: ["200°C for 10 minutes", "180°C for 5 minutes", "154°C for 3 to 3.5 minutes", "100°C for 15 minutes"],
-      correctAnswer: "154°C for 3 to 3.5 minutes"
+      question: "What is the main difference between white bread and whole wheat bread?",
+      options: ["Whole wheat bread is sweeter", "White bread contains more fiber", "Whole wheat bread is made from unrefined flour and is more nutritious", "White bread is used only for sandwiches"],
+      correctAnswer: "Whole wheat bread is made from unrefined flour and is more nutritious"
     },
   
   ];
@@ -200,7 +200,7 @@ const Quiz = ({ onQuizComplete }) => {
       
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/PreparingSandwich/update`,
-        { lessonName: 'SandwichTools' },
+        { lessonName: 'KitchenSafetyMeasures' },
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -535,7 +535,7 @@ const Quiz = ({ onQuizComplete }) => {
   );
 };
 
-const SandwichTools = () => {
+const KitchenSafetyMeasures = () => {
   // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
@@ -639,7 +639,7 @@ const SandwichTools = () => {
                   color: "#000000",
                   textAlign: "left"
                 }}>
-                  <span style={{ color: "#adb44e", }}>UNIT 1:</span> LESSON 2 Common Sandwich Preparation Tools and Equipment
+                  <span style={{ color: "#adb44e", }}>UNIT 1:</span> LESSON 3 Observing Kitchen Safety and Sanitation Measures
                 </h1>
               </div>
 
@@ -665,7 +665,7 @@ const SandwichTools = () => {
                       border: "none",
                       borderRadius: "15px"
                     }}
-                    src="https://www.youtube.com/embed/UOmeuC3JecA?si=A04gFOjU5foxNJcX" 
+                    src="https://www.youtube.com/embed/2pTd6GmiXKA?si=-ZE4c-QX5eX_A0iL" 
                     title="YouTube video player" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowFullScreen
@@ -690,17 +690,9 @@ const SandwichTools = () => {
                   About This Lesson
                 </h3>
                 <p style={{ marginBottom: "15px", }}>  
-                Identifying and knowing how to use the tools and equipment is essential in the easy and quick sandwich preparation. Furthermore, you as a kitchen staff should also be observant of the measures intended to keep the good and efficient condition of tools and equipment used in sandwich-making.
-                </p>
+                Sandwich may include both cooked and uncooked ingredients. These ingredients are usually made ready-to-eat as they are prepared for sandwich-making. For this reason, you should observe safety and sanitation measures to ensure that sandwiches are safe for the diners to eat. You, as a kitchen staff, are also responsible in keeping yourself and your co-workers safe while working in the kitchen.                </p>
                 <p style={{ marginBottom: "15px" }}>
-                The following are the most commonly-used tools and equipment in sandwich preparation as well as the measures you must observe in order to keep them in good working condition.                </p>
-                <h6><span style={{ fontFamily: "'Nunito', sans-serif", fontWeight: "bold"}}>At the end of this unit, you should be able to:</span></h6>
-                <ul>
-                  <li>Define what is a sandwich;</li>
-                  <li>Determine the types of sandwiches and the components of a sandwich;</li>
-                  <li>Identify the common tool and equipment used in preparing sandwiches; and</li>
-                  <li>Perform and apply the basic techniques in preparing sandwiches.</li>
-                </ul>
+                In this lesson, we will present you important sanitation and personal safety measures you can observe while preparing sandwiches.</p>
               </div>
             </div>
             
@@ -742,22 +734,10 @@ const SandwichTools = () => {
                     <a style={{ textDecoration: "none", color: "#000000" }}>Introduction</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Common Sandwich</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 1: Keeping the Kitchen Food-safe and Sanitized</a>
                   </li>
                   <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Preparation Tools and Equipment</a>
-                  </li>
-                  <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Storage Tools and Equipment</a>
-                  </li>
-                  <li style={{ padding: "8px 0" }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Hand Tools</a>
-                  </li>
-                  <li style={{ padding: "8px 0" }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Heating Equipment</a>
-                  </li>
-                  <li style={{ padding: "8px 0",  }}>
-                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Using Tools and Equipment Properly</a>
+                    <a style={{ textDecoration: "none", color: "#000000" }}> Topic 2: Personal Safety Measures in the Kitchen</a>
                   </li>
                 </ul>
               </div>
@@ -778,4 +758,4 @@ const SandwichTools = () => {
   );
 }
 
-export default SandwichTools;
+export default KitchenSafetyMeasures;
