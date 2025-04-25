@@ -196,13 +196,8 @@ const PreparingAppetizers = () => {
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))", justifyContent: "left",
                        gap: "30px", fontWeight: "920"}}>
-<<<<<<< HEAD
-{/**andsdiawd */}
-              <a href={lessonLockStatus.PreparingAppetizers ? "PreparingCommonTypesAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PreparingAppetizers ? "1" : "0.5" }}>
-=======
 
               <a href={lessonStatus.lessonLockStatus.PreparingAppetizers ? "PreparingCommonTypesAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.PreparingAppetizers ? "1" : "0.5" }}>
->>>>>>> 748527c997260f19eec38fe30965d1a56c062a4e
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046061/crsh4_a1jlql.png"
                   width="100%" height="auto" alt="PreparingAppetizers" />
                 {lessonStatus.lessonCompletionStatus.PreparingAppetizers ? (
