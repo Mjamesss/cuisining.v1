@@ -72,13 +72,8 @@ const ReminderAdmin = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-      }).catch(() =>
-        fetch("https://cuisining-v1.onrender.com/api/notif/notifications", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        })
-      );
+      });
+      
       if (response.status === 201) {
         const now = new Date();
         const date = now.toLocaleDateString();
@@ -122,13 +117,7 @@ const ReminderAdmin = () => {
       const response = await axios.post(
         "http://localhost:5000/api/notif/check-user",
         { cuisiningId: searchUserId }
-      ).catch(() =>
-        axios.post(
-          "https://cuisining-v1.onrender.com/api/notif/check-user",
-          { cuisiningId: searchUserId }
-        )
-      );
-      
+      );      
       if (response.status === 200) {
         setUsers([...users, searchUserId]);
         setSearchUserId('');

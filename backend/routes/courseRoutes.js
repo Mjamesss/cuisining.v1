@@ -63,38 +63,6 @@ router.get('/course/fundamentalsofcokery/status', verifyToken, async (req, res) 
     res.status(500).json({ error: error.message });
   }
 });
-router.get('/course/unit3/status', verifyToken, async (req, res) => {
-  try {
-    const userId = req.userId;
-    let lessonStatus = await LessonStatus.findOne({ userID: userId });
-
-    if (!lessonStatus) {
-      lessonStatus = {
-        lessonLockStatus: {
-          Unit32: false,
-          Unit33: false,
-          Unit34: false,
-          Unit35: false
-        },
-        lessonCompletionStatus: {
-          Unit31: false,
-          Unit32: false,
-          Unit33: false,
-          Unit34: false,
-          Unit35: false
-        }
-      };
-    }
-
-    res.status(200).json({
-      lessonLockStatus: lessonStatus.lessonLockStatus,
-      lessonCompletionStatus: lessonStatus.lessonCompletionStatus
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
 
 router.post('/course/fundamentalsofcokery/update', verifyToken, async (req, res) => {
   try {
@@ -340,64 +308,5 @@ router.get('/course-stats', verifyToken, async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
-
-router.post('/api/course/unit3/update', verifyToken, async (req, res) => {
-  try {
-    const { lessonName } = req.body;
-    const userId = req.userId;
-
-    let lessonStatus = await LessonStatus.findOne({ userID: userId });
-
-    if (!lessonStatus) {
-      lessonStatus = new LessonStatus({
-        userID: userId,
-        lessonLockStatus: {
-          Unit31: true,  // First lesson is always unlocked
-          Unit32: false,
-          Unit33: false,
-          Unit34: false,
-          Unit35: false
-        },
-        lessonCompletionStatus: {
-          Unit31: false,
-          Unit32: false,
-          Unit33: false,
-          Unit34: false,
-          Unit35: false
-        }
-      });
-    }
-
-    // Mark current lesson as completed
-    if (lessonName in lessonStatus.lessonCompletionStatus) {
-      lessonStatus.lessonCompletionStatus[lessonName] = true;
-    }
-
-    // Unlock next lesson if available
-    const unitLessons = ['Unit31', 'Unit32', 'Unit33', 'Unit34', 'Unit35'];
-    const currentIndex = unitLessons.indexOf(lessonName);
-    
-    if (currentIndex !== -1 && currentIndex < unitLessons.length - 1) {
-      const nextLesson = unitLessons[currentIndex + 1];
-      lessonStatus.lessonLockStatus[nextLesson] = true;
-    }
-
-    await lessonStatus.save();
-
-    res.status(200).json({
-      success: true,
-      lessonLockStatus: lessonStatus.lessonLockStatus,
-      lessonCompletionStatus: lessonStatus.lessonCompletionStatus
-    });
-  } catch (error) {
-    console.error('Error updating lesson status:', error);
-    res.status(500).json({ 
-      success: false,
-      error: 'Failed to update lesson status' 
-    });
-  }
-});
-
   
 module.exports = router;

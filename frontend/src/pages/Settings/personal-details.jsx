@@ -49,15 +49,7 @@ const SettingsComponent = () => {
           {
             headers: { Authorization: `Bearer ${token}` },
           }
-        ).catch(async () => {
-          return await axios.get(
-            "https://cuisining-v1.onrender.com/api/settings/settings-profile", 
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-        });
-          
+        );        
         const { 
           fullName, 
           email, 
@@ -172,21 +164,7 @@ const SettingsComponent = () => {
             'Content-Type': 'multipart/form-data',
           },
         }
-      ).catch(async () => {
-        return await axios.put(
-          "https://cuisining-v1.onrender.com/api/settings/update-profile", 
-          formDataToSend,
-          {
-            headers: { 
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
-      });
-      
-      
-
+      );
       // Update the main form data with the new values
       setFormData(prev => ({
         ...prev,

@@ -95,14 +95,8 @@ const Homepage = () => {
                 "Authorization": `Bearer ${token}`,
               },
             }
-          ).catch(() =>
-            fetch("https://cuisining-v1.onrender.com/api/settings/subscription", {
-              method: "GET",
-              headers: {
-                "Authorization": `Bearer ${token}`,
-              },
-            })
           );
+          
           
           
 
@@ -159,16 +153,8 @@ const Homepage = () => {
             },
             body: JSON.stringify(paymentData),
           }
-        ).catch(() =>
-          fetch("https://cuisining-v1.onrender.com/api/paypal/update-pro-account", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`,
-            },
-            body: JSON.stringify(paymentData),
-          })
         );
+        
         
       
         if (!response.ok) throw new Error((await response.json()).message);
@@ -253,16 +239,8 @@ const Homepage = () => {
               },
               body: JSON.stringify(paymentData),
             }
-          ).catch(() =>
-            fetch("https://cuisining-v1.onrender.com/api/paypal/update-pro-account", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-              },
-              body: JSON.stringify(paymentData),
-            })
           );
+          
                   
   
           if (!response.ok) throw new Error((await response.json()).message);

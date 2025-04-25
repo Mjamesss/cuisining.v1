@@ -46,13 +46,8 @@ const LoginForm = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      }).catch(() =>
-        fetch("https://cuisining-v1.onrender.com", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        })
-      );
+      });
+      
       
       const data = await response.json();
       console.log("Login response:", data);

@@ -52,16 +52,8 @@ const PreparingAppetizers = () => {
                 Authorization: `Bearer ${token}`,
               }
             }
-          ).catch(async () => {
-            return await axios.get(
-              "https://cuisining-v1.onrender.com/api/course/fundamentalsofcokery/status",
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                }
-              }
-            );
-          });
+          );
+          
           
         setLessonStatus(response.data);
         setLoading(false);

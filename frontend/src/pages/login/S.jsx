@@ -109,11 +109,8 @@ const SignUpForm = () => {
       const response = await axios.post(
         "http://localhost:5000/api/otp/send-otp",
         { email: formData.email }
-      ).catch(() =>
-        axios.post("https://cuisining-v1.onrender.com/api/otp/send-otp", {
-          email: formData.email,
-        })
       );
+      
       
       
 

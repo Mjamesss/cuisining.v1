@@ -222,13 +222,8 @@ const ProfileForm = () => {
           headers: { Authorization: `Bearer ${token}` },
           body: formData,
         }
-      ).catch(() =>
-        fetch("https://cuisining-v1.onrender.com/api/profile/upload-avatar", {
-          method: "POST",
-          headers: { Authorization: `Bearer ${token}` },
-          body: formData,
-        })
       );
+      
       
       const data = await response.json();
       if (response.ok) {

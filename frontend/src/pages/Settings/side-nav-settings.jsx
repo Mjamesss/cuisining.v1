@@ -30,17 +30,8 @@ const SideNavSettings = () => {
             },
             validateStatus: (status) => status < 500,
           }
-        ).catch(async () => {
-          return await axios.get(
-            "https://cuisining-v1.onrender.com/api/settings/provider",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-              validateStatus: (status) => status < 500,
-            }
-          );
-        });
+        );
+        
         
         
 

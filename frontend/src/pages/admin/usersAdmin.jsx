@@ -17,11 +17,7 @@ const AdminUserManagement = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/user/user-data"
-        ).catch(() =>
-          fetch("https://cuisining-v1.onrender.com/api/user/user-data")
-        );        
+        const response = await fetch("http://localhost:5000/api/user/user-data"); 
         // Replace with your actual API endpoint
         if (!response.ok) {
           throw new Error("Failed to fetch user data");

@@ -35,11 +35,8 @@ const SettingsComponent = () => {
           {
             headers: { Authorization: `Bearer ${token}` },
           }
-        ).catch(() =>
-          axios.get("https://cuisining-v1.onrender.com/api/settings/settings-profile", {
-            headers: { Authorization: `Bearer ${token}` },
-          })
         );
+        
         
         
 
@@ -115,14 +112,8 @@ const SettingsComponent = () => {
         {
           headers: { Authorization: `Bearer ${token}` },
         }
-      ).catch(() =>
-        axios.post("https://cuisining-v1.onrender.com/api/settings/change-password", {
-          currentPassword: passwordData.currentPassword,
-          newPassword: passwordData.newPassword,
-        }, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
       );
+      
       
       
 

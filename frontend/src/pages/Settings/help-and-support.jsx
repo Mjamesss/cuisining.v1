@@ -181,20 +181,7 @@ const HelpSupportPage = () => {
             'Content-Type': 'application/json',
           },
         }
-      ).catch(() =>
-        axios.post("https://cuisining-v1.onrender.com/api/rate", { 
-          rating, 
-          feedback: feedbackText.trim() || '' 
-        }, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        })
       );
-      
-      
-
       setSubmitStatus({ success: true, message: 'Thank you for your feedback!' });
       displayNotification('Thank you for your feedback!');
       

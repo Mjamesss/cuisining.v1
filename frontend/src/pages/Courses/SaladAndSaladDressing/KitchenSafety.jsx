@@ -206,17 +206,8 @@ const Quiz = ({ onQuizComplete }) => {
             Authorization: `Bearer ${token}`,
           }
         }
-      ).catch(async () => {
-        return await axios.post(
-          "https://cuisining-v1.onrender.com/api/course/SaladAndSaladDressing/update",
-          { lessonName: 'KitchenSafety' },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            }
-          }
-        );
-      });
+      );
+      
       
       console.log('Lesson updated:', response.data);
       window.location.href = '/MeasurementsAndConversion';

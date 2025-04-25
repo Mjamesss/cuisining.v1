@@ -48,15 +48,8 @@ const Courses = () => {
                     {
                       headers: { Authorization: `Bearer ${token}` }
                     }
-                  ).catch(async () => {
-                    return await axios.get(
-                      "https://cuisining-v1.onrender.com/api/course-stats",
-                      {
-                        headers: { Authorization: `Bearer ${token}` }
-                      }
-                    );
-                  });
-                  
+                  );
+                                  
                 console.log('Lock status response:', response.data);
                 setCourseLockStatus(response.data);
             } catch (err) {
@@ -80,14 +73,7 @@ const Courses = () => {
                     {
                       headers: { Authorization: `Bearer ${token}` }
                     }
-                  ).catch(async () => {
-                    return await axios.get(
-                      "https://cuisining-v1.onrender.com/api/course-completion",
-                      {
-                        headers: { Authorization: `Bearer ${token}` }
-                      }
-                    );
-                  });
+                  );                  
                   
                 console.log('Completion status response:', response.data);
                 setCourseCompletionStatus(response.data);

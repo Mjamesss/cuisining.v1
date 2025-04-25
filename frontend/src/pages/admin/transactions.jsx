@@ -54,12 +54,7 @@ const Transactions = () => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/transactions/pro-users?page=${page}&limit=${limit}&search=${searchTerm}&sort=${sortConfig.key}&order=${sortConfig.direction}`
-      ).catch(() =>
-        fetch(
-          `https://cuisining-v1.onrender.com/api/transactions/pro-users?page=${page}&limit=${limit}&search=${searchTerm}&sort=${sortConfig.key}&order=${sortConfig.direction}`
-        )
-      );          
-      
+      );     
       if (!response.ok) {
         throw new Error(`Server returned ${response.status}`);
       }

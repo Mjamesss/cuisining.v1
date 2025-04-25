@@ -45,14 +45,7 @@ const Settings = () => {
           {
             headers: { Authorization: `Bearer ${token}` },
           }
-        ).catch(async () => {
-          return await axios.get(
-            "https://cuisining-v1.onrender.com/api/settings/settings-profile",
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-        });
+        );
         
         
 
@@ -83,14 +76,8 @@ const Settings = () => {
           {
             headers: { Authorization: `Bearer ${token}` },
           }
-        ).catch(async () => {
-          return await axios.get(
-            "https://cuisining-v1.onrender.com/api/settings/cuisining-id",
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-        });
+        );
+        
         
 
         const { fullName, email, cuisiningId } = profileResponse.data;
@@ -125,15 +112,8 @@ const Settings = () => {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
           }
-        ).catch(async () => {
-          return await fetch(
-            "https://cuisining-v1.onrender.com/api/settings/avatar",
-            {
-              method: "GET",
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-        });
+        );
+        
         
         
   

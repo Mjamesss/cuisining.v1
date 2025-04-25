@@ -33,12 +33,8 @@ const Done = () => {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         }
-      ).catch(() =>
-        fetch("https://cuisining-v1.onrender.com/api/auth/profile", {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        })
       );
+      
       
 
       if (response.ok) {

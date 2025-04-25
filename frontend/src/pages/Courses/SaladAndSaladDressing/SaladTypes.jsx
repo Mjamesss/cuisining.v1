@@ -199,7 +199,7 @@ const Quiz = ({ onQuizComplete }) => {
     }
     
     const response = await axios.post(
-      `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/unit3/update`,
+      "http://localhost:5000/api/course/fundamentalsofcokery/update",
       { lessonName: 'Unit31' },  // Make sure this matches your lesson naming convention
       {
         headers: {
@@ -207,7 +207,8 @@ const Quiz = ({ onQuizComplete }) => {
           'Content-Type': 'application/json'
         }
       }
-    );
+    )
+    
     
     if (response.data.success) {
       console.log('Lesson updated successfully:', response.data);

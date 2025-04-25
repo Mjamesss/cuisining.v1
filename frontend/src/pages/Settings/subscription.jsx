@@ -18,17 +18,8 @@ const fetchProAccountStatus = async () => {
           "Authorization": `Bearer ${token}`,
         },
       }
-    ).catch(async () => {
-      return await fetch(
-        "https://cuisining-v1.onrender.com/api/settings/subscription",
-        {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-          },
-        }
-      );
-    });
+    );
+    
     
     
 

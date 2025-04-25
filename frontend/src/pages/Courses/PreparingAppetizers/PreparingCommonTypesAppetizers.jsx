@@ -200,14 +200,12 @@ const Quiz = ({ onQuizComplete }) => {
       const response = await axios.post(
         "http://localhost:5000/api/course/fundamentalsofcokery/update",
         { lessonName: 'PreparingAppetizers' },
-        { headers: { Authorization: `Bearer ${token}` } }
-      ).catch(async () => {
-        return await axios.post(
-          "https://cuisining-v1.onrender.com/api/course/fundamentalsofcokery/update",
-          { lessonName: 'PreparingAppetizers' },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      );
       
       
 

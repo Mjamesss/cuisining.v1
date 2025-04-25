@@ -193,6 +193,7 @@ const Quiz = ({ onQuizComplete }) => {
         // Send a POST request to update the lesson statuses
         const token = getToken(); // Get JWT token from local storage
         if (!token) return;
+
         const response = await axios.post(
           "http://localhost:5000/api/course/fundamentalsofcokery/update",
           { lessonName: 'FoodSafety' },
@@ -201,18 +202,8 @@ const Quiz = ({ onQuizComplete }) => {
               Authorization: `Bearer ${token}`,
             }
           }
-        ).catch(async () => {
-          return await axios.post(
-            "https://cuisining-v1.onrender.com/api/course/fundamentalsofcokery/update",
-            { lessonName: 'FoodSafety' },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              }
-            }
-          );
-        });
-               
+        );
+
 
         console.log('Lesson updated:', response.data);
   

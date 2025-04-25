@@ -64,12 +64,8 @@ const SetNewPassword = () => {
           token,
           newPassword: password,
         }
-      ).catch(() =>
-        axios.post("https://cuisining-v1.onrender.com/api/password/reset-password", {
-          token,
-          newPassword: password,
-        })
       );
+      
       
       
 
