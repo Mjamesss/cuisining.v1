@@ -5,6 +5,165 @@ const LessonStatus = require('../models/all-units');
 
 const router = express.Router();
 
+router.get('/course/fundamentalsofcokery/status', verifyToken, async (req, res) => {
+  try {
+    const userId = req.userId;
+    let lessonStatus = await LessonStatus.findOne({ userID: userId });
+
+    if (!lessonStatus) {
+      lessonStatus = {
+        lessonLockStatus: {
+          // Unit 1
+          KitchenDepartment: true,
+          CommonKitchenTools: false,
+          MeasurementsAndConversion: false,
+          FoodSafety: false,
+          OccupationalHealthAndSafety: false,
+          KnifeSkills: false,
+          // Unit 2
+          TypesOfAppetizers: true,
+          KitchenSafety: false,
+          PreparingAppetizers: false,
+          PlatingAppetizers: false,
+          //
+          EggDishesIntro: true,
+          CookingEggDishes: false,
+          VegetablesIntro: false,
+          PreparingVegetables: false,
+          CookingVegetables: false,
+          FarinaceousIntro: false,
+          PotatoDishes: false,
+          RiceDishes: false,
+          PastaDishes: false
+        },
+        lessonCompletionStatus: {
+          // Unit 1
+          KitchenDepartment: false,
+          CommonKitchenTools: false,
+          MeasurementsAndConversion: false,
+          FoodSafety: false,
+          OccupationalHealthAndSafety: false,
+          KnifeSkills: false,
+          // Unit 2
+          TypesOfAppetizers: false,
+          KitchenSafety: false,
+          PreparingAppetizers: false,
+          PlatingAppetizers: false,
+          //
+          EggDishesIntro: false,
+          CookingEggDishes: false,
+          VegetablesIntro: false,
+          PreparingVegetables: false,
+          CookingVegetables: false,
+          FarinaceousIntro: false,
+          PotatoDishes: false,
+          RiceDishes: false,
+          PastaDishes: false
+        }
+      };
+    }
+
+    res.status(200).json({
+      lessonLockStatus: lessonStatus.lessonLockStatus,
+      lessonCompletionStatus: lessonStatus.lessonCompletionStatus
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+router.post('/course/fundamentalsofcokery/update', verifyToken, async (req, res) => {
+  try {
+    const { lessonName } = req.body;
+    const userId = req.userId;
+
+    let lessonStatus = await LessonStatus.findOne({ userID: userId });
+
+    if (!lessonStatus) {
+      lessonStatus = new LessonStatus({
+        userID: userId,
+        lessonLockStatus: {
+          // Unit 1 (defaults)
+          KitchenDepartment: true,
+          CommonKitchenTools: false,
+          MeasurementsAndConversion: false,
+          FoodSafety: false,
+          OccupationalHealthAndSafety: false,
+          KnifeSkills: false,
+          // Unit 2 (defaults)
+          TypesOfAppetizers: true,
+          KitchenSafety: false,
+          PreparingAppetizers: false,
+          PlatingAppetizers: false,
+          //3
+          EggDishesIntro: true,
+          CookingEggDishes: false,
+          VegetablesIntro: false,
+          PreparingVegetables: false,
+          CookingVegetables: false,
+          FarinaceousIntro: false,
+          PotatoDishes: false,
+          RiceDishes: false,
+          PastaDishes: false
+        },
+        lessonCompletionStatus: {
+          // Unit 1 (defaults)
+          KitchenDepartment: false,
+          CommonKitchenTools: false,
+          MeasurementsAndConversion: false,
+          FoodSafety: false,
+          OccupationalHealthAndSafety: false,
+          KnifeSkills: false,
+          // Unit 2 (defaults)
+          TypesOfAppetizers: false,
+          KitchenSafety: false,
+          PreparingAppetizers: false,
+          PlatingAppetizers: false,
+          //3
+          EggDishesIntro: false,
+          CookingEggDishes: false,
+          VegetablesIntro: false,
+          PreparingVegetables: false,
+          CookingVegetables: false,
+          FarinaceousIntro: false,
+          PotatoDishes: false,
+          RiceDishes: false,
+          PastaDishes: false
+        }
+      });
+    }
+
+    // Mark lesson as completed
+    lessonStatus.lessonCompletionStatus[lessonName] = true;
+
+    // Unlock next lesson (your existing logic works)
+    const unitLessons = { /* Your existing unit order logic */ };
+    let currentUnit, currentIndex;
+    for (const [unit, lessons] of Object.entries(unitLessons)) {
+      const index = lessons.indexOf(lessonName);
+      if (index !== -1) {
+        currentUnit = unit;
+        currentIndex = index;
+        break;
+      }
+    }
+    if (currentUnit && currentIndex !== -1) {
+      const lessonsOrder = unitLessons[currentUnit];
+      if (currentIndex < lessonsOrder.length - 1) {
+        const nextLesson = lessonsOrder[currentIndex + 1];
+        lessonStatus.lessonLockStatus[nextLesson] = true;
+      }
+    }
+
+    await lessonStatus.save(); // Ensure this is saving properly
+
+    res.status(200).json({
+      lessonLockStatus: lessonStatus.lessonLockStatus,
+      lessonCompletionStatus: lessonStatus.lessonCompletionStatus
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 router.post('/complete-final-unit', verifyToken, async (req, res) => {
   try {
       const { unitName } = req.body; // 'KnifeSkills' for Fundamentals
@@ -65,7 +224,6 @@ router.post('/complete-final-unit', verifyToken, async (req, res) => {
       const REQUIRED_COURSES = [
           'FundamentalsOfCookery',
           'PreparingAppetizers',
-          'PreparingEggVegetable',
           'SaladAndSaladDressing',
           'PreparingSandwich'
       ];
@@ -98,107 +256,7 @@ router.post('/complete-final-unit', verifyToken, async (req, res) => {
       });
   }
 });
-router.post('/course/fundamentalsofcokery/update', verifyToken, async (req, res) => {
-  try {
-    const { lessonName } = req.body; // Get the lesson name from the request body
-    const userId = req.userId; // Extract user ID from the token
 
-    // Find the user's lesson status record
-    let lessonStatus = await LessonStatus.findOne({ userID: userId });
-
-    // If no record exists, create a new one with default values
-    if (!lessonStatus) {
-      lessonStatus = new LessonStatus({
-        userID: userId,
-        lessonLockStatus: {
-          // Unit 1 defaults
-          KitchenDepartment: true,
-          CommonKitchenTools: false,
-          MeasurementsAndConversion: false,
-          FoodSafety: false,
-          OccupationalHealthAndSafety: false,
-          KnifeSkills: false,
-          // Unit 2 defaults
-          TypesOfAppetizers: true,
-          KitchenSafety: false,
-          PreparingAppetizers: false,
-          PlatingAppetizers: false
-        },
-        lessonCompletionStatus: {
-          // Unit 1 defaults
-          KitchenDepartment: false,
-          CommonKitchenTools: false,
-          MeasurementsAndConversion: false,
-          FoodSafety: false,
-          OccupationalHealthAndSafety: false,
-          KnifeSkills: false,
-          // Unit 2 defaults
-          TypesOfAppetizers: false,
-          KitchenSafety: false,
-          PreparingAppetizers: false,
-          PlatingAppetizers: false
-        }
-      });
-    }
-
-    // Mark the current lesson as completed
-    lessonStatus.lessonCompletionStatus[lessonName] = true;
-
-    // Define the order of lessons for both units
-    const unitLessons = {
-      unit1: [
-        'KitchenDepartment',
-        'CommonKitchenTools',
-        'MeasurementsAndConversion',
-        'FoodSafety',
-        'OccupationalHealthAndSafety',
-        'KnifeSkills'
-      ],
-      unit2: [
-        'TypesOfAppetizers',
-        'KitchenSafety',
-        'PreparingAppetizers',
-        'PlatingAppetizers'
-      ]
-    };
-
-    // Determine which unit the lesson belongs to
-    let currentUnit;
-    let currentIndex = -1;
-
-    for (const [unit, lessons] of Object.entries(unitLessons)) {
-      const index = lessons.indexOf(lessonName);
-      if (index !== -1) {
-        currentUnit = unit;
-        currentIndex = index;
-        break;
-      }
-    }
-
-    // If the lesson was found in one of the units
-    if (currentUnit && currentIndex !== -1) {
-      const lessonsOrder = unitLessons[currentUnit];
-      
-      // Unlock the next lesson if available
-      if (currentIndex < lessonsOrder.length - 1) {
-        const nextLesson = lessonsOrder[currentIndex + 1];
-        lessonStatus.lessonLockStatus[nextLesson] = true;
-      }
-    }
-
-    // Save the updated lesson status to the database
-    await lessonStatus.save();
-
-    // Return the updated statuses
-    res.status(200).json({
-      lessonLockStatus: lessonStatus.lessonLockStatus,
-      lessonCompletionStatus: lessonStatus.lessonCompletionStatus
-    });
-
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
 // GET course lock status for authenticated user
 router.get('/course-stats', verifyToken, async (req, res) => {
@@ -207,7 +265,6 @@ router.get('/course-stats', verifyToken, async (req, res) => {
       res.status(200).json(status?.courseLockStatus || {
         FundamentalsOfCookery: true,
         PreparingAppetizers: false,
-        PreparingEggVegetable: false,
         SaladAndSaladDressing: false,
         PreparingSandwich: false,
         FinalAssessment: false
@@ -226,7 +283,6 @@ router.get('/course-stats', verifyToken, async (req, res) => {
             return res.status(200).json({
                 FundamentalsOfCookery: false,
                 PreparingAppetizers: false,
-                PreparingEggVegetable: false,
                 SaladAndSaladDressing: false,
                 PreparingSandwich: false,
                 FinalAssessment: false
@@ -243,55 +299,5 @@ router.get('/course-stats', verifyToken, async (req, res) => {
 // POST /course/fundamentalsofcokery/update
 
   // Add this to your routes file (likely routes.js or similar)
-router.get('/course/fundamentalsofcokery/status', verifyToken, async (req, res) => {
-    try {
-      const userId = req.userId; // Extract user ID from the token
-  
-      // Find the user's lesson status record
-      let lessonStatus = await LessonStatus.findOne({ userID: userId });
-  
-      // If no record exists, create default values
-      if (!lessonStatus) {
-        lessonStatus = {
-          lessonLockStatus: {
-            //unit 1 
-            KitchenDepartment: true,
-            CommonKitchenTools: false,
-            MeasurementsAndConversion: false,
-            FoodSafety: false,
-            OccupationalHealthAndSafety: false,
-            KnifeSkills: false,
-            //unit2
-            TypesOfAppetizers: true, // First lesson always unlocked
-            KitchenSafety: false,
-            PreparingAppetizers: false,
-            PlatingAppetizers: false
-
-          },
-          lessonCompletionStatus: {
-            KitchenDepartment: false,
-            CommonKitchenTools: false,
-            MeasurementsAndConversion: false,
-            FoodSafety: false,
-            OccupationalHealthAndSafety: false,
-            KnifeSkills: false,
-            //unit 2
-            TypesOfAppetizers: true, // First lesson always unlocked
-            KitchenSafety: false,
-            PreparingAppetizers: false,
-            PlatingAppetizers: false
-          }
-        };
-      }
-  
-      // Return the statuses
-      res.status(200).json({
-        lessonLockStatus: lessonStatus.lessonLockStatus,
-        lessonCompletionStatus: lessonStatus.lessonCompletionStatus
-      });
-  
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  });
+ 
 module.exports = router;

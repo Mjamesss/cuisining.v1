@@ -122,13 +122,6 @@ const Courses = () => {
             image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745046409/courses2_pjssfc.png"
         },
         {
-            id: "PreparingEggVegetable",
-            title: "Preparing Egg Vegetable and",
-            titleHighlight: "Farinaceous Dishes",
-            description: "Learn essential skills in egg cookery and basic procedures for preparing vegetables and starch dishes.",
-            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745046409/courses3_zeohhg.png"
-        },
-        {
             id: "SaladAndSaladDressing",
             title: "Salad and Salad",
             titleHighlight: "Dressings",

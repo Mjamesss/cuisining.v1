@@ -199,7 +199,7 @@ const Homepage = () => {
             description: "1 Month Pro Account Access",
             unit_amount: {
               currency_code: "PHP",
-              value: "199.00"
+              value: "500.00"
             },
             quantity: "1",
             category: "DIGITAL_GOODS"

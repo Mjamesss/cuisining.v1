@@ -8,7 +8,6 @@ const courseLockStatusSchema = new mongoose.Schema({
     courseLockStatus: {
       FundamentalsOfCookery: { type: Boolean, default: true },
       PreparingAppetizers: { type: Boolean, default: false },
-      PreparingEggVegetable: { type: Boolean, default: false },
       SaladAndSaladDressing: { type: Boolean, default: false },
       PreparingSandwich: { type: Boolean, default: false },
       FinalAssessment: { type: Boolean, default: false }
@@ -16,7 +15,6 @@ const courseLockStatusSchema = new mongoose.Schema({
     courseCompletionStatus: {
       FundamentalsOfCookery: { type: Boolean, default: false },
       PreparingAppetizers: { type: Boolean, default: false },
-      PreparingEggVegetable: { type: Boolean, default: false },
       SaladAndSaladDressing: { type: Boolean, default: false },
       PreparingSandwich: { type: Boolean, default: false },
       FinalAssessment: { type: Boolean, default: false }
