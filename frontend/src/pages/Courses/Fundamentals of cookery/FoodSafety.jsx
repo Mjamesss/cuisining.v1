@@ -194,14 +194,25 @@ const Quiz = ({ onQuizComplete }) => {
         const token = getToken(); // Get JWT token from local storage
         if (!token) return;
         const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
+          "http://localhost:5000/api/course/fundamentalsofcokery/update",
           { lessonName: 'FoodSafety' },
           {
             headers: {
-              Authorization: `Bearer ${token}`
+              Authorization: `Bearer ${token}`,
             }
           }
-        );        
+        ).catch(async () => {
+          return await axios.post(
+            "https://cuisining-v1.onrender.com/api/course/fundamentalsofcokery/update",
+            { lessonName: 'FoodSafety' },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              }
+            }
+          );
+        });
+               
 
         console.log('Lesson updated:', response.data);
   
@@ -573,38 +584,6 @@ const MeasurementAndConversion = () => {
     }
   };
 
-  const handleNextLessonClick = async (e) => {
-    if (!passedQuiz) {
-      e.preventDefault();
-      alert('You need to complete the quiz with all 5 correct answers to proceed to the next lesson.');
-    } else {
-      try {
-        const getToken = () => {
-          return localStorage.getItem('authToken');
-        };
-        const token = getToken();
-        if (!token) return;
-        
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ lessonName: 'MeasurementsAndConversion' }),
-          }
-        );
-        
-
-        console.log('Lesson updated:', response.data);
-        window.location.href = '/FoodSafety';
-      } catch (error) {
-        console.error('Error updating lesson status:', error.message);
-      }
-    }
-  };
 
   return (
     <>

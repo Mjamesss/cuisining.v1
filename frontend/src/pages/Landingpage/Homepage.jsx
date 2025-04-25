@@ -88,14 +88,22 @@ const Homepage = () => {
           }
 
           const response = await fetch(
-            `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/subscription`,
+            "http://localhost:5000/api/settings/subscription",
             {
               method: "GET",
               headers: {
                 "Authorization": `Bearer ${token}`,
               },
             }
+          ).catch(() =>
+            fetch("https://cuisining-v1.onrender.com/api/settings/subscription", {
+              method: "GET",
+              headers: {
+                "Authorization": `Bearer ${token}`,
+              },
+            })
           );
+          
           
 
           if (!response.ok) {
@@ -142,7 +150,7 @@ const Homepage = () => {
         };
     
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/paypal/update-pro-account`,
+          "http://localhost:5000/api/paypal/update-pro-account",
           {
             method: "POST",
             headers: {
@@ -151,7 +159,17 @@ const Homepage = () => {
             },
             body: JSON.stringify(paymentData),
           }
+        ).catch(() =>
+          fetch("https://cuisining-v1.onrender.com/api/paypal/update-pro-account", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(paymentData),
+          })
         );
+        
       
         if (!response.ok) throw new Error((await response.json()).message);
     
@@ -226,7 +244,7 @@ const Homepage = () => {
           };
   
           const response = await fetch(
-            `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/paypal/update-pro-account`,
+            "http://localhost:5000/api/paypal/update-pro-account",
             {
               method: "POST",
               headers: {
@@ -235,7 +253,17 @@ const Homepage = () => {
               },
               body: JSON.stringify(paymentData),
             }
-          );          
+          ).catch(() =>
+            fetch("https://cuisining-v1.onrender.com/api/paypal/update-pro-account", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+              },
+              body: JSON.stringify(paymentData),
+            })
+          );
+                  
   
           if (!response.ok) throw new Error((await response.json()).message);
   

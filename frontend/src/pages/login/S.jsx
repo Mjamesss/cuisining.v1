@@ -107,9 +107,14 @@ const SignUpForm = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/otp/send-otp`,
+        "http://localhost:5000/api/otp/send-otp",
         { email: formData.email }
+      ).catch(() =>
+        axios.post("https://cuisining-v1.onrender.com/api/otp/send-otp", {
+          email: formData.email,
+        })
       );
+      
       
 
       if (response.status === 200) {
@@ -149,25 +154,39 @@ const SignUpForm = () => {
     try {
       // Verify OTP
       const verifyResponse = await axios.post(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/otp/verify-otp`,
+        "http://localhost:5000/api/otp/verify-otp",
         {
           email: formData.email,
           otpCode: userEnteredCode,
         }
+      ).catch(() =>
+        axios.post("https://cuisining-v1.onrender.com/api/otp/verify-otp", {
+          email: formData.email,
+          otpCode: userEnteredCode,
+        })
       );
+      
       
 
       if (verifyResponse.status === 200) {
         // OTP verified, proceed with signup
         const signupResponse = await axios.post(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/auth/signup`,
+          "http://localhost:5000/api/auth/signup",
           {
             fName: formData.fullname,
             email: formData.email,
             password: formData.password,
             otpCode: userEnteredCode,
           }
+        ).catch(() =>
+          axios.post("https://cuisining-v1.onrender.com/api/auth/signup", {
+            fName: formData.fullname,
+            email: formData.email,
+            password: formData.password,
+            otpCode: userEnteredCode,
+          })
         );
+        
         
 
         if (signupResponse.status === 201) {
@@ -184,8 +203,9 @@ const SignUpForm = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/oauth/google`;
+    window.location.href = "http://localhost:5000/api/oauth/google";
   };
+  
   
 
   const styles = {

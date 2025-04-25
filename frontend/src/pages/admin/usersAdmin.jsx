@@ -18,8 +18,10 @@ const AdminUserManagement = () => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/user/user-data`
-        );
+          "http://localhost:5000/api/user/user-data"
+        ).catch(() =>
+          fetch("https://cuisining-v1.onrender.com/api/user/user-data")
+        );        
         // Replace with your actual API endpoint
         if (!response.ok) {
           throw new Error("Failed to fetch user data");

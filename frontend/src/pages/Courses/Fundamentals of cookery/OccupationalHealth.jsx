@@ -191,10 +191,17 @@ const Quiz = ({ onQuizComplete }) => {
       if (!token) return;
       
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
+        "http://localhost:5000/api/course/fundamentalsofcokery/update",
         { lessonName: 'OccupationalHealthAndSafety' },
         { headers: { Authorization: `Bearer ${token}` } }
-      );
+      ).catch(async () => {
+        return await axios.post(
+          "https://cuisining-v1.onrender.com/api/course/fundamentalsofcokery/update",
+          { lessonName: 'OccupationalHealthAndSafety' },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      });
+      
       
 
       console.log('Lesson updated:', response.data);
@@ -577,7 +584,7 @@ const MeasurementAndConversion = () => {
         const token = getToken(); // Get JWT token from local storage
         if (!token) return;
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
+          "http://localhost:5000/api/course/fundamentalsofcokery/update",
           {
             method: "POST",
             headers: {
@@ -586,7 +593,20 @@ const MeasurementAndConversion = () => {
             },
             body: JSON.stringify({ lessonName: 'OccupationalHealthAndSafety' }),
           }
-        );
+        ).catch(async () => {
+          return await fetch(
+            "https://cuisining-v1.onrender.com/api/course/fundamentalsofcokery/update",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({ lessonName: 'OccupationalHealthAndSafety' }),
+            }
+          );
+        });
+        
         
   
         console.log('Lesson updated:', response.data);

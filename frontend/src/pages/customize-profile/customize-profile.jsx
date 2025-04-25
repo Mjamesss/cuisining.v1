@@ -25,12 +25,18 @@ const ProfileForm = () => {
   const fetchUserProfile = async (token) => {
     try {
       const profileResponse = await fetch(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/auth/profile`,
+        "http://localhost:5000/api/auth/profile",
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         }
+      ).catch(() =>
+        fetch("https://cuisining-v1.onrender.com/api/auth/profile", {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        })
       );
+      
     
       if (!profileResponse.ok) {
         setError("Failed to fetch user profile.");
@@ -42,12 +48,18 @@ const ProfileForm = () => {
       console.log("User Profile Data:", profileData);
 
       const gprofResponse = await fetch(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/profile/gprof`,
+        "http://localhost:5000/api/profile/gprof",
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         }
+      ).catch(() =>
+        fetch("https://cuisining-v1.onrender.com/api/profile/gprof", {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        })
       );
+      
       if (!gprofResponse.ok) {
         setError("Failed to fetch profile picture.");
         console.error("Profile picture fetch error:", await gprofResponse.text());
@@ -155,7 +167,7 @@ const ProfileForm = () => {
       };
 
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/profile/submit`,
+        "http://localhost:5000/api/profile/submit",
         {
           method: "POST",
           headers: {
@@ -164,7 +176,17 @@ const ProfileForm = () => {
           },
           body: JSON.stringify(payload),
         }
+      ).catch(() =>
+        fetch("https://cuisining-v1.onrender.com/api/profile/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        })
       );
+      
       
 
       const data = await response.json();
@@ -194,13 +216,20 @@ const ProfileForm = () => {
     const token = localStorage.getItem("authToken");
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/profile/upload-avatar`,
+        "http://localhost:5000/api/profile/upload-avatar",
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
           body: formData,
         }
+      ).catch(() =>
+        fetch("https://cuisining-v1.onrender.com/api/profile/upload-avatar", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        })
       );
+      
       const data = await response.json();
       if (response.ok) {
         setAvatarUrl(data.avatarUrl);

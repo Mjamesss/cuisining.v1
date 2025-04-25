@@ -11,14 +11,25 @@ const fetchProAccountStatus = async () => {
     }
 
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/subscription`,
+      "http://localhost:5000/api/settings/subscription",
       {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
         },
       }
-    );
+    ).catch(async () => {
+      return await fetch(
+        "https://cuisining-v1.onrender.com/api/settings/subscription",
+        {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        }
+      );
+    });
+    
     
 
     if (!response.ok) {

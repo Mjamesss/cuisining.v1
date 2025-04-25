@@ -23,14 +23,19 @@ const ReminderAdmin = () => {
   useEffect(() => {
     const fetchReminders = async () => {
       try {
-        const backendURL = process.env.REACT_APP_BACKEND_LINK || 'http://localhost:5000';
-    
-        const response = await fetch(`${backendURL}/api/notif/notifications`, {
+        const response = await fetch("http://localhost:5000/api/notif/notifications", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-        });
+        }).catch(() =>
+          fetch("https://cuisining-v1.onrender.com/api/notif/notifications", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+        );        
     
         if (response.ok) {
           const data = await response.json();
@@ -63,17 +68,17 @@ const ReminderAdmin = () => {
         cuisiningIds: recipientType === 'custom' ? users : undefined,
       };
 
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/notif/notifications`,
-        {
+      const response = await fetch("http://localhost:5000/api/notif/notifications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).catch(() =>
+        fetch("https://cuisining-v1.onrender.com/api/notif/notifications", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        }
+        })
       );
-      
-
-      
       if (response.status === 201) {
         const now = new Date();
         const date = now.toLocaleDateString();
@@ -115,10 +120,15 @@ const ReminderAdmin = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/notif/check-user`,
+        "http://localhost:5000/api/notif/check-user",
         { cuisiningId: searchUserId }
-      );      
-
+      ).catch(() =>
+        axios.post(
+          "https://cuisining-v1.onrender.com/api/notif/check-user",
+          { cuisiningId: searchUserId }
+        )
+      );
+      
       if (response.status === 200) {
         setUsers([...users, searchUserId]);
         setSearchUserId('');

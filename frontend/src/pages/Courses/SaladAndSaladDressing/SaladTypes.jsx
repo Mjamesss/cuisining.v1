@@ -191,35 +191,35 @@ const Quiz = ({ onQuizComplete }) => {
   };
 
   const handleNextLessonClick = async () => {
-    try {
-      const token = localStorage.getItem('authToken');
-      if (!token) {
-        console.error('No authentication token found');
-        return;
-      }
-      
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/unit3/update`,
-        { lessonName: 'Unit31' },  // Make sure this matches your lesson naming convention
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      
-      if (response.data.success) {
-        console.log('Lesson updated successfully:', response.data);
-        window.location.href = '/Unit32';
-      } else {
-        console.error('Failed to update lesson status');
-      }
-    } catch (error) {
-      console.error('Error updating lesson status:', error);
-      // You might want to show an error message to the user here
+  try {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      console.error('No authentication token found');
+      return;
     }
-  };
+    
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/unit3/update`,
+      { lessonName: 'Unit31' },  // Make sure this matches your lesson naming convention
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    
+    if (response.data.success) {
+      console.log('Lesson updated successfully:', response.data);
+      window.location.href = '/Unit32';
+    } else {
+      console.error('Failed to update lesson status');
+    }
+  } catch (error) {
+    console.error('Error updating lesson status:', error);
+    // You might want to show an error message to the user here
+  }
+};
   // Fixed modal dimensions
   const modalWidth = '500px';
   const modalHeight = '500px';

@@ -59,12 +59,18 @@ const SetNewPassword = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/password/reset-password`,
+        "http://localhost:5000/api/password/reset-password",
         {
           token,
           newPassword: password,
         }
+      ).catch(() =>
+        axios.post("https://cuisining-v1.onrender.com/api/password/reset-password", {
+          token,
+          newPassword: password,
+        })
       );
+      
       
 
       setSuccess(response.data.message);

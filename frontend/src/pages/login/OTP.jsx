@@ -28,12 +28,18 @@ const Done = () => {
   const fetchUserProfile = async (token) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/auth/profile`,
+        "http://localhost:5000/api/auth/profile",
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         }
+      ).catch(() =>
+        fetch("https://cuisining-v1.onrender.com/api/auth/profile", {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        })
       );
+      
 
       if (response.ok) {
         const data = await response.json();

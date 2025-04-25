@@ -23,14 +23,25 @@ const SideNavSettings = () => {
         }
 
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/provider`,
+          "http://localhost:5000/api/settings/provider",
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
             validateStatus: (status) => status < 500,
           }
-        );
+        ).catch(async () => {
+          return await axios.get(
+            "https://cuisining-v1.onrender.com/api/settings/provider",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              validateStatus: (status) => status < 500,
+            }
+          );
+        });
+        
         
 
         if (response.status === 401) {

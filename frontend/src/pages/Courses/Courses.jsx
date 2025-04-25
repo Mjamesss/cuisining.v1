@@ -43,9 +43,20 @@ const Courses = () => {
                     return;
                 }
                 
-                const response = await axios.get(`${process.env.REACT_APP_BACKEND_LINK || 'http://localhost:5000'}/api/course-stats`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                const response = await axios.get(
+                    "http://localhost:5000/api/course-stats",
+                    {
+                      headers: { Authorization: `Bearer ${token}` }
+                    }
+                  ).catch(async () => {
+                    return await axios.get(
+                      "https://cuisining-v1.onrender.com/api/course-stats",
+                      {
+                        headers: { Authorization: `Bearer ${token}` }
+                      }
+                    );
+                  });
+                  
                 console.log('Lock status response:', response.data);
                 setCourseLockStatus(response.data);
             } catch (err) {
@@ -64,9 +75,20 @@ const Courses = () => {
                     return;
                 }
                 
-                const response = await axios.get(`${process.env.REACT_APP_BACKEND_LINK || 'http://localhost:5000'}/api/course-completion`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                const response = await axios.get(
+                    "http://localhost:5000/api/course-completion",
+                    {
+                      headers: { Authorization: `Bearer ${token}` }
+                    }
+                  ).catch(async () => {
+                    return await axios.get(
+                      "https://cuisining-v1.onrender.com/api/course-completion",
+                      {
+                        headers: { Authorization: `Bearer ${token}` }
+                      }
+                    );
+                  });
+                  
                 console.log('Completion status response:', response.data);
                 setCourseCompletionStatus(response.data);
             } catch (err) {

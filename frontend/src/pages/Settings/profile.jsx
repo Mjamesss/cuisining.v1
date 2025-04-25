@@ -41,11 +41,19 @@ const Settings = () => {
 
         // Fetch fName and email from /settings-profile endpoint
         const profileResponse = await axios.get(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
+          "http://localhost:5000/api/settings/settings-profile",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
-        );
+        ).catch(async () => {
+          return await axios.get(
+            "https://cuisining-v1.onrender.com/api/settings/settings-profile",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+        });
+        
         
 
         const { fullName, email, cuisiningId } = profileResponse.data;
@@ -71,11 +79,18 @@ const Settings = () => {
 
         // Fetch fName and email from /settings-profile endpoint
         const profileResponse = await axios.get(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/cuisining-id`,
+          "http://localhost:5000/api/settings/cuisining-id",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
-        );
+        ).catch(async () => {
+          return await axios.get(
+            "https://cuisining-v1.onrender.com/api/settings/cuisining-id",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+        });
         
 
         const { fullName, email, cuisiningId } = profileResponse.data;
@@ -105,12 +120,21 @@ const Settings = () => {
         }
   
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/avatar`,
+          "http://localhost:5000/api/settings/avatar",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
           }
-        );
+        ).catch(async () => {
+          return await fetch(
+            "https://cuisining-v1.onrender.com/api/settings/avatar",
+            {
+              method: "GET",
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+        });
+        
         
   
         if (!response.ok) {

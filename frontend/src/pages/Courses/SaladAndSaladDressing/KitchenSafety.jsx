@@ -199,14 +199,25 @@ const Quiz = ({ onQuizComplete }) => {
       if (!token) return;
       
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/SaladAndSaladDressing/update`,
+        "http://localhost:5000/api/course/SaladAndSaladDressing/update",
         { lessonName: 'KitchenSafety' },
         {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           }
         }
-      );      
+      ).catch(async () => {
+        return await axios.post(
+          "https://cuisining-v1.onrender.com/api/course/SaladAndSaladDressing/update",
+          { lessonName: 'KitchenSafety' },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+          }
+        );
+      });
+      
       console.log('Lesson updated:', response.data);
       window.location.href = '/MeasurementsAndConversion';
     } catch (error) {

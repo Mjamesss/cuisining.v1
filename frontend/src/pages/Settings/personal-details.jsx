@@ -45,11 +45,19 @@ const SettingsComponent = () => {
           throw new Error("No token found in localStorage.");
         }
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
+          "http://localhost:5000/api/settings/settings-profile", 
           {
             headers: { Authorization: `Bearer ${token}` },
           }
-        );        
+        ).catch(async () => {
+          return await axios.get(
+            "https://cuisining-v1.onrender.com/api/settings/settings-profile", 
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+        });
+          
         const { 
           fullName, 
           email, 
@@ -156,7 +164,7 @@ const SettingsComponent = () => {
       }
 
       const response = await axios.put(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/update-profile`,
+        "http://localhost:5000/api/settings/update-profile", 
         formDataToSend,
         {
           headers: { 
@@ -164,7 +172,19 @@ const SettingsComponent = () => {
             'Content-Type': 'multipart/form-data',
           },
         }
-      );
+      ).catch(async () => {
+        return await axios.put(
+          "https://cuisining-v1.onrender.com/api/settings/update-profile", 
+          formDataToSend,
+          {
+            headers: { 
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+      });
+      
       
 
       // Update the main form data with the new values

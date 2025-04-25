@@ -170,7 +170,7 @@ const HelpSupportPage = () => {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/rate`,
+        "http://localhost:5000/api/rate",
         { 
           rating, 
           feedback: feedbackText.trim() || '' 
@@ -181,7 +181,18 @@ const HelpSupportPage = () => {
             'Content-Type': 'application/json',
           },
         }
+      ).catch(() =>
+        axios.post("https://cuisining-v1.onrender.com/api/rate", { 
+          rating, 
+          feedback: feedbackText.trim() || '' 
+        }, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        })
       );
+      
       
 
       setSubmitStatus({ success: true, message: 'Thank you for your feedback!' });

@@ -31,11 +31,16 @@ const SettingsComponent = () => {
         }
 
         const profileResponse = await axios.get(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
+          "http://localhost:5000/api/settings/settings-profile",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
+        ).catch(() =>
+          axios.get("https://cuisining-v1.onrender.com/api/settings/settings-profile", {
+            headers: { Authorization: `Bearer ${token}` },
+          })
         );
+        
         
 
         const { fullName, email } = profileResponse.data;
@@ -102,7 +107,7 @@ const SettingsComponent = () => {
       }
 
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/change-password`,
+        "http://localhost:5000/api/settings/change-password",
         {
           currentPassword: passwordData.currentPassword,
           newPassword: passwordData.newPassword,
@@ -110,7 +115,15 @@ const SettingsComponent = () => {
         {
           headers: { Authorization: `Bearer ${token}` },
         }
+      ).catch(() =>
+        axios.post("https://cuisining-v1.onrender.com/api/settings/change-password", {
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword,
+        }, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
       );
+      
       
 
       setSuccessMessage(response.data.message || 'Password changed successfully!');

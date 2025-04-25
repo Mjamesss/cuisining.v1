@@ -48,13 +48,23 @@ const FundamentalsOfCookery = () => {
         const token = getToken();
         if (!token) return;
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/status`,
+          "http://localhost:5000/api/course/fundamentalsofcokery/status",
           {
             headers: {
-              Authorization: `Bearer ${token}`
+              Authorization: `Bearer ${token}`,
             }
           }
-        );        
+        ).catch(async () => {
+          return await axios.get(
+            "https://cuisining-v1.onrender.com/api/course/fundamentalsofcokery/status",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              }
+            }
+          );
+        });
+               
         setLessonStatus(response.data);
         setLoading(false);
       } catch (err) {
