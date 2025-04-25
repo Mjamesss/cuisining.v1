@@ -412,7 +412,7 @@ const Homepage = () => {
 
               <div 
                   className="d-flex justify-content-center align-items-center header-image" 
-                  style={{ position: "relative", maxWidth: "700px",  height: "auto",  zIndex: 1, left: "4%", bottom: "70px",  }}
+                  style={{ position: "relative", maxWidth: "700px",  height: "auto",  zIndex: 1, left: "4%", bottom: "60px",  }}
               >
                   <img 
                       src="arlopointing.png" 

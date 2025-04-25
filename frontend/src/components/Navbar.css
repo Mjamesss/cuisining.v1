@@ -68,6 +68,14 @@
   visibility: visible;
 }
 
+.proaccount {
+  margin-left: 5px;
+}
+
+.upgrade-section a {
+  text-decoration: none;
+}
+
 /* Hamburger Button */
 .hamburger {
   display: none; /* Default hidden on larger screens */

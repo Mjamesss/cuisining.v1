@@ -12,14 +12,24 @@ const Utensils = () => {
         <div style={{ backgroundColor: '#F0F4F8', minHeight: '100vh' }}>
             <Navbar />
             
-            <div style={{ maxWidth: "1200px", margin: "10px auto 0 auto", padding: "100px 0" }}>
+            <div style={{ maxWidth: "1200px", margin: "0px auto 0 auto", padding: "100px 0" }}>
                 
                 <div style={{ width: "100%", marginBottom: "100px" }}>
-                <h1 style={{fontSize: "26px", fontWeight: "800", margin: "0 auto 40px auto", maxWidth: "1200px", paddingLeft: "6%",
-                        fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "left" }}>
-                    Cooking Utensils Identification
-                    </h1>
-
+                <div style={{ marginTop: "-30px", padding: "0 clamp(20px, 6%, 75px)", marginBottom: "30px"}}>
+                    <div style={{ display: "flex", alignItems: "center", width: "fit-content", padding: "18px clamp(15px, 5vw, 30px)", 
+                        background: "#cdd378", borderRadius: "15px", borderLeft: "clamp(15px, 3vw, 20px) solid #000000", gap: "15px" }}>
+                   <div style={{ width: "40px", height: "40px", flexShrink: 0 }}>
+                            <img  src="arlologo.png" alt="Utensils Icon"
+                                style={{ width: "100%", height: "100%", objectFit: "contain", filter: "brightness(0) saturate(100%)"  }} />
+                        </div>
+                        
+                        <h3 style={{ fontSize: "clamp(16px, 2vw, 20px)", fontWeight: "750", margin: "0", color: "#333", fontFamily: "'Nunito', sans-serif", whiteSpace: "nowrap"
+                        }}> 
+                            Cooking Utensils Identification
+                        </h3>
+                    </div>
+                </div>
+                
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))", justifyContent: "left",
                        gap: "25px", fontWeight: "920", paddingLeft: "6%"}}>
 

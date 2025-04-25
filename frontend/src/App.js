@@ -252,7 +252,14 @@ import IntroToEggDishes from './pages/Courses/PreparingEggVagetable/IntroToEggDi
 import SaladAndSaladDressing from './pages/Courses/SaladAndSaladDressing/SaladAndSaladDressing';
 import PreparingSandwich from './pages/Courses/PreparingSandwiches/PreparingSandwich';
 
+import SandwichComponents from './pages/Courses/PreparingSandwiches/SandwichComponents';
 import SandwichTools from './pages/Courses/PreparingSandwiches/SandwichTools';
+import KitchenSafetyMeasures from './pages/Courses/PreparingSandwiches/KitchenSafetyMeasures';
+import BasicPreparationTechniques from './pages/Courses/PreparingSandwiches/BasicPreparationTechniques';
+import PrepareSandwiches from './pages/Courses/PreparingSandwiches/PrepareSandwiches';
+import PlatingSandwiches from './pages/Courses/PreparingSandwiches/PlatingSandwiches';
+
+import KnifeSkill from './pages/Skillset/KnifeSkill';
 
 import AdminLogin from './pages/admin/adminLogin';
 import Dashboard from './pages/admin/dashboard';
@@ -615,11 +622,15 @@ const App = () => {
 
 
               {/*Preparing Sandwiches */}
+              <Route path="SandwichComponents" element={<SandwichComponents/>}/>
               <Route path="SandwichTools" element={<SandwichTools/>}/>
+              <Route path="KitchenSafetyMeasures" element={<KitchenSafetyMeasures/>}/>
+              <Route path="BasicPreparationTechniques" element={<BasicPreparationTechniques/>}/>
+              <Route path="PrepareSandwiches" element={<PrepareSandwiches/>}/>
+              <Route path="PlatingSandwiches" element={<PlatingSandwiches/>}/>
 
               {/*Knife Skills */}
-              
-              
+              <Route path="KnifeSkill" element={<KnifeSkill/>}/>
               
              
 
