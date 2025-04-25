@@ -232,7 +232,6 @@ const Navbar = () => {
           <span className="text-decoration-none dropdown-title">Skillset</span>
           <div className="dropdown-content">
             <NavLink to="/Knife-Skills" className="text-decoration-none">Knife Skills</NavLink>
-            <NavLink to="/Mixing-Skills" className="text-decoration-none">Mixing Skills</NavLink>
           </div>
         </div>
       </div>

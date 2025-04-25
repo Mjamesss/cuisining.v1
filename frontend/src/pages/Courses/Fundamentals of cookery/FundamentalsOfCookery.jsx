@@ -97,15 +97,23 @@ const FundamentalsOfCookery = () => {
 
           {/* FIRST SECTION */}
           <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px", marginTop: "-15px" }}>
-            <h1 style={{
-              fontSize: "26px", fontWeight: "800", margin: "0 0 30px 0",
-              fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "center", color: "#000000" }}>
-                FUNDAMENTALS OF <span style={{color: "#adb44e"}}>PROFESSIONAL COOKERY</span></h1>
-            <p className="" 
-                       style={{ marginLeft: "5%", marginBottom: "50px", marginTop:"1%", fontSize:"18px", maxWidth:"87%", lineHeight: "1.6", textAlign: "center",}}>
-                       This prerequisite module will present you the knowledge and skills that you must possess 
-                       inside the kitchen before performing hands-on food preparation. 
-            </p>
+          <div className="d-flex justify-content-center" style={{  marginTop: "70px", padding: "0 20px", marginBottom: "50px", }}>
+                <div style={{ maxWidth: "1200px",width: "100%", padding: "30px", background: " #cdd378", borderRadius: "15px",
+                    borderLeft: "20px solid #000000", minHeight: "190px" }}>
+                    
+                    <div style={{ padding: "0 15px" }}>
+                        <h3 style={{ fontSize: "24px", fontWeight: "750", marginBottom: "15px", color: "#333",
+                            fontFamily: "'Nunito', sans-serif", paddingTop: "5px"  }}>
+                            FUNDAMENTALS OF PROFESSIONAL COOKERY
+                        </h3>
+                        <p style={{ fontSize: "16px", lineHeight: "1.6", color: "#555", marginBottom: "5px", paddingRight: "10px" 
+                        }}>
+                            This prerequisite module will present you the knowledge and skills that you must possess 
+                            inside the kitchen before performing hands-on food preparation. 
+                        </p>
+                    </div>
+                </div>
+                </div>
 
             <h1 style={{
               fontSize: "26px", fontWeight: "800", margin: "0 0 50px 0",
@@ -117,7 +125,7 @@ const FundamentalsOfCookery = () => {
               justifyContent: "left", fontWeight: "920"
             }}>
               <a href={lessonStatus.lessonLockStatus.KitchenDepartment ? "KitchenDepartment" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.KitchenDepartment ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066397/crsh1_x3vt3r.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745576548/crsh1_x3vt3r.png"
                   width="100%" height="auto" alt="KitchenDepartment" />
                 {lessonStatus.lessonCompletionStatus.KitchenDepartment ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -167,7 +175,7 @@ const FundamentalsOfCookery = () => {
                        gap: "30px", fontWeight: "920"}}>
 
               <a href={lessonStatus.lessonLockStatus.CommonKitchenTools ? "CommonKitchenTools" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.CommonKitchenTools ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046797/crsl2_kn5wae.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745576570/crsl2_kn5wae.png"
                   width="100%" height="auto" alt="Measuring" />
                 {lessonStatus.lessonCompletionStatus.CommonKitchenTools ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -203,7 +211,7 @@ const FundamentalsOfCookery = () => {
               </a>
 
               <a href={lessonStatus.lessonLockStatus.MeasurementsAndConversion ? "MeasurementsAndConversion" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.MeasurementsAndConversion ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046796/crsl3_dloi62.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745576584/crsl3_dloi62.png"
                   width="100%" height="auto" alt="Mixing" />
                 {lessonStatus.lessonCompletionStatus.MeasurementsAndConversion ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -239,7 +247,7 @@ const FundamentalsOfCookery = () => {
               </a>
 
               <a href={lessonStatus.lessonLockStatus.FoodSafety ? "FoodSafety" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.FoodSafety ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066397/crsh4_h5p6wu.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745576613/crsh4_h5p6wu.png"
                   width="100%" height="auto" alt="Grilling Tools" />
                 {lessonStatus.lessonCompletionStatus.FoodSafety ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -274,7 +282,7 @@ const FundamentalsOfCookery = () => {
                 </button>
               </a>
               <a href={lessonStatus.lessonLockStatus.OccupationalHealthAndSafety ? "OccupationalHealth" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.OccupationalHealthAndSafety ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066397/crsh5_vvoips.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745576629/crsh5_vvoips.png"
                   width="100%" height="auto" alt="Cookware" />
                 {lessonStatus.lessonCompletionStatus.OccupationalHealthAndSafety ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -310,7 +318,7 @@ const FundamentalsOfCookery = () => {
               </a>
 
               <a href={lessonStatus.lessonLockStatus.KnifeSkills ? "KnifeSkills" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.KnifeSkills ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066397/crsh6_nnksyg.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745576642/crsh6_nnksyg.png"
                   width="100%" height="auto" alt="Appliances" />
                 {lessonStatus.lessonCompletionStatus.KnifeSkills ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
