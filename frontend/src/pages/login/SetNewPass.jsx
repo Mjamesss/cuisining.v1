@@ -58,10 +58,14 @@ const SetNewPassword = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await axios.post("http://localhost:5000/api/password/reset-password", {
-        token,
-        newPassword: password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/password/reset-password`,
+        {
+          token,
+          newPassword: password,
+        }
+      );
+      
 
       setSuccess(response.data.message);
       setTimeout(() => {

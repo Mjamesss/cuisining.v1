@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middlewares/verifyToken');
-const HelpAndSupport = require('../models/helpAndSupport');
-const Profile = require('../models/profile');
+const HelpAndSupport = require('../models/HelpAndSupport');
+const Profile = require('../models/Profile');
 const nodemailer = require('nodemailer');
 const User = require('../models/user');
 

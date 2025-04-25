@@ -78,9 +78,9 @@ const Navbar = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:5000/api/notif/get-notifications", {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/notif/get-notifications`, {
           headers: { Authorization: `Bearer ${token}` },
-        });
+        });        
 
         console.log("Backend response:", response.data); // Log the response
 
@@ -111,9 +111,10 @@ const Navbar = () => {
           console.error("No token found. Please log in.");
           return;
         }
-        const response = await axios.get("http://localhost:5000/api/profile/profile-data", {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/profile/profile-data`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        
         if (response.status === 200) {
           const { fullName, avatarUrl } = response.data.profile;
           const firstName = fullName.split(" ")[0];
@@ -186,10 +187,10 @@ const Navbar = () => {
         return;
       }
       const response = await axios.post(
-        "http://localhost:5000/api/auth/logout",
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/auth/logout`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
-      );
+      );      
       if (response.status === 200) {
         localStorage.removeItem("authToken");
         window.location.href = "/";

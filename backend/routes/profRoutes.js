@@ -1,11 +1,12 @@
 const express = require("express");
 const { upload, cloudinary } = require("../config/cloudinaryConfig");
 const verifyToken = require("../middlewares/verifyToken");
-const Profile = require ("../models/profile")
 const User = require("../models/user"); // Import the User model
 const multer = require('multer');
 const checkProfileCustomized = require("../middlewares/checkProfileCustomized");
 const moment = require("moment-timezone");
+const path = require('path');
+const Profile = require('../models/Profile');
 
 
 const router = express.Router();

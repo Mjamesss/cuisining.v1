@@ -11,7 +11,7 @@ const ProfileForm = () => {
   const [hasTakenNCII, setHasTakenNCII] = useState(null);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [fullName, setFullName] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png');
+  const [avatarUrl, setAvatarUrl] = useState('https://res.cloudinary.com/dm6wodni6/image/upload/v1740905480/account_nhrb9f_eizn1j.png');
   const [error, setError] = useState("");
   const [email, setEmail] = useState('');
   const [contactNumber, setContactNumber] = useState('');
@@ -24,11 +24,14 @@ const ProfileForm = () => {
   
   const fetchUserProfile = async (token) => {
     try {
-      const profileResponse = await fetch("http://localhost:5000/api/auth/profile", {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-  
+      const profileResponse = await fetch(
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/auth/profile`,
+        {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    
       if (!profileResponse.ok) {
         setError("Failed to fetch user profile.");
         console.error("Profile fetch error:", await profileResponse.text());
@@ -38,11 +41,13 @@ const ProfileForm = () => {
       const profileData = await profileResponse.json();
       console.log("User Profile Data:", profileData);
 
-      const gprofResponse = await fetch("http://localhost:5000/api/profile/gprof", {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-  
+      const gprofResponse = await fetch(
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/profile/gprof`,
+        {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       if (!gprofResponse.ok) {
         setError("Failed to fetch profile picture.");
         console.error("Profile picture fetch error:", await gprofResponse.text());
@@ -149,14 +154,18 @@ const ProfileForm = () => {
         gender
       };
 
-      const response = await fetch("http://localhost:5000/api/profile/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/profile/submit`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+      
 
       const data = await response.json();
       
@@ -184,11 +193,14 @@ const ProfileForm = () => {
   
     const token = localStorage.getItem("authToken");
     try {
-      const response = await fetch("http://localhost:5000/api/profile/upload-avatar", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/profile/upload-avatar`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         setAvatarUrl(data.avatarUrl);

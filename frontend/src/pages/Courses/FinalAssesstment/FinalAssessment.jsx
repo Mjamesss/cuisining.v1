@@ -55,10 +55,10 @@ const FinalAssessment = () => {
       }
     };
 
-    window.TriggerCallback = handleGameCompletion;
+    window.TriggerCallback1 = handleGameCompletion;
 
     return () => {
-      delete window.TriggerCallback;
+      delete window.TriggerCallback1;
     };
   }, []);
 
@@ -207,7 +207,7 @@ const FinalAssessment = () => {
             minWidth: "800px",
             height: "635px",
             overflow: "hidden",
-            borderRadius: "15px 15px 10px 10px",
+            borderRadius: "15px 15px 15px 15px",
           }}>
             {!gameStarted && (
               <div className="play-button-overlay" onClick={startGame}>
@@ -215,7 +215,7 @@ const FinalAssessment = () => {
               </div>
             )}
             <iframe
-              src={gameStarted ? "/CuisineWebglBuild/index.html" : "about:blank"}
+              src={gameStarted ? "/CuisineWebglBuildChopping/index.html" : "about:blank"}
               title="Cooking Assessment"
               style={{
                 position: "absolute",
@@ -339,13 +339,10 @@ const FinalAssessment = () => {
             borderBottom: "2px solid #f0f0f0",
             paddingBottom: "10px"
           }}>
-            Descrition & Game Controls 
+            Description & Game Controls 
           </h2>
 
           <div>
-            <h4 style={{ fontSize: "15px", marginBottom: "10px" }}>
-              Description:
-            </h4>
             <p style={{ marginTop: "0px", paddingLeft: "0" }}>
             In this final assessment, You'll be tasked with preparing hot meals dishes to 
             complete the challenge. Make sure everything is cooked to perfection progress only counts when the dishes 

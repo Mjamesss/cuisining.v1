@@ -274,10 +274,19 @@ import Certtesting from './certtesting.jsx';
 import FoodSafety from './pages/Courses/Fundamentals of cookery/FoodSafety.jsx';
 import OccupationalHealth from './pages/Courses/Fundamentals of cookery/OccupationalHealth.jsx'
 import KnifeSkills from './pages/Courses/Fundamentals of cookery/KnifeSkills.jsx';
-import TypesOfAppetizers from './pages/Courses/PreparingAppetizers/TypesOfAppetisers.jsx';
+import TypesOfAppetizers from './pages/Courses/PreparingAppetizers/TypesOfAppetizers.jsx';
 import ObservingKitchen from './pages/Courses/PreparingAppetizers/ObservingKitchen.jsx';
 import PreparingCommonTypesAppetizers from './pages/Courses/PreparingAppetizers/PreparingCommonTypesAppetizers.jsx';
 import PlatingAppetizers from './pages/Courses/PreparingAppetizers/PlatingAppetizers.jsx';
+
+import CookingEggDishes from './pages/Courses/PreparingEggVagetable/CookingEggDishes';
+import IntroToVegetables from './pages/Courses/PreparingEggVagetable/IntroToVegetables';
+import PreparingVegetablesCook from './pages/Courses/PreparingEggVagetable/PreparingVegetablesCook';
+import CookingAndPlatingVegetables from './pages/Courses/PreparingEggVagetable/CookingAndPlatingVegetables';
+import IntroToFarinaceous from './pages/Courses/PreparingEggVagetable/IntroToFarinaceous';
+import PreparingPotatoDishes from './pages/Courses/PreparingEggVagetable/PreparingPotatoDishes';
+import PreparingRiceDishes from './pages/Courses/PreparingEggVagetable/PreparingRiceDishes';
+import PreparingPastaDishes from './pages/Courses/PreparingEggVagetable/PreparingPastaDishes';
 
 const App = () => {
   return (
@@ -560,7 +569,7 @@ const App = () => {
               <Route path="KitchenDepartment" element={<KitchenDepartment/>}/>
               <Route path="MeasurementsAndConversion" element={<MeasurementsAndConversion/>}/>
               <Route path="PreparingAppetizers" element={<PreparingAppetizers/>}/>
-              <Route path="PreparingEggVagetable" element={<PreparingEggVagetable/>}/>
+              <Route path="PreparingEggVegetable" element={<PreparingEggVagetable/>}/>
               <Route path="IntroToEggDishes" element={<IntroToEggDishes/>}/>
               <Route path="SaladAndSaladDressing" element={<SaladAndSaladDressing/>}/>
               <Route path="PreparingSandwich" element={<PreparingSandwich/>}/>
@@ -578,8 +587,20 @@ const App = () => {
               
               <Route path="TypeOfAppetizers" element={<TypesOfAppetizers/>}/>
               <Route path="ObservingKitchen" element={<ObservingKitchen/>}/>
-              <Route path="PreparingCommonTypeAppetizers" element={<PreparingCommonTypesAppetizers/>}/>
+              <Route path="PreparingCommonTypesAppetizers" element={<PreparingCommonTypesAppetizers/>}/>
               <Route path="PlatingAppetizers" element={<PlatingAppetizers/>}/>
+
+              {/*Preparing Egg Vegetable */}
+              <Route path="CookingEggDishes" element={<CookingEggDishes/>}/>
+              <Route path="IntroToVegetables" element={<IntroToVegetables/>}/>
+              <Route path="PreparingVegetablesCook" element={<PreparingVegetablesCook/>}/>
+              <Route path="CookingAndPlatingVegetables" element={<CookingAndPlatingVegetables/>}/>
+              <Route path="IntroToFarinaceous" element={<IntroToFarinaceous/>}/>
+              <Route path="PreparingPotatoDishes" element={<PreparingPotatoDishes/>}/>
+              <Route path="PreparingRiceDishes" element={<PreparingRiceDishes/>}/>
+              <Route path="PreparingPastaDishes" element={<PreparingPastaDishes/>}/>
+
+
 
               {/*Preparing Sandwiches */}
               <Route path="SandwichTools" element={<SandwichTools/>}/>

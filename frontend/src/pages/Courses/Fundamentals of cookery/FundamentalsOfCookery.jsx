@@ -41,18 +41,20 @@ const FundamentalsOfCookery = () => {
     return localStorage.getItem('authToken');
   };
 
-  // Fetch lesson status on component mount
+  // Fetch lesson status on component mountt
   useEffect(() => {
     const fetchLessonStatus = async () => {
       try {
         const token = getToken();
         if (!token) return;
-        const response = await axios.get('http://localhost:5000/api/course/fundamentalsofcokery/status', {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/status`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
           }
-        });
-        
+        );        
         setLessonStatus(response.data);
         setLoading(false);
       } catch (err) {
@@ -271,7 +273,6 @@ const FundamentalsOfCookery = () => {
                   {lessonStatus.lessonCompletionStatus.FoodSafety ? "COMPLETED" : lessonStatus.lessonLockStatus.FoodSafety ? "LESSON 3" : "LOCKED"}
                 </button>
               </a>
-
               <a href={lessonStatus.lessonLockStatus.OccupationalHealthAndSafety ? "OccupationalHealth" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.OccupationalHealthAndSafety ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066397/crsh5_vvoips.png"
                   width="100%" height="auto" alt="Cookware" />

@@ -10,12 +10,16 @@ const fetchProAccountStatus = async () => {
       throw new Error("No token found in localStorage");
     }
 
-    const response = await fetch("http://localhost:5000/api/settings/subscription", {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/subscription`,
+      {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      }
+    );
+    
 
     if (!response.ok) {
       const errorData = await response.json();

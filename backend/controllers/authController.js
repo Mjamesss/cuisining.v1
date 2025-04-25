@@ -9,7 +9,7 @@ const generateToken = (userId) => {
   if (!process.env.JWT_SECRET_KEY) {
     throw new Error("JWT secret key is missing");
   }
-  return jwt.sign({ userId }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+  return jwt.sign({ userId }, process.env.JWT_SECRET_KEY, { expiresIn: "16h" });
 };
 
 const login = async (req, res) => {

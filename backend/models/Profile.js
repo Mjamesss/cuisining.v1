@@ -18,9 +18,9 @@ const profileSchema = new mongoose.Schema({
   hasEditedProfile: { type: Boolean, default: false },
   //paypal
   proAccount: { type: Boolean, default: false },
-  transacId: { type: String, required: true },
-  amount: { type: String, required: true },
-  modeOfPayment: { type: String, required: true },
+  transacId: { type: String, required: false },
+  amount: { type: String, required: false },
+  modeOfPayment: { type: String, required: false },
   paymentDate: { type: Date },  // Add this field
   //final assessment
   finalAssessment1: { type: Boolean, default: false },
@@ -29,7 +29,7 @@ const profileSchema = new mongoose.Schema({
 profileSchema.post('save', async function(user) {
   if (user.proAccount) {
     console.log("Pro account detected. Unlocking courses...");
-    const CourseLockStatus = require('../models/course'); // Correct import
+    const CourseLockStatus = require('./course'); // Correct importdsda
 
     try {
       const result = await CourseLockStatus.findOneAndUpdate(
@@ -50,4 +50,4 @@ profileSchema.post('save', async function(user) {
     }
   }
 });
-module.exports = mongoose.model("Profile", profileSchema);
+module.exports = mongoose.models.Profile || mongoose.model("Profile", profileSchema);

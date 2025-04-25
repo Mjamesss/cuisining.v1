@@ -4,6 +4,9 @@ const passport = require("passport"); // ✅ Ensure this is required
 require("dotenv").config();
 const bodyParser = require('body-parser');
 const session = require("express-session");
+const fs = require('fs');
+const path = require('path');
+
 
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
@@ -13,7 +16,7 @@ const otpRoutes = require("./routes/otpRoutes");
 const oAuthRoutes = require("./routes/googleAuthRoutes");
 const settingsRoutes = require("./routes/settingRoutes");
 const notifRoutes = require("./routes/notifRoutes");
-const userRoutes = require("./routes/usersRoutes");
+const userRoutes = require("./utils/usersRoutes");
 const paypalRoutes = require('./routes/paypalRoutes');
 const transactionRoutes = require("./routes/transactionRoutes");
 const FinalAssessment = require("./routes/final-assessmentRoutes");
@@ -24,8 +27,14 @@ const course = require('./routes/courseRoutes');
 // Import Google Strategy (Ensure it's required)
 require("./routes/googleAuthRoutes");
 // ✅ Make sure routes come AFTER Passport initialization
-
-
+const modelsDir = path.join(__dirname, 'models');
+console.log('Contents of models directory:');
+fs.readdirSync(modelsDir).forEach(file => {
+  console.log(`- ${file}`);
+});
+const profilePath = path.join(__dirname, 'models', 'profile.js');
+console.log(`Profile.js exists: ${fs.existsSync(profilePath)}`);
+console.log(`Profile.js path: ${profilePath}`);
 
 const cors = require("cors");
 
@@ -39,9 +48,20 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://cuisining-main.vercel.app"
+];
+
 app.use(
   cors({
-    origin: "http://localhost:3000", 
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
@@ -63,7 +83,6 @@ app.use("/api/settings", settingsRoutes);
 app.use("/api/notif/", notifRoutes);
 app.use ("/api/user/", userRoutes);
 app.use('/api/paypal', paypalRoutes);
-app.use("/api/profiles", profileRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/game", FinalAssessment);
 app.use('/api/', reportRoute);
@@ -77,7 +96,7 @@ app.use(passport.session());
 
 
 app.get("/", (req, res) => {
-  res.send("Our Server");
+  res.send("The Cuisining server is already hosted globally.");
 });
 
 const PORT = process.env.PORT || 5000;

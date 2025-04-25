@@ -40,9 +40,13 @@ const Settings = () => {
         const token = localStorage.getItem("authToken");
 
         // Fetch fName and email from /settings-profile endpoint
-        const profileResponse = await axios.get("http://localhost:5000/api/settings/settings-profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const profileResponse = await axios.get(
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        
 
         const { fullName, email, cuisiningId } = profileResponse.data;
 
@@ -66,9 +70,13 @@ const Settings = () => {
         const token = localStorage.getItem("authToken");
 
         // Fetch fName and email from /settings-profile endpoint
-        const profileResponse = await axios.get("http://localhost:5000/api/settings/cuisining-id", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const profileResponse = await axios.get(
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/cuisining-id`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        
 
         const { fullName, email, cuisiningId } = profileResponse.data;
 
@@ -96,10 +104,14 @@ const Settings = () => {
           throw new Error("No token found. Please log in.");
         }
   
-        const response = await fetch("http://localhost:5000/api/settings/avatar", {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/avatar`,
+          {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        
   
         if (!response.ok) {
           throw new Error(`Error: ${response.status} - ${response.statusText}`);

@@ -36,10 +36,12 @@ const Quiz = ({ onQuizComplete }) => {
   const [reviewTime, setReviewTime] = useState(3);
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
   const [shuffledOptions, setShuffledOptions] = useState([]);
+  const [passedQuiz, setPassedQuiz] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const allQuestions = [
     {
-      question: "1.	What is the recommended method for washing fruits and vegetables with smooth surfaces?",
+      question: "What is the recommended method for washing fruits and vegetables with smooth surfaces?",
       options: ["Soak them in water for 15 minutes", "Use soap and water", "Gently scrub with a vegetable scrub", "Rinse in hot water"],
       correctAnswer: "Gently scrub with a vegetable scrub"
     },
@@ -66,7 +68,6 @@ const Quiz = ({ onQuizComplete }) => {
   
   ];
 
-  // Function to shuffle an array using Fisher-Yates algorithm
   const shuffleArray = (array) => {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -76,14 +77,12 @@ const Quiz = ({ onQuizComplete }) => {
     return newArray;
   };
 
-  // Shuffle options for the current question
   const shuffleCurrentOptions = () => {
     if (shuffledQuestions.length > 0 && currentQuestion < shuffledQuestions.length) {
       setShuffledOptions(shuffleArray(shuffledQuestions[currentQuestion].options));
     }
   };
 
-  // Timer effect for question time
   useEffect(() => {
     let timer;
     if (timerActive && timeLeft > 0) {
@@ -94,7 +93,6 @@ const Quiz = ({ onQuizComplete }) => {
     return () => clearTimeout(timer);
   }, [timeLeft, timerActive]);
 
-  // Review time effect
   useEffect(() => {
     let reviewTimer;
     if (selectedAnswer !== null && reviewTime > 0) {
@@ -105,7 +103,6 @@ const Quiz = ({ onQuizComplete }) => {
     return () => clearTimeout(reviewTimer);
   }, [reviewTime, selectedAnswer]);
 
-  // Reset timers and shuffle options when question changes
   useEffect(() => {
     if (quizState === 'playing') {
       setTimeLeft(10);
@@ -119,7 +116,7 @@ const Quiz = ({ onQuizComplete }) => {
   const handleTimeUp = () => {
     setSelectedAnswer('timeout');
     setTimerActive(false);
-    setReviewTime(3); // Start review period
+    setReviewTime(3);
   };
 
   const moveToNextQuestion = () => {
@@ -128,11 +125,12 @@ const Quiz = ({ onQuizComplete }) => {
       setCurrentQuestion(nextQuestion);
     } else {
       setQuizState('finished');
-      onQuizComplete(score); // Notify parent component of quiz completion with score
+      const passed = score === allQuestions.length;
+      setPassedQuiz(passed);
+      onQuizComplete(score);
       
-      // Save to localStorage if perfect score
-      if (score === allQuestions.length) {
-        localStorage.setItem('quizPerfectScore', 'true');
+      if (passed) {
+        localStorage.setItem('quizPassed', 'true');
       }
     }
   };
@@ -142,7 +140,7 @@ const Quiz = ({ onQuizComplete }) => {
     
     setSelectedAnswer(option);
     setTimerActive(false);
-    setReviewTime(3); // Start review period
+    setReviewTime(3);
     
     if (option === shuffledQuestions[currentQuestion].correctAnswer) {
       setScore(score + 1);
@@ -154,28 +152,67 @@ const Quiz = ({ onQuizComplete }) => {
   };
 
   const startPlaying = () => {
-    // Shuffle questions when starting the quiz
     const shuffled = shuffleArray(allQuestions);
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
+    setPassedQuiz(false);
     setQuizState('playing');
+  };
+
+  const handleCloseQuiz = () => {
+    if (passedQuiz && quizState === 'finished') {
+      setShowExitConfirm(true);
+    } else {
+      closeQuiz();
+    }
   };
 
   const closeQuiz = () => {
     setQuizState('idle');
+    setShowExitConfirm(false);
   };
 
   const restartQuiz = () => {
-    // Shuffle questions again when restarting
     const shuffled = shuffleArray(allQuestions);
     setShuffledQuestions(shuffled);
     setCurrentQuestion(0);
     setScore(0);
+    setPassedQuiz(false);
     setQuizState('playing');
   };
 
-  // Fixed modal dimensions
+  const handleNextLessonClick = async (e) => {
+    if (!passedQuiz) {
+      e.preventDefault();
+    } else {
+      try {
+        const getToken = () => {
+          return localStorage.getItem('authToken');
+        };
+        // Send a POST request to update the lesson statuses
+        const token = getToken(); // Get JWT token from local storage
+        if (!token) return;
+        const response = await axios.post(
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
+          { lessonName: 'FoodSafety' },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );        
+
+        console.log('Lesson updated:', response.data);
+  
+        // Redirect to the next lesson
+        window.location.href = '/OccupationalHealth';
+      } catch (error) {
+        console.error('Error updating lesson status:', error.message);
+      }
+    }
+  };
+
   const modalWidth = '500px';
   const modalHeight = '500px';
 
@@ -205,17 +242,11 @@ const Quiz = ({ onQuizComplete }) => {
     justifyContent: 'space-between'
   };
 
-  
-
   return (
     <>
-      {/* Quiz Button */}
       {quizState === 'idle' && (
         <button onClick={startQuiz} style={{ padding: '30px 30px 30px 100px', backgroundColor: '#ffffff', height: 'auto', minHeight: '150px', color: '#000000', fontWeight: "500", border: 'none', borderRadius: '15px', cursor: 'pointer', transition: 'background-color 0.3s', width: '100%', marginTop: '20px', textAlign: 'left', display: 'flex', flexDirection: 'column', boxSizing: 'border-box', position: 'relative' }}>
-          {/* Custom Image Icon */}
           <div style={{ position: 'absolute', left: '5px', top: '50%', transform: 'translateY(-50%)', width: '100px', height: '100px', backgroundImage: 'url(/quizicon.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
-          
-          {/* Text Content */}
           <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '10px' }}>
             <span style={{ color: "#BCC444", fontSize: "41px", fontWeight: "750", fontFamily: "'Nunito', sans-serif", lineHeight: '1' }}>Q</span>
             <span style={{ color: "#000000", fontSize: "30px", fontWeight: "750", fontFamily: "'Nunito', sans-serif", lineHeight: '1' }}>uizining</span>
@@ -227,7 +258,6 @@ const Quiz = ({ onQuizComplete }) => {
         </button>
       )}
 
-      {/* Modal Overlay - Only shown when modal is active */}
       {(quizState === 'rules' || quizState === 'playing' || quizState === 'finished') && (
         <div style={{
           position: 'fixed',
@@ -239,6 +269,55 @@ const Quiz = ({ onQuizComplete }) => {
           zIndex: 999
         }}>
           <div style={modalStyle}>
+            {showExitConfirm && (
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(255,255,255,0.9)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                zIndex: 1001,
+                padding: '20px',
+                textAlign: 'center'
+              }}>
+                <h3 style={{ marginBottom: '20px' }}>You have passed the quiz!</h3>
+                <p style={{ marginBottom: '30px' }}>Are you sure you want to exit without proceeding to the next lesson?</p>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button 
+                    onClick={closeQuiz}
+                    style={{
+                      padding: '10px 20px',
+                      backgroundColor: '#da420e',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '5px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Exit Anyway
+                  </button>
+                  <button 
+                    onClick={() => setShowExitConfirm(false)}
+                    style={{
+                      padding: '10px 20px',
+                      backgroundColor: '#adb44e',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '5px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div style={contentStyle}>
               {quizState === 'rules' && (
                 <>
@@ -295,14 +374,14 @@ const Quiz = ({ onQuizComplete }) => {
                     <h1 style={{
                       textAlign: 'center',
                       color: '#000000',
-                      marginBottom: '20px',
+                      marginBottom: '30px',
                       fontSize: '30px',
                       fontFamily: "'Nunito', sans-serif",
                       fontWeight: "750",
                     }}>Quiz App</h1>
                     <h2 style={{
                       color: '#333',
-                      marginBottom: '20px',
+                      marginBottom: '1px',
                       fontSize: '18px',
                       minHeight: '60px',
                     }}>{shuffledQuestions[currentQuestion].question}</h2>
@@ -394,43 +473,48 @@ const Quiz = ({ onQuizComplete }) => {
                     fontFamily: "'Nunito', sans-serif",
                     fontWeight: "750",
                   }}>
-                    {score === shuffledQuestions.length ? 'Perfect Score!' : 'Try Again!'}
+                    {score === shuffledQuestions.length ? 'Perfect Score! You passed!' : 'Try Again! You need all 5 correct answers to pass'}
                   </p>
                   <div style={{
                     display: 'flex',
                     justifyContent: 'center',
                     gap: '20px',
-                    width: '100%'
+                    width: '100%',
+                    flexDirection: 'column'
                   }}>
+                    {passedQuiz && (
+                      <button 
+                        onClick={handleNextLessonClick}
+                        style={{
+                          padding: '10px 20px',
+                          backgroundColor: '#4CAF50',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '5px',
+                          cursor: 'pointer',
+                          fontSize: '16px',
+                          transition: 'background-color 0.3s',
+                          width: '100%'
+                        }}
+                      >
+                        Proceed to Next Lesson
+                      </button>
+                    )}
                     <button 
-                      onClick={restartQuiz}
+                      onClick={passedQuiz ? handleCloseQuiz : closeQuiz}
                       style={{
                         padding: '10px 20px',
-                        backgroundColor: '#adb44e',
+                        backgroundColor: passedQuiz ? '#adb44e' : '#da420e',
                         color: 'white',
                         border: 'none',
                         borderRadius: '5px',
                         cursor: 'pointer',
                         fontSize: '16px',
-                        transition: 'background-color 0.3s'
+                        transition: 'background-color 0.3s',
+                        width: passedQuiz ? '100%' : 'auto'
                       }}
                     >
-                      Try Again
-                    </button>
-                    <button 
-                      onClick={closeQuiz}
-                      style={{
-                        padding: '10px 20px',
-                        backgroundColor: '#da420e',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer',
-                        fontSize: '16px',
-                        transition: 'background-color 0.3s'
-                      }}
-                    >
-                      Close
+                      {passedQuiz ? 'Close Quiz' : 'Close'}
                     </button>
                   </div>
                 </div>
@@ -443,22 +527,18 @@ const Quiz = ({ onQuizComplete }) => {
   );
 };
 
-const FoodSafety = () => {
-  // Track whether user has started interacting with the page
+const MeasurementAndConversion = () => {
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [perfectScore, setPerfectScore] = useState(() => {
-    // Check localStorage for existing perfect score
-    return localStorage.getItem('quizPerfectScore') === 'true';
+  const [passedQuiz, setPassedQuiz] = useState(() => {
+    return localStorage.getItem('quizPassed') === 'true';
   });
 
-  // Set up interaction tracking when component mounts
   useEffect(() => {
     const markAsInteracted = () => {
       setHasInteracted(true);
     };
 
-    // Track any user interaction with the page
     window.addEventListener('click', markAsInteracted);
     window.addEventListener('keydown', markAsInteracted);
     window.addEventListener('scroll', markAsInteracted);
@@ -470,15 +550,10 @@ const FoodSafety = () => {
     };
   }, []);
 
-  // Handle beforeunload to prevent accidental refresh - fixed alert logic
   useEffect(() => {
     const handleBeforeUnload = (e) => {
-      // Only show the alert if the user has interacted with the page
-      // and hasn't completed the quiz with a perfect score
-      if (hasInteracted && !perfectScore) {
-        // Standard way to trigger the confirmation dialog
+      if (hasInteracted && !passedQuiz) {
         e.preventDefault();
-        // Message shown in most browsers (though some use their own default text)
         e.returnValue = 'Changes you made may not be saved. Are you sure you want to leave this page?';
         return e.returnValue;
       }
@@ -489,45 +564,42 @@ const FoodSafety = () => {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [hasInteracted, quizCompleted, perfectScore]);
+  }, [hasInteracted, passedQuiz]);
 
-  // Handle quiz completion
   const handleQuizComplete = (score) => {
     setQuizCompleted(true);
     if (score === 5) {
-      setPerfectScore(true);
+      setPassedQuiz(true);
     }
   };
 
-  // Handle next lesson button click
-  const [passedQuiz, setPassedQuiz] = useState(() => {
-    // Check localStorage for existing quiz pass status
-    return localStorage.getItem('quizPassed') === 'true';
-  });
   const handleNextLessonClick = async (e) => {
     if (!passedQuiz) {
       e.preventDefault();
-      alert('You need to complete the quiz with at least 8 correct answers to proceed to the next lesson.');
+      alert('You need to complete the quiz with all 5 correct answers to proceed to the next lesson.');
     } else {
       try {
         const getToken = () => {
           return localStorage.getItem('authToken');
         };
-        // Send a POST request to update the lesson statuses
-        const token = getToken(); // Get JWT token from local storage
+        const token = getToken();
         if (!token) return;
-        const response = await axios.post('http://localhost:5000/api/course/fundamentalsofcokery/update', {
-          lessonName: 'FoodSafety'
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
+        
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/update`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ lessonName: 'MeasurementsAndConversion' }),
           }
-        });
-  
+        );
+        
+
         console.log('Lesson updated:', response.data);
-  
-        // Redirect to the next lesson
-        window.location.href = '/OccupationalHealth';
+        window.location.href = '/FoodSafety';
       } catch (error) {
         console.error('Error updating lesson status:', error.message);
       }
@@ -621,7 +693,7 @@ const FoodSafety = () => {
                   borderRadius: "15px",
                   overflow: "hidden"
                 }}>
-                <iframe 
+                  <iframe 
                     style={{
                       position: "absolute",
                       top: 0,
@@ -658,8 +730,17 @@ const FoodSafety = () => {
                 <p style={{ marginBottom: "15px", }}>  
                 Knowing which tools to use can make cooking easier and safer. At the same time, knowing how to prepare and clean your cooking stations, tools and equipment will make cooking more efficient and safe - for you and those who wil consume the food you prepare.
                 </p>
-                
-               
+                <p style={{ marginBottom: "15px" }}>
+                As a chef, you will be responsible for many computations done at the kitchen. These may include:
+                </p>
+                <ul>
+                  <li>Recipe yield</li>
+                  <li>Ratio for preparing stocks</li>
+                  <li>Calculating cost of a dish</li>
+                  <li>Budget of food and labor</li>
+                  <li>Counting portions</li>
+                  <li>Measurement of ingredients</li>
+                </ul>
               </div>
             </div>
             
@@ -669,7 +750,6 @@ const FoodSafety = () => {
               flexDirection: 'column',
               alignItems: 'flex-start'
             }}>
-              {/* Right side container */}
               <div className="right-side-container" style={{
                 marginLeft: "1px",
                 marginTop: "10px",
@@ -715,7 +795,6 @@ const FoodSafety = () => {
                 </ul>
               </div>
               
-              {/* Quiz Button Container - Now positioned directly below the right-side-container */}
               <div className="quiz-button-container" style={{
                 width: '100%'
               }}>
@@ -725,29 +804,9 @@ const FoodSafety = () => {
           </div>
         </div>
       </div>
-
-      <div className="d-flex justify-content-end p5" style={{ marginBottom: "30px" }}>
-        <button 
-          className="cbtn cbtn-secondary done-button" 
-          style={{ 
-            marginTop: "-45px", 
-            width: "170px", 
-            height: "60px", 
-            marginRight: "35px", 
-            borderRadius: "15px",
-            opacity: perfectScore ? 1 : 0.6,
-            cursor: perfectScore ? 'pointer' : 'not-allowed'
-          }}
-          onClick={handleNextLessonClick}
-          disabled={!perfectScore}
-        >
-          Next Lesson
-        </button>
-      </div>
-      
       <Footer/>
     </>
   );
 }
 
-export default FoodSafety;
+export default MeasurementAndConversion;

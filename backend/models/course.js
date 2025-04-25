@@ -12,7 +12,15 @@ const courseLockStatusSchema = new mongoose.Schema({
       SaladAndSaladDressing: { type: Boolean, default: false },
       PreparingSandwich: { type: Boolean, default: false },
       FinalAssessment: { type: Boolean, default: false }
-    }
+    },
+    courseCompletionStatus: {
+      FundamentalsOfCookery: { type: Boolean, default: false },
+      PreparingAppetizers: { type: Boolean, default: false },
+      PreparingEggVegetable: { type: Boolean, default: false },
+      SaladAndSaladDressing: { type: Boolean, default: false },
+      PreparingSandwich: { type: Boolean, default: false },
+      FinalAssessment: { type: Boolean, default: false }
+  }
   });
 // Create the Mongoose model
 const CourseLockStatus = mongoose.model('CourseLockStatus', courseLockStatusSchema);

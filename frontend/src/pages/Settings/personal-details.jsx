@@ -45,11 +45,11 @@ const SettingsComponent = () => {
           throw new Error("No token found in localStorage.");
         }
         const response = await axios.get(
-          "http://localhost:5000/api/settings/settings-profile", 
+          `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/settings-profile`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
-        );
+        );        
         const { 
           fullName, 
           email, 
@@ -156,15 +156,16 @@ const SettingsComponent = () => {
       }
 
       const response = await axios.put(
-        "http://localhost:5000/api/settings/update-profile",
+        `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/settings/update-profile`,
         formDataToSend,
         {
           headers: { 
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
           },
         }
       );
+      
 
       // Update the main form data with the new values
       setFormData(prev => ({

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../../fw-cuisining.css";
 import Navbar from '../../../components/Navbar';
+import axios from "axios";
 
 const Breadcrumb = () => {
   return (
@@ -15,47 +16,70 @@ const Breadcrumb = () => {
 };
 
 const PreparingAppetizers = () => {
-  // State for lesson lock status
-  const [lessonLockStatus, setLessonLockStatus] = useState({
-    TypesOfAppetizers: true, // First lesson always unlocked
-    KitchenSafety: true,
-    PreparingAppetizers: true,
-    PlatingAppetizers: true
-  });
-
-  // State for lesson completion status
-  const [lessonCompletionStatus, setLessonCompletionStatus] = useState({
-    TypesOfAppetizers: true,
-    KitchenSafety: false,
-    PreparingAppetizers: false,
-    PlatingAppetizers: false
-  });
-
-  // Function to handle lesson completion
-  const completeLesson = (lessonName) => {
-    // Mark the lesson as completed
-    setLessonCompletionStatus(prev => ({
-      ...prev,
-      [lessonName]: true
-    }));
-
-    // Unlock the next lesson if available
-    const lessonsOrder = [
-      'TypesOfAppetizers',
-      'KitchenSafety',
-      'PreparingAppetizers',
-      'PlatingAppetizers'
-    ];
-    
-    const currentIndex = lessonsOrder.indexOf(lessonName);
-    if (currentIndex < lessonsOrder.length - 1) {
-      const nextLesson = lessonsOrder[currentIndex + 1];
-      setLessonLockStatus(prev => ({
-        ...prev,
-        [nextLesson]: true
-      }));
+  // Define state for lesson status
+  const [lessonStatus, setLessonStatus] = useState({
+    lessonLockStatus: {
+      TypesOfAppetizers: true,
+      KitchenSafety: false,
+      PreparingAppetizers: false,
+      PlatingAppetizers: false
+    },
+    lessonCompletionStatus: {
+      TypesOfAppetizers: false,
+      KitchenSafety: false,
+      PreparingAppetizers: false,
+      PlatingAppetizers: false
     }
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  const getToken = () => {
+    return localStorage.getItem('authToken');
   };
+
+  // Fetch lesson status on component mount
+  useEffect(() => {
+    const fetchLessonStatus = async () => {
+      try {
+        const token = getToken();
+          if (!token) return;
+
+          const response = await axios.get(
+            `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/fundamentalsofcokery/status`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }
+          );
+        setLessonStatus(response.data);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching lesson status:', err);
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchLessonStatus();
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <p>Loading lessons...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <p>Error loading lessons: {error}</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -88,14 +112,14 @@ const PreparingAppetizers = () => {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))", justifyContent: "left",
                        gap: "30px", fontWeight: "920"}}>
 
-              <a href={lessonLockStatus.TypesOfAppetizers ? "TypeOfAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.TypesOfAppetizers ? "1" : "0.5" }}>
+              <a href={lessonStatus.lessonLockStatus.TypesOfAppetizers ? "TypeOfAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.TypesOfAppetizers ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh2_hiipsb.png"
                   width="100%" height="auto" alt="TypesOfAppetizers" />
-                {lessonCompletionStatus.TypesOfAppetizers ? (
+                {lessonStatus.lessonCompletionStatus.TypesOfAppetizers ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
                     <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
                   </div>
-                ) : !lessonLockStatus.TypesOfAppetizers && (
+                ) : !lessonStatus.lessonLockStatus.TypesOfAppetizers && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -117,21 +141,21 @@ const PreparingAppetizers = () => {
                   position: "absolute", bottom: "5px", left: "188px", color: "white",
                   width: "120px", height: "39px", fontSize: "12px", borderRadius: "15px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif",
-                  backgroundColor: lessonLockStatus.TypesOfAppetizers ? "" : "#cccccc",
-                  cursor: lessonLockStatus.TypesOfAppetizers ? "pointer" : "not-allowed"
+                  backgroundColor: lessonStatus.lessonLockStatus.TypesOfAppetizers ? "" : "#cccccc",
+                  cursor: lessonStatus.lessonLockStatus.TypesOfAppetizers ? "pointer" : "not-allowed"
                 }}>
-                  {lessonCompletionStatus.TypesOfAppetizers ? "COMPLETED" : lessonLockStatus.TypesOfAppetizers ? "LESSON 1" : "LOCKED"}
+                  {lessonStatus.lessonCompletionStatus.TypesOfAppetizers ? "COMPLETED" : lessonStatus.lessonLockStatus.TypesOfAppetizers ? "LESSON 1" : "LOCKED"}
                 </button>
               </a>
 
-              <a href={lessonLockStatus.KitchenSafety ? "ObservingKitchen" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
+              <a href={lessonStatus.lessonLockStatus.KitchenSafety ? "ObservingKitchen" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh1_w1gvoc.png"
                   width="100%" height="auto" alt="KitchenSafety" />
-                {lessonCompletionStatus.KitchenSafety ? (
+                {lessonStatus.lessonCompletionStatus.KitchenSafety ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
                     <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
                   </div>
-                ) : !lessonLockStatus.KitchenSafety && (
+                ) : !lessonStatus.lessonLockStatus.KitchenSafety && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -153,10 +177,10 @@ const PreparingAppetizers = () => {
                   position: "absolute", bottom: "5px", left: "188px", color: "white",
                   width: "120px", height: "39px", fontSize: "12px", borderRadius: "15px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif",
-                  backgroundColor: lessonLockStatus.KitchenSafety ? "" : "#cccccc",
-                  cursor: lessonLockStatus.KitchenSafety ? "pointer" : "not-allowed"
+                  backgroundColor: lessonStatus.lessonLockStatus.KitchenSafety ? "" : "#cccccc",
+                  cursor: lessonStatus.lessonLockStatus.KitchenSafety ? "pointer" : "not-allowed"
                 }}>
-                  {lessonCompletionStatus.KitchenSafety ? "COMPLETED" : lessonLockStatus.KitchenSafety ? "LESSON 2" : "LOCKED"}
+                  {lessonStatus.lessonCompletionStatus.KitchenSafety ? "COMPLETED" : lessonStatus.lessonLockStatus.KitchenSafety ? "LESSON 2" : "LOCKED"}
                 </button>
               </a>
             </div>
@@ -172,15 +196,20 @@ const PreparingAppetizers = () => {
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 340px))", justifyContent: "left",
                        gap: "30px", fontWeight: "920"}}>
+<<<<<<< HEAD
 {/**andsdiawd */}
               <a href={lessonLockStatus.PreparingAppetizers ? "PreparingCommonTypesAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PreparingAppetizers ? "1" : "0.5" }}>
+=======
+
+              <a href={lessonStatus.lessonLockStatus.PreparingAppetizers ? "PreparingCommonTypesAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.PreparingAppetizers ? "1" : "0.5" }}>
+>>>>>>> 748527c997260f19eec38fe30965d1a56c062a4e
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046061/crsh4_a1jlql.png"
                   width="100%" height="auto" alt="PreparingAppetizers" />
-                {lessonCompletionStatus.PreparingAppetizers ? (
+                {lessonStatus.lessonCompletionStatus.PreparingAppetizers ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
                     <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
                   </div>
-                ) : !lessonLockStatus.PreparingAppetizers && (
+                ) : !lessonStatus.lessonLockStatus.PreparingAppetizers && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -202,21 +231,21 @@ const PreparingAppetizers = () => {
                   position: "absolute", bottom: "5px", left: "188px", color: "white",
                   width: "120px", height: "39px", fontSize: "12px", borderRadius: "15px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif",
-                  backgroundColor: lessonLockStatus.PreparingAppetizers ? "" : "#cccccc",
-                  cursor: lessonLockStatus.PreparingAppetizers ? "pointer" : "not-allowed"
+                  backgroundColor: lessonStatus.lessonLockStatus.PreparingAppetizers ? "" : "#cccccc",
+                  cursor: lessonStatus.lessonLockStatus.PreparingAppetizers ? "pointer" : "not-allowed"
                 }}>
-                  {lessonCompletionStatus.PreparingAppetizers ? "COMPLETED" : lessonLockStatus.PreparingAppetizers ? "LESSON 1" : "LOCKED"}
+                  {lessonStatus.lessonCompletionStatus.PreparingAppetizers ? "COMPLETED" : lessonStatus.lessonLockStatus.PreparingAppetizers ? "LESSON 1" : "LOCKED"}
                 </button>
               </a>
 
-              <a href={lessonLockStatus.PlatingAppetizers ? "PlatingAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PlatingAppetizers ? "1" : "0.5" }}>
+              <a href={lessonStatus.lessonLockStatus.PlatingAppetizers ? "PlatingAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.PlatingAppetizers ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh3_memjkn.png"
                   width="100%" height="auto" alt="PlatingAppetizers" />
-                {lessonCompletionStatus.PlatingAppetizers ? (
+                {lessonStatus.lessonCompletionStatus.PlatingAppetizers ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
                     <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745369874/accept_saarly.png" width="30" height="30" alt="Completed" />
                   </div>
-                ) : !lessonLockStatus.PlatingAppetizers && (
+                ) : !lessonStatus.lessonLockStatus.PlatingAppetizers && (
                   <div style={{ position: "absolute", top: "20px", right: "20px", backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -238,10 +267,10 @@ const PreparingAppetizers = () => {
                   position: "absolute", bottom: "5px", left: "188px", color: "white",
                   width: "120px", height: "39px", fontSize: "12px", borderRadius: "15px",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", fontFamily: "'Nunito', sans-serif",
-                  backgroundColor: lessonLockStatus.PlatingAppetizers ? "" : "#cccccc",
-                  cursor: lessonLockStatus.PlatingAppetizers ? "pointer" : "not-allowed"
+                  backgroundColor: lessonStatus.lessonLockStatus.PlatingAppetizers ? "" : "#cccccc",
+                  cursor: lessonStatus.lessonLockStatus.PlatingAppetizers ? "pointer" : "not-allowed"
                 }}>
-                  {lessonCompletionStatus.PlatingAppetizers ? "COMPLETED" : lessonLockStatus.PlatingAppetizers ? "LESSON 2" : "LOCKED"}
+                  {lessonStatus.lessonCompletionStatus.PlatingAppetizers ? "COMPLETED" : lessonStatus.lessonLockStatus.PlatingAppetizers ? "LESSON 2" : "LOCKED"}
                 </button>
               </a>
             </div>
