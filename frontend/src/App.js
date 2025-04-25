@@ -288,6 +288,12 @@ import PreparingPotatoDishes from './pages/Courses/PreparingEggVagetable/Prepari
 import PreparingRiceDishes from './pages/Courses/PreparingEggVagetable/PreparingRiceDishes';
 import PreparingPastaDishes from './pages/Courses/PreparingEggVagetable/PreparingPastaDishes';
 
+import SaladTypes from './pages/Courses/SaladAndSaladDressing/SaladTypes';
+import KitchenSafety from './pages/Courses/SaladAndSaladDressing/KitchenSafety';
+import SaladDressings from './pages/Courses/SaladAndSaladDressing/SaladDressings';
+import PreparingSalad from './pages/Courses/SaladAndSaladDressing/PreparingSalad';
+import PlatingSalad from './pages/Courses/SaladAndSaladDressing/PlatingSalad';
+
 const App = () => {
   return (
     <Router>
@@ -600,13 +606,22 @@ const App = () => {
               <Route path="PreparingRiceDishes" element={<PreparingRiceDishes/>}/>
               <Route path="PreparingPastaDishes" element={<PreparingPastaDishes/>}/>
 
+               {/*Salad and Salad Dressing */}
+              <Route path="Unit31" element={<SaladTypes/>}/>
+              <Route path="Unit32" element={<KitchenSafety/>}/>
+              <Route path="Unit33" element={<SaladDressings/>}/>
+              <Route path="Unit34" element={<PreparingSalad/>}/>
+              <Route path="Unit34" element={<PlatingSalad/>}/>
 
 
               {/*Preparing Sandwiches */}
               <Route path="SandwichTools" element={<SandwichTools/>}/>
 
-
-
+              {/*Knife Skills */}
+              
+              
+              
+             
 
             </Routes>
           </Col>

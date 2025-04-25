@@ -1,12 +1,12 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const passport = require("passport"); // ✅ Ensure this is required
+const passport = require("passport");
 require("dotenv").config();
 const bodyParser = require('body-parser');
 const session = require("express-session");
 const fs = require('fs');
 const path = require('path');
-
+const jwt = require('jsonwebtoken'); // Make sure this is required
 
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
@@ -24,17 +24,9 @@ const reportRoute = require('./routes/hasRoutes');
 const certificateRoute = require('./routes/certRoutes');
 const course = require('./routes/courseRoutes');
 
-// Import Google Strategy (Ensure it's required)
+// Import Google Strategy
 require("./routes/googleAuthRoutes");
-// ✅ Make sure routes come AFTER Passport initialization
-const modelsDir = path.join(__dirname, 'models');
-console.log('Contents of models directory:');
-fs.readdirSync(modelsDir).forEach(file => {
-  console.log(`- ${file}`);
-});
-const profilePath = path.join(__dirname, 'models', 'profile.js');
-console.log(`Profile.js exists: ${fs.existsSync(profilePath)}`);
-console.log(`Profile.js path: ${profilePath}`);
+
 
 const cors = require("cors");
 
@@ -48,6 +40,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
+
 const allowedOrigins = [
   "http://localhost:3000",
   "https://cuisining-main.vercel.app"
@@ -66,7 +59,7 @@ app.use(
   })
 );
 
-// Session middleware (needed for persistent login with Passport)
+// Session middleware
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "yourSecretKey",
@@ -74,6 +67,9 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/password", forgotPassMailing);
 app.use("/api/profile", profileRoutes);
@@ -81,7 +77,7 @@ app.use("/api/otp", otpRoutes);
 app.use("/api/oauth", oAuthRoutes);
 app.use("/api/settings", settingsRoutes); 
 app.use("/api/notif/", notifRoutes);
-app.use ("/api/user/", userRoutes);
+app.use("/api/user/", userRoutes);
 app.use('/api/paypal', paypalRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/game", FinalAssessment);
@@ -89,11 +85,9 @@ app.use('/api/', reportRoute);
 app.use('/api', certificateRoute); 
 app.use('/api', course);
 
-
-
+// Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.get("/", (req, res) => {
   res.send("The Cuisining server is already hosted globally.");
@@ -101,4 +95,3 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-

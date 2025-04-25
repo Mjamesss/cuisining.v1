@@ -111,36 +111,36 @@ const Courses = () => {
             id: "FundamentalsOfCookery",
             title: "Fundamentals Of",
             titleHighlight: "Professional Cookery",
-            description: "Gain essential kitchen knowledge and skills before hands-on food preparation.",
-            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745046409/courses1_upv9d5.png"
+            description: "Gain essential kitchen knowledge and skills needed before starting hands on food preparation.",
+            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745576027/courses1_upv9d5.png"
         },
         {
             id: "PreparingAppetizers",
             title: "Preparing Appetizers and",
             titleHighlight: "Hors d'oeuvres",
             description: "Learn the skills to prepare and present appetizers and hors d'oeuvres. Preparing Cold Meals cluster.",
-            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745046409/courses2_pjssfc.png"
+            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745576060/courses2_pjssfc.png"
         },
         {
             id: "SaladAndSaladDressing",
             title: "Salad and Salad",
             titleHighlight: "Dressings",
             description: "Learn to prepare and present salads and dressings with confidence. Part of Cookery NC II: Preparing Cold Meals.",
-            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745046412/courses4_vkm4ty.png"
+            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745576044/courses4_vkm4ty.png"
         },
         {
             id: "PreparingSandwich",
             title: "Preparing",
             titleHighlight: "Sandwiches",
             description: "Master the skills to prepare and present salads and dressings. Part of the Cookery NC II: Preparing Cold Meals cluster.",
-            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745046408/courses5_nebpvb.png"
+            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745576089/courses5_nebpvb.png"
         },
         {
             id: "FinalAssessment",
             title: "Final",
             titleHighlight: "Assessment",
             description: "Showcase your skills and knowledge through a complete assessment of everything you've learned.",
-            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745046408/courses6_bifmxk.png",
+            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745576104/courses6_bifmxk.png",
             requiresAllCourses: true
         }
     ];
@@ -150,18 +150,6 @@ const Courses = () => {
             <style>
                 {`
                 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-                
-                .course-card {
-                    position: relative;
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    overflow: hidden;
-                    border-radius: 10px;
-                }
-                
-                .course-card:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                }
                 
                 .card-img {
                     width: 100%;
@@ -203,7 +191,7 @@ const Courses = () => {
                 
                 .course-description {
                     position: absolute;
-                    bottom: 85px;
+                    bottom: 70px;
                     left: 30px;
                     width: 280px;
                     font-size: 14px;
@@ -267,21 +255,21 @@ const Courses = () => {
             </style>
             <div className="d-flex flex-column min-vh-100">
                 <Navbar />
-                <div className="p-5 d-flex justify-content-center align-items-center flex-md-row flex-column-reverse header-container" style={{ marginTop: "30px", marginLeft: "135px" }}>
-                    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 10px" }}>
-                        <h1 style={{
-                            fontSize: "26px", fontWeight: "800", margin: "0 0 20px 0",
-                            fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "left"
+                <div className="d-flex justify-content-center" style={{  marginTop: "70px", padding: "0 20px", marginBottom: "50px", }}>
+                <div style={{ maxWidth: "1200px",width: "100%", padding: "30px", backgroundColor: "#f8f9ee", borderRadius: "15px",
+                    borderLeft: "20px solid #adb44e", minHeight: "190px" }}>
+                    
+                    <div style={{ padding: "0 15px", }}>
+                        <h3 style={{ fontSize: "24px", fontWeight: "750", marginBottom: "15px", color: "#333",
+                            fontFamily: "'Nunito', sans-serif", paddingTop: "5px"  }}>
+                            COURSES
+                        </h3>
+                        <p style={{ fontSize: "16px", lineHeight: "1.6", color: "#555", marginBottom: "5px", paddingRight: "10px" 
                         }}>
-                            Courses
-                        </h1>
-                        <p className="" style={{ marginRight: "6%", marginBottom: "10px", marginTop: "1%", fontSize: "18px", maxWidth: "87%", lineHeight: "1.6", textAlign: "left" }}>
-                            Our courses are designed to equip you with the essential skills and knowledge needed to excel in the kitchen. From mastering
-                            basic food preparation techniques to exploring advanced cooking methods, each course provides interactive training and practical
-                            insights. Whether you're a beginner or looking to enhance your culinary expertise, our programs will help you build confidence
-                            and proficiency in various cooking techniques.
+                            Our courses are designed to equip you with the essential skills and knowledge needed to excel in the kitchen. From mastering basic food preparation techniques to exploring advanced cooking methods, each course provides interactive training and practical insights. Whether you're a beginner or looking to enhance your culinary expertise, our programs will help you build confidence and proficiency in various cooking techniques.
                         </p>
                     </div>
+                </div>
                 </div>
                 
                 <div className="course-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 340px)", gap: "25px", padding: "40px", maxWidth: "1200px", margin: "0 auto", marginTop: "-50px", marginBottom: "140px" }}>

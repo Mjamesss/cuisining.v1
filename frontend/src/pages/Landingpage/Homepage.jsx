@@ -376,7 +376,7 @@ const Homepage = () => {
                       className="cbtn fw-semibold mt-3 mt-md-4 mx-auto mx-md-0" 
                       style={{ 
                         color: "white", 
-                        backgroundColor: "#C1C857", 
+                        backgroundColor: "#adb44e", 
                         minWidth: "180px",
                         height: "auto", 
                         fontSize: "clamp(1rem, 1.5vw, 1.2rem)", 
@@ -412,7 +412,7 @@ const Homepage = () => {
 
               <div 
                   className="d-flex justify-content-center align-items-center header-image" 
-                  style={{ position: "relative", maxWidth: "700px",  height: "auto",  zIndex: 1, left: "4%", bottom: "85px",  }}
+                  style={{ position: "relative", maxWidth: "700px",  height: "auto",  zIndex: 1, left: "4%", bottom: "70px",  }}
               >
                   <img 
                       src="arlopointing.png" 
@@ -596,8 +596,8 @@ const Homepage = () => {
 
           <div className="p-5 d-flex justify-content-center align-items-center flex-md-row flex-column-reverse" 
           
-          style={{minHeight:"520px", marginTop:"25px"}}>
-              <div className="px-4 me-md-5"> 
+          style={{minHeight:"520px", marginTop:"55px"}}>
+              <div className="px-3 me-md-5"> 
                   <h1 className="font-weight-800" style={{ fontSize:"33px", fontFamily:"'Nunito', sans-serif", marginBottom: "30px",
                       color: "#000000" }}>About <span style={{color: "#adb44e"}}>CuiSining</span></h1>
                   <p className="" style={{ fontSize:"18px", maxWidth:"700px", lineHeight: "1.6",
@@ -654,10 +654,10 @@ const Homepage = () => {
           
           <img src="arlo4.png" alt="present" 
               className="m-3 img-fluid" 
-              style={{maxHeight:"430px", objectFit:"contain",}}
+              style={{maxHeight:"440px", objectFit:"contain", }}
           />
           
-          <div className="px-2 ms-md-9" > 
+          <div className="px-5 ms-md-9" > 
               <h1 className="font-weight-800" style= {{ fontSize:"33px", fontFamily:"'Nunito', sans-serif", marginBottom: "35px", color: "#000000" 
               }}>What we <span style={{color: "#adb44e"}}>Offer</span></h1>
               <p className="" style={{ fontSize:"18px", maxWidth:"700px", lineHeight: "1.6", fontFamily:"'Public Sans', sans-serif"
@@ -706,7 +706,7 @@ const Homepage = () => {
           <img src="arlo3.png" 
               alt="look" 
               className="m-1 img-fluid" 
-              style={{maxHeight:"430px", objectFit:"contain", }}
+              style={{maxHeight:"450px", objectFit:"contain", }}
           />
       </div>
 
