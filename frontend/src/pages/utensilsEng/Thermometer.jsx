@@ -11,7 +11,7 @@ const Breadcrumb = () => {
                 </li>
                 <span style={{ margin: "0 10px" }}>&gt;</span>
                 <li className="breadcrumb-item" style={{ display: "inline" }}>
-                    <a href="/Cutting" style={{ color: "black", textDecoration: "none" }}>Cutting Tools</a>
+                    <a href="/Measuring" style={{ color: "black", textDecoration: "none" }}>Measuring Tools</a>
                 </li>
                 <span style={{ margin: "0 10px" }}>&gt;</span>
                 <li className="breadcrumb-item active" aria-current="page" style={{
@@ -19,7 +19,7 @@ const Breadcrumb = () => {
                     color: "black",
                     fontWeight: "bold"
                 }}>
-                    Peelers
+                   Thermometer
                 </li>
             </ol>
         </nav>
@@ -27,6 +27,12 @@ const Breadcrumb = () => {
 };
 
 const Peelers = () => {
+
+     useEffect(() => {
+            // Change the document title when this page is rendered
+            document.title = "CuiSining - thermometer";
+          }, []);
+
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {
@@ -63,93 +69,58 @@ const Peelers = () => {
             
             <div className="row justify-content-center" style={{ marginTop: "-30px" }}>
                 <div className="col-12 col-md-10 col-lg-9">
-                    <h1 className="text-left mb-4 font-weight-800" style={{ fontFamily: "'Nunito', sans-serif", color: "#000000", fontSize: "26px" }}>Peelers</h1>
+                    <h1 className="text-left mb-4 font-weight-800" style={{ fontFamily: "'Nunito', sans-serif", color: "#000000", fontSize: "26px" }}>Thermometer</h1>
                     
                     <div className="d-grid gap-4" style={{ marginBottom: "100px", gridTemplateColumns: getGridColumns() }}>
 
                         {/* Swivel Peeler */}
-                        <a href="Swivel" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
+                        <a href="Candythermometer" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
                             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976493/Group_10_3_gk3sep.png" 
                                 className="img-fluid hover-shadow" alt="Swivel Peeler"
                                 style={{ clipPath: "inset(0 0 25px 0)" }} />
                             <h1 className="font-weight-800" 
                                 style={{ fontSize: "18px", fontFamily: "'Nunito', sans-serif", color: "#000000", position: "absolute", bottom: "10px", 
                                 left: "0", right: "0", textAlign: "center", padding: "0 10px", margin: 0 }}>
-                                Swivel Peeler
+                                Candy Thermometer
                             </h1>
                         </a>
 
                         {/* Swiss Peeler */}
-                        <a href="Swiss" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
+                        <a href="FridgeThermometer" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
                             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976584/Group_1000005992_3_vwegtx.png" 
                                 className="img-fluid hover-shadow" alt="Swiss Peeler"
                                 style={{ clipPath: "inset(0 0 25px 0)" }} />
                             <h1 className="font-weight-800" 
                                 style={{ fontSize: "18px", fontFamily: "'Nunito', sans-serif", color: "#000000", position: "absolute", bottom: "10px", 
                                 left: "0", right: "0", textAlign: "center", padding: "0 10px", margin: 0 }}>
-                                Swiss Peeler
+                               FridgeThermometer
                             </h1>
                         </a>
 
                         {/* Lancashire Peeler */}
-                        <a href="Lancashire" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
+                        <a href="Meatthermometer" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
                             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976652/Group_1000005993_1_oped9j.png" 
                                 className="img-fluid hover-shadow" alt="Lancashire Peeler"
                                 style={{ clipPath: "inset(0 0 25px 0)" }} />
                             <h1 className="font-weight-800" 
                                 style={{ fontSize: "18px", fontFamily: "'Nunito', sans-serif", color: "#000000", position: "absolute", bottom: "10px", 
                                 left: "0", right: "0", textAlign: "center", padding: "0 10px", margin: 0 }}>
-                                Lancashire Peeler
+                                Meat Thermometer
                             </h1>
                         </a>
 
                         {/* Serrated Peeler */}
-                        <a href="Serrated" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
+                        <a href="Oventhermometer" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
                             <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976712/Group_1000005994_1_rrczff.png" 
                                 className="img-fluid hover-shadow" alt="Serrated Peeler"
                                 style={{ clipPath: "inset(0 0 25px 0)" }} />
                             <h1 className="font-weight-800" 
                                 style={{ fontSize: "18px", fontFamily: "'Nunito', sans-serif", color: "#000000", position: "absolute", bottom: "10px", 
                                 left: "0", right: "0", textAlign: "center", padding: "0 10px", margin: 0 }}>
-                                Serrated Peeler
+                                Oven Thermometer
                             </h1>
                         </a>
 
-                        {/* Julienne Peeler */}
-                        <a href="Julienne" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976777/Group_1000005995_2_eajt8i.png" 
-                                className="img-fluid hover-shadow" alt="Julienne Peeler"
-                                style={{ clipPath: "inset(0 0 25px 0)" }} />
-                            <h1 className="font-weight-800" 
-                                style={{ fontSize: "18px", fontFamily: "'Nunito', sans-serif", color: "#000000", position: "absolute", bottom: "10px", 
-                                left: "0", right: "0", textAlign: "center", padding: "0 10px", margin: 0 }}>
-                                Julienne Peeler
-                            </h1>
-                        </a>
-
-                        {/* Mechanical Peeler */}
-                        <a href="Mechanical" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976854/Group_1000005996_1_dv4lf4.png" 
-                                className="img-fluid hover-shadow" alt="Mechanical Peeler"
-                                style={{ clipPath: "inset(0 0 25px 0)" }} />
-                            <h1 className="font-weight-800" 
-                                style={{ fontSize: "18px", fontFamily: "'Nunito', sans-serif", color: "#000000", position: "absolute", bottom: "10px", 
-                                left: "0", right: "0", textAlign: "center", padding: "0 10px", margin: 0 }}>
-                                Mechanical Peeler
-                            </h1>
-                        </a>
-
-                        {/* Rotary Peeler */}
-                        <a href="Rotary" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976901/Group_10_4_miqvmv.png" 
-                                className="img-fluid hover-shadow" alt="Rotary Peeler"
-                                style={{ clipPath: "inset(0 0 25px 0)" }} />
-                            <h1 className="font-weight-800" 
-                                style={{ fontSize: "18px", fontFamily: "'Nunito', sans-serif", color: "#000000", position: "absolute", bottom: "10px", 
-                                left: "0", right: "0", textAlign: "center", padding: "0 10px", margin: 0 }}>
-                                Rotary Peeler
-                            </h1>
-                        </a>
                     </div>
                 </div>
             </div>

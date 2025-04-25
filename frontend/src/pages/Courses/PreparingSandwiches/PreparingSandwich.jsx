@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../../fw-cuisining.css";
 import Navbar from '../../../components/Navbar';
 
@@ -15,6 +15,12 @@ const Breadcrumb = () => {
 };
 
 const PreparingSandwich = () => {
+
+   useEffect(() => {
+      // Change the document title when this page is rendered
+      document.title = "CuiSining - Preparing Sandwiches";
+    }, []);
+
   // State for lesson lock status
   const [lessonLockStatus, setLessonLockStatus] = useState({
     SandwichComponents: true, // First lesson always unlocked
@@ -75,16 +81,24 @@ const PreparingSandwich = () => {
         <div style={{ width: "100%", marginBottom: "200px" }}>
 
           {/* FIRST SECTION */}
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px", marginTop: "-15px"}}>
-            <h1 style={{
-              fontSize: "26px", fontWeight: "800", margin: "0 0 30px 0",
-              fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "center" }}>
-                PREPARING <span style={{color: "#ADB44E"}}>SANDWICHES</span></h1>
-            <p className="" 
-              style={{ marginLeft: "5%", marginBottom: "50px", marginTop:"1%", fontSize:"18px", maxWidth:"87%", lineHeight: "1.6", textAlign: "center"}}>
-              In this course, we will present to you the knowledge and skills that you must have in order to perform the 
-              procedures for preparing salads and dressings properly.
-            </p>
+          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px", marginTop: "-15px" }}>
+          <div className="d-flex justify-content-center" style={{  marginTop: "0px", padding: "0 20px", marginBottom: "50px", }}>
+                <div style={{ maxWidth: "1200px",width: "100%", padding: "30px", background: " #cdd378", borderRadius: "15px",
+                    borderLeft: "20px solid #000000", minHeight: "190px" }}>
+                    
+                    <div style={{ padding: "0 15px" }}>
+                        <h3 style={{ fontSize: "24px", fontWeight: "750", marginBottom: "15px", color: "#333",
+                            fontFamily: "'Nunito', sans-serif", paddingTop: "5px"  }}>
+                            Preparing Sandwiches
+                        </h3>
+                        <p style={{ fontSize: "16px", lineHeight: "1.6", color: "#555", marginBottom: "5px", paddingRight: "10px" 
+                        }}>
+                          In this course, we will present to you the knowledge and skills that you must have in order to perform the 
+                          procedures for preparing salads and dressings properly.
+                        </p>
+                    </div>
+                </div>
+                </div>
 
             <h1 style={{
               fontSize: "26px", fontWeight: "800", margin: "0 0 50px 0",
@@ -95,7 +109,7 @@ const PreparingSandwich = () => {
                        gap: "30px", fontWeight: "920"}}>
 
               <a href={lessonLockStatus.SandwichComponents ? "SandwichComponents" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.SandwichComponents ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066706/crsw1_hy3biq.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745578400/crsw1_hy3biq.png"
                   width="100%" height="auto" alt="SandwichComponents" />
                 {lessonCompletionStatus.SandwichComponents ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -131,7 +145,7 @@ const PreparingSandwich = () => {
               </a>
 
               <a href={lessonLockStatus.SandwichTools ? "SandwichTools" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.SandwichTools ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066706/crsw2_udaetu.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745578415/crsw2_udaetu.png"
                   width="100%" height="auto" alt="SandwichTools" />
                 {lessonCompletionStatus.SandwichTools ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -167,7 +181,7 @@ const PreparingSandwich = () => {
               </a>
 
               <a href={lessonLockStatus.KitchenSafety ? "KitchenSafety" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066706/crsw3_ccrnxe.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745578437/crsw3_ccrnxe.png"
                   width="100%" height="auto" alt="KitchenSafety" />
                 {lessonCompletionStatus.KitchenSafety ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -216,7 +230,7 @@ const PreparingSandwich = () => {
                        gap: "30px", fontWeight: "920"}}>
 
               <a href={lessonLockStatus.PreparationTechniques ? "PreparationTechniques" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PreparationTechniques ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066705/crsw4_llydj2.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745578472/crsw4_llydj2.png"
                   width="100%" height="auto" alt="PreparationTechniques" />
                 {lessonCompletionStatus.PreparationTechniques ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -252,7 +266,7 @@ const PreparingSandwich = () => {
               </a>
 
               <a href={lessonLockStatus.PreparingSandwiches ? "PreparingSandwiches" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PreparingSandwiches ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066705/crsw5_jefuf4.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745578487/crsw5_jefuf4.png"
                   width="100%" height="auto" alt="PreparingSandwiches" />
                 {lessonCompletionStatus.PreparingSandwiches ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -288,7 +302,7 @@ const PreparingSandwich = () => {
               </a>
 
               <a href={lessonLockStatus.PlatingSandwiches ? "PlatingSandwiches" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PlatingSandwiches ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745066704/crsw6_wgzima.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745578500/crsw6_wgzima.png"
                   width="100%" height="auto" alt="PlatingSandwiches" />
                 {lessonCompletionStatus.PlatingSandwiches ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>

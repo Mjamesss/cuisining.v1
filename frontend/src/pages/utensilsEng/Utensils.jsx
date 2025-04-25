@@ -1,14 +1,22 @@
 import "../../fw-cuisining.css";
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { useEffect } from "react";
+
 
 const Utensils = () => {
+
+     useEffect(() => {
+            // Change the document title when this page is rendered
+            document.title = "CuiSining - Utenils";
+          }, []);
     return (
         <>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         </style>
-        
+            
+        <div style={{ backgroundColor: '#F0F4F8', minHeight: '100vh' }}>
             <Navbar />
             
             <div style={{ maxWidth: "1200px", margin: "10px auto 0 auto", padding: "100px 0" }}>
@@ -23,7 +31,7 @@ const Utensils = () => {
                        gap: "25px", fontWeight: "920", paddingLeft: "6%"}}>
 
                         <a href="Cutting" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047191/utensils1_f4miqw.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745503212/utensils1_f4miqw.png" 
                                 width="100%" height="auto" alt="Cutting" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Cutting Tools</h1>
@@ -37,7 +45,7 @@ const Utensils = () => {
                         </a> 
 
                         <a href="Measuring" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047194/utensils2_ifjqzy.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745575191/utensils2_ifjqzy.png" 
                                 width="100%" height="auto" alt="Measuring" />
                              <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Measuring Tools</h1>
@@ -51,7 +59,7 @@ const Utensils = () => {
                         </a>
 
                         <a href="Mixing" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047190/utensils3_oapdpf.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745575222/utensils3_oapdpf.png" 
                                 width="100%" height="auto" alt="Mixing" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}>Mixing Tools</h1>
@@ -65,7 +73,7 @@ const Utensils = () => {
                         </a>
 
                         <a href="GrillingTools" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047190/utensils4_dtz7w2.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745575257/utensils4_dtz7w2.png" 
                                 width="100%" height="auto" alt="Grilling Tools" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}> Grilling Tools</h1>
@@ -79,7 +87,7 @@ const Utensils = () => {
                         </a>
 
                         <a href="Cookware" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047190/utensils5_uyutio.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745575292/utensils5_uyutio.png" 
                                 width="100%" height="auto" alt="Cookware" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}> Cookware</h1>
@@ -93,7 +101,7 @@ const Utensils = () => {
                         </a>
 
                         <a href="Appliances" style={{ position: "relative", display: "block" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745047189/utensils6_xedwg2.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745575339/utensils6_xedwg2.png" 
                                 width="100%" height="auto" alt="Appliances" />
                             <h1 className="font-weight-800" style={{ position: "absolute", bottom: "95px", left: "30px", fontSize: "18px", 
                                 fontFamily:"'Nunito', sans-serif", color: "#000000" }}> Appliances</h1>
@@ -112,6 +120,7 @@ const Utensils = () => {
 
 
             <Footer />
+            </div>
         </>
     );
 };

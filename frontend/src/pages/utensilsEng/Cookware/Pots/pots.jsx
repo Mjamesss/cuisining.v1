@@ -1,6 +1,11 @@
 import "../../../../fw-cuisining.css";
+import { useEffect } from "react";
 
 const Pots = () =>{
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Pot";
+      }, []);
     return (
         <>
         <div className="p5 ">

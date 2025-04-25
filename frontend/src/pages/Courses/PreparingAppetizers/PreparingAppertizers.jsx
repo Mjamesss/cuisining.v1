@@ -16,6 +16,11 @@ const Breadcrumb = () => {
 };
 
 const PreparingAppetizers = () => {
+
+   useEffect(() => {
+      // Change the document title when this page is rendered
+      document.title = "CuiSining - Preparing Appetizers";
+    }, []);
   // Define state for lesson status
   const [lessonStatus, setLessonStatus] = useState({
     lessonLockStatus: {
@@ -94,15 +99,23 @@ const PreparingAppetizers = () => {
 
           {/* FIRST SECTION */}
           <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px", marginTop: "-15px" }}>
-            <h1 style={{
-              fontSize: "26px", fontWeight: "800", margin: "0 0 30px 0",
-              fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "center" }}>
-                PREPARING APPETIZERS AND <span style={{color: "#ADB44E"}}>HORS D'OEUVRES</span></h1>
-            <p className="" 
-                       style={{ marginLeft: "5%", marginBottom: "50px", marginTop:"1%", fontSize:"18px", maxWidth:"87%", lineHeight: "1.6", textAlign: "center"}}>
-                              In this course, we will present to you the knowledge and skills that you must have in order to perform the 
-                              procedures for preparing appetizers and hors d'oeuvres properly.
-            </p>
+          <div className="d-flex justify-content-center" style={{  marginTop: "70px", padding: "0 20px", marginBottom: "50px", }}>
+                <div style={{ maxWidth: "1200px",width: "100%", padding: "30px", background: " #cdd378", borderRadius: "15px",
+                    borderLeft: "20px solid #000000", minHeight: "190px" }}>
+                    
+                    <div style={{ padding: "0 15px" }}>
+                        <h3 style={{ fontSize: "24px", fontWeight: "750", marginBottom: "15px", color: "#333",
+                            fontFamily: "'Nunito', sans-serif", paddingTop: "5px"  }}>
+                            PREPARING APPETIZERS AND HORS D'OEUVRES
+                        </h3>
+                        <p style={{ fontSize: "16px", lineHeight: "1.6", color: "#555", marginBottom: "5px", paddingRight: "10px" 
+                        }}>
+                            In this course, we will present to you the knowledge and skills that you must have in order to perform 
+                            the procedures for preparing appetizers and hors d'oeuvres properly.
+                        </p>
+                    </div>
+                </div>
+                </div>
 
             <h1 style={{
               fontSize: "26px", fontWeight: "800", margin: "0 0 50px 0",
@@ -113,7 +126,7 @@ const PreparingAppetizers = () => {
                        gap: "30px", fontWeight: "920"}}>
 
               <a href={lessonStatus.lessonLockStatus.TypesOfAppetizers ? "TypeOfAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.TypesOfAppetizers ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh2_hiipsb.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745576963/crsh2_hiipsb.png"
                   width="100%" height="auto" alt="TypesOfAppetizers" />
                 {lessonStatus.lessonCompletionStatus.TypesOfAppetizers ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -149,7 +162,7 @@ const PreparingAppetizers = () => {
               </a>
 
               <a href={lessonStatus.lessonLockStatus.KitchenSafety ? "ObservingKitchen" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh1_w1gvoc.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745576980/crsh1_w1gvoc.png"
                   width="100%" height="auto" alt="KitchenSafety" />
                 {lessonStatus.lessonCompletionStatus.KitchenSafety ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -198,7 +211,7 @@ const PreparingAppetizers = () => {
                        gap: "30px", fontWeight: "920"}}>
 
               <a href={lessonStatus.lessonLockStatus.PreparingAppetizers ? "PreparingCommonTypesAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.PreparingAppetizers ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046061/crsh4_a1jlql.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745576998/crsh4_a1jlql.png"
                   width="100%" height="auto" alt="PreparingAppetizers" />
                 {lessonStatus.lessonCompletionStatus.PreparingAppetizers ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -234,7 +247,7 @@ const PreparingAppetizers = () => {
               </a>
 
               <a href={lessonStatus.lessonLockStatus.PlatingAppetizers ? "PlatingAppetizers" : "#"} style={{ position: "relative", display: "block", opacity: lessonStatus.lessonLockStatus.PlatingAppetizers ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh3_memjkn.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577020/crsh3_memjkn.png"
                   width="100%" height="auto" alt="PlatingAppetizers" />
                 {lessonStatus.lessonCompletionStatus.PlatingAppetizers ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>

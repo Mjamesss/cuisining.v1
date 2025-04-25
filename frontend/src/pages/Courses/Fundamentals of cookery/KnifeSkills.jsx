@@ -534,6 +534,12 @@ const Quiz = ({ onQuizComplete }) => {
 };
 
 const CommonKitchenTools = () => {
+
+  useEffect(() => {
+    // Change the document title when this page is rendered
+    document.title = "CuiSining - Fundamentals of Cookery";
+  }, []);
+  
   // Track whether user has started interacting with the page
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);

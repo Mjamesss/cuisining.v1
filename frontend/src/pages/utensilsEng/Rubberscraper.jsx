@@ -27,6 +27,12 @@ const Breadcrumb = () => {
 };
 
 const RubberScraper = () => {
+
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Rubberscrapper";
+      }, []);
+
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

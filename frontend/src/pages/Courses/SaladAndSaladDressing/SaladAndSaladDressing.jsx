@@ -1,8 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../../fw-cuisining.css";
 import Navbar from '../../../components/Navbar';
 
+const Breadcrumb = () => {
+  return (
+    <nav aria-label="breadcrumb" className="px-3 px-md-5" style={{ marginLeft: "6px", marginBottom: "10px", marginTop: "-35px", fontSize: "15px" }}>
+      <ol className="breadcrumb" style={{ backgroundColor: "transparent", margin: 65, padding: 0 }}>
+        <li className="breadcrumb-item"><a href="/Courses" style={{ color: "black", textDecoration: "none" }}>Courses</a></li>
+        <span style={{ margin: "0 10px" }}>&gt;</span>
+        <li className="breadcrumb-item active" aria-current="page" style={{ color: "black", fontWeight: "bold", fontWeight: "750" }}>Preparing Salads and Salad Dressings</li>
+      </ol>
+    </nav>
+  );
+};
+
 const SaladAndSaladDressing = () => {
+
+   useEffect(() => {
+      // Change the document title when this page is rendered
+      document.title = "CuiSining - Salad And Salad Dressing";
+    }, []);
   // State for lesson lock status
   const [lessonLockStatus, setLessonLockStatus] = useState({
     SaladTypes: true, // First lesson always unlocked
@@ -55,20 +72,29 @@ const SaladAndSaladDressing = () => {
       </style>
 
       <Navbar />
-      <div style={{ width: "100%", margin: "0", padding: "100px 0" }}>
-        <div style={{ width: "100%", marginBottom: "100px" }}>
+      <Breadcrumb />
+      <div style={{ width: "100%", margin: "0", padding: "0px 0" }}>
+        <div style={{ width: "100%", marginBottom: "200px" }}>
 
           {/* FIRST SECTION */}
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px" }}>
-            <h1 style={{
-              fontSize: "26px", fontWeight: "800", margin: "0 0 30px 0",
-              fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "center" }}>
-                SALAD AND <span style={{color: "#ADB44E"}}>SALAD DRESSINGS</span></h1>
-            <p className="" 
-              style={{ marginLeft: "5%", marginBottom: "50px", marginTop:"1%", fontSize:"18px", maxWidth:"87%", lineHeight: "1.6", textAlign: "center"}}>
-              In this course, we will present to you the knowledge and skills that you must have in order to perform the 
-              procedures for preparing appetizers and hors d'oeuvres properly.
-            </p>
+          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px", marginTop: "-15px" }}>
+          <div className="d-flex justify-content-center" style={{  marginTop: "0px", padding: "0 20px", marginBottom: "50px", }}>
+                <div style={{ maxWidth: "1200px",width: "100%", padding: "30px", background: " #cdd378", borderRadius: "15px",
+                    borderLeft: "20px solid #000000", minHeight: "190px" }}>
+                    
+                    <div style={{ padding: "0 15px" }}>
+                        <h3 style={{ fontSize: "24px", fontWeight: "750", marginBottom: "15px", color: "#333",
+                            fontFamily: "'Nunito', sans-serif", paddingTop: "5px"  }}>
+                            Preparing Salads and Salad Dressings
+                        </h3>
+                        <p style={{ fontSize: "16px", lineHeight: "1.6", color: "#555", marginBottom: "5px", paddingRight: "10px" 
+                        }}>
+                          In this course, we will present to you the knowledge and skills that you must have in order to perform the 
+                          procedures for preparing appetizers and hors d'oeuvres properly.
+                        </p>
+                    </div>
+                </div>
+                </div>
 
             <h1 style={{
               fontSize: "26px", fontWeight: "800", margin: "0 0 50px 0",
@@ -79,7 +105,7 @@ const SaladAndSaladDressing = () => {
                        gap: "30px", fontWeight: "920"}}>
 
               <a href={lessonLockStatus.SaladTypes ? "SaladTypes" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.SaladTypes ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745048540/crsd1_eduohm.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577929/crsd1_eduohm.png"
                   width="100%" height="auto" alt="SaladTypes" />
                 {lessonCompletionStatus.SaladTypes ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -115,7 +141,7 @@ const SaladAndSaladDressing = () => {
               </a>
 
               <a href={lessonLockStatus.KitchenSafety ? "KitchenSafety" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745051476/crsd2_f9glge.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577948/crsd2_f9glge.png"
                   width="100%" height="auto" alt="KitchenSafety" />
                 {lessonCompletionStatus.KitchenSafety ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -164,7 +190,7 @@ const SaladAndSaladDressing = () => {
                        gap: "30px", fontWeight: "920"}}>
 
               <a href={lessonLockStatus.SaladDressings ? "SaladDressings" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.SaladDressings ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745048540/crsd3_b2yyqg.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745578182/crsd3_b2yyqg.png"
                   width="100%" height="auto" alt="SaladDressings" />
                 {lessonCompletionStatus.SaladDressings ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -200,7 +226,7 @@ const SaladAndSaladDressing = () => {
               </a>
 
               <a href={lessonLockStatus.PreparingSalad ? "PreparingSalad" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PreparingSalad ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745048545/crsd4_fjyjsq.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577986/crsd4_fjyjsq.png"
                   width="100%" height="auto" alt="PreparingSalad" />
                 {lessonCompletionStatus.PreparingSalad ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -236,7 +262,7 @@ const SaladAndSaladDressing = () => {
               </a>
 
               <a href={lessonLockStatus.PlatingSalad ? "PlatingSalad" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PlatingSalad ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745048539/crsd5_nygzgc.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745578038/crsd5_nygzgc.png"
                   width="100%" height="auto" alt="PlatingSalad" />
                 {lessonCompletionStatus.PlatingSalad ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>

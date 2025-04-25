@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
 import { Suspense } from "react";
 import Navbar from "../../../../components/Navbar";
+import { useEffect } from "react";
 
 // 3D Model for Chef's Knife
 const Model = (props) => {
@@ -51,6 +52,11 @@ const Breadcrumb = () => {
 
 // Chefknife Page Content
 const Chefknife = () => {
+
+     useEffect(() => {
+            // Change the document title when this page is rendered
+            document.title = "CuiSining - Knife";
+          }, []);
     return (
         <>
             <Navbar />

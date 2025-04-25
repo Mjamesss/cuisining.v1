@@ -21,6 +21,11 @@ const Breadcrumb = () => {
 };
 
 const Cutting = () => {
+
+     useEffect(() => {
+            // Change the document title when this page is rendered
+            document.title = "CuiSining - Measuring Cups";
+          }, []);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {

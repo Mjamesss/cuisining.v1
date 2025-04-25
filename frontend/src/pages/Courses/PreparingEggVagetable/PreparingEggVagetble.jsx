@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../../fw-cuisining.css";
 import Navbar from '../../../components/Navbar';
 
@@ -15,6 +15,12 @@ const Breadcrumb = () => {
 };
 
 const PreparingEggVegetable = () => {
+
+   useEffect(() => {
+      // Change the document title when this page is rendered
+      document.title = "CuiSining - Preparing Egg Vagetable";
+    }, []);
+
   // State for lesson lock status
   const [lessonLockStatus, setLessonLockStatus] = useState({
     EggDishesIntro: true, // First lesson always unlocked
@@ -85,15 +91,23 @@ const PreparingEggVegetable = () => {
 
           {/* FIRST SECTION */}
           <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px", marginTop: "-15px" }}>
-            <h1 style={{
-              fontSize: "26px", fontWeight: "800", margin: "0 0 30px 0",
-              fontFamily: "'Nunito', sans-serif", color: "#000000", textAlign: "center" }}>
-                PREPARING EGG, VEGETABLE, AND <span style={{color: "#ADB44E"}}>FARINACEOUS DISHES</span></h1>
-            <p className="" 
-              style={{ marginLeft: "5%", marginBottom: "50px", marginTop:"1%", fontSize:"18px", maxWidth:"87%", lineHeight: "1.6", textAlign: "center"}}>
-              In this course, we will present to you the knowledge and skills that you must have in order to perform the 
-              basic techniques of egg cookery. This courses will also present to you the basic procedures for preparing vegetables and starch dishes.
-            </p>
+          <div className="d-flex justify-content-center" style={{  marginTop: "70px", padding: "0 20px", marginBottom: "50px", }}>
+                <div style={{ maxWidth: "1200px",width: "100%", padding: "30px", background: " #cdd378", borderRadius: "15px",
+                    borderLeft: "20px solid #000000", minHeight: "190px" }}>
+                    
+                    <div style={{ padding: "0 15px" }}>
+                        <h3 style={{ fontSize: "24px", fontWeight: "750", marginBottom: "15px", color: "#333",
+                            fontFamily: "'Nunito', sans-serif", paddingTop: "5px"  }}>
+                            PREPARING EGG, VEGETABLE, AND FARINACEOUS DISHES
+                        </h3>
+                        <p style={{ fontSize: "16px", lineHeight: "1.6", color: "#555", marginBottom: "5px", paddingRight: "10px" 
+                        }}>
+                            In this course, we will present to you the knowledge and skills that you must have in order to perform the 
+                            basic techniques of egg cookery. This courses will also present to you the basic procedures for preparing vegetables and starch dishes.
+                        </p>
+                    </div>
+                </div>
+                </div>
 
             <h1 style={{
               fontSize: "26px", fontWeight: "800", margin: "0 0 50px 0",
@@ -104,7 +118,7 @@ const PreparingEggVegetable = () => {
                        gap: "30px", fontWeight: "920"}}>
 
               <a href={lessonLockStatus.EggDishesIntro ? "IntroToEggDishes" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.EggDishesIntro ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745032482/crse1_wfrift.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577390/crse1_wfrift.png"
                   width="100%" height="auto" alt="EggDishesIntro" />
                 {lessonCompletionStatus.EggDishesIntro ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -140,7 +154,7 @@ const PreparingEggVegetable = () => {
               </a>
 
               <a href={lessonLockStatus.CookingEggDishes ? "CookingEggDishes" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.CookingEggDishes ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745032482/crse2_atc3t9.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577416/crse2_atc3t9.png"
                   width="100%" height="auto" alt="CookingEggDishes" />
                 {lessonCompletionStatus.CookingEggDishes ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -189,7 +203,7 @@ const PreparingEggVegetable = () => {
                        gap: "30px", fontWeight: "920"}}>
 
               <a href={lessonLockStatus.VegetablesIntro ? "VegetablesIntro" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.VegetablesIntro ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745032481/crse3_fpgmga.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577432/crse3_fpgmga.png"
                   width="100%" height="auto" alt="VegetablesIntro" />
                 {lessonCompletionStatus.VegetablesIntro ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -225,7 +239,7 @@ const PreparingEggVegetable = () => {
               </a>
 
               <a href={lessonLockStatus.PreparingVegetables ? "PreparingVegetables" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PreparingVegetables ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745032483/crse4_qkyqji.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577448/crse4_qkyqji.png"
                   width="100%" height="auto" alt="PreparingVegetables" />
                 {lessonCompletionStatus.PreparingVegetables ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -261,7 +275,7 @@ const PreparingEggVegetable = () => {
               </a>
 
               <a href={lessonLockStatus.CookingVegetables ? "CookingVegetables" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.CookingVegetables ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745032482/crse5_baifi1.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577471/crse5_baifi1.png"
                   width="100%" height="auto" alt="CookingVegetables" />
                 {lessonCompletionStatus.CookingVegetables ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -310,7 +324,7 @@ const PreparingEggVegetable = () => {
                        gap: "30px", fontWeight: "920"}}>
 
               <a href={lessonLockStatus.FarinaceousIntro ? "FarinaceousIntro" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.FarinaceousIntro ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745032482/crse6_i5vxe3.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577492/crse6_i5vxe3.png"
                   width="100%" height="auto" alt="FarinaceousIntro" />
                 {lessonCompletionStatus.FarinaceousIntro ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -346,7 +360,7 @@ const PreparingEggVegetable = () => {
               </a>
 
               <a href={lessonLockStatus.PotatoDishes ? "PotatoDishes" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PotatoDishes ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745032486/crse7_tfsatz.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577513/crse7_tfsatz.png"
                   width="100%" height="auto" alt="PotatoDishes" />
                 {lessonCompletionStatus.PotatoDishes ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -382,7 +396,7 @@ const PreparingEggVegetable = () => {
               </a>
 
               <a href={lessonLockStatus.RiceDishes ? "RiceDishes" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.RiceDishes ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745032480/crse8_gqhqry.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577538/crse8_gqhqry.png"
                   width="100%" height="auto" alt="RiceDishes" />
                 {lessonCompletionStatus.RiceDishes ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>
@@ -418,7 +432,7 @@ const PreparingEggVegetable = () => {
               </a>
 
               <a href={lessonLockStatus.PastaDishes ? "PastaDishes" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.PastaDishes ? "1" : "0.5" }}>
-                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745032479/crse9_q431fj.png"
+                <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745577555/crse9_q431fj.png"
                   width="100%" height="auto" alt="PastaDishes" />
                 {lessonCompletionStatus.PastaDishes ? (
                   <div style={{ position: "absolute", top: "20px", right: "20px" }}>

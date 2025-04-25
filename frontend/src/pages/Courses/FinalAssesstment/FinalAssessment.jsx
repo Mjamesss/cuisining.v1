@@ -23,6 +23,12 @@ const Breadcrumb = () => {
 };
 
 const FinalAssessment = () => {
+
+  useEffect(() => {
+    // Change the document title when this page is rendered
+    document.title = "CuiSining - Final Assessment";
+  }, []);
+
   const [gameStatus, setGameStatus] = useState("in-progress");
   const [gameStarted, setGameStarted] = useState(false);
 

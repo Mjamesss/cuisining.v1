@@ -6,7 +6,7 @@ const Footer = () => {
         
      return (
           <footer className="footer" style={{ backgroundColor: '#948f5c', padding: '40px', display: 'flex', flexDirection: 'column', 
-            justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '400px' }}>
+            justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '400px', fontFamily:"'Public Sans', sans-serif" }}>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
               
@@ -69,7 +69,7 @@ const Footer = () => {
                 <a href="https://instagram.com">
                   <img src="insta.png" alt="Instagram" style={{ width: "32px", height: "32px" }} />
                 </a>
-                <a href="https://youtube.com">
+                <a href="https://www.youtube.com/@Cuisining/UCZj2uoxOxFLXtmw8OXevXEw" target="_blank">
                   <img src="yt.png" alt="Youtube" style={{ width: "32px", height: "32px" }} />
                 </a>
               </div>

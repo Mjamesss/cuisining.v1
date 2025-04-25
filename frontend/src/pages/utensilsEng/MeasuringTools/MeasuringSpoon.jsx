@@ -1,5 +1,6 @@
 import "../../../fw-cuisining.css";
 import Navbar from '../../../components/Navbar';
+import { useEffect } from "react";
 
 const Breadcrumb = () => {
     return (
@@ -20,6 +21,10 @@ const Breadcrumb = () => {
 };
 
 const Cutting = () => {
+     useEffect(() => {
+            // Change the document title when this page is rendered
+            document.title = "CuiSining - Measuring Spoon";
+          }, []);
     return (
         <>
             <Navbar />

@@ -1,7 +1,7 @@
 import "../../../../fw-cuisining.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense,useEffect } from "react";
 
 const Model = (props) => {
     const { scene } = useGLTF("CakePans.glb"); // Ensure the model is in the public folder
@@ -15,6 +15,10 @@ const Loader = () => (
     </mesh>
 );
 const Cakepan = () => {
+     useEffect(() => {
+            // Change the document title when this page is rendered
+            document.title = "CuiSining - Bakeware";
+          }, []);
     return(
         <>
          <div className="p5 ">

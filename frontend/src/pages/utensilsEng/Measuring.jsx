@@ -23,6 +23,10 @@ const Breadcrumb = () => {
 };
 
 const Measuring = () => {
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Measuring Tools";
+      }, []);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

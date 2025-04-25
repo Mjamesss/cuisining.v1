@@ -23,6 +23,10 @@ const Breadcrumb = () => {
 };
 
 const Appliances = () => {
+     useEffect(() => {
+                // Change the document title when this page is rendered
+                document.title = "CuiSining - Appliances";
+              }, []);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

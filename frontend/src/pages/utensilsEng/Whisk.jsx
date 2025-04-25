@@ -27,6 +27,12 @@ const Breadcrumb = () => {
 };
 
 const Whisk = () => {
+
+    useEffect(() => {
+            // Change the document title when this page is rendered
+            document.title = "CuiSining - Whisk";
+          }, []);
+
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
     useEffect(() => {

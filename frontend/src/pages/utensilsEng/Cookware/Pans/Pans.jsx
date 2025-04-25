@@ -1,6 +1,12 @@
 import "../../../../fw-cuisining.css";
+import { useEffect } from "react";
 
 const Pans = () =>{
+
+    useEffect(() => {
+        // Change the document title when this page is rendered
+        document.title = "CuiSining - Pan";
+      }, []);
     return (
         <>
         <div className="p5 ">

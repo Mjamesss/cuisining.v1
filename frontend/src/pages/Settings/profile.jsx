@@ -14,6 +14,12 @@ const modules = [
 ];
 
 const Settings = () => {
+
+   useEffect(() => {
+      // Change the document title when this page is rendered
+      document.title = "CuiSining - Profile";
+    }, []);
+
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",

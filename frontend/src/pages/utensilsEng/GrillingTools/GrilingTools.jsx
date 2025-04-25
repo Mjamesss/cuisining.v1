@@ -17,6 +17,10 @@ const Breadcrumb = () => {
 };
 
 const GrillingTools = () => {
+    useEffect(() => {
+            // Change the document title when this page is rendered
+            document.title = "CuiSining - Grilling Tools";
+          }, []);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {

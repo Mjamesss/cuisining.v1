@@ -528,6 +528,12 @@ const Quiz = ({ onQuizComplete }) => {
 };
 
 const MeasurementAndConversion = () => {
+
+  useEffect(() => {
+    // Change the document title when this page is rendered
+    document.title = "CuiSining - Fundamentals of Cookery";
+  }, []);
+  
   const [hasInteracted, setHasInteracted] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [passedQuiz, setPassedQuiz] = useState(() => {

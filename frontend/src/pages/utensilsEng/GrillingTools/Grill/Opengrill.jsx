@@ -1,7 +1,7 @@
 import "../../../../fw-cuisining.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Stage, useGLTF } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense,useEffect } from "react";
 import Navbar from '../../../../components/Navbar';
 
 // 3D Model Component
@@ -17,6 +17,10 @@ const Loader = () => (
     </mesh>
 );
 const  Opengrill = () => {
+     useEffect(() => {
+                    // Change the document title when this page is rendered
+                    document.title = "CuiSining - Grills";
+                  }, []);
     return(
         <>
          <div className="p5 ">
