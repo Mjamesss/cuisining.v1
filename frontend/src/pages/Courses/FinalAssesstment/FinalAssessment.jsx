@@ -206,7 +206,8 @@ const FinalAssessment = () => {
             position: "relative",
             minWidth: "800px",
             height: "635px",
-            overflow: "hidden"
+            overflow: "hidden",
+            borderRadius: "15px 15px 10px 10px",
           }}>
             {!gameStarted && (
               <div className="play-button-overlay" onClick={startGame}>

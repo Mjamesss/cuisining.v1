@@ -252,6 +252,8 @@ import IntroToEggDishes from './pages/Courses/PreparingEggVagetable/IntroToEggDi
 import SaladAndSaladDressing from './pages/Courses/SaladAndSaladDressing/SaladAndSaladDressing';
 import PreparingSandwich from './pages/Courses/PreparingSandwiches/PreparingSandwich';
 
+import SandwichTools from './pages/Courses/PreparingSandwiches/SandwichTools';
+
 import AdminLogin from './pages/admin/adminLogin';
 import Dashboard from './pages/admin/dashboard';
 import Transaction from './pages/admin/transactions';
@@ -562,19 +564,29 @@ const App = () => {
               <Route path="IntroToEggDishes" element={<IntroToEggDishes/>}/>
               <Route path="SaladAndSaladDressing" element={<SaladAndSaladDressing/>}/>
               <Route path="PreparingSandwich" element={<PreparingSandwich/>}/>
+              <Route path="FoodSafety" element={<FoodSafety/>}/>
+              <Route path="OccupationalHealth" element={<OccupationalHealth/>}/>
+              <Route path="KnifeSkills" element={<KnifeSkills/>}/>
 
 
               <Route path="FinalAssessment" element={<FinalAssessment/>}/>
               <Route path="CookingGame" element={<CookingGame/>}/>
               <Route path="/certtesting" element={<Certtesting/>}/>
 
-              <Route path="FoodSafety" element={<FoodSafety/>}/>
-              <Route path="OccupationalHealth" element={<OccupationalHealth/>}/>
-              <Route path="KnifeSkills" element={<KnifeSkills/>}/>
+              
+              
+              
               <Route path="TypeOfAppetizers" element={<TypesOfAppetizers/>}/>
               <Route path="ObservingKitchen" element={<ObservingKitchen/>}/>
               <Route path="PreparingCommonTypeAppetizers" element={<PreparingCommonTypesAppetizers/>}/>
               <Route path="PlatingAppetizers" element={<PlatingAppetizers/>}/>
+
+              {/*Preparing Sandwiches */}
+              <Route path="SandwichTools" element={<SandwichTools/>}/>
+
+
+
+
             </Routes>
           </Col>
         </Row>

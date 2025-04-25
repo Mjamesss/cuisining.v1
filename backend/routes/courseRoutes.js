@@ -89,4 +89,44 @@ router.post('/course/fundamentalsofcokery/update', verifyToken, async (req, res)
       res.status(500).json({ error: error.message });
     }
   });
+  // Add this to your routes file (likely routes.js or similar)
+router.get('/course/fundamentalsofcokery/status', verifyToken, async (req, res) => {
+    try {
+      const userId = req.userId; // Extract user ID from the token
+  
+      // Find the user's lesson status record
+      let lessonStatus = await LessonStatus.findOne({ userID: userId });
+  
+      // If no record exists, create default values
+      if (!lessonStatus) {
+        lessonStatus = {
+          lessonLockStatus: {
+            KitchenDepartment: true,
+            CommonKitchenTools: false,
+            MeasurementsAndConversion: false,
+            FoodSafety: false,
+            OccupationalHealthAndSafety: false,
+            KnifeSkills: false
+          },
+          lessonCompletionStatus: {
+            KitchenDepartment: false,
+            CommonKitchenTools: false,
+            MeasurementsAndConversion: false,
+            FoodSafety: false,
+            OccupationalHealthAndSafety: false,
+            KnifeSkills: false
+          }
+        };
+      }
+  
+      // Return the statuses
+      res.status(200).json({
+        lessonLockStatus: lessonStatus.lessonLockStatus,
+        lessonCompletionStatus: lessonStatus.lessonCompletionStatus
+      });
+  
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
 module.exports = router;

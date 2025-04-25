@@ -18,9 +18,9 @@ const PreparingAppetizers = () => {
   // State for lesson lock status
   const [lessonLockStatus, setLessonLockStatus] = useState({
     TypesOfAppetizers: true, // First lesson always unlocked
-    KitchenSafety: false,
-    PreparingAppetizers: false,
-    PlatingAppetizers: false
+    KitchenSafety: true,
+    PreparingAppetizers: true,
+    PlatingAppetizers: true
   });
 
   // State for lesson completion status
@@ -123,7 +123,7 @@ const PreparingAppetizers = () => {
                   {lessonCompletionStatus.TypesOfAppetizers ? "COMPLETED" : lessonLockStatus.TypesOfAppetizers ? "LESSON 1" : "LOCKED"}
                 </button>
               </a>
-             
+
               <a href={lessonLockStatus.KitchenSafety ? "ObservingKitchen" : "#"} style={{ position: "relative", display: "block", opacity: lessonLockStatus.KitchenSafety ? "1" : "0.5" }}>
                 <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745046055/crsh1_w1gvoc.png"
                   width="100%" height="auto" alt="KitchenSafety" />
