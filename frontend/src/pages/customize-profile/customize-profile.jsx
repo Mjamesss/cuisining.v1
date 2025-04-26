@@ -271,7 +271,7 @@ const ProfileForm = () => {
               <label htmlFor="avatar-upload" style={{ cursor: 'pointer' }}>
                 <img
                   src={avatarUrl}
-                  alt="User Avatar"
+                  
                   style={{ width: "200px", height: "200px", borderRadius: "50%" }}
                 />
                 <input

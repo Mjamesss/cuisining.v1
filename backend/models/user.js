@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
   },
   profilePicture: {
     type: String,
-    default: "https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png", 
+    default: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745644030/account_kq1gfw.png", 
   },
   googleId: String,
   email: String,
