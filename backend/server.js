@@ -43,7 +43,7 @@ app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://cuisining-main.vercel.app"
+  "https://cuisining-v1.vercel.app"
 ];
 
 app.use(

@@ -71,7 +71,7 @@ const SettingsComponent = () => {
           country: country || 'N/A',
           contactNo: contactNo || 'N/A',
           gender: gender || 'N/A',
-          avatarUrl: avatarUrl || 'https://res.cloudinary.com/dm6wodni6/image/upload/v1739967728/account_nhrb9f.png',
+          avatarUrl: avatarUrl || 'https://res.cloudinary.com/dm6wodni6/image/upload/v1745644030/account_kq1gfw.png',
           canUpdate,
           daysRemaining,
           isFirstEdit
