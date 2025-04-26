@@ -7,9 +7,109 @@ const checkProfileCustomized = require("../middlewares/checkProfileCustomized");
 const moment = require("moment-timezone");
 const path = require('path');
 const Profile = require('../models/Profile');
+const LessonStatus = require('../models/all-units');
 
 
 const router = express.Router();
+
+router.get("/progress", verifyToken, async (req, res) => {
+  try {
+    // Extract user ID from the request (assuming it's available in the token)
+    const userId = req.userId; // Consistent variable name
+
+    // Fetch the user's lesson status from the LessonStatus model
+    const lessonStatus = await LessonStatus.findOne({ userID: userId });
+
+    if (!lessonStatus) {
+      return res.status(404).json({ message: "Lesson status not found" });
+    }
+
+    // Fetch the user's profile from the Profile model
+    const userProfile = await Profile.findOne({ userID: userId });
+
+    if (!userProfile) {
+      return res.status(404).json({ message: "User profile not found" });
+    }
+
+    // Extract lesson completion status from LessonStatus
+    const { lessonCompletionStatus } = lessonStatus;
+
+    // Convert lessonCompletionStatus to an array of objects
+    const progress = Object.keys(lessonCompletionStatus).map((lesson) => ({
+      name: lesson,
+      completed: lessonCompletionStatus[lesson],
+    }));
+
+    // Add Final Assessment status from the Profile model
+    const finalAssessmentCompleted = userProfile.finalAssessmentCompleted || false;
+    progress.push({ name: "finalAssessment1", completed: finalAssessmentCompleted });
+
+    // Count the number of completed lessons
+    const completedCount = progress.filter((lesson) => lesson.completed).length;
+
+    // Calculate the total number of lessons
+    const totalCount = progress.length;
+
+    // Calculate the equivalent score (percentage-based)
+    const equivalentScore = Math.round((completedCount / totalCount) * 100);
+
+    // Group lessons by modules
+    const groupedProgress = {
+      "Fundamentals of Professional Cookery": progress.filter(
+        (lesson) =>
+          [
+            "KitchenDepartment",
+            "CommonKitchenTools",
+            "MeasurementsAndConversion",
+            "FoodSafety",
+            "OccupationalHealthAndSafety",
+            "KnifeSkills",
+          ].includes(lesson.name)
+      ),
+      "Preparing Appetizers and Hors d’oeuvres": progress.filter(
+        (lesson) =>
+          ["TypesOfAppetizers", "KitchenSafety", "PreparingAppetizers", "PlatingAppetizers"].includes(
+            lesson.name
+          )
+      ),
+      "Final Assessment": progress.filter((lesson) => lesson.name === "finalAssessment1"),
+    };
+
+    // Define image URLs for each module
+    const moduleImages = {
+      "Fundamentals of Professional Cookery":
+        "https://res.cloudinary.com/dm6wodni6/image/upload/v1740904806/image_72_oawnk6.png",
+      "Preparing Appetizers and Hors d’oeuvres":
+        "https://res.cloudinary.com/dm6wodni6/image/upload/v1740904806/image_73_oawnk6.png",
+      "Final Assessment":
+        "https://res.cloudinary.com/dm6wodni6/image/upload/v1740904806/image_74_oawnk6.png",
+    };
+
+    // Calculate module progress percentages
+    const modules = Object.keys(groupedProgress).map((module) => {
+      const lessonsInModule = groupedProgress[module];
+      const completedLessons = lessonsInModule.filter((lesson) => lesson.completed).length;
+      const totalLessons = lessonsInModule.length;
+      const progressPercentage = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+
+      return {
+        title: module,
+        progress: progressPercentage,
+        image: moduleImages[module], // Use the predefined image for the module
+      };
+    });
+
+    // Return the response
+    res.status(200).json({
+      message: "Lesson progress fetched successfully",
+      modules,
+      equivalentScore,
+    });
+  } catch (error) {
+    console.error("Error fetching lesson progress:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
   router.post("/upload-avatar", upload.single("avatar"), async (req, res) => {
     try {

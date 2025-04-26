@@ -24,6 +24,7 @@ const profileSchema = new mongoose.Schema({
   paymentDate: { type: Date },  // Add this field
   //final assessment
   finalAssessment1: { type: Boolean, default: false },
+  finalAssessment2: { type: Boolean, default: false },
 });
 
 profileSchema.post('save', async function(user) {

@@ -13,11 +13,8 @@ const Courses = () => {
       }, []);
       
     const [courseLockStatus, setCourseLockStatus] = useState({
-        FundamentalsOfCookery: true, // Default first course is unlocked
+        FundamentalsOfCookery: false, // Default first course is unlocked
         PreparingAppetizers: false,
-        PreparingEggVegetable: false,
-        SaladAndSaladDressing: false,
-        PreparingSandwich: false,
         FinalAssessment: false,
     });
 
@@ -25,9 +22,6 @@ const Courses = () => {
     const [courseCompletionStatus, setCourseCompletionStatus] = useState({
         FundamentalsOfCookery: false,
         PreparingAppetizers: false,
-        PreparingEggVegetable: false,
-        SaladAndSaladDressing: false,
-        PreparingSandwich: false,
         FinalAssessment: false,
     });
 
@@ -100,10 +94,7 @@ const Courses = () => {
     // Check if all courses except FinalAssessment are completed
     const allCoursesCompleted = 
         courseCompletionStatus.FundamentalsOfCookery &&
-        courseCompletionStatus.PreparingAppetizers &&
-        courseCompletionStatus.PreparingEggVegetable &&
-        courseCompletionStatus.SaladAndSaladDressing &&
-        courseCompletionStatus.PreparingSandwich;
+        courseCompletionStatus.PreparingAppetizers ;
 
     if (loading) return (
         <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
@@ -134,20 +125,6 @@ const Courses = () => {
             titleHighlight: "Hors d'oeuvres",
             description: "Learn the skills to prepare and present appetizers and hors d'oeuvres. Preparing Cold Meals cluster.",
             image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745576060/courses2_pjssfc.png"
-        },
-        {
-            id: "SaladAndSaladDressing",
-            title: "Salad and Salad",
-            titleHighlight: "Dressings",
-            description: "Learn to prepare and present salads and dressings with confidence. Part of Cookery NC II: Preparing Cold Meals.",
-            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745576044/courses4_vkm4ty.png"
-        },
-        {
-            id: "PreparingSandwich",
-            title: "Preparing",
-            titleHighlight: "Sandwiches",
-            description: "Master the skills to prepare and present salads and dressings. Part of the Cookery NC II: Preparing Cold Meals cluster.",
-            image: "https://res.cloudinary.com/dm6wodni6/image/upload/v1745576089/courses5_nebpvb.png"
         },
         {
             id: "FinalAssessment",

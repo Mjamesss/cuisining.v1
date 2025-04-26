@@ -188,11 +188,6 @@ router.post('/complete-final-unit', verifyToken, async (req, res) => {
               courseName: 'PreparingAppetizers',
               lessonName: 'PlatingAppetizers'
           },
-          // Add other courses' final units when needed:
-          // 'AppetizerFinal': {
-          //     courseName: 'PreparingAppetizers',
-          //     lessonName: 'AppetizerFinal'
-          // }
       };
 
       // 2. Verify this is a valid final unit
@@ -232,10 +227,7 @@ router.post('/complete-final-unit', verifyToken, async (req, res) => {
       // 5. Check if ALL courses are completed (AND gate)
       const REQUIRED_COURSES = [
           'FundamentalsOfCookery',
-          'PreparingAppetizers',
-          'PreparingEggVegetable',
-          'SaladAndSaladDressing',
-          'PreparingSandwich'
+          'PreparingAppetizers'
       ];
 
       const allCompleted = REQUIRED_COURSES.every(
@@ -275,9 +267,6 @@ router.get('/course-stats', verifyToken, async (req, res) => {
       res.status(200).json(status?.courseLockStatus || {
         FundamentalsOfCookery: true,
         PreparingAppetizers: false,
-        PreparingEggVegetable: false,
-        SaladAndSaladDressing: false,
-        PreparingSandwich: false,
         FinalAssessment: false
       });
     } catch (error) {
@@ -294,9 +283,6 @@ router.get('/course-stats', verifyToken, async (req, res) => {
             return res.status(200).json({
                 FundamentalsOfCookery: false,
                 PreparingAppetizers: false,
-                PreparingEggVegetable: false,
-                SaladAndSaladDressing: false,
-                PreparingSandwich: false,
                 FinalAssessment: false
             });
         }

@@ -50,9 +50,6 @@ router.post('/update-pro-account', verifyToken, async (req, res) => {
       {
         $set: {
           'courseLockStatus.PreparingAppetizers': true,
-          'courseLockStatus.PreparingEggVegetable': true,
-          'courseLockStatus.SaladAndSaladDressing': true,
-          'courseLockStatus.PreparingSandwich': true
         }
       },
       { upsert: true, new: true }

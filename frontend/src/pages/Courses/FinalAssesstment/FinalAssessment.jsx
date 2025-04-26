@@ -22,15 +22,156 @@ const Breadcrumb = () => {
   );
 };
 
+const CongratsModal = ({ show, onClose }) => {
+  if (!show) return null;
+
+  return (
+    <div style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(0,0,0,0.7)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 1000,
+      fontFamily: "'Nunito', sans-serif"
+    }}>
+      <div style={{
+        backgroundColor: "white",
+        borderRadius: "15px",
+        width: "90%",
+        maxWidth: "600px",
+        padding: "30px",
+        textAlign: "center",
+        boxShadow: "0 5px 25px rgba(0,0,0,0.2)",
+        position: "relative"
+      }}>
+        <div style={{
+          width: "100px",
+          height: "100px",
+          backgroundColor: "#C1C857",
+          borderRadius: "50%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "0 auto 20px",
+          boxShadow: "0 4px 15px rgba(173, 180, 78, 0.4)"
+        }}>
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="50" 
+            height="50" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="white" 
+            strokeWidth="3" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        
+        <h2 style={{
+          fontSize: "28px",
+          fontWeight: "800",
+          color: "#333",
+          marginBottom: "15px"
+        }}>
+          Congratulations!
+        </h2>
+        
+        <p style={{
+          fontSize: "16px",
+          lineHeight: "1.6",
+          color: "#555",
+          marginBottom: "25px"
+        }}>
+          You've successfully completed the Final Assessment! Your certificate has been sent to your registered email address.
+        </p>
+        
+        <div style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "15px",
+          flexWrap: "wrap"
+        }}>
+          <button 
+            onClick={onClose}
+            style={{
+              backgroundColor: "#C1C857",
+              color: "white",
+              border: "none",
+              padding: "12px 25px",
+              borderRadius: "50px",
+              fontSize: "16px",
+              fontWeight: "600",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              boxShadow: "0 3px 10px rgba(173, 180, 78, 0.3)"
+            }}
+            onMouseOver={(e) => e.target.style.backgroundColor = "#adb44e"}
+            onMouseOut={(e) => e.target.style.backgroundColor = "#C1C857"}
+          >
+            Continue Learning
+          </button>
+          
+          <a 
+            href="/home-page" 
+            style={{
+              backgroundColor: "white",
+              color: "#C1C857",
+              border: "2px solid #C1C857",
+              padding: "12px 25px",
+              borderRadius: "50px",
+              fontSize: "16px",
+              fontWeight: "600",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              textDecoration: "none",
+              boxShadow: "0 3px 10px rgba(0,0,0,0.1)"
+            }}
+            onMouseOver={(e) => {
+              e.target.style.backgroundColor = "#f5f7e6";
+              e.target.style.color = "#adb44e";
+              e.target.style.borderColor = "#adb44e";
+            }}
+            onMouseOut={(e) => {
+              e.target.style.backgroundColor = "white";
+              e.target.style.color = "#C1C857";
+              e.target.style.borderColor = "#C1C857";
+            }}
+          >
+            Go back to home
+          </a>
+        </div>
+        
+        <div style={{
+          marginTop: "30px",
+          paddingTop: "20px",
+          borderTop: "1px solid #eee",
+          color: "#888",
+          fontSize: "14px"
+        }}>
+          <p>Keep up the great work! Continue your culinary journey with our advanced courses.</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const FinalAssessment = () => {
-
-  useEffect(() => {
-    // Change the document title when this page is rendered
-    document.title = "CuiSining - Final Assessment";
-  }, []);
-
   const [gameStatus, setGameStatus] = useState("in-progress");
   const [gameStarted, setGameStarted] = useState(false);
+  const [showCongratsModal, setShowCongratsModal] = useState(false);
+
+  useEffect(() => {
+    document.title = "CuiSining - Final Assessment";
+  }, []);
 
   useEffect(() => {
     const handleGameCompletion = async () => {
@@ -53,11 +194,12 @@ const FinalAssessment = () => {
 
         const data = await response.json();
         setGameStatus("completed");
-        alert("Congratulations! You completed the game and your progress has been saved!");
+        setShowCongratsModal(true);
+        console.log("Congratulations! You completed the game and your progress has been saved!");
         console.log("Assessment update successful:", data);
       } catch (error) {
         console.error("Error updating assessment status:", error);
-        alert(`Game completed but couldn't save progress: ${error.message}`);
+        console.log(`Game completed but couldn't save progress: ${error.message}`);
       }
     };
 
@@ -70,6 +212,10 @@ const FinalAssessment = () => {
 
   const startGame = () => {
     setGameStarted(true);
+  };
+
+  const closeModal = () => {
+    setShowCongratsModal(false);
   };
 
   return (
@@ -174,6 +320,7 @@ const FinalAssessment = () => {
 
       <Navbar />
       <Breadcrumb />
+      <CongratsModal show={showCongratsModal} onClose={closeModal} />
 
       <div style={{ 
         maxWidth: "1400px", 
@@ -334,8 +481,8 @@ const FinalAssessment = () => {
           fontFamily: "'Nunito', sans-serif",
           marginTop: "30px",
           marginBottom: "40px",
-          width: "calc(100% - 350px)", // Adjusted width to account for the instructions container
-          maxWidth: "960px", // Match the minWidth of game container
+          width: "calc(100% - 350px)",
+          maxWidth: "960px",
         }}>
           <h2 style={{
             fontSize: "20px",

@@ -4,14 +4,13 @@ import Navbar from '../../../components/Navbar';
 import axios from "axios";
 
 const SaladAndSaladDressing = () => {
+  useEffect(() => {
+    document.title = "CuiSining - Salad And Salad Dressing";
+  }, []);
 
-   useEffect(() => {
-      // Change the document title when this page is rendered
-      document.title = "CuiSining - Salad And Salad Dressing";
-    }, []);
   // State for lesson lock status
   const [lessonLockStatus, setLessonLockStatus] = useState({
-    Unit31: true, // First lesson always unlocked
+    Unit31: false,
     Unit32: false,
     Unit33: false,
     Unit34: false,
@@ -27,23 +26,17 @@ const SaladAndSaladDressing = () => {
     Unit35: false
   });
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   // Function to handle lesson completion
   const completeLesson = (lessonName) => {
-    // Mark the lesson as completed
     setLessonCompletionStatus(prev => ({
       ...prev,
       [lessonName]: true
     }));
 
-    // Unlock the next lesson if available
-    const lessonsOrder = [
-      'Unit31',
-      'Unit32',
-      'Unit33',
-      'Unit34',
-      'Unit35'
-    ];
-    
+    const lessonsOrder = ['Unit31', 'Unit32', 'Unit33', 'Unit34', 'Unit35'];
     const currentIndex = lessonsOrder.indexOf(lessonName);
     if (currentIndex < lessonsOrder.length - 1) {
       const nextLesson = lessonsOrder[currentIndex + 1];
@@ -53,37 +46,45 @@ const SaladAndSaladDressing = () => {
       }));
     }
   };
-  const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const getToken = () => {
-      return localStorage.getItem('authToken');
-    };
-  
-    // Fetch lesson status on component mountt
-    useEffect(() => {
-      const fetchLessonStatus = async () => {
-        try {
-          const token = getToken();
-          if (!token) return;
-          const response = await axios.get(
-            `${process.env.REACT_APP_BACKEND_LINK || "http://localhost:5000"}/api/course/unit3/status`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`
-              }
-            }
-          );        
-          setLessonLockStatus(response.data);
-          setLoading(false);
-        } catch (err) {
-          console.error('Error fetching lesson status:', err);
-          setError(err.message);
-          setLoading(false);
+
+  // Fake data for lesson status
+  const fetchLessonStatus = async () => {
+    try {
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Fake response data
+      const fakeResponse = {
+        data: {
+          Unit31: true,   // First lesson unlocked
+          Unit32: false,  // Subsequent lessons locked by default
+          Unit33: false,
+          Unit34: false,
+          Unit35: false
         }
       };
-  
-      fetchLessonStatus();
-    }, []);
+      
+      // If you want to simulate a user who has completed some lessons:
+      // const fakeResponse = {
+      //   data: {
+      //     Unit31: true,
+      //     Unit32: true,
+      //     Unit33: true,
+      //     Unit34: false,
+      //     Unit35: false
+      //   }
+      // };
+      
+      setLessonLockStatus(fakeResponse.data);
+      setLoading(false);
+    } catch (err) {
+      console.error('Error fetching lesson status:', err);
+      setError(err.message);
+      setLoading(false);
+    }
+  };
+
+    
   return (
     <>
       <style>
