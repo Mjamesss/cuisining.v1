@@ -75,7 +75,7 @@ const Peelers = () => {
 
                         {/* Swivel Peeler */}
                         <a href="Candythermometer" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976493/Group_10_3_gk3sep.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745629085/LOCKED_RECOMMENDATION_bxvgm8.png" 
                                 className="img-fluid hover-shadow" alt="Swivel Peeler"
                                 style={{ clipPath: "inset(0 0 25px 0)" }} />
                             <h1 className="font-weight-800" 
@@ -87,7 +87,7 @@ const Peelers = () => {
 
                         {/* Swiss Peeler */}
                         <a href="FridgeThermometer" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976584/Group_1000005992_3_vwegtx.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745629192/LOCKED_RECOMMENDATION_1_egfppo.png" 
                                 className="img-fluid hover-shadow" alt="Swiss Peeler"
                                 style={{ clipPath: "inset(0 0 25px 0)" }} />
                             <h1 className="font-weight-800" 
@@ -99,7 +99,7 @@ const Peelers = () => {
 
                         {/* Lancashire Peeler */}
                         <a href="Meatthermometer" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976652/Group_1000005993_1_oped9j.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745629250/LOCKED_RECOMMENDATION_2_vp0joq.png" 
                                 className="img-fluid hover-shadow" alt="Lancashire Peeler"
                                 style={{ clipPath: "inset(0 0 25px 0)" }} />
                             <h1 className="font-weight-800" 
@@ -111,7 +111,7 @@ const Peelers = () => {
 
                         {/* Serrated Peeler */}
                         <a href="Oventhermometer" className="peeler-item text-center" style={{ textDecoration: "none", position: "relative" }}>
-                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1739976712/Group_1000005994_1_rrczff.png" 
+                            <img src="https://res.cloudinary.com/dm6wodni6/image/upload/v1745629309/LOCKED_RECOMMENDATION_3_dvqrnw.png" 
                                 className="img-fluid hover-shadow" alt="Serrated Peeler"
                                 style={{ clipPath: "inset(0 0 25px 0)" }} />
                             <h1 className="font-weight-800" 
